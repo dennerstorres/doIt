@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 //#dce1de Gainsboro
 
 export const Container = styled.View`
-  background-color: #216869;
+  background-color: ${props => props.done ? "#49a078" : "#216869"};
   width: 100%;
   height: 50px;
   justify-content: center;

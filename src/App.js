@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
  * Importação de páginas
  */
 import Home from './pages/Home';
+/** */
 
 const Stack = createStackNavigator();
 

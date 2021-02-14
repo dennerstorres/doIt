@@ -25,6 +25,7 @@ export const WarningText = styled.Text`
 
 export const TaskAdd = styled.View`
   flex-direction: row;
+  margin-top: 10px;
 `;
 
 export const TaskText = styled.TextInput`

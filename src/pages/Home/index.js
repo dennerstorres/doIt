@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { FlatList } from 'react-native';
 
 import { Container, TaskAdd,  TaskText, ButtonAdd, GeneralText, WarningText,  TaskList } from './styles';
 
@@ -20,7 +21,7 @@ function Home() {
         done: false
       },
       {
-        task: 'Dormir',
+        task: 'Estudar',
         done: false
       }
     ]);
@@ -32,11 +33,23 @@ function Home() {
     setTask('');
   }
 
+  function handleDoneTask(item) {
+    var auxTasks = tasks.map(task => {
+      if (task.task === item.task) {
+        task.done = true
+      } 
+      return task
+    })
+    setTasks(auxTasks)
+  }
+
+  function handleDeleteTask(item) {
+    var auxTasks = tasks.filter(task => task.task !== item.task)
+    setTasks(auxTasks)
+  }
+
   return (
     <Container>
-      <GeneralText>
-        Tarefas
-      </GeneralText>
       <TaskAdd>
         <TaskText placeholder='Digite a tarefa' value={task} onChangeText={(text) => setTask(text)} />
         <ButtonAdd onPress={() => handleAddTask()}>
@@ -45,10 +58,26 @@ function Home() {
       </TaskAdd>
       
       <TaskList>
-        {
+        <FlatList 
+          data={tasks}
+          keyExtractor={(item) => item.task}
+          renderItem={({item}) => {
+            if (!item.done) { 
+            return(
+              <Task 
+                key={item.task} 
+                item={item} 
+                handleLeft={() => handleDoneTask(item)}
+                handleRight={() => handleDeleteTask(item)} 
+              />
+            )
+            }
+          }}
+        />
+        {/*
           tasks.map(task => (
             <Task key={task.task} item={task}/>
-          ))
+          ))*/
         }  
       </TaskList> 
       
