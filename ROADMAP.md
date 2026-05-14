@@ -1,0 +1,260 @@
+# ROADMAP — doIt
+
+## Stack atual identificada
+
+- React Native 0.63.4
+- React 16
+- React Navigation 5
+- Styled Components
+- Sem backend
+- Sem persistência
+- Sem autenticação
+- Sem testes reais
+
+---
+
+# Convenções
+
+- [ ] Não iniciado
+- [~] Em andamento
+- [x] Finalizado
+- [!] Bloqueado
+
+---
+
+# FASE 1 — Estabilização Base
+
+## Infraestrutura
+
+- [ ] Atualizar README com setup completo
+- [ ] Criar `.env.example`
+- [ ] Configurar editorconfig
+- [ ] Padronizar eslint
+- [ ] Padronizar prettier
+- [ ] Configurar lint script completo
+- [ ] Configurar prettier script
+- [ ] Configurar husky
+- [ ] Configurar lint-staged
+- [ ] Adicionar scripts de validação
+- [ ] Validar compatibilidade Android atual
+- [ ] Validar compatibilidade iOS atual
+
+## Estrutura
+
+- [ ] Criar estrutura `/src/services`
+- [ ] Criar estrutura `/src/hooks`
+- [ ] Criar estrutura `/src/utils`
+- [ ] Criar estrutura `/src/constants`
+- [ ] Criar estrutura `/src/theme`
+- [ ] Criar estrutura `/src/storage`
+- [ ] Criar estrutura `/src/types`
+- [ ] Criar estrutura `/src/context`
+
+---
+
+# FASE 2 — Correções Críticas
+
+## Modelagem
+
+- [ ] Adicionar id único nas tarefas
+- [ ] Corrigir keyExtractor usando id
+- [ ] Remover mutação direta de estado
+- [ ] Corrigir update imutável de tasks
+- [ ] Adicionar validação para tarefa vazia
+- [ ] Impedir tarefas duplicadas
+- [ ] Adicionar limite mínimo de caracteres
+- [ ] Adicionar limite máximo de caracteres
+
+## UX Base
+
+- [ ] Limpar input após submit corretamente
+- [ ] Fechar teclado após adicionar task
+- [ ] Adicionar placeholder melhor
+- [ ] Adicionar feedback visual ao concluir
+- [ ] Adicionar feedback visual ao deletar
+- [ ] Adicionar empty state
+- [ ] Adicionar contador de tarefas
+- [ ] Adicionar contador de tarefas concluídas
+
+---
+
+# FASE 3 — Persistência Local
+
+## Storage
+
+- [ ] Instalar AsyncStorage
+- [ ] Criar service de persistência
+- [ ] Persistir tarefas localmente
+- [ ] Carregar tarefas automaticamente
+- [ ] Criar estratégia de fallback
+- [ ] Adicionar tratamento de erro no storage
+- [ ] Adicionar loading inicial
+
+## Estrutura de Dados
+
+- [ ] Criar model Task
+- [ ] Padronizar estrutura de task
+- [ ] Criar factory de tasks
+- [ ] Criar utilitários de transformação
+
+---
+
+# FASE 4 — Refatoração Arquitetural
+
+## Componentização
+
+- [ ] Separar lógica de Home em hooks
+- [ ] Criar hook useTasks
+- [ ] Criar TaskList component
+- [ ] Criar AddTask component
+- [ ] Criar EmptyState component
+- [ ] Criar Header component
+- [ ] Remover lógica inline
+
+## Organização
+
+- [ ] Extrair estilos repetidos
+- [ ] Criar theme global
+- [ ] Padronizar cores
+- [ ] Padronizar espaçamentos
+- [ ] Padronizar tipografia
+
+---
+
+# FASE 5 — TypeScript
+
+- [ ] Instalar TypeScript
+- [ ] Configurar tsconfig
+- [ ] Migrar App.js para App.tsx
+- [ ] Criar tipagem Task
+- [ ] Migrar componentes principais
+- [ ] Migrar hooks
+- [ ] Migrar navegação
+- [ ] Remover arquivos JS restantes
+
+---
+
+# FASE 6 — Melhorias de UX/UI
+
+- [ ] Melhorar design geral
+- [ ] Melhorar input de tarefas
+- [ ] Melhorar animações
+- [ ] Adicionar dark mode
+- [ ] Criar tema light/dark
+- [ ] Melhorar swipe actions
+- [ ] Adicionar ícones consistentes
+- [ ] Melhorar responsividade
+- [ ] Adicionar confirmação para deletar
+- [ ] Adicionar undo ao deletar
+- [ ] Adicionar filtro Todas
+- [ ] Adicionar filtro Pendentes
+- [ ] Adicionar filtro Concluídas
+- [ ] Adicionar ordenação
+- [ ] Adicionar busca
+
+---
+
+# FASE 7 — Funcionalidades Reais
+
+- [ ] Adicionar edição de tarefas
+- [ ] Adicionar prioridade
+- [ ] Adicionar categoria
+- [ ] Adicionar data limite
+- [ ] Adicionar lembretes locais
+- [ ] Adicionar repetição de tarefas
+- [ ] Adicionar arquivamento
+- [ ] Adicionar estatísticas
+- [ ] Adicionar progresso diário
+- [ ] Adicionar streak de produtividade
+- [ ] Adicionar tela de histórico
+
+---
+
+# FASE 8 — Performance e Qualidade
+
+- [ ] Otimizar FlatList
+- [ ] Adicionar memoização
+- [ ] Evitar rerenders desnecessários
+- [ ] Melhorar performance de swipe
+- [ ] Revisar dependências pesadas
+- [ ] Configurar Jest corretamente
+- [ ] Criar testes unitários hooks
+- [ ] Criar testes components
+- [ ] Criar testes de integração
+- [ ] Configurar coverage
+
+---
+
+# FASE 9 — Atualização Tecnológica
+
+- [ ] Atualizar React Native
+- [ ] Atualizar React Navigation
+- [ ] Revisar dependências deprecated
+- [ ] Remover bibliotecas obsoletas
+- [ ] Migrar gesture-handler se necessário
+- [ ] Validar Android 13+
+- [ ] Validar Android 14+
+- [ ] Validar iOS recente
+- [ ] Corrigir warnings de build
+
+---
+
+# FASE 10 — Backend Future Ready
+
+- [ ] Criar camada services
+- [ ] Criar client HTTP
+- [ ] Criar interceptors
+- [ ] Criar estrutura repository pattern
+- [ ] Preparar sincronização futura
+- [ ] Criar adapter offline-first
+- [ ] Criar queue local
+- [ ] Criar estratégia de sync
+- [ ] Criar controle de conflito
+
+---
+
+# FASE 11 — Segurança
+
+- [ ] Sanitizar inputs
+- [ ] Revisar persistência segura
+- [ ] Validar permissões
+- [ ] Revisar logs sensíveis
+
+---
+
+# FASE 12 — Observabilidade
+
+- [ ] Configurar crash reporting
+- [ ] Configurar analytics
+- [ ] Adicionar logs estruturados
+- [ ] Criar error boundary
+
+---
+
+# FASE 13 — Publicação
+
+## Android
+
+- [ ] Configurar ícone final
+- [ ] Configurar splash screen
+- [ ] Configurar nome final app
+- [ ] Configurar versão
+- [ ] Gerar signed APK
+- [ ] Gerar AAB
+- [ ] Configurar Play Store assets
+
+## iOS
+
+- [ ] Configurar ícones iOS
+- [ ] Configurar splash iOS
+- [ ] Configurar signing
+- [ ] Gerar build release
+
+## Loja
+
+- [ ] Criar política de privacidade
+- [ ] Criar screenshots
+- [ ] Criar descrição da store
+- [ ] Publicar beta fechado
+- [ ] Corrigir feedbacks
+- [ ] Publicar v1.0
