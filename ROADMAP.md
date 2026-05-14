@@ -27,7 +27,7 @@
 ## Infraestrutura
 
 - [x] Atualizar README com setup completo
-- [ ] Criar `.env.example`
+- [x] Criar `.env.example`
 - [ ] Configurar editorconfig
 - [ ] Padronizar eslint
 - [ ] Padronizar prettier
