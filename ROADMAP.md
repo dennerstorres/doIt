@@ -28,7 +28,7 @@
 
 - [x] Atualizar README com setup completo
 - [x] Criar `.env.example`
-- [ ] Configurar editorconfig
+- [x] Configurar editorconfig
 - [ ] Padronizar eslint
 - [ ] Padronizar prettier
 - [ ] Configurar lint script completo
