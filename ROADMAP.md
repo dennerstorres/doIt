@@ -26,7 +26,7 @@
 
 ## Infraestrutura
 
-- [ ] Atualizar README com setup completo
+- [x] Atualizar README com setup completo
 - [ ] Criar `.env.example`
 - [ ] Configurar editorconfig
 - [ ] Padronizar eslint
