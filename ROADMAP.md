@@ -32,7 +32,7 @@
 - [x] Padronizar eslint
 - [x] Padronizar prettier
 - [x] Configurar lint script completo
-- [ ] Configurar prettier script
+- [x] Configurar prettier script
 - [ ] Configurar husky
 - [ ] Configurar lint-staged
 - [ ] Adicionar scripts de validação
@@ -292,4 +292,13 @@
   - Atualização do script `lint` para especificar explicitamente a extensão `.js`.
   - Adição do script `lint:fix` para automatizar a correção de problemas de estilo detectados.
 - **Limitações**: Restrito a arquivos `.js` conforme a base de código atual.
+- **Riscos**: Nenhum identificado.
+
+## Configurar prettier script
+
+- **Implementação**: Adição de scripts Prettier ao `package.json` para verificação e correção automática de formatação.
+- **Decisões Técnicas**:
+  - Adição do script `prettier` usando `prettier --check .` para validar a formatação de todos os arquivos.
+  - Adição do script `prettier:fix` usando `prettier --write .` para aplicar correções automáticas de formatação.
+- **Limitações**: O Prettier formata todos os arquivos suportados na raiz do projeto, respeitando o `.prettierignore`.
 - **Riscos**: Nenhum identificado.
