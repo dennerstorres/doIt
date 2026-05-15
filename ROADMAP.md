@@ -33,7 +33,7 @@
 - [x] Padronizar prettier
 - [x] Configurar lint script completo
 - [x] Configurar prettier script
-- [ ] Configurar husky
+- [x] Configurar husky
 - [ ] Configurar lint-staged
 - [ ] Adicionar scripts de validação
 - [ ] Validar compatibilidade Android atual
@@ -301,4 +301,14 @@
   - Adição do script `prettier` usando `prettier --check .` para validar a formatação de todos os arquivos.
   - Adição do script `prettier:fix` usando `prettier --write .` para aplicar correções automáticas de formatação.
 - **Limitações**: O Prettier formata todos os arquivos suportados na raiz do projeto, respeitando o `.prettierignore`.
+- **Riscos**: Nenhum identificado.
+
+## Configurar husky
+
+- **Implementação**: Instalação e configuração do Husky para gerenciar hooks de Git.
+- **Decisões Técnicas**:
+  - Uso do Husky para garantir que o código seja validado via ESLint antes de cada commit.
+  - Adição do script `prepare` no `package.json` para garantir que o Husky seja configurado automaticamente após a instalação das dependências.
+  - Criação do hook `pre-commit` executando `yarn lint`.
+- **Limitações**: Atualmente o lint é executado em todo o projeto a cada commit; será otimizado com `lint-staged` na próxima etapa para validar apenas arquivos alterados.
 - **Riscos**: Nenhum identificado.
