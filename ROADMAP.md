@@ -34,7 +34,7 @@
 - [x] Configurar lint script completo
 - [x] Configurar prettier script
 - [x] Configurar husky
-- [ ] Configurar lint-staged
+- [x] Configurar lint-staged
 - [ ] Adicionar scripts de validação
 - [ ] Validar compatibilidade Android atual
 - [ ] Validar compatibilidade iOS atual
@@ -302,6 +302,16 @@
   - Adição do script `prettier:fix` usando `prettier --write .` para aplicar correções automáticas de formatação.
 - **Limitações**: O Prettier formata todos os arquivos suportados na raiz do projeto, respeitando o `.prettierignore`.
 - **Riscos**: Nenhum identificado.
+
+## Configurar lint-staged
+
+- **Implementação**: Configuração do `lint-staged` para executar ESLint e Prettier apenas em arquivos staged.
+- **Decisões Técnicas**:
+  - Instalação do `lint-staged` como dependência de desenvolvimento.
+  - Configuração no `package.json` para rodar `eslint --fix` e `prettier --write` em arquivos `.js`.
+  - Atualização do hook de `pre-commit` do Husky para usar `npx lint-staged`.
+- **Limitações**: Restrito a arquivos `.js` no momento.
+- **Riscos**: Se muitos arquivos forem alterados simultaneamente, o tempo do pre-commit pode aumentar, mas ainda será mais rápido que rodar o lint no projeto todo.
 
 ## Configurar husky
 
