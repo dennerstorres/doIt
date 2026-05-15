@@ -31,7 +31,7 @@ export const TaskAdd = styled.View`
 export const TaskText = styled.TextInput`
   height: 40px;
   width: 80%;
-  background-color: #FFF;
+  background-color: #fff;
 `;
 
 export const ButtonAdd = styled.TouchableOpacity`
