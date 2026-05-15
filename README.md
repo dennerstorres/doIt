@@ -14,6 +14,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 ## 📋 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+
 - [Git](https://git-scm.com)
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
@@ -22,11 +23,13 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ## 🛠️ Instalação
 
 1. Clone este repositório:
+
    ```bash
    git clone https://github.com/usuario/doit.git
    ```
 
 2. Acesse a pasta do projeto:
+
    ```bash
    cd doit
    ```
@@ -41,6 +44,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 Para rodar o projeto em modo de desenvolvimento:
 
 1. Inicie o Metro Bundler:
+
    ```bash
    yarn start
    ```
@@ -48,11 +52,13 @@ Para rodar o projeto em modo de desenvolvimento:
 2. Em um novo terminal, rode o app no emulador/dispositivo:
 
    **Android:**
+
    ```bash
    yarn android
    ```
 
    **iOS:**
+
    ```bash
    yarn ios
    ```
