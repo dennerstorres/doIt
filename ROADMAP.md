@@ -29,7 +29,7 @@
 - [x] Atualizar README com setup completo
 - [x] Criar `.env.example`
 - [x] Configurar editorconfig
-- [ ] Padronizar eslint
+- [x] Padronizar eslint
 - [ ] Padronizar prettier
 - [ ] Configurar lint script completo
 - [ ] Configurar prettier script
@@ -258,3 +258,18 @@
 - [ ] Publicar beta fechado
 - [ ] Corrigir feedbacks
 - [ ] Publicar v1.0
+
+---
+
+# HISTÓRICO DE IMPLEMENTAÇÃO
+
+## Padronizar eslint
+- **Implementação**: Configuração robusta do ESLint estendendo `@react-native-community` e sincronizada com Prettier e EditorConfig.
+- **Decisões Técnicas**:
+    - Uso de regras explícitas para indentação (2 espaços), aspas simples e ponto e vírgula obrigatório.
+    - Adição de `.eslintignore` para evitar linting em código gerado e dependências.
+    - Correção automática de >100 erros de estilo.
+    - Refatoração manual de loops em `Home/index.js` para usar imutabilidade e evitar shadowing de variáveis.
+    - Fix da configuração de testes (Jest) que estava quebrada devido a mocks ausentes do `react-native-gesture-handler`.
+- **Limitações**: Algumas regras do Prettier podem conflitar com preferências pessoais, mas seguem o padrão da comunidade RN.
+- **Riscos**: Mudanças no `package.json` para o Jest podem precisar de ajustes se novas libs nativas forem adicionadas.
