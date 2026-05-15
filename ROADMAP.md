@@ -31,7 +31,7 @@
 - [x] Configurar editorconfig
 - [x] Padronizar eslint
 - [x] Padronizar prettier
-- [ ] Configurar lint script completo
+- [x] Configurar lint script completo
 - [ ] Configurar prettier script
 - [ ] Configurar husky
 - [ ] Configurar lint-staged
@@ -283,4 +283,13 @@
   - Criação do `.prettierignore` espelhando o `.eslintignore` para evitar formatação de arquivos gerados e dependências.
   - Execução de formatação em todo o projeto para garantir consistência.
 - **Limitações**: O uso de `jsxBracketSameLine` gera avisos de depreciação no Prettier 3+, mas foi mantido para preservar o padrão atual do projeto.
+- **Riscos**: Nenhum identificado.
+
+## Configurar lint script completo
+
+- **Implementação**: Expansão dos scripts de lint no `package.json` para suportar verificação detalhada e correção automática.
+- **Decisões Técnicas**:
+  - Atualização do script `lint` para especificar explicitamente a extensão `.js`.
+  - Adição do script `lint:fix` para automatizar a correção de problemas de estilo detectados.
+- **Limitações**: Restrito a arquivos `.js` conforme a base de código atual.
 - **Riscos**: Nenhum identificado.
