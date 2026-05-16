@@ -36,15 +36,15 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [ ] Validar compatibilidade Android atual
-- [ ] Validar compatibilidade iOS atual
+- [!] Validar compatibilidade Android atual
+- [!] Validar compatibilidade iOS atual
 
 ## Estrutura
 
-- [ ] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
-- [ ] Criar estrutura `/src/utils`
-- [ ] Criar estrutura `/src/constants`
+- [!] Criar estrutura `/src/services`
+- [!] Criar estrutura `/src/hooks`
+- [!] Criar estrutura `/src/utils`
+- [x] Criar estrutura `/src/constants`
 - [ ] Criar estrutura `/src/theme`
 - [ ] Criar estrutura `/src/storage`
 - [ ] Criar estrutura `/src/types`
@@ -331,3 +331,42 @@
   - Isso garante que a validação pare imediatamente se qualquer um dos passos falhar.
 - **Limitações**: Depende de que os scripts individuais (`lint`, `prettier`, `test`) estejam configurados corretamente.
 - **Riscos**: Nenhum identificado.
+
+## Validar compatibilidade Android atual
+
+- **Status**: [!] Bloqueado
+- **Motivo**: O ambiente de sandbox utiliza Java 21, que é incompatível com o Gradle 6.2 do projeto (requer Java 8-13).
+- **Sugestão de Desbloqueio**: Downgrade do Java para versão 11 no ambiente ou upgrade do Gradle no projeto.
+
+## Validar compatibilidade iOS atual
+
+- **Status**: [!] Bloqueado
+- **Motivo**: Ausência de ambiente macOS para execução de builds iOS.
+- **Sugestão de Desbloqueio**: Execução em runner com suporte a macOS.
+
+## Criar estrutura /src/services
+
+- **Status**: [!] Bloqueado
+- **Motivo**: Existe uma branch remota `origin/feature/structure-services-1137459799452673341` indicando PR em aberto ou trabalho em andamento.
+- **Sugestão de Desbloqueio**: Aguardar merge da branch existente ou clarificação sobre o estado da task.
+
+## Criar estrutura /src/hooks
+
+- **Status**: [!] Bloqueado
+- **Motivo**: Existe uma branch remota `origin/feature/infrastructure-status-and-hooks-4625301285441584084` indicando trabalho em andamento.
+- **Sugestão de Desbloqueio**: Aguardar finalização da branch existente.
+
+## Criar estrutura /src/utils
+
+- **Status**: [!] Bloqueado
+- **Motivo**: Existe uma branch remota `origin/feature/structure-utils-2647846750384229219` indicando trabalho em andamento.
+- **Sugestão de Desbloqueio**: Aguardar finalização da branch existente.
+
+## Criar estrutura /src/constants
+
+- **Implementação**: Criação do diretório `src/constants` e arquivo de índice.
+- **Decisões Técnicas**:
+  - Uso de `index.js` para centralizar exportações de constantes.
+  - Adição de uma constante de exemplo (`APP_NAME`) para garantir que o diretório não fique vazio e validar o padrão de exportação.
+- **Limitações**: Nenhuma.
+- **Riscos**: Nenhum.
