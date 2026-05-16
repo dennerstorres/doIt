@@ -36,14 +36,14 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [ ] Validar compatibilidade Android atual
-- [ ] Validar compatibilidade iOS atual
+- [!] Validar compatibilidade Android atual
+- [!] Validar compatibilidade iOS atual
 
 ## Estrutura
 
-- [ ] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
-- [ ] Criar estrutura `/src/utils`
+- [!] Criar estrutura `/src/services`
+- [!] Criar estrutura `/src/hooks`
+- [x] Criar estrutura `/src/utils`
 - [ ] Criar estrutura `/src/constants`
 - [ ] Criar estrutura `/src/theme`
 - [ ] Criar estrutura `/src/storage`
@@ -285,6 +285,30 @@
 - **Limitações**: O uso de `jsxBracketSameLine` gera avisos de depreciação no Prettier 3+, mas foi mantido para preservar o padrão atual do projeto.
 - **Riscos**: Nenhum identificado.
 
+## Validar compatibilidade Android atual [!]
+
+- **Status**: Bloqueado.
+- **Motivo**: O ambiente da sandbox utiliza Java 21, que é incompatível com o Gradle 6.2 do projeto (requer Java 8-13).
+- **Sugestão de Desbloqueio**: Executar a validação em um ambiente com Java 11 ou realizar o upgrade do Gradle e do Android Gradle Plugin para suportar versões mais recentes do Java.
+
+## Validar compatibilidade iOS atual [!]
+
+- **Status**: Bloqueado.
+- **Motivo**: O ambiente da sandbox não é macOS, impossibilitando a execução de comandos `xcodebuild` ou o uso de simuladores iOS.
+- **Sugestão de Desbloqueio**: Executar a validação em uma máquina local com macOS ou em uma pipeline de CI que ofereça suporte a macOS.
+
+## Criar estrutura /src/services [!]
+
+- **Status**: Bloqueado.
+- **Motivo**: Já existe uma branch remota `origin/feature/structure-services-1137459799452673341`, o que indica um PR aberto ou trabalho em andamento para esta task.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch existente ou verificar se a task foi abandonada.
+
+## Criar estrutura /src/hooks [!]
+
+- **Status**: Bloqueado.
+- **Motivo**: Já existe uma branch remota `origin/feature/infrastructure-status-and-hooks-4625301285441584084`, o que indica um PR aberto ou trabalho em andamento para esta task.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch existente ou verificar se a task foi abandonada.
+
 ## Configurar lint script completo
 
 - **Implementação**: Expansão dos scripts de lint no `package.json` para suportar verificação detalhada e correção automática.
@@ -330,4 +354,12 @@
   - O script `validate` combina `yarn lint`, `yarn prettier` e `yarn test` usando o operador `&&`.
   - Isso garante que a validação pare imediatamente se qualquer um dos passos falhar.
 - **Limitações**: Depende de que os scripts individuais (`lint`, `prettier`, `test`) estejam configurados corretamente.
+- **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/utils
+
+- **Implementação**: Criação do diretório `/src/utils` com um arquivo `index.js` inicial.
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `index.js` com um export dummy para garantir que o diretório seja rastreado pelo Git e sirva como ponto de entrada para utilitários futuros.
+- **Limitações**: O diretório está vazio (exceto pelo placeholder), aguardando a implementação de funções utilitárias reais.
 - **Riscos**: Nenhum identificado.
