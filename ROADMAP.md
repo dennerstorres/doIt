@@ -36,13 +36,13 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [ ] Validar compatibilidade Android atual
-- [ ] Validar compatibilidade iOS atual
+- [!] Validar compatibilidade Android atual
+- [!] Validar compatibilidade iOS atual
 
 ## Estrutura
 
-- [ ] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
+- [!] Criar estrutura `/src/services`
+- [x] Criar estrutura `/src/hooks`
 - [ ] Criar estrutura `/src/utils`
 - [ ] Criar estrutura `/src/constants`
 - [ ] Criar estrutura `/src/theme`
@@ -321,6 +321,32 @@
   - Adição do script `prepare` no `package.json` para garantir que o Husky seja configurado automaticamente após a instalação das dependências.
   - Criação do hook `pre-commit` executando `yarn lint`.
 - **Limitações**: Atualmente o lint é executado em todo o projeto a cada commit; será otimizado com `lint-staged` na próxima etapa para validar apenas arquivos alterados.
+- **Riscos**: Nenhum identificado.
+
+## Validar compatibilidade Android atual
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: O ambiente de execução atual utiliza Java 21, que é incompatível com o Gradle 6.2 do projeto (requer Java 8-13), resultando em falhas de inicialização do Groovy.
+- **Sugestão de Desbloqueio**: Utilizar um ambiente com JDK 8 ou 11 para executar os comandos de build do Android.
+
+## Validar compatibilidade iOS atual
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: O ambiente de execução atual não possui o sistema operacional macOS, necessário para a validação de builds iOS e uso do Xcode.
+- **Sugestão de Desbloqueio**: Executar a validação em um ambiente com macOS devidamente configurado.
+
+## Criar estrutura /src/services
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Já existe uma branch remota (`origin/feature/structure-services-1137459799452673341`) com a implementação desta tarefa, indicando um possível PR aberto ou trabalho em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada ou verificar o status do PR relacionado para evitar conflitos.
+
+## Criar estrutura /src/hooks
+
+- **Implementação**: Criação do diretório `/src/hooks` para centralizar os hooks customizados da aplicação.
+- **Decisões Técnicas**:
+  - Adição de um arquivo `.gitkeep` para garantir que o diretório seja rastreado pelo Git enquanto estiver vazio.
+- **Limitações**: O diretório está atualmente vazio, aguardando refatorações futuras.
 - **Riscos**: Nenhum identificado.
 
 ## Adicionar scripts de validação
