@@ -35,7 +35,7 @@
 - [x] Configurar prettier script
 - [x] Configurar husky
 - [x] Configurar lint-staged
-- [ ] Adicionar scripts de validação
+- [x] Adicionar scripts de validação
 - [ ] Validar compatibilidade Android atual
 - [ ] Validar compatibilidade iOS atual
 
@@ -321,4 +321,13 @@
   - Adição do script `prepare` no `package.json` para garantir que o Husky seja configurado automaticamente após a instalação das dependências.
   - Criação do hook `pre-commit` executando `yarn lint`.
 - **Limitações**: Atualmente o lint é executado em todo o projeto a cada commit; será otimizado com `lint-staged` na próxima etapa para validar apenas arquivos alterados.
+- **Riscos**: Nenhum identificado.
+
+## Adicionar scripts de validação
+
+- **Implementação**: Adição do script `validate` ao `package.json`.
+- **Decisões Técnicas**:
+  - O script `validate` combina `yarn lint`, `yarn prettier` e `yarn test` usando o operador `&&`.
+  - Isso garante que a validação pare imediatamente se qualquer um dos passos falhar.
+- **Limitações**: Depende de que os scripts individuais (`lint`, `prettier`, `test`) estejam configurados corretamente.
 - **Riscos**: Nenhum identificado.
