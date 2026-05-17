@@ -36,12 +36,12 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [ ] Validar compatibilidade Android atual
-- [ ] Validar compatibilidade iOS atual
+- [!] Validar compatibilidade Android atual
+- [!] Validar compatibilidade iOS atual
 
 ## Estrutura
 
-- [ ] Criar estrutura `/src/services`
+- [x] Criar estrutura `/src/services`
 - [ ] Criar estrutura `/src/hooks`
 - [ ] Criar estrutura `/src/utils`
 - [ ] Criar estrutura `/src/constants`
@@ -283,6 +283,26 @@
   - Criação do `.prettierignore` espelhando o `.eslintignore` para evitar formatação de arquivos gerados e dependências.
   - Execução de formatação em todo o projeto para garantir consistência.
 - **Limitações**: O uso de `jsxBracketSameLine` gera avisos de depreciação no Prettier 3+, mas foi mantido para preservar o padrão atual do projeto.
+- **Riscos**: Nenhum identificado.
+
+## Validar compatibilidade Android atual
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Incompatibilidade entre a versão do Java instalada no ambiente (Java 21) e a versão do Gradle utilizada no projeto (Gradle 6.2). O Gradle 6.2 não suporta Java 21, resultando em erros de inicialização do Groovy.
+- **Sugestão de Desbloqueio**: Instalar uma versão compatível do JDK (ex: JDK 8 ou 11) ou atualizar o Gradle e o Android Gradle Plugin para versões compatíveis com Java 21.
+
+## Validar compatibilidade iOS atual
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: O ambiente de execução atual não possui o sistema operacional macOS, necessário para a validação de builds iOS.
+- **Sugestão de Desbloqueio**: Executar a validação em um ambiente com macOS e Xcode configurados.
+
+## Criar estrutura /src/services
+
+- **Implementação**: Criação do diretório `/src/services` para centralizar a lógica de serviços (API, storage, etc.).
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git.
+- **Limitações**: O diretório está atualmente vazio, aguardando a implementação de serviços específicos.
 - **Riscos**: Nenhum identificado.
 
 ## Configurar lint script completo
