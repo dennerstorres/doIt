@@ -36,18 +36,18 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [ ] Validar compatibilidade Android atual
-- [ ] Validar compatibilidade iOS atual
+- [!] Validar compatibilidade Android atual
+- [!] Validar compatibilidade iOS atual
 
 ## Estrutura
 
-- [ ] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
-- [ ] Criar estrutura `/src/utils`
-- [ ] Criar estrutura `/src/constants`
-- [ ] Criar estrutura `/src/theme`
-- [ ] Criar estrutura `/src/storage`
-- [ ] Criar estrutura `/src/types`
+- [!] Criar estrutura `/src/services`
+- [!] Criar estrutura `/src/hooks`
+- [!] Criar estrutura `/src/utils`
+- [!] Criar estrutura `/src/constants`
+- [!] Criar estrutura `/src/theme`
+- [!] Criar estrutura `/src/storage`
+- [x] Criar estrutura `/src/types`
 - [ ] Criar estrutura `/src/context`
 
 ---
@@ -322,6 +322,29 @@
   - Criação do hook `pre-commit` executando `yarn lint`.
 - **Limitações**: Atualmente o lint é executado em todo o projeto a cada commit; será otimizado com `lint-staged` na próxima etapa para validar apenas arquivos alterados.
 - **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/types
+
+- **Implementação**: Criação do diretório `src/types` para futura organização de definições de tipos (especialmente útil para a migração para TypeScript na Fase 5).
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja mantido no controle de versão Git.
+- **Limitações**: O diretório está atualmente vazio, servindo apenas como base estrutural.
+- **Riscos**: Nenhum identificado.
+
+## Bloqueios Técnicos e de Concorrência
+
+- **Validar compatibilidade Android atual**:
+  - **Status**: [!] Bloqueado
+  - **Motivo**: Incompatibilidade de ambiente no sandbox. O sandbox utiliza Java 21, enquanto o projeto utiliza Gradle 6.2 (que requer Java 8-13).
+  - **Sugestão de Desbloqueio**: Executar validação em ambiente com JDK 8 ou 11 instalado.
+- **Validar compatibilidade iOS atual**:
+  - **Status**: [!] Bloqueado
+  - **Motivo**: Ambiente sandbox não possui suporte a macOS/CocoaPods.
+  - **Sugestão de Desbloqueio**: Executar validação em ambiente macOS.
+- **Estruturas Base (services, hooks, utils, constants, theme, storage)**:
+  - **Status**: [!] Bloqueado
+  - **Motivo**: Identificada a existência de branches remotas (`origin/feature/structure-...`) que sugerem PRs em aberto ou trabalhos em andamento para estas tasks.
+  - **Sugestão de Desbloqueio**: Aguardar o merge das branches existentes ou realizar o delete das branches caso as mesmas tenham sido abandonadas.
 
 ## Adicionar scripts de validação
 
