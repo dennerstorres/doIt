@@ -42,12 +42,12 @@
 ## Estrutura
 
 - [x] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
-- [ ] Criar estrutura `/src/utils`
+- [!] Criar estrutura `/src/hooks`
+- [x] Criar estrutura `/src/utils`
 - [ ] Criar estrutura `/src/constants`
 - [ ] Criar estrutura `/src/theme`
 - [ ] Criar estrutura `/src/storage`
-- [ ] Criar estrutura `/src/types`
+- [!] Criar estrutura `/src/types`
 - [ ] Criar estrutura `/src/context`
 
 ---
@@ -351,3 +351,23 @@
   - Isso garante que a validação pare imediatamente se qualquer um dos passos falhar.
 - **Limitações**: Depende de que os scripts individuais (`lint`, `prettier`, `test`) estejam configurados corretamente.
 - **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/hooks
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/infrastructure-status-and-hooks-4625301285441584084`), indicando que o trabalho já está em andamento ou sob revisão.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada ou verificar o status do PR relacionado.
+
+## Criar estrutura /src/utils
+
+- **Implementação**: Criação do diretório `/src/utils` para centralizar funções utilitárias e ajudantes reutilizáveis.
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git, seguindo o padrão estabelecido para novas pastas de infraestrutura.
+- **Limitações**: O diretório está atualmente vazio, aguardando a migração de funções utilitárias ou criação de novas.
+- **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/types
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/structure-types-8503643862023991203`), indicando que o trabalho já está em andamento ou sob revisão.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada ou verificar o status do PR relacionado.
