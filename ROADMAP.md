@@ -36,16 +36,16 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [ ] Validar compatibilidade Android atual
-- [ ] Validar compatibilidade iOS atual
+- [!] Validar compatibilidade Android atual
+- [!] Validar compatibilidade iOS atual
 
 ## Estrutura
 
 - [ ] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
-- [ ] Criar estrutura `/src/utils`
-- [ ] Criar estrutura `/src/constants`
-- [ ] Criar estrutura `/src/theme`
+- [x] Criar estrutura `/src/hooks`
+- [x] Criar estrutura `/src/utils`
+- [x] Criar estrutura `/src/constants`
+- [x] Criar estrutura `/src/theme`
 - [ ] Criar estrutura `/src/storage`
 - [ ] Criar estrutura `/src/types`
 - [ ] Criar estrutura `/src/context`
@@ -283,6 +283,27 @@
   - Criação do `.prettierignore` espelhando o `.eslintignore` para evitar formatação de arquivos gerados e dependências.
   - Execução de formatação em todo o projeto para garantir consistência.
 - **Limitações**: O uso de `jsxBracketSameLine` gera avisos de depreciação no Prettier 3+, mas foi mantido para preservar o padrão atual do projeto.
+- **Riscos**: Nenhum identificado.
+
+## Validar compatibilidade Android atual
+
+- **Status**: Bloqueado [!]
+- **Motivo**: O ambiente de sandbox utiliza Java 21, que é incompatível com o Gradle 6.2 utilizado no projeto (requer Java 8-13).
+- **Sugestão de Desbloqueio**: Utilizar um ambiente com Java 8, 11 ou 13, ou realizar o upgrade do Gradle e do React Native (o que não é recomendado nesta fase de estabilização).
+
+## Validar compatibilidade iOS atual
+
+- **Status**: Bloqueado [!]
+- **Motivo**: O ambiente de sandbox não é macOS, impossibilitando a execução de ferramentas necessárias para o ecossistema iOS (como xcodebuild).
+- **Sugestão de Desbloqueio**: Executar a validação em um ambiente macOS com Xcode configurado.
+
+## Criar estruturas /src/theme, /src/hooks, /src/utils, /src/constants
+
+- **Implementação**: Criação dos diretórios `src/theme`, `src/hooks`, `src/utils` e `src/constants`.
+- **Decisões Técnicas**:
+  - Centralização das cores identificadas nos arquivos de estilo existentes em `src/theme/index.js` para promover consistência visual.
+  - Utilização de arquivos `.gitkeep` para garantir a persistência dos diretórios inicialmente vazios no Git.
+- **Limitações**: As estruturas ainda não estão sendo consumidas; a migração de lógica e constantes deve ocorrer nas próximas tasks.
 - **Riscos**: Nenhum identificado.
 
 ## Configurar lint script completo
