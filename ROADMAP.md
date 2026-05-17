@@ -36,17 +36,17 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [ ] Validar compatibilidade Android atual
-- [ ] Validar compatibilidade iOS atual
+- [!] Validar compatibilidade Android atual
+- [!] Validar compatibilidade iOS atual
 
 ## Estrutura
 
-- [ ] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
-- [ ] Criar estrutura `/src/utils`
-- [ ] Criar estrutura `/src/constants`
-- [ ] Criar estrutura `/src/theme`
-- [ ] Criar estrutura `/src/storage`
+- [!] Criar estrutura `/src/services`
+- [!] Criar estrutura `/src/hooks`
+- [!] Criar estrutura `/src/utils`
+- [!] Criar estrutura `/src/constants`
+- [!] Criar estrutura `/src/theme`
+- [x] Criar estrutura `/src/storage`
 - [ ] Criar estrutura `/src/types`
 - [ ] Criar estrutura `/src/context`
 
@@ -262,6 +262,33 @@
 ---
 
 # HISTÓRICO DE IMPLEMENTAÇÃO
+
+## Validar compatibilidade Android atual
+
+- **Status**: [!] Bloqueado
+- **Motivo**: O ambiente de sandbox utiliza Java 21, que é incompatível com o Gradle 6.2 do projeto (requer Java 8-13). Isso impede a execução do build Android.
+- **Sugestão de Desbloqueio**: Utilizar um ambiente com Java 8, 11 ou 13, ou atualizar o Gradle do projeto para uma versão compatível com Java 21.
+
+## Validar compatibilidade iOS atual
+
+- **Status**: [!] Bloqueado
+- **Motivo**: Falta de ambiente macOS no sandbox para validação de builds iOS.
+- **Sugestão de Desbloqueio**: Executar validação em máquina local com macOS ou em CI com suporte a runners macOS.
+
+## Estrutura de pastas (/src/services, /src/hooks, /src/utils, /src/constants, /src/theme)
+
+- **Status**: [!] Bloqueado
+- **Motivo**: Existem branches remotas ativas (`origin/feature/structure-...`) para todas essas tarefas, indicando que já existem Pull Requests abertos relacionados.
+- **Sugestão de Desbloqueio**: Aguardar o merge dos PRs existentes ou revisar se as implementações já foram concluídas na branch principal.
+
+## Criar estrutura /src/storage
+
+- **Implementação**: Criação da pasta `src/storage` com um arquivo `index.js` inicial.
+- **Decisões Técnicas**:
+  - Pasta criada para centralizar toda a lógica de persistência de dados local (AsyncStorage).
+  - Incluído `index.js` placeholder para garantir o rastreamento da pasta pelo Git e manter o padrão de exportação de módulos do projeto.
+- **Limitações**: Nenhuma lógica de persistência foi implementada ainda, apenas a estrutura de pastas.
+- **Riscos**: Nenhum identificado.
 
 ## Padronizar eslint
 
