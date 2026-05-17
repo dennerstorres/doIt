@@ -42,12 +42,12 @@
 ## Estrutura
 
 - [x] Criar estrutura `/src/services`
-- [ ] Criar estrutura `/src/hooks`
-- [ ] Criar estrutura `/src/utils`
-- [ ] Criar estrutura `/src/constants`
+- [!] Criar estrutura `/src/hooks`
+- [!] Criar estrutura `/src/utils`
+- [x] Criar estrutura `/src/constants`
 - [ ] Criar estrutura `/src/theme`
 - [ ] Criar estrutura `/src/storage`
-- [ ] Criar estrutura `/src/types`
+- [!] Criar estrutura `/src/types`
 - [ ] Criar estrutura `/src/context`
 
 ---
@@ -350,4 +350,30 @@
   - O script `validate` combina `yarn lint`, `yarn prettier` e `yarn test` usando o operador `&&`.
   - Isso garante que a validação pare imediatamente se qualquer um dos passos falhar.
 - **Limitações**: Depende de que os scripts individuais (`lint`, `prettier`, `test`) estejam configurados corretamente.
+- **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/hooks
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/infrastructure-status-and-hooks-...`), indicando um PR aberto ou trabalho em andamento que impede a execução desta task para evitar conflitos.
+- **Sugestão de Desbloqueio**: Aguardar o merge ou fechamento da branch relacionada.
+
+## Criar estrutura /src/utils
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/structure-utils-...`), indicando um PR aberto ou trabalho em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge ou fechamento da branch relacionada.
+
+## Criar estrutura /src/types
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/structure-types-...`), indicando um PR aberto ou trabalho em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge ou fechamento da branch relacionada.
+
+## Criar estrutura /src/constants
+
+- **Implementação**: Criação do diretório `/src/constants` para centralizar valores constantes do projeto.
+- **Decisões Técnicas**:
+  - Adição de arquivo `.gitkeep` para garantir o rastreamento do diretório pelo Git.
+- **Limitações**: Diretório inicialmente vazio.
 - **Riscos**: Nenhum identificado.
