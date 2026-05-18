@@ -56,8 +56,8 @@
 
 ## Modelagem
 
-- [ ] Adicionar id único nas tarefas
-- [ ] Corrigir keyExtractor usando id
+- [x] Adicionar id único nas tarefas
+- [x] Corrigir keyExtractor usando id
 - [ ] Remover mutação direta de estado
 - [ ] Corrigir update imutável de tasks
 - [ ] Adicionar validação para tarefa vazia
@@ -403,3 +403,22 @@
   - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git, mantendo a consistência com o padrão de infraestrutura do projeto.
 - **Limitações**: O diretório está atualmente vazio, aguardando a definição de contextos específicos.
 - **Riscos**: Nenhum identificado.
+
+## Adicionar id único nas tarefas
+
+- **Implementação**: Introdução de uma propriedade `id` única para cada tarefa no estado da aplicação.
+- **Decisões Técnicas**:
+  - Os IDs das tarefas iniciais foram definidos manualmente como strings numéricas simples.
+  - Para novas tarefas, os IDs são gerados usando `String(new Date().getTime())` para garantir unicidade baseada no timestamp de criação.
+  - A lógica de conclusão (`handleDoneTask`) e exclusão (`handleDeleteTask`) foi atualizada para identificar tarefas pelo `id` em vez do texto da tarefa.
+- **Limitações**: O uso de timestamp como ID é suficiente para uso local single-threaded, mas pode precisar de uma biblioteca como `uuid` se a escala ou complexidade aumentar.
+- **Riscos**: Nenhum identificado.
+
+## Corrigir keyExtractor usando id
+
+- **Implementação**: Atualização do `FlatList` e do componente `Task` para utilizar o novo `id` único como chave.
+- **Decisões Técnicas**:
+  - Alteração do `keyExtractor` no `FlatList` de `item => item.task` para `item => item.id`.
+  - Atualização da prop `key` no componente `Task` renderizado para usar `item.id`.
+- **Limitações**: Nenhuma.
+- **Riscos**: Melhora a estabilidade da lista e evita problemas de renderização caso existam tarefas com o mesmo nome.
