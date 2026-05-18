@@ -46,7 +46,7 @@
 - [x] Criar estrutura `/src/utils`
 - [x] Criar estrutura `/src/constants`
 - [x] Criar estrutura `/src/theme`
-- [ ] Criar estrutura `/src/storage`
+- [x] Criar estrutura `/src/storage`
 - [!] Criar estrutura `/src/types`
 - [ ] Criar estrutura `/src/context`
 
@@ -386,4 +386,12 @@
 - **Decisões Técnicas**:
   - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git, mantendo a consistência com o padrão de infraestrutura do projeto.
 - **Limitações**: O diretório está atualmente vazio, aguardando a definição do tema global.
+- **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/storage
+
+- **Implementação**: Criação do diretório `/src/storage` para centralizar a lógica de persistência de dados.
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git, seguindo o padrão de infraestrutura estabelecido.
+- **Limitações**: O diretório está atualmente vazio, aguardando a instalação de bibliotecas de persistência (ex: AsyncStorage).
 - **Riscos**: Nenhum identificado.
