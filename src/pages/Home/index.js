@@ -13,14 +13,17 @@ function Home() {
   useEffect(() => {
     setTasks([
       {
+        id: '1',
         task: 'Fazer café',
         done: false,
       },
       {
+        id: '2',
         task: 'Finalizar projeto',
         done: false,
       },
       {
+        id: '3',
         task: 'Estudar',
         done: false,
       },
@@ -28,14 +31,18 @@ function Home() {
   }, []);
 
   function handleAddTask() {
-    const newtask = {task: task, done: false};
+    const newtask = {
+      id: String(new Date().getTime()),
+      task: task,
+      done: false,
+    };
     setTasks([...tasks, newtask]);
     setTask('');
   }
 
   function handleDoneTask(item) {
     const auxTasks = tasks.map(t => {
-      if (t.task === item.task) {
+      if (t.id === item.id) {
         return {...t, done: true};
       }
       return t;
@@ -44,7 +51,7 @@ function Home() {
   }
 
   function handleDeleteTask(item) {
-    const auxTasks = tasks.filter(t => t.task !== item.task);
+    const auxTasks = tasks.filter(t => t.id !== item.id);
     setTasks(auxTasks);
   }
 
@@ -64,12 +71,11 @@ function Home() {
       <TaskList>
         <FlatList
           data={tasks}
-          keyExtractor={item => item.task}
+          keyExtractor={item => item.id}
           renderItem={({item}) => {
             if (!item.done) {
               return (
                 <Task
-                  key={item.task}
                   item={item}
                   handleLeft={() => handleDoneTask(item)}
                   handleRight={() => handleDeleteTask(item)}
