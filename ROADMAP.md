@@ -45,7 +45,7 @@
 - [!] Criar estrutura `/src/hooks`
 - [x] Criar estrutura `/src/utils`
 - [x] Criar estrutura `/src/constants`
-- [ ] Criar estrutura `/src/theme`
+- [x] Criar estrutura `/src/theme`
 - [ ] Criar estrutura `/src/storage`
 - [!] Criar estrutura `/src/types`
 - [ ] Criar estrutura `/src/context`
@@ -378,4 +378,12 @@
 - **Decisões Técnicas**:
   - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git, mantendo a consistência com outras pastas de infraestrutura.
 - **Limitações**: O diretório está atualmente vazio, aguardando a definição de constantes.
+- **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/theme
+
+- **Implementação**: Criação do diretório `/src/theme` para centralizar a configuração de temas e estilos globais.
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git, mantendo a consistência com o padrão de infraestrutura do projeto.
+- **Limitações**: O diretório está atualmente vazio, aguardando a definição do tema global.
 - **Riscos**: Nenhum identificado.
