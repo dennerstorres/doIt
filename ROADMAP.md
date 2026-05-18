@@ -44,7 +44,7 @@
 - [x] Criar estrutura `/src/services`
 - [!] Criar estrutura `/src/hooks`
 - [x] Criar estrutura `/src/utils`
-- [ ] Criar estrutura `/src/constants`
+- [x] Criar estrutura `/src/constants`
 - [ ] Criar estrutura `/src/theme`
 - [ ] Criar estrutura `/src/storage`
 - [!] Criar estrutura `/src/types`
@@ -371,3 +371,11 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: Existe uma branch remota relacionada (`origin/feature/structure-types-8503643862023991203`), indicando que o trabalho já está em andamento ou sob revisão.
 - **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada ou verificar o status do PR relacionado.
+
+## Criar estrutura /src/constants
+
+- **Implementação**: Criação do diretório `/src/constants` para centralizar valores constantes globais do projeto.
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir que o diretório vazio seja rastreado pelo Git, mantendo a consistência com outras pastas de infraestrutura.
+- **Limitações**: O diretório está atualmente vazio, aguardando a definição de constantes.
+- **Riscos**: Nenhum identificado.
