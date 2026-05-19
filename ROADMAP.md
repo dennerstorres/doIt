@@ -61,7 +61,7 @@
 - [x] Remover mutação direta de estado
 - [x] Corrigir update imutável de tasks
 - [x] Adicionar validação para tarefa vazia
-- [ ] Impedir tarefas duplicadas
+- [x] Impedir tarefas duplicadas
 - [ ] Adicionar limite mínimo de caracteres
 - [ ] Adicionar limite máximo de caracteres
 
@@ -447,4 +447,13 @@
   - Exibição de alerta visual via `Alert.alert` da API do React Native para informar o usuário sobre a restrição.
   - Retorno antecipado na função `handleAddTask` caso a validação falhe.
 - **Limitações**: A validação ocorre apenas no lado do cliente (front-end), o que é adequado para a arquitetura atual sem backend.
+- **Riscos**: Nenhum identificado.
+
+## Impedir tarefas duplicadas
+
+- **Implementação**: Bloqueio de inserção de tarefas que já existem na lista (case-insensitive).
+- **Decisões Técnicas**:
+  - Uso do método `some()` para verificar se já existe uma tarefa com o mesmo nome (ignorando maiúsculas/minúsculas) no estado `tasks`.
+  - Exibição de alerta visual via `Alert.alert` caso a tarefa seja duplicada.
+- **Limitações**: A verificação é feita apenas contra a lista atual em memória.
 - **Riscos**: Nenhum identificado.
