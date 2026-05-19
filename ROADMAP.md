@@ -58,8 +58,8 @@
 
 - [x] Adicionar id único nas tarefas
 - [x] Corrigir keyExtractor usando id
-- [ ] Remover mutação direta de estado
-- [ ] Corrigir update imutável de tasks
+- [x] Remover mutação direta de estado
+- [x] Corrigir update imutável de tasks
 - [ ] Adicionar validação para tarefa vazia
 - [ ] Impedir tarefas duplicadas
 - [ ] Adicionar limite mínimo de caracteres
@@ -422,3 +422,19 @@
   - Atualização da prop `key` no componente `Task` renderizado para usar `item.id`.
 - **Limitações**: Nenhuma.
 - **Riscos**: Melhora a estabilidade da lista e evita problemas de renderização caso existam tarefas com o mesmo nome.
+
+## Remover mutação direta de estado
+
+- **Implementação**: Refatoração das funções de manipulação de tarefas na `Home` para usar atualizações funcionais de estado.
+- **Decisões Técnicas**:
+  - Uso de `setTasks(prevTasks => ...)` para garantir que as atualizações sejam baseadas no estado mais recente, evitando problemas de race conditions e closures obsoletas.
+- **Limitações**: Nenhuma.
+- **Riscos**: Nenhum identificado.
+
+## Corrigir update imutável de tasks
+
+- **Implementação**: Garantia de que todas as operações no estado de tarefas seguem princípios de imutabilidade.
+- **Decisões Técnicas**:
+  - Uso do spread operator (`...`) e métodos que retornam novos arrays (`map`, `filter`) dentro das atualizações funcionais de estado.
+- **Limitações**: Nenhuma.
+- **Riscos**: Melhora a previsibilidade do estado e a detecção de mudanças pelo React.
