@@ -5,7 +5,7 @@ import {FlatList, Alert} from 'react-native';
 import {Container, TaskAdd, TaskText, ButtonAdd, TaskList} from './styles';
 
 import Task from '../../components/Task';
-import {MIN_TASK_LENGTH} from '../../constants/tasks';
+import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 
 function Home() {
   const [task, setTask] = useState('');
@@ -43,6 +43,14 @@ function Home() {
       Alert.alert(
         'Aviso',
         `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+      );
+      return;
+    }
+
+    if (trimmedTask.length > MAX_TASK_LENGTH) {
+      Alert.alert(
+        'Aviso',
+        `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
       );
       return;
     }
@@ -87,6 +95,7 @@ function Home() {
           placeholder='Digite a tarefa'
           value={task}
           onChangeText={text => setTask(text)}
+          maxLength={MAX_TASK_LENGTH}
         />
         <ButtonAdd onPress={() => handleAddTask()}>
           <Icon name='plus' size={22} color='#1f2421' />
