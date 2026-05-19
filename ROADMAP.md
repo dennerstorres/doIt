@@ -60,7 +60,7 @@
 - [x] Corrigir keyExtractor usando id
 - [x] Remover mutação direta de estado
 - [x] Corrigir update imutável de tasks
-- [ ] Adicionar validação para tarefa vazia
+- [x] Adicionar validação para tarefa vazia
 - [ ] Impedir tarefas duplicadas
 - [ ] Adicionar limite mínimo de caracteres
 - [ ] Adicionar limite máximo de caracteres
@@ -438,3 +438,13 @@
   - Uso do spread operator (`...`) e métodos que retornam novos arrays (`map`, `filter`) dentro das atualizações funcionais de estado.
 - **Limitações**: Nenhuma.
 - **Riscos**: Melhora a previsibilidade do estado e a detecção de mudanças pelo React.
+
+## Adicionar validação para tarefa vazia
+
+- **Implementação**: Bloqueio de inserção de tarefas sem conteúdo ou apenas com espaços em branco na `Home`.
+- **Decisões Técnicas**:
+  - Uso do método `trim()` no conteúdo da tarefa antes da validação e da criação do novo objeto de tarefa.
+  - Exibição de alerta visual via `Alert.alert` da API do React Native para informar o usuário sobre a restrição.
+  - Retorno antecipado na função `handleAddTask` caso a validação falhe.
+- **Limitações**: A validação ocorre apenas no lado do cliente (front-end), o que é adequado para a arquitetura atual sem backend.
+- **Riscos**: Nenhum identificado.
