@@ -63,11 +63,11 @@
 - [x] Adicionar validação para tarefa vazia
 - [x] Impedir tarefas duplicadas
 - [x] Adicionar limite mínimo de caracteres
-- [ ] Adicionar limite máximo de caracteres
+- [x] Adicionar limite máximo de caracteres
 
 ## UX Base
 
-- [ ] Limpar input após submit corretamente
+- [x] Limpar input após submit corretamente
 - [ ] Fechar teclado após adicionar task
 - [ ] Adicionar placeholder melhor
 - [ ] Adicionar feedback visual ao concluir
@@ -466,4 +466,22 @@
   - Adição de verificação de comprimento em `handleAddTask` após o `trim()`.
   - Exibição de alerta informativo ao usuário via `Alert.alert`.
 - **Limitações**: Nenhuma.
+- **Riscos**: Nenhum identificado.
+
+## Adicionar limite máximo de caracteres
+
+- **Implementação**: Restrição de entrada para tarefas com no máximo 50 caracteres.
+- **Decisões Técnicas**:
+  - Adição da constante `MAX_TASK_LENGTH` em `src/constants/tasks.js`.
+  - Uso da prop `maxLength` no `TextInput` da Home para restringir entrada nativamente.
+  - Adição de validação explícita em `handleAddTask` como fallback e para exibir alerta informativo.
+- **Limitações**: Nenhuma.
+- **Riscos**: Nenhum identificado.
+
+## Limpar input após submit corretamente
+
+- **Implementação**: Garantia de que o campo de texto da tarefa é limpo após uma adição bem-sucedida.
+- **Decisões Técnicas**:
+  - Chamada de `setTask('')` no final da função `handleAddTask` após a atualização do estado das tarefas.
+- **Limitações**: Já estava implementado, mas agora está documentado e verificado.
 - **Riscos**: Nenhum identificado.
