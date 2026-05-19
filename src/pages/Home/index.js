@@ -38,6 +38,15 @@ function Home() {
       return;
     }
 
+    const taskExists = tasks.some(
+      t => t.task.toLowerCase() === trimmedTask.toLowerCase(),
+    );
+
+    if (taskExists) {
+      Alert.alert('Aviso', 'Esta tarefa já existe.');
+      return;
+    }
+
     const newtask = {
       id: String(new Date().getTime()),
       task: trimmedTask,
