@@ -62,7 +62,7 @@
 - [x] Corrigir update imutável de tasks
 - [x] Adicionar validação para tarefa vazia
 - [x] Impedir tarefas duplicadas
-- [ ] Adicionar limite mínimo de caracteres
+- [x] Adicionar limite mínimo de caracteres
 - [ ] Adicionar limite máximo de caracteres
 
 ## UX Base
@@ -456,4 +456,14 @@
   - Uso do método `some()` para verificar se já existe uma tarefa com o mesmo nome (ignorando maiúsculas/minúsculas) no estado `tasks`.
   - Exibição de alerta visual via `Alert.alert` caso a tarefa seja duplicada.
 - **Limitações**: A verificação é feita apenas contra a lista atual em memória.
+- **Riscos**: Nenhum identificado.
+
+## Adicionar limite mínimo de caracteres
+
+- **Implementação**: Implementação de validação que impede a adição de tarefas com menos de 3 caracteres.
+- **Decisões Técnicas**:
+  - Criação de um arquivo de constantes `src/constants/tasks.js` para centralizar a configuração do limite.
+  - Adição de verificação de comprimento em `handleAddTask` após o `trim()`.
+  - Exibição de alerta informativo ao usuário via `Alert.alert`.
+- **Limitações**: Nenhuma.
 - **Riscos**: Nenhum identificado.

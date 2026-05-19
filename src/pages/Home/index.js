@@ -5,6 +5,7 @@ import {FlatList, Alert} from 'react-native';
 import {Container, TaskAdd, TaskText, ButtonAdd, TaskList} from './styles';
 
 import Task from '../../components/Task';
+import {MIN_TASK_LENGTH} from '../../constants/tasks';
 
 function Home() {
   const [task, setTask] = useState('');
@@ -35,6 +36,14 @@ function Home() {
 
     if (!trimmedTask) {
       Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
+      return;
+    }
+
+    if (trimmedTask.length < MIN_TASK_LENGTH) {
+      Alert.alert(
+        'Aviso',
+        `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+      );
       return;
     }
 
