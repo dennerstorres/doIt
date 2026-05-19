@@ -36,23 +36,23 @@ function Home() {
       task: task,
       done: false,
     };
-    setTasks([...tasks, newtask]);
+    setTasks(prevTasks => [...prevTasks, newtask]);
     setTask('');
   }
 
   function handleDoneTask(item) {
-    const auxTasks = tasks.map(t => {
-      if (t.id === item.id) {
-        return {...t, done: true};
-      }
-      return t;
-    });
-    setTasks(auxTasks);
+    setTasks(prevTasks =>
+      prevTasks.map(t => {
+        if (t.id === item.id) {
+          return {...t, done: true};
+        }
+        return t;
+      }),
+    );
   }
 
   function handleDeleteTask(item) {
-    const auxTasks = tasks.filter(t => t.id !== item.id);
-    setTasks(auxTasks);
+    setTasks(prevTasks => prevTasks.filter(t => t.id !== item.id));
   }
 
   return (
