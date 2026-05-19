@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import {FlatList} from 'react-native';
+import {FlatList, Alert} from 'react-native';
 
 import {Container, TaskAdd, TaskText, ButtonAdd, TaskList} from './styles';
 
@@ -31,9 +31,16 @@ function Home() {
   }, []);
 
   function handleAddTask() {
+    const trimmedTask = task.trim();
+
+    if (!trimmedTask) {
+      Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
+      return;
+    }
+
     const newtask = {
       id: String(new Date().getTime()),
-      task: task,
+      task: trimmedTask,
       done: false,
     };
     setTasks(prevTasks => [...prevTasks, newtask]);
