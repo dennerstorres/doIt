@@ -46,7 +46,8 @@ function Task({item, handleLeft, handleRight}) {
         <RightActions progress={progress} dragX={dragX} onPress={handleRight} />
       )}>
       <Container done={item.done}>
-        <TaskText>{item.task}</TaskText>
+        <TaskText done={item.done}>{item.task}</TaskText>
+        {item.done && <Icon name='check-circle' size={20} color='#9cc5a1' />}
       </Container>
     </Swipeable>
   );
