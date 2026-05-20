@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import {FlatList, Alert} from 'react-native';
+import {FlatList, Alert, Keyboard} from 'react-native';
 
 import {Container, TaskAdd, TaskText, ButtonAdd, TaskList} from './styles';
 
@@ -71,6 +71,7 @@ function Home() {
     };
     setTasks(prevTasks => [...prevTasks, newtask]);
     setTask('');
+    Keyboard.dismiss();
   }
 
   function handleDoneTask(item) {
