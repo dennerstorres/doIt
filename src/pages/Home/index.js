@@ -21,6 +21,10 @@ import {
   TaskText,
   ButtonAdd,
   TaskList,
+  CounterContainer,
+  CounterBox,
+  CounterLabel,
+  CounterValue,
   EmptyStateContainer,
   EmptyStateText,
 } from './styles';
@@ -113,6 +117,9 @@ function Home() {
     setTasks(prevTasks => prevTasks.filter(t => t.id !== item.id));
   }
 
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(t => t.done).length;
+
   return (
     <Container>
       <TaskAdd>
@@ -126,6 +133,17 @@ function Home() {
           <Icon name='plus' size={22} color='#1f2421' />
         </ButtonAdd>
       </TaskAdd>
+
+      <CounterContainer>
+        <CounterBox>
+          <CounterLabel>Tarefas</CounterLabel>
+          <CounterValue>{totalTasks}</CounterValue>
+        </CounterBox>
+        <CounterBox>
+          <CounterLabel>Concluídas</CounterLabel>
+          <CounterValue>{completedTasks}</CounterValue>
+        </CounterBox>
+      </CounterContainer>
 
       <TaskList
         data={tasks}

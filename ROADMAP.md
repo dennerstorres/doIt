@@ -71,10 +71,10 @@
 - [x] Fechar teclado após adicionar task
 - [x] Adicionar placeholder melhor
 - [x] Adicionar feedback visual ao concluir
-- [ ] Adicionar feedback visual ao deletar
+- [x] Adicionar feedback visual ao deletar
 - [x] Adicionar empty state
-- [ ] Adicionar contador de tarefas
-- [ ] Adicionar contador de tarefas concluídas
+- [x] Adicionar contador de tarefas
+- [x] Adicionar contador de tarefas concluídas
 
 ---
 
@@ -526,5 +526,30 @@
   - Uso da prop `ListEmptyComponent` no `TaskList` refatorado em `src/pages/Home/index.js`.
   - Criação de novos styled components `EmptyStateContainer` e `EmptyStateText` em `Home/styles.js` para estilização centralizada.
   - Uso do ícone `clipboard` da biblioteca Feather.
+- **Limitações**: Nenhuma.
+- **Riscos**: Nenhum identificado.
+
+## Adicionar feedback visual ao deletar
+
+- **Status**: Validado como já implementado.
+- **Análise**: Durante a execução desta task, foi identificado que o feedback visual para deleção já se encontrava presente na base de código através do componente `Swipeable` (que revela o ícone de lixeira) e da `LayoutAnimation` (que suaviza a transição da lista). O status no roadmap foi atualizado para refletir a realidade do projeto.
+- **Limitações**: Nenhuma.
+- **Riscos**: Nenhum identificado.
+
+## Adicionar contador de tarefas
+
+- **Implementação**: Exibição do número total de tarefas na tela inicial.
+- **Decisões Técnicas**:
+  - Criação de componentes estilizados (`CounterContainer`, `CounterBox`, `CounterLabel`, `CounterValue`) para uma exibição limpa e organizada.
+  - Cálculo dinâmico do total baseado no tamanho do array de tarefas no estado.
+- **Limitações**: Nenhuma.
+- **Riscos**: Nenhum identificado.
+
+## Adicionar contador de tarefas concluídas
+
+- **Implementação**: Exibição do número de tarefas que já foram marcadas como concluídas.
+- **Decisões Técnicas**:
+  - Uso do método `filter` para derivar a contagem de tarefas concluídas a partir do estado global de tarefas.
+  - Exibição ao lado do contador total para fornecer uma visão clara do progresso do usuário.
 - **Limitações**: Nenhuma.
 - **Riscos**: Nenhum identificado.
