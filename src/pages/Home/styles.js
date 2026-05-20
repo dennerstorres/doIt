@@ -51,6 +51,35 @@ export const TaskList = styled.FlatList`
   margin-top: 10px;
 `;
 
+export const CounterContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 10px 5px 10px;
+`;
+
+export const CounterBox = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const CounterLabel = styled.Text`
+  color: #1f2421;
+  font-weight: bold;
+  font-size: 14px;
+`;
+
+export const CounterValue = styled.Text`
+  color: #fff;
+  background-color: #9cc5a1;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  overflow: hidden;
+`;
+
 export const EmptyStateContainer = styled.View`
   align-items: center;
   justify-content: center;
