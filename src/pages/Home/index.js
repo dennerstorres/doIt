@@ -93,7 +93,7 @@ function Home() {
     <Container>
       <TaskAdd>
         <TaskText
-          placeholder='Digite a tarefa'
+          placeholder='O que você vai fazer hoje?'
           value={task}
           onChangeText={text => setTask(text)}
           maxLength={MAX_TASK_LENGTH}
