@@ -72,7 +72,7 @@
 - [x] Adicionar placeholder melhor
 - [x] Adicionar feedback visual ao concluir
 - [ ] Adicionar feedback visual ao deletar
-- [ ] Adicionar empty state
+- [x] Adicionar empty state
 - [ ] Adicionar contador de tarefas
 - [ ] Adicionar contador de tarefas concluídas
 
@@ -517,3 +517,14 @@
   - Refatoração dos estilos do `Task` para evitar avisos de estilos inline no ESLint, movendo o layout flexível para o `Container` e `TaskText` do Styled Components.
 - **Limitações**: O estado das tarefas ainda é volátil (perdido ao recarregar o app) até que a persistência local seja implementada.
 - **Riscos**: `LayoutAnimation` pode se comportar de forma diferente em versões muito antigas do Android se não for habilitado corretamente, mas o tratamento foi incluído.
+
+## Adicionar empty state
+
+- **Implementação**: Exibição de uma mensagem amigável e ícone quando não há tarefas na lista.
+- **Decisões Técnicas**:
+  - Refatoração do componente `TaskList` em `src/pages/Home/styles.js` de `styled.View` para `styled.FlatList`.
+  - Uso da prop `ListEmptyComponent` no `TaskList` refatorado em `src/pages/Home/index.js`.
+  - Criação de novos styled components `EmptyStateContainer` e `EmptyStateText` em `Home/styles.js` para estilização centralizada.
+  - Uso do ícone `clipboard` da biblioteca Feather.
+- **Limitações**: Nenhuma.
+- **Riscos**: Nenhum identificado.

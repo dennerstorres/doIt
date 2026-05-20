@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {
-  FlatList,
   Alert,
   Keyboard,
   LayoutAnimation,
@@ -16,7 +15,15 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-import {Container, TaskAdd, TaskText, ButtonAdd, TaskList} from './styles';
+import {
+  Container,
+  TaskAdd,
+  TaskText,
+  ButtonAdd,
+  TaskList,
+  EmptyStateContainer,
+  EmptyStateText,
+} from './styles';
 
 import Task from '../../components/Task';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
@@ -120,23 +127,25 @@ function Home() {
         </ButtonAdd>
       </TaskAdd>
 
-      <TaskList>
-        <FlatList
-          data={tasks}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <Task
-              item={item}
-              handleLeft={() => handleDoneTask(item)}
-              handleRight={() => handleDeleteTask(item)}
-            />
-          )}
-        />
-        {/*
-          tasks.map(task => (
-            <Task key={task.task} item={task}/>
-          ))*/}
-      </TaskList>
+      <TaskList
+        data={tasks}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <Task
+            item={item}
+            handleLeft={() => handleDoneTask(item)}
+            handleRight={() => handleDeleteTask(item)}
+          />
+        )}
+        ListEmptyComponent={
+          <EmptyStateContainer>
+            <Icon name='clipboard' size={50} color='#9cc5a1' />
+            <EmptyStateText>
+              Você ainda não tem tarefas cadastradas.
+            </EmptyStateText>
+          </EmptyStateContainer>
+        }
+      />
     </Container>
   );
 }
