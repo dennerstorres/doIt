@@ -68,7 +68,7 @@
 ## UX Base
 
 - [x] Limpar input após submit corretamente
-- [ ] Fechar teclado após adicionar task
+- [x] Fechar teclado após adicionar task
 - [ ] Adicionar placeholder melhor
 - [ ] Adicionar feedback visual ao concluir
 - [ ] Adicionar feedback visual ao deletar
@@ -484,4 +484,13 @@
 - **Decisões Técnicas**:
   - Chamada de `setTask('')` no final da função `handleAddTask` após a atualização do estado das tarefas.
 - **Limitações**: Já estava implementado, mas agora está documentado e verificado.
+- **Riscos**: Nenhum identificado.
+
+## Fechar teclado após adicionar task
+
+- **Implementação**: Garantia de que o teclado virtual seja recolhido automaticamente após a adição de uma nova tarefa.
+- **Decisões Técnicas**:
+  - Uso da API `Keyboard` do React Native.
+  - Chamada de `Keyboard.dismiss()` após a limpeza do input na função `handleAddTask`.
+- **Limitações**: O comportamento de fechamento do teclado é gerenciado pelo sistema operacional (Android/iOS) após o comando `dismiss`.
 - **Riscos**: Nenhum identificado.
