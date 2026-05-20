@@ -28,10 +28,14 @@ export const TaskAdd = styled.View`
   margin-top: 10px;
 `;
 
-export const TaskText = styled.TextInput`
+export const TaskText = styled.TextInput.attrs({
+  placeholderTextColor: '#9cc5a1',
+})`
   height: 40px;
   width: 80%;
   background-color: #fff;
+  padding-left: 10px;
+  color: #1f2421;
 `;
 
 export const ButtonAdd = styled.TouchableOpacity`

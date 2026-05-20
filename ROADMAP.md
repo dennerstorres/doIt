@@ -69,7 +69,7 @@
 
 - [x] Limpar input após submit corretamente
 - [x] Fechar teclado após adicionar task
-- [ ] Adicionar placeholder melhor
+- [x] Adicionar placeholder melhor
 - [ ] Adicionar feedback visual ao concluir
 - [ ] Adicionar feedback visual ao deletar
 - [ ] Adicionar empty state
@@ -494,3 +494,14 @@
   - Chamada de `Keyboard.dismiss()` após a limpeza do input na função `handleAddTask`.
 - **Limitações**: O comportamento de fechamento do teclado é gerenciado pelo sistema operacional (Android/iOS) após o comando `dismiss`.
 - **Riscos**: Nenhum identificado.
+
+## Adicionar placeholder melhor
+
+- **Implementação**: Atualização do texto do placeholder e melhoria da estilização do campo de entrada de tarefas.
+- **Decisões Técnicas**:
+  - Alteração do placeholder para "O que você vai fazer hoje?" para ser mais convidativo.
+  - Definição de `placeholderTextColor` usando a cor `#9cc5a1` (Eton Blue) da paleta do projeto para harmonia visual.
+  - Adição de `padding-left: 10px` no `TextInput` para evitar que o texto encoste na borda esquerda, melhorando a legibilidade.
+  - Definição explícita da cor do texto como `#1f2421` para garantir contraste adequado.
+- **Limitações**: Nenhuma.
+- **Riscos**: Mudanças puramente visuais, baixo risco de regressão.
