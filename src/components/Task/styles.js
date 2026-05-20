@@ -11,10 +11,14 @@ export const Container = styled.View`
   width: 100%;
   height: 50px;
   justify-content: center;
-  padding: 5px;
+  padding: 5px 15px;
   margin-bottom: 5px;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const TaskText = styled.Text`
-  color: #fff;
+  color: ${props => (props.done ? '#9cc5a1' : '#fff')};
+  text-decoration-line: ${props => (props.done ? 'line-through' : 'none')};
+  flex: 1;
 `;

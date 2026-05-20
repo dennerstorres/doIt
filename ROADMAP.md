@@ -70,7 +70,7 @@
 - [x] Limpar input após submit corretamente
 - [x] Fechar teclado após adicionar task
 - [x] Adicionar placeholder melhor
-- [ ] Adicionar feedback visual ao concluir
+- [x] Adicionar feedback visual ao concluir
 - [ ] Adicionar feedback visual ao deletar
 - [ ] Adicionar empty state
 - [ ] Adicionar contador de tarefas
@@ -505,3 +505,15 @@
   - Definição explícita da cor do texto como `#1f2421` para garantir contraste adequado.
 - **Limitações**: Nenhuma.
 - **Riscos**: Mudanças puramente visuais, baixo risco de regressão.
+
+## Adicionar feedback visual ao concluir
+
+- **Implementação**: Melhoria da experiência do usuário ao concluir tarefas com feedback visual imediato e animações.
+- **Decisões Técnicas**:
+  - Remoção do filtro que escondia tarefas concluídas na `FlatList`, permitindo que elas permaneçam visíveis.
+  - Atualização de `handleDoneTask` para alternar (toggle) o estado `done`, permitindo desfazer a conclusão.
+  - Adição de estilos visuais para tarefas concluídas no componente `Task`: texto riscado (`line-through`), mudança de cor do texto para tons mais suaves e exibição de um ícone de `check-circle`.
+  - Integração da API `LayoutAnimation` para garantir transições suaves (suavização de layout) ao adicionar, concluir ou excluir tarefas.
+  - Refatoração dos estilos do `Task` para evitar avisos de estilos inline no ESLint, movendo o layout flexível para o `Container` e `TaskText` do Styled Components.
+- **Limitações**: O estado das tarefas ainda é volátil (perdido ao recarregar o app) até que a persistência local seja implementada.
+- **Riscos**: `LayoutAnimation` pode se comportar de forma diferente em versões muito antigas do Android se não for habilitado corretamente, mas o tratamento foi incluído.

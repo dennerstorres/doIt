@@ -1,6 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import {FlatList, Alert, Keyboard} from 'react-native';
+import {
+  FlatList,
+  Alert,
+  Keyboard,
+  LayoutAnimation,
+  Platform,
+  UIManager,
+} from 'react-native';
+
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 import {Container, TaskAdd, TaskText, ButtonAdd, TaskList} from './styles';
 
@@ -69,16 +83,18 @@ function Home() {
       task: trimmedTask,
       done: false,
     };
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setTasks(prevTasks => [...prevTasks, newtask]);
     setTask('');
     Keyboard.dismiss();
   }
 
   function handleDoneTask(item) {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setTasks(prevTasks =>
       prevTasks.map(t => {
         if (t.id === item.id) {
-          return {...t, done: true};
+          return {...t, done: !t.done};
         }
         return t;
       }),
@@ -86,6 +102,7 @@ function Home() {
   }
 
   function handleDeleteTask(item) {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setTasks(prevTasks => prevTasks.filter(t => t.id !== item.id));
   }
 
@@ -107,17 +124,13 @@ function Home() {
         <FlatList
           data={tasks}
           keyExtractor={item => item.id}
-          renderItem={({item}) => {
-            if (!item.done) {
-              return (
-                <Task
-                  item={item}
-                  handleLeft={() => handleDoneTask(item)}
-                  handleRight={() => handleDeleteTask(item)}
-                />
-              );
-            }
-          }}
+          renderItem={({item}) => (
+            <Task
+              item={item}
+              handleLeft={() => handleDoneTask(item)}
+              handleRight={() => handleDeleteTask(item)}
+            />
+          )}
         />
         {/*
           tasks.map(task => (
