@@ -83,7 +83,7 @@
 ## Storage
 
 - [x] Instalar AsyncStorage
-- [ ] Criar service de persistência
+- [x] Criar service de persistência
 - [ ] Persistir tarefas localmente
 - [ ] Carregar tarefas automaticamente
 - [ ] Criar estratégia de fallback
@@ -553,6 +553,17 @@
   - Exibição ao lado do contador total para fornecer uma visão clara do progresso do usuário.
 - **Limitações**: Nenhuma.
 - **Riscos**: Nenhum identificado.
+
+## Criar service de persistência
+
+- **Implementação**: Criação de um serviço de persistência centralizado em `src/services/storage.js`.
+- **Decisões Técnicas**:
+  - Uso do `@react-native-async-storage/async-storage` para persistência local.
+  - Implementação das funções `saveTasks` e `getTasks` com tratamento de erro básico (console.error e re-throw).
+  - Uso da chave `@doit:tasks` para isolar os dados do aplicativo.
+  - Criação de testes unitários em `src/services/__tests__/storage.test.js` mockando o AsyncStorage.
+- **Limitações**: O tratamento de erro atual apenas loga no console antes de relançar o erro; o aplicativo chamador deve lidar com a exceção.
+- **Riscos**: Falhas no AsyncStorage podem causar perda de dados se não forem tratadas adequadamente na UI.
 
 ## Instalar AsyncStorage
 
