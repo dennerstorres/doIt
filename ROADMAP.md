@@ -84,7 +84,7 @@
 
 - [x] Instalar AsyncStorage
 - [x] Criar service de persistência
-- [ ] Persistir tarefas localmente
+- [x] Persistir tarefas localmente
 - [ ] Carregar tarefas automaticamente
 - [ ] Criar estratégia de fallback
 - [ ] Adicionar tratamento de erro no storage
@@ -564,6 +564,16 @@
   - Criação de testes unitários em `src/services/__tests__/storage.test.js` mockando o AsyncStorage.
 - **Limitações**: O tratamento de erro atual apenas loga no console antes de relançar o erro; o aplicativo chamador deve lidar com a exceção.
 - **Riscos**: Falhas no AsyncStorage podem causar perda de dados se não forem tratadas adequadamente na UI.
+
+## Persistir tarefas localmente
+
+- **Implementação**: Integração do mecanismo de auto-save no componente principal `Home`.
+- **Decisões Técnicas**:
+  - Uso do hook `useEffect` para observar mudanças no estado `tasks`.
+  - Chamada automática de `saveTasks(tasks)` sempre que a lista de tarefas é modificada (adição, exclusão ou conclusão).
+  - Configuração do mock global do `AsyncStorage` em `jest-setup.js` para garantir estabilidade dos testes após a introdução da persistência na UI.
+- **Limitações**: A persistência é disparada em cada mudança de estado, o que é eficiente para listas pequenas, mas pode precisar de debouncing no futuro se a lista crescer significativamente. Atualmente, o estado inicial de mock sobrescreve o storage no primeiro render até que o "Carregar tarefas automaticamente" seja implementado.
+- **Riscos**: Se a operação de escrita falhar silenciosamente, o usuário pode perder o progresso da sessão atual.
 
 ## Instalar AsyncStorage
 
