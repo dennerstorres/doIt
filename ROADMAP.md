@@ -82,7 +82,7 @@
 
 ## Storage
 
-- [ ] Instalar AsyncStorage
+- [x] Instalar AsyncStorage
 - [ ] Criar service de persistência
 - [ ] Persistir tarefas localmente
 - [ ] Carregar tarefas automaticamente
@@ -553,3 +553,12 @@
   - Exibição ao lado do contador total para fornecer uma visão clara do progresso do usuário.
 - **Limitações**: Nenhuma.
 - **Riscos**: Nenhum identificado.
+
+## Instalar AsyncStorage
+
+- **Implementação**: Adição da biblioteca `@react-native-async-storage/async-storage` ao projeto.
+- **Decisões Técnicas**:
+  - Instalação da versão `1.15.0` para garantir compatibilidade com o React Native 0.63.4.
+  - Validação da estabilidade do projeto após a instalação via script `yarn validate`.
+- **Limitações**: A validação de builds nativos está bloqueada no ambiente sandbox; a funcionalidade real depende da linkagem nativa correta.
+- **Riscos**: Incompatibilidades menores com o ambiente de build Android legado (Gradle 6.2) podem surgir durante a compilação real.
