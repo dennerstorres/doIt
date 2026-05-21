@@ -85,17 +85,17 @@
 - [x] Instalar AsyncStorage
 - [x] Criar service de persistência
 - [x] Persistir tarefas localmente
-- [ ] Carregar tarefas automaticamente
-- [ ] Criar estratégia de fallback
-- [ ] Adicionar tratamento de erro no storage
-- [ ] Adicionar loading inicial
+- [!] Carregar tarefas automaticamente
+- [!] Criar estratégia de fallback
+- [!] Adicionar tratamento de erro no storage
+- [!] Adicionar loading inicial
 
 ## Estrutura de Dados
 
-- [ ] Criar model Task
-- [ ] Padronizar estrutura de task
-- [ ] Criar factory de tasks
-- [ ] Criar utilitários de transformação
+- [!] Criar model Task
+- [!] Padronizar estrutura de task
+- [!] Criar factory de tasks
+- [!] Criar utilitários de transformação
 
 ---
 
@@ -103,8 +103,8 @@
 
 ## Componentização
 
-- [ ] Separar lógica de Home em hooks
-- [ ] Criar hook useTasks
+- [!] Separar lógica de Home em hooks
+- [!] Criar hook useTasks
 - [ ] Criar TaskList component
 - [ ] Criar AddTask component
 - [ ] Criar EmptyState component
@@ -583,3 +583,45 @@
   - Validação da estabilidade do projeto após a instalação via script `yarn validate`.
 - **Limitações**: A validação de builds nativos está bloqueada no ambiente sandbox; a funcionalidade real depende da linkagem nativa correta.
 - **Riscos**: Incompatibilidades menores com o ambiente de build Android legado (Gradle 6.2) podem surgir durante a compilação real.
+
+## Carregar tarefas automaticamente
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/infrastructure-status-and-hooks-4625301285441584084`) que altera significativamente a lógica da `Home/index.js`. Implementar esta funcionalidade agora causaria conflitos complexos de merge.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada ou realizar o rebase da branch de hooks sobre a `main` após as mudanças recentes.
+
+## Criar estratégia de fallback
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Depende da implementação da carga automática de tarefas e do tratamento de erros, que estão bloqueados pela branch de infraestrutura de hooks.
+- **Sugestão de Desbloqueio**: Desbloquear após a integração da branch `feature/infrastructure-status-and-hooks`.
+
+## Adicionar tratamento de erro no storage
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Conflito potencial com a branch `feature/infrastructure-status-and-hooks` que pode alterar a forma como os serviços são consumidos ou injetados na UI.
+- **Sugestão de Desbloqueio**: Aguardar a estabilização da arquitetura de hooks.
+
+## Adicionar loading inicial
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A implementação de um estado de loading depende de como o estado assíncrono será gerenciado (via hooks ou estado local), o que está sendo definido na branch `feature/infrastructure-status-and-hooks`.
+- **Sugestão de Desbloqueio**: Implementar após a adoção do padrão de hooks para gerenciamento de estado.
+
+## Criar model Task / Padronizar estrutura de task
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota específica para tipagem e estrutura (`origin/feature/structure-types-8503643862023991203`).
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch de tipos ou coordenar a modelagem com o trabalho nela contido.
+
+## Criar factory de tasks / Criar utilitários de transformação
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Dependem da definição do Model Task que está sendo trabalhado na branch `feature/structure-types`.
+- **Sugestão de Desbloqueio**: Aguardar a definição da estrutura de dados na branch de tipos.
+
+## Separar lógica de Home em hooks / Criar hook useTasks
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Trabalho já em andamento na branch `origin/feature/infrastructure-status-and-hooks-4625301285441584084`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch de hooks.
