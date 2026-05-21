@@ -31,6 +31,7 @@ import {
 
 import Task from '../../components/Task';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
+import {saveTasks} from '../../services/storage';
 
 function Home() {
   const [task, setTask] = useState('');
@@ -55,6 +56,10 @@ function Home() {
       },
     ]);
   }, []);
+
+  useEffect(() => {
+    saveTasks(tasks);
+  }, [tasks]);
 
   function handleAddTask() {
     const trimmedTask = task.trim();
