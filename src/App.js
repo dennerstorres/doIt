@@ -18,7 +18,7 @@ function App() {
           name='Home'
           component={Home}
           options={{
-            title: 'Tarefas',
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

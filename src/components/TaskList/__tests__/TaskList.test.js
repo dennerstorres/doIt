@@ -4,13 +4,11 @@ import TaskList from '../index';
 
 // Mocking dependencies to focus on TaskList rendering
 jest.mock('../../../components/Task', () => {
-  const React = require('react');
   const {Text} = require('react-native');
   return ({item}) => <Text>{item.task}</Text>;
 });
 
 jest.mock('../../../components/EmptyState', () => {
-  const React = require('react');
   const {Text} = require('react-native');
   return () => <Text>Empty State</Text>;
 });
