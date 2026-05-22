@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#49a078",
+        "height": 60,
+        "justifyContent": "center",
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#fff",
+          "fontSize": 24,
+          "fontWeight": "bold",
+        },
+      ]
+    }
+  >
+    doIt
+  </Text>
+</View>
+`;

@@ -24,6 +24,7 @@ import {
 
 import TaskList from '../../components/TaskList';
 import AddTask from '../../components/AddTask';
+import Header from '../../components/Header';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {saveTasks} from '../../services/storage';
 
@@ -121,6 +122,7 @@ function Home() {
 
   return (
     <Container>
+      <Header />
       <AddTask
         task={task}
         onChangeText={text => setTask(text)}

@@ -108,7 +108,7 @@
 - [x] Criar TaskList component
 - [x] Criar AddTask component
 - [x] Criar EmptyState component
-- [ ] Criar Header component
+- [x] Criar Header component
 - [ ] Remover lógica inline
 
 ## Organização
@@ -656,3 +656,13 @@
   - Centralização de estilos e uso da constante `MAX_TASK_LENGTH` para consistência.
 - **Limitações**: Nenhuma.
 - **Riscos**: Baixo risco, melhora a separação de responsabilidades.
+
+## Criar Header component
+
+- **Implementação**: Extração e criação de um componente de cabeçalho dedicado em `src/components/Header`.
+- **Decisões Técnicas**:
+  - Criação de um componente funcional simples exibindo o nome do aplicativo "doIt".
+  - Estilização com `styled-components` utilizando a paleta de cores do projeto (Background: `#49a078` Shiny Shamrock, Text: `#fff`).
+  - Integração na `Home` page e desativação do cabeçalho padrão do `react-navigation` no `App.js` para garantir uma identidade visual customizada.
+- **Limitações**: O título é estático no momento.
+- **Riscos**: Nenhum identificado.
