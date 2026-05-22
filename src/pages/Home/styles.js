@@ -23,29 +23,6 @@ export const WarningText = styled.Text`
   text-align: center;
 `;
 
-export const TaskAdd = styled.View`
-  flex-direction: row;
-  margin-top: 10px;
-`;
-
-export const TaskText = styled.TextInput.attrs({
-  placeholderTextColor: '#9cc5a1',
-})`
-  height: 40px;
-  width: 80%;
-  background-color: #fff;
-  padding-left: 10px;
-  color: #1f2421;
-`;
-
-export const ButtonAdd = styled.TouchableOpacity`
-  height: 40px;
-  width: 20%;
-  background-color: #49a078;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const CounterContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;

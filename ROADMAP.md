@@ -106,7 +106,7 @@
 - [!] Separar lógica de Home em hooks
 - [!] Criar hook useTasks
 - [x] Criar TaskList component
-- [ ] Criar AddTask component
+- [x] Criar AddTask component
 - [x] Criar EmptyState component
 - [ ] Criar Header component
 - [ ] Remover lógica inline
@@ -646,3 +646,13 @@
   - Uso de mocks manuais para componentes internos (`Task`, `EmptyState`) nos testes para isolar a unidade sob teste.
 - **Limitações**: Nenhuma.
 - **Riscos**: Baixo risco, refatoração puramente estrutural que melhora a legibilidade e manutenibilidade da `Home`.
+
+## Criar AddTask component
+
+- **Implementação**: Extração da lógica de entrada de tarefas para um componente dedicado em `src/components/AddTask`.
+- **Decisões Técnicas**:
+  - Encapsulamento do `TextInput` e do botão de adição em um componente funcional controlado.
+  - Recebe `task` (valor), `onChangeText` e `onAdd` (callback) como props.
+  - Centralização de estilos e uso da constante `MAX_TASK_LENGTH` para consistência.
+- **Limitações**: Nenhuma.
+- **Riscos**: Baixo risco, melhora a separação de responsabilidades.
