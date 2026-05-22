@@ -105,7 +105,7 @@
 
 - [!] Separar lógica de Home em hooks
 - [!] Criar hook useTasks
-- [ ] Criar TaskList component
+- [x] Criar TaskList component
 - [ ] Criar AddTask component
 - [x] Criar EmptyState component
 - [ ] Criar Header component
@@ -635,3 +635,14 @@
   - Uso do novo componente via prop `ListEmptyComponent` do `FlatList` na `Home`.
 - **Limitações**: Nenhuma.
 - **Riscos**: Baixo risco, componente puramente visual e desacoplado.
+
+## Criar TaskList component
+
+- **Implementação**: Extração da lógica da lista de tarefas da `Home` para um componente dedicado em `src/components/TaskList`.
+- **Decisões Técnicas**:
+  - Encapsulamento do `FlatList` e suas propriedades (`data`, `keyExtractor`, `renderItem`, `ListEmptyComponent`) em um componente funcional.
+  - O componente recebe `tasks`, `handleDoneTask` e `handleDeleteTask` como props, mantendo-se agnóstico à origem do estado.
+  - Criação de testes de snapshot para garantir que o componente renderize corretamente tanto com dados quanto em estado vazio.
+  - Uso de mocks manuais para componentes internos (`Task`, `EmptyState`) nos testes para isolar a unidade sob teste.
+- **Limitações**: Nenhuma.
+- **Riscos**: Baixo risco, refatoração puramente estrutural que melhora a legibilidade e manutenibilidade da `Home`.
