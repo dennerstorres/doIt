@@ -8,18 +8,18 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #dce1de;
+  background-color: ${props => props.theme.colors.background};
   padding: 5px;
   align-items: center;
 `;
 
 export const GeneralText = styled.Text`
-  color: #1f2421;
+  color: ${props => props.theme.colors.text};
   margin-bottom: 5px;
 `;
 
 export const WarningText = styled.Text`
-  color: #216869;
+  color: ${props => props.theme.colors.secondary};
   text-align: center;
 `;
 
@@ -36,14 +36,14 @@ export const CounterBox = styled.View`
 `;
 
 export const CounterLabel = styled.Text`
-  color: #1f2421;
+  color: ${props => props.theme.colors.text};
   font-weight: bold;
   font-size: 14px;
 `;
 
 export const CounterValue = styled.Text`
-  color: #fff;
-  background-color: #9cc5a1;
+  color: ${props => props.theme.colors.white};
+  background-color: ${props => props.theme.colors.accent};
   padding: 2px 8px;
   border-radius: 10px;
   margin-left: 8px;

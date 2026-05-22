@@ -114,8 +114,8 @@
 ## Organização
 
 - [ ] Extrair estilos repetidos
-- [ ] Criar theme global
-- [ ] Padronizar cores
+- [x] Criar theme global
+- [x] Padronizar cores
 - [ ] Padronizar espaçamentos
 - [ ] Padronizar tipografia
 
@@ -656,6 +656,18 @@
   - Centralização de estilos e uso da constante `MAX_TASK_LENGTH` para consistência.
 - **Limitações**: Nenhuma.
 - **Riscos**: Baixo risco, melhora a separação de responsabilidades.
+
+## Criar theme global / Padronizar cores
+
+- **Implementação**: Criação de um sistema de temas centralizado usando `styled-components`.
+- **Decisões Técnicas**:
+  - Definição de um objeto de tema em `src/theme/index.js` contendo a paleta de cores oficial do projeto.
+  - Integração do `ThemeProvider` no `App.js` para disponibilizar o tema em toda a árvore de componentes.
+  - Refatoração de todos os styled-components para consumir cores via `props.theme.colors` em vez de valores hardcoded.
+  - Uso do hook `useTheme` no componente `Task` para acessar cores dinamicamente em estilos `StyleSheet` e ícones.
+  - Atualização dos testes unitários para suportar o `ThemeProvider`.
+- **Limitações**: O tema atual é puramente de cores; espaçamentos e tipografia ainda não foram padronizados no tema.
+- **Riscos**: Mudanças futuras nas chaves do tema exigirão atualizações em todos os componentes dependentes, mas a centralização reduz significativamente o esforço de manutenção de design.
 
 ## Criar Header component
 
