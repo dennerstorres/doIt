@@ -20,15 +20,13 @@ import {
   TaskAdd,
   TaskText,
   ButtonAdd,
-  TaskList,
   CounterContainer,
   CounterBox,
   CounterLabel,
   CounterValue,
 } from './styles';
 
-import Task from '../../components/Task';
-import EmptyState from '../../components/EmptyState';
+import TaskList from '../../components/TaskList';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {saveTasks} from '../../services/storage';
 
@@ -150,16 +148,9 @@ function Home() {
       </CounterContainer>
 
       <TaskList
-        data={tasks}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <Task
-            item={item}
-            handleLeft={() => handleDoneTask(item)}
-            handleRight={() => handleDeleteTask(item)}
-          />
-        )}
-        ListEmptyComponent={<EmptyState />}
+        tasks={tasks}
+        handleDoneTask={handleDoneTask}
+        handleDeleteTask={handleDeleteTask}
       />
     </Container>
   );

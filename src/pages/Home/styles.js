@@ -46,11 +46,6 @@ export const ButtonAdd = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const TaskList = styled.FlatList`
-  width: 100%;
-  margin-top: 10px;
-`;
-
 export const CounterContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
