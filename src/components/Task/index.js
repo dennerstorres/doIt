@@ -2,10 +2,13 @@ import React from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {View, StyleSheet, Animated, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import {useTheme} from 'styled-components/native';
 
 import {Container, TaskText} from './styles';
 
 function Task({item, handleLeft, handleRight}) {
+  const theme = useTheme();
+
   function LeftActions(progress, dragX) {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
@@ -14,7 +17,8 @@ function Task({item, handleLeft, handleRight}) {
     });
 
     return (
-      <View style={styles.leftAction}>
+      <View
+        style={[styles.leftAction, {backgroundColor: theme.colors.primary}]}>
         <Animated.Text style={[styles.actionText, {transform: [{scale}]}]}>
           Concluir
         </Animated.Text>
@@ -30,10 +34,12 @@ function Task({item, handleLeft, handleRight}) {
     });
 
     return (
-      <TouchableOpacity onPress={onPress} style={styles.rightAction}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.rightAction, {backgroundColor: theme.colors.error}]}>
         <Animated.View
           style={[styles.rightActionIcon, {transform: [{scale: scale}]}]}>
-          <Icon name='trash' size={30} color='#FFF' />
+          <Icon name='trash' size={30} color={theme.colors.white} />
         </Animated.View>
       </TouchableOpacity>
     );
@@ -47,7 +53,9 @@ function Task({item, handleLeft, handleRight}) {
       )}>
       <Container done={item.done}>
         <TaskText done={item.done}>{item.task}</TaskText>
-        {item.done && <Icon name='check-circle' size={20} color='#9cc5a1' />}
+        {item.done && (
+          <Icon name='check-circle' size={20} color={theme.colors.accent} />
+        )}
       </Container>
     </Swipeable>
   );
@@ -55,13 +63,11 @@ function Task({item, handleLeft, handleRight}) {
 
 const styles = StyleSheet.create({
   leftAction: {
-    backgroundColor: '#49a078',
     justifyContent: 'center',
     height: 50,
     flex: 1,
   },
   rightAction: {
-    backgroundColor: '#FF0000',
     justifyContent: 'center',
     height: 50,
     alignItems: 'flex-end',

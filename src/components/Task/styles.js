@@ -7,7 +7,8 @@ import styled from 'styled-components/native';
 //#dce1de Gainsboro
 
 export const Container = styled.View`
-  background-color: ${props => (props.done ? '#49a078' : '#216869')};
+  background-color: ${props =>
+    props.done ? props.theme.colors.primary : props.theme.colors.secondary};
   width: 100%;
   height: 50px;
   justify-content: center;
@@ -18,7 +19,8 @@ export const Container = styled.View`
 `;
 
 export const TaskText = styled.Text`
-  color: ${props => (props.done ? '#9cc5a1' : '#fff')};
+  color: ${props =>
+    props.done ? props.theme.colors.accent : props.theme.colors.white};
   text-decoration-line: ${props => (props.done ? 'line-through' : 'none')};
   flex: 1;
 `;
