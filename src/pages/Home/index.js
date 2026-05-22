@@ -25,11 +25,10 @@ import {
   CounterBox,
   CounterLabel,
   CounterValue,
-  EmptyStateContainer,
-  EmptyStateText,
 } from './styles';
 
 import Task from '../../components/Task';
+import EmptyState from '../../components/EmptyState';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {saveTasks} from '../../services/storage';
 
@@ -160,14 +159,7 @@ function Home() {
             handleRight={() => handleDeleteTask(item)}
           />
         )}
-        ListEmptyComponent={
-          <EmptyStateContainer>
-            <Icon name='clipboard' size={50} color='#9cc5a1' />
-            <EmptyStateText>
-              Você ainda não tem tarefas cadastradas.
-            </EmptyStateText>
-          </EmptyStateContainer>
-        }
+        ListEmptyComponent={<EmptyState />}
       />
     </Container>
   );

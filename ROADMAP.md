@@ -107,7 +107,7 @@
 - [!] Criar hook useTasks
 - [ ] Criar TaskList component
 - [ ] Criar AddTask component
-- [ ] Criar EmptyState component
+- [x] Criar EmptyState component
 - [ ] Criar Header component
 - [ ] Remover lógica inline
 
@@ -625,3 +625,13 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: Trabalho já em andamento na branch `origin/feature/infrastructure-status-and-hooks-4625301285441584084`.
 - **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch de hooks.
+
+## Criar EmptyState component
+
+- **Implementação**: Extração da lógica de visualização de lista vazia para um componente dedicado em `src/components/EmptyState`.
+- **Decisões Técnicas**:
+  - Criação de um componente funcional simples que encapsula o ícone `clipboard` e a mensagem de "sem tarefas".
+  - Migração dos styled components `EmptyStateContainer` e `EmptyStateText` para o novo componente, promovendo o desacoplamento da `Home`.
+  - Uso do novo componente via prop `ListEmptyComponent` do `FlatList` na `Home`.
+- **Limitações**: Nenhuma.
+- **Riscos**: Baixo risco, componente puramente visual e desacoplado.
