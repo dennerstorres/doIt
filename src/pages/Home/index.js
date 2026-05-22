@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Icon from 'react-native-vector-icons/Feather';
 import {
   Alert,
   Keyboard,
@@ -17,9 +16,6 @@ if (
 
 import {
   Container,
-  TaskAdd,
-  TaskText,
-  ButtonAdd,
   CounterContainer,
   CounterBox,
   CounterLabel,
@@ -27,6 +23,7 @@ import {
 } from './styles';
 
 import TaskList from '../../components/TaskList';
+import AddTask from '../../components/AddTask';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {saveTasks} from '../../services/storage';
 
@@ -124,17 +121,11 @@ function Home() {
 
   return (
     <Container>
-      <TaskAdd>
-        <TaskText
-          placeholder='O que você vai fazer hoje?'
-          value={task}
-          onChangeText={text => setTask(text)}
-          maxLength={MAX_TASK_LENGTH}
-        />
-        <ButtonAdd onPress={() => handleAddTask()}>
-          <Icon name='plus' size={22} color='#1f2421' />
-        </ButtonAdd>
-      </TaskAdd>
+      <AddTask
+        task={task}
+        onChangeText={text => setTask(text)}
+        onAdd={() => handleAddTask()}
+      />
 
       <CounterContainer>
         <CounterBox>
