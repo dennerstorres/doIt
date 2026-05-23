@@ -117,7 +117,7 @@
 - [x] Criar theme global
 - [x] Padronizar cores
 - [x] Padronizar espaçamentos
-- [ ] Padronizar tipografia
+- [x] Padronizar tipografia
 
 ---
 
@@ -695,6 +695,18 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: Conflito arquitetural iminente com a branch `feature/infrastructure-status-and-hooks`. A remoção da lógica inline e sua organização devem seguir o padrão que será estabelecido pela refatoração de hooks para evitar retrabalho e conflitos complexos de merge.
 - **Sugestão de Desbloqueio**: Aguardar o merge da branch de hooks e então mover a lógica restante (como validações e animações) para os locais apropriados definidos na nova arquitetura.
+
+## Padronizar tipografia
+
+- **Implementação**: Consolidação do sistema de tipografia no tema global e aplicação em todos os componentes.
+- **Decisões Técnicas**:
+  - Adição de pesos de fonte (`regular: '400'`, `bold: '700'`) ao objeto `typography` no `src/theme/index.js`.
+  - Refatoração dos componentes `Header`, `Home`, `Task`, `AddTask` e `EmptyState` para consumir tanto `size` quanto `weight` do tema.
+  - Remoção de todos os valores hardcoded de `font-weight: bold` e substituição por referências dinâmicas ao tema.
+  - Garantia de que elementos textuais (como o input de tarefas e o texto da tarefa) tenham tamanhos de fonte explicitamente definidos via tema para consistência visual.
+  - Atualização dos snapshots de teste para refletir a mudança técnica de `bold` para `700` nos estilos renderizados.
+- **Limitações**: O projeto ainda utiliza as fontes padrão do sistema; a introdução de fontes customizadas exigiria uma nova etapa de infraestrutura.
+- **Riscos**: Nenhum identificado.
 
 ## Extrair estilos repetidos
 
