@@ -42,12 +42,12 @@
 ## Estrutura
 
 - [x] Criar estrutura `/src/services`
-- [!] Criar estrutura `/src/hooks`
+- [x] Criar estrutura `/src/hooks`
 - [x] Criar estrutura `/src/utils`
 - [x] Criar estrutura `/src/constants`
 - [x] Criar estrutura `/src/theme`
 - [x] Criar estrutura `/src/storage`
-- [!] Criar estrutura `/src/types`
+- [x] Criar estrutura `/src/types`
 - [x] Criar estrutura `/src/context`
 
 ---
@@ -713,3 +713,21 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
 - **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+
+## Criar estrutura /src/hooks
+
+- **Implementação**: Criação do diretório `/src/hooks` para centralizar hooks customizados.
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir o rastreamento do diretório pelo Git.
+  - Unbloqueio da task após verificar que a branch remota anteriormente mencionada não existe mais no repositório.
+- **Limitações**: Diretório inicialmente vazio.
+- **Riscos**: Nenhum identificado.
+
+## Criar estrutura /src/types
+
+- **Implementação**: Criação do diretório `/src/types` para centralizar definições de tipos (úteis para futura migração para TypeScript).
+- **Decisões Técnicas**:
+  - Inclusão de um arquivo `.gitkeep` para garantir o rastreamento do diretório pelo Git.
+  - Unbloqueio da task após verificar que a branch remota anteriormente mencionada não existe mais no repositório.
+- **Limitações**: Diretório inicialmente vazio.
+- **Riscos**: Nenhum identificado.
