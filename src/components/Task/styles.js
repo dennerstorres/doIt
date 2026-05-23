@@ -17,5 +17,7 @@ export const TaskText = styled.Text`
   color: ${props =>
     props.done ? props.theme.colors.accent : props.theme.colors.white};
   text-decoration-line: ${props => (props.done ? 'line-through' : 'none')};
+  font-size: ${props => props.theme.typography.size.medium};
+  font-weight: ${props => props.theme.typography.weight.regular};
   flex: 1;
 `;

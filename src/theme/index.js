@@ -24,6 +24,10 @@ const theme = {
       large: '16px',
       xlarge: '24px',
     },
+    weight: {
+      regular: '400',
+      bold: '700',
+    },
   },
 };
 

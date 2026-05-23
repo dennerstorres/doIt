@@ -9,6 +9,7 @@ export const EmptyStateContainer = styled.View`
 export const EmptyStateText = styled.Text`
   color: ${props => props.theme.colors.accent};
   font-size: ${props => props.theme.typography.size.large};
+  font-weight: ${props => props.theme.typography.weight.regular};
   margin-top: ${props => props.theme.spacing.medium};
   text-align: center;
 `;

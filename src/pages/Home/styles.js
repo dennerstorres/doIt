@@ -22,7 +22,7 @@ export const CounterBox = styled.View`
 
 export const CounterLabel = styled.Text`
   color: ${props => props.theme.colors.text};
-  font-weight: bold;
+  font-weight: ${props => props.theme.typography.weight.bold};
   font-size: ${props => props.theme.typography.size.medium};
 `;
 
@@ -34,6 +34,6 @@ export const CounterValue = styled.Text`
   border-radius: 10px;
   margin-left: ${props => props.theme.spacing.small};
   font-size: ${props => props.theme.typography.size.small};
-  font-weight: bold;
+  font-weight: ${props => props.theme.typography.weight.bold};
   overflow: hidden;
 `;

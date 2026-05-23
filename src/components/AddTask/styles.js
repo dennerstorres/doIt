@@ -13,6 +13,8 @@ export const TaskText = styled.TextInput.attrs(props => ({
   background-color: ${props => props.theme.colors.white};
   padding-left: ${props => props.theme.spacing.medium};
   color: ${props => props.theme.colors.text};
+  font-size: ${props => props.theme.typography.size.medium};
+  font-weight: ${props => props.theme.typography.weight.regular};
 `;
 
 export const ButtonAdd = styled.TouchableOpacity`
