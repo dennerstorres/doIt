@@ -20,41 +20,50 @@ import {
   CounterBox,
   CounterLabel,
   CounterValue,
+  LoadingIndicator,
 } from './styles';
 
 import TaskList from '../../components/TaskList';
 import AddTask from '../../components/AddTask';
 import Header from '../../components/Header';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
-import {saveTasks} from '../../services/storage';
+import {saveTasks, getTasks} from '../../services/storage';
 
 function Home() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTasks([
-      {
-        id: '1',
-        task: 'Fazer café',
-        done: false,
-      },
-      {
-        id: '2',
-        task: 'Finalizar projeto',
-        done: false,
-      },
-      {
-        id: '3',
-        task: 'Estudar',
-        done: false,
-      },
-    ]);
+    let isMounted = true;
+    async function loadTasks() {
+      try {
+        const storedTasks = await getTasks();
+        if (isMounted) {
+          setTasks(storedTasks);
+        }
+      } catch (error) {
+        if (isMounted) {
+          Alert.alert('Erro', 'Não foi possível carregar as tarefas.');
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadTasks();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    saveTasks(tasks);
-  }, [tasks]);
+    if (!isLoading) {
+      saveTasks(tasks);
+    }
+  }, [tasks, isLoading]);
 
   function handleAddTask() {
     const trimmedTask = task.trim();
@@ -140,11 +149,15 @@ function Home() {
         </CounterBox>
       </CounterContainer>
 
-      <TaskList
-        tasks={tasks}
-        handleDoneTask={handleDoneTask}
-        handleDeleteTask={handleDeleteTask}
-      />
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : (
+        <TaskList
+          tasks={tasks}
+          handleDoneTask={handleDoneTask}
+          handleDeleteTask={handleDeleteTask}
+        />
+      )}
     </Container>
   );
 }

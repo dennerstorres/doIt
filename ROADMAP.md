@@ -85,10 +85,10 @@
 - [x] Instalar AsyncStorage
 - [x] Criar service de persistência
 - [x] Persistir tarefas localmente
-- [!] Carregar tarefas automaticamente
-- [!] Criar estratégia de fallback
-- [!] Adicionar tratamento de erro no storage
-- [!] Adicionar loading inicial
+- [x] Carregar tarefas automaticamente
+- [ ] Criar estratégia de fallback
+- [ ] Adicionar tratamento de erro no storage
+- [x] Adicionar loading inicial
 
 ## Estrutura de Dados
 
@@ -713,3 +713,32 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
 - **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+
+## Desbloqueio de Persistência e Infraestrutura
+
+- **Implementação**: Unbloqueio das tasks de carregamento automático, fallback, tratamento de erro e loading.
+- **Decisões Técnicas**:
+  - Verificação de que a branch remota `origin/feature/infrastructure-status-and-hooks-4625301285441584084` (anteriormente citada como bloqueio) não existe mais no repositório.
+  - Decisão de prosseguir com a implementação utilizando o estado local da `Home` para evitar atrasos na entrega de funcionalidades críticas de persistência.
+- **Limitações**: A lógica ainda reside no componente `Home` até que a refatoração para hooks seja efetivamente realizada por quem assumir essa task.
+- **Riscos**: Nenhum identificado.
+
+## Carregar tarefas automaticamente
+
+- **Implementação**: Carregamento assíncrono das tarefas do AsyncStorage ao iniciar o aplicativo.
+- **Decisões Técnicas**:
+  - Uso do hook `useEffect` com um sinalizador `isMounted` para evitar atualizações de estado em componentes desmontados (memory leak protection).
+  - Integração da função `getTasks` do serviço de storage no ciclo de vida da `Home`.
+  - Implementação de um guarda no `useEffect` de salvamento (`!isLoading`) para garantir que o storage não seja sobrescrito com um array vazio antes da carga inicial completar.
+- **Limitações**: Em caso de falha silenciosa do storage, o estado inicial será uma lista vazia.
+- **Riscos**: Se o AsyncStorage estiver corrompido, o app pode falhar ao carregar, mas um alerta básico foi adicionado.
+
+## Adicionar loading inicial
+
+- **Implementação**: Exibição de um indicador de progresso durante a recuperação inicial das tarefas.
+- **Decisões Técnicas**:
+  - Criação de um estado `isLoading` iniciado como `true`.
+  - Uso do componente `ActivityIndicator` (estilizado como `LoadingIndicator` via styled-components) para feedback visual.
+  - O loading é encerrado no bloco `finally` da carga de tarefas, garantindo que o usuário veja a lista (ou o empty state) assim que a promessa for resolvida.
+- **Limitações**: O tempo de loading em dispositivos modernos com listas pequenas será quase imperceptível.
+- **Riscos**: Nenhum identificado.
