@@ -2,5 +2,5 @@ import styled from 'styled-components/native';
 
 export const List = styled.FlatList`
   width: 100%;
-  margin-top: 10px;
+  margin-top: ${props => props.theme.spacing.medium};
 `;
