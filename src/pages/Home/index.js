@@ -113,8 +113,26 @@ function Home() {
   }
 
   function handleDeleteTask(item) {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setTasks(prevTasks => prevTasks.filter(t => t.id !== item.id));
+    Alert.alert(
+      'Excluir Tarefa?',
+      'Tem certeza que deseja excluir esta tarefa?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Excluir',
+          onPress: () => {
+            LayoutAnimation.configureNext(
+              LayoutAnimation.Presets.easeInEaseOut,
+            );
+            setTasks(prevTasks => prevTasks.filter(t => t.id !== item.id));
+          },
+          style: 'destructive',
+        },
+      ],
+    );
   }
 
   const totalTasks = tasks.length;
