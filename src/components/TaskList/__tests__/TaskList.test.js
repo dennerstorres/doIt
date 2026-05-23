@@ -1,6 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {ThemeProvider} from 'styled-components/native';
 import TaskList from '../index';
+import theme from '../../../theme';
 
 // Mocking dependencies to focus on TaskList rendering
 jest.mock('../../../components/Task', () => {
@@ -22,11 +24,13 @@ describe('TaskList Component', () => {
 
     const tree = renderer
       .create(
-        <TaskList
-          tasks={tasks}
-          handleDoneTask={() => {}}
-          handleDeleteTask={() => {}}
-        />,
+        <ThemeProvider theme={theme}>
+          <TaskList
+            tasks={tasks}
+            handleDoneTask={() => {}}
+            handleDeleteTask={() => {}}
+          />
+        </ThemeProvider>,
       )
       .toJSON();
 
@@ -36,11 +40,13 @@ describe('TaskList Component', () => {
   it('should render EmptyState when list is empty', () => {
     const tree = renderer
       .create(
-        <TaskList
-          tasks={[]}
-          handleDoneTask={() => {}}
-          handleDeleteTask={() => {}}
-        />,
+        <ThemeProvider theme={theme}>
+          <TaskList
+            tasks={[]}
+            handleDoneTask={() => {}}
+            handleDeleteTask={() => {}}
+          />
+        </ThemeProvider>,
       )
       .toJSON();
 

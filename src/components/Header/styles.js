@@ -10,6 +10,6 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   color: ${props => props.theme.colors.white};
-  font-size: 24px;
+  font-size: ${props => props.theme.typography.size.xlarge};
   font-weight: bold;
 `;

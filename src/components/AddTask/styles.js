@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const TaskAdd = styled.View`
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: ${props => props.theme.spacing.medium};
 `;
 
 export const TaskText = styled.TextInput.attrs(props => ({
@@ -11,7 +11,7 @@ export const TaskText = styled.TextInput.attrs(props => ({
   height: 40px;
   width: 80%;
   background-color: ${props => props.theme.colors.white};
-  padding-left: 10px;
+  padding-left: ${props => props.theme.spacing.medium};
   color: ${props => props.theme.colors.text};
 `;
 

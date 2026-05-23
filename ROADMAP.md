@@ -109,14 +109,14 @@
 - [x] Criar AddTask component
 - [x] Criar EmptyState component
 - [x] Criar Header component
-- [ ] Remover lógica inline
+- [!] Remover lógica inline
 
 ## Organização
 
-- [ ] Extrair estilos repetidos
+- [!] Extrair estilos repetidos
 - [x] Criar theme global
 - [x] Padronizar cores
-- [ ] Padronizar espaçamentos
+- [x] Padronizar espaçamentos
 - [ ] Padronizar tipografia
 
 ---
@@ -641,7 +641,7 @@
 - **Implementação**: Extração da lógica da lista de tarefas da `Home` para um componente dedicado em `src/components/TaskList`.
 - **Decisões Técnicas**:
   - Encapsulamento do `FlatList` e suas propriedades (`data`, `keyExtractor`, `renderItem`, `ListEmptyComponent`) em um componente funcional.
-  - O componente recebe `tasks`, `handleDoneTask` e `handleDeleteTask` como props, mantendo-se agnóstico à origem do estado.
+  - O componente recebe `tasks`, `handleDoneTask` e `handleDeleteTask` as props, mantendo-se agnóstico à origem do estado.
   - Criação de testes de snapshot para garantir que o componente renderize corretamente tanto com dados quanto em estado vazio.
   - Uso de mocks manuais para componentes internos (`Task`, `EmptyState`) nos testes para isolar a unidade sob teste.
 - **Limitações**: Nenhuma.
@@ -678,3 +678,26 @@
   - Integração na `Home` page e desativação do cabeçalho padrão do `react-navigation` no `App.js` para garantir uma identidade visual customizada.
 - **Limitações**: O título é estático no momento.
 - **Riscos**: Nenhum identificado.
+
+## Padronizar espaçamentos
+
+- **Implementação**: Introdução de uma escala de espaçamento semântica e de tipografia no tema global e refatoração dos componentes para utilizá-la.
+- **Decisões Técnicas**:
+  - Criação de objetos `spacing` e `typography` no `src/theme/index.js` com valores semânticos.
+  - Substituição de valores hardcoded de margin, padding e font-size em `Home`, `Task`, `AddTask`, `TaskList`, `EmptyState` e `Header` por referências ao tema.
+  - Remoção de componentes de estilo não utilizados (`GeneralText`, `WarningText`) em `Home/styles.js` para manter o código limpo.
+  - Atualização dos testes unitários de `TaskList` para incluir o `ThemeProvider`, evitando quebras devidas ao consumo do tema.
+- **Limitações**: A escala é baseada em valores fixos (px), o que pode precisar de revisão para acessibilidade (ex: usar escalas dinâmicas) no futuro.
+- **Riscos**: Alterações visuais sutis podem ocorrer devido à aproximação de valores hardcoded para a escala semântica.
+
+## Remover lógica inline
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Conflito arquitetural iminente com a branch `feature/infrastructure-status-and-hooks`. A remoção da lógica inline e sua organização devem seguir o padrão que será estabelecido pela refatoração de hooks para evitar retrabalho e conflitos complexos de merge.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch de hooks e então mover a lógica restante (como validações e animações) para os locais apropriados definidos na nova arquitetura.
+
+## Extrair estilos repetidos
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
+- **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
