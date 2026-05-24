@@ -29,9 +29,9 @@ export const CounterLabel = styled.Text`
 export const CounterValue = styled.Text`
   color: ${props => props.theme.colors.white};
   background-color: ${props => props.theme.colors.accent};
-  padding: ${props =>
-    `${props.theme.spacing.nano} ${props.theme.spacing.small}`};
-  border-radius: 10px;
+  padding-vertical: ${props => props.theme.spacing.nano};
+  padding-horizontal: ${props => props.theme.spacing.medium};
+  border-radius: 20px;
   margin-left: ${props => props.theme.spacing.small};
   font-size: ${props => props.theme.typography.size.small};
   font-weight: ${props => props.theme.typography.weight.bold};

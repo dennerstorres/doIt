@@ -136,7 +136,7 @@
 
 # FASE 6 — Melhorias de UX/UI
 
-- [ ] Melhorar design geral
+- [x] Melhorar design geral
 - [ ] Melhorar input de tarefas
 - [ ] Melhorar animações
 - [ ] Adicionar dark mode
@@ -713,3 +713,15 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
 - **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+
+## Melhorar design geral
+
+- **Implementação**: Aprimoramento visual dos principais componentes da interface (Tasks, AddTask e Contadores).
+- **Decisões Técnicas**:
+  - Adição de `border-radius: 8px` e sombras (elevation/shadow) nos cartões de tarefas para criar profundidade.
+  - Aumento da altura dos itens da lista e do input para melhor acessibilidade e toque.
+  - Refatoração dos cantos do `AddTask` para um visual mais moderno e integrado (cantos arredondados apenas nas extremidades externas do conjunto input/botão).
+  - Padronização de margens horizontais para garantir que os componentes flutuem centralizados com espaçamento consistente.
+  - Melhoria do visual "pill" dos contadores com maior padding horizontal.
+- **Limitações**: As sombras podem variar levemente de aparência entre Android e iOS devido às limitações nativas da propriedade `elevation` vs `shadow`.
+- **Riscos**: Nenhum identificado.
