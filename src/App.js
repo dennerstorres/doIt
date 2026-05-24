@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ThemeProvider} from 'styled-components/native';
 
-import theme from './theme';
+import {ThemeContextProvider, useAppTheme} from './context/ThemeContext';
 
 /**
  * Importação de páginas
@@ -13,7 +13,9 @@ import Home from './pages/Home';
 
 const Stack = createStackNavigator();
 
-function App() {
+function Navigation() {
+  const {theme} = useAppTheme();
+
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
@@ -28,6 +30,14 @@ function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
+    <ThemeContextProvider>
+      <Navigation />
+    </ThemeContextProvider>
   );
 }
 

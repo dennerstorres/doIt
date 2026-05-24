@@ -136,19 +136,19 @@
 
 # FASE 6 — Melhorias de UX/UI
 
-- [ ] Melhorar design geral
-- [ ] Melhorar input de tarefas
-- [ ] Melhorar animações
-- [ ] Adicionar dark mode
-- [ ] Criar tema light/dark
+- [!] Melhorar design geral
+- [!] Melhorar input de tarefas
+- [!] Melhorar animações
+- [x] Adicionar dark mode
+- [x] Criar tema light/dark
 - [ ] Melhorar swipe actions
 - [ ] Adicionar ícones consistentes
 - [ ] Melhorar responsividade
-- [ ] Adicionar confirmação para deletar
+- [!] Adicionar confirmação para deletar
 - [ ] Adicionar undo ao deletar
-- [ ] Adicionar filtro Todas
-- [ ] Adicionar filtro Pendentes
-- [ ] Adicionar filtro Concluídas
+- [!] Adicionar filtro Todas
+- [!] Adicionar filtro Pendentes
+- [!] Adicionar filtro Concluídas
 - [ ] Adicionar ordenação
 - [ ] Adicionar busca
 
@@ -713,3 +713,44 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
 - **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+
+## Melhorar design geral
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/improve-general-design-14681591483560423136`), indicando que o trabalho já está em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada.
+
+## Melhorar input de tarefas
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/improve-task-input-4054701124306939895`), indicando que o trabalho já está em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada.
+
+## Melhorar animações
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/improve-animations-10113105191565094805`), indicando que o trabalho já está em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada.
+
+## Adicionar confirmação para deletar
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/delete-confirmation-16112423341350805587`), indicando que o trabalho já está em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada.
+
+## Adicionar filtros (Todas/Pendentes/Concluídas)
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota relacionada (`origin/feature/task-filters-9815136197281654991`), indicando que o trabalho já está em andamento.
+- **Sugestão de Desbloqueio**: Aguardar o merge da branch mencionada.
+
+## Adicionar dark mode / Criar tema light/dark
+- **Implementação**: Introdução de um sistema de temas dinâmico e suporte para modo escuro.
+- **Decisões Técnicas**:
+  - Criação do `ThemeContext` para gerenciar o estado global do tema e persistência via `AsyncStorage`.
+  - Refatoração do `src/theme/index.js` para exportar objetos de tema `light` e `dark` com tokens semânticos.
+  - Atualização de componentes (`AddTask`, `Header`, `EmptyState`, `Task`) para consumir cores do tema via `styled-components` ou `useTheme`.
+  - Adição de um botão de toggle no `Header` para alternância manual.
+  - O modo escuro utiliza uma paleta de alto contraste com fundo escuro (#1f2421) e texto claro (#dce1de).
+- **Limitações**: O sistema de temas atualmente cobre apenas cores; outros tokens visuais como sombras podem precisar de ajustes específicos para o modo escuro no futuro.
+- **Riscos**: Dependência direta do `AsyncStorage` para carregar o tema inicial pode causar um breve "flash" do tema padrão (light) se não for tratado com um splash screen ou loading state (bloqueado por outras branches).

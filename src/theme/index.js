@@ -1,13 +1,4 @@
-const theme = {
-  colors: {
-    primary: '#49a078',
-    secondary: '#216869',
-    background: '#dce1de',
-    text: '#1f2421',
-    accent: '#9cc5a1',
-    error: '#FF0000',
-    white: '#ffffff',
-  },
+const common = {
   spacing: {
     nano: '2px',
     tiny: '5px',
@@ -31,4 +22,30 @@ const theme = {
   },
 };
 
-export default theme;
+export const light = {
+  ...common,
+  colors: {
+    primary: '#49a078',
+    secondary: '#216869',
+    background: '#dce1de',
+    text: '#1f2421',
+    accent: '#9cc5a1',
+    error: '#FF0000',
+    white: '#ffffff',
+  },
+};
+
+export const dark = {
+  ...common,
+  colors: {
+    primary: '#216869',
+    secondary: '#49a078',
+    background: '#1f2421',
+    text: '#dce1de',
+    accent: '#9cc5a1',
+    error: '#FF0000',
+    white: '#ffffff',
+  },
+};
+
+export default light;

@@ -7,6 +7,7 @@ exports[`Header Component renders correctly 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "#49a078",
+        "flexDirection": "row",
         "height": 60,
         "justifyContent": "center",
         "width": "100%",
@@ -27,5 +28,29 @@ exports[`Header Component renders correctly 1`] = `
   >
     doIt
   </Text>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+        "position": "absolute",
+        "right": 15,
+      }
+    }
+  >
+    <Icon
+      color="#fff"
+      name="moon"
+      size={24}
+    />
+  </View>
 </View>
 `;

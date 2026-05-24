@@ -19,7 +19,11 @@ function Task({item, handleLeft, handleRight}) {
     return (
       <View
         style={[styles.leftAction, {backgroundColor: theme.colors.primary}]}>
-        <Animated.Text style={[styles.actionText, {transform: [{scale}]}]}>
+        <Animated.Text
+          style={[
+            styles.actionText,
+            {transform: [{scale}], color: theme.colors.white},
+          ]}>
           Concluir
         </Animated.Text>
       </View>
@@ -74,7 +78,6 @@ const styles = StyleSheet.create({
   },
   actionText: {
     fontSize: 17,
-    color: '#FFF',
     padding: 20,
   },
   rightActionIcon: {
