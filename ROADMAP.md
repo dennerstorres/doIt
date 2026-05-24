@@ -138,7 +138,7 @@
 
 - [ ] Melhorar design geral
 - [ ] Melhorar input de tarefas
-- [ ] Melhorar animações
+- [x] Melhorar animações
 - [ ] Adicionar dark mode
 - [ ] Criar tema light/dark
 - [ ] Melhorar swipe actions
@@ -713,3 +713,14 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
 - **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+
+## Melhorar animações
+
+- **Implementação**: Refinamento das configurações de `LayoutAnimation` na `Home`.
+- **Decisões Técnicas**:
+  - Substituição do preset genérico `easeInEaseOut` por uma configuração customizada.
+  - Uso de `LayoutAnimation.Types.spring` para a propriedade `update`, proporcionando uma transição mais fluida e orgânica ao alternar o estado de conclusão das tarefas e reorganizar a lista.
+  - Uso de `LayoutAnimation.Types.easeInEaseOut` combinado com a propriedade `opacity` para `create` e `delete`, suavizando a entrada e saída de elementos.
+  - Definição de `springDamping: 0.7` para um efeito de mola equilibrado, sem oscilações excessivas.
+- **Limitações**: `LayoutAnimation` afeta o layout global na próxima renderização; para animações granulares e micro-interações específicas de componentes, a API `Animated` ou `Reanimated` seria mais adequada.
+- **Riscos**: Em dispositivos Android muito antigos, a performance de `LayoutAnimation` pode variar se o hardware for limitado, embora tenha sido habilitado corretamente via `UIManager`.

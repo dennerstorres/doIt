@@ -28,6 +28,22 @@ import Header from '../../components/Header';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {saveTasks} from '../../services/storage';
 
+const animationConfig = {
+  duration: 300,
+  update: {
+    type: LayoutAnimation.Types.spring,
+    springDamping: 0.7,
+  },
+  create: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+    property: LayoutAnimation.Properties.opacity,
+  },
+  delete: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+    property: LayoutAnimation.Properties.opacity,
+  },
+};
+
 function Home() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
@@ -94,14 +110,14 @@ function Home() {
       task: trimmedTask,
       done: false,
     };
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks => [...prevTasks, newtask]);
     setTask('');
     Keyboard.dismiss();
   }
 
   function handleDoneTask(item) {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks =>
       prevTasks.map(t => {
         if (t.id === item.id) {
@@ -113,7 +129,7 @@ function Home() {
   }
 
   function handleDeleteTask(item) {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks => prevTasks.filter(t => t.id !== item.id));
   }
 
