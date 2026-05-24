@@ -20,6 +20,9 @@ import {
   CounterBox,
   CounterLabel,
   CounterValue,
+  FilterContainer,
+  FilterButton,
+  FilterText,
 } from './styles';
 
 import TaskList from '../../components/TaskList';
@@ -31,6 +34,7 @@ import {saveTasks} from '../../services/storage';
 function Home() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     setTasks([
@@ -120,6 +124,16 @@ function Home() {
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(t => t.done).length;
 
+  const filteredTasks = tasks.filter(t => {
+    if (filter === 'pending') {
+      return !t.done;
+    }
+    if (filter === 'done') {
+      return t.done;
+    }
+    return true;
+  });
+
   return (
     <Container>
       <Header />
@@ -140,8 +154,23 @@ function Home() {
         </CounterBox>
       </CounterContainer>
 
+      <FilterContainer>
+        {[
+          {key: 'all', label: 'Todas'},
+          {key: 'pending', label: 'Pendentes'},
+          {key: 'done', label: 'Concluídas'},
+        ].map(item => (
+          <FilterButton
+            key={item.key}
+            active={filter === item.key}
+            onPress={() => setFilter(item.key)}>
+            <FilterText active={filter === item.key}>{item.label}</FilterText>
+          </FilterButton>
+        ))}
+      </FilterContainer>
+
       <TaskList
-        tasks={tasks}
+        tasks={filteredTasks}
         handleDoneTask={handleDoneTask}
         handleDeleteTask={handleDeleteTask}
       />

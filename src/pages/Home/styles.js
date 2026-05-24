@@ -37,3 +37,30 @@ export const CounterValue = styled.Text`
   font-weight: ${props => props.theme.typography.weight.bold};
   overflow: hidden;
 `;
+
+export const FilterContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: ${props => props.theme.spacing.medium};
+  margin-bottom: ${props => props.theme.spacing.small};
+`;
+
+export const FilterButton = styled.TouchableOpacity`
+  padding: ${props =>
+    `${props.theme.spacing.tiny} ${props.theme.spacing.medium}`};
+  border-bottom-width: 2px;
+  border-bottom-color: ${props =>
+    props.active ? props.theme.colors.primary : 'transparent'};
+`;
+
+export const FilterText = styled.Text`
+  color: ${props =>
+    props.active ? props.theme.colors.primary : props.theme.colors.text};
+  font-weight: ${props =>
+    props.active
+      ? props.theme.typography.weight.bold
+      : props.theme.typography.weight.regular};
+  font-size: ${props => props.theme.typography.size.medium};
+`;

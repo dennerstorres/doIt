@@ -146,9 +146,9 @@
 - [ ] Melhorar responsividade
 - [ ] Adicionar confirmação para deletar
 - [ ] Adicionar undo ao deletar
-- [ ] Adicionar filtro Todas
-- [ ] Adicionar filtro Pendentes
-- [ ] Adicionar filtro Concluídas
+- [x] Adicionar filtro Todas
+- [x] Adicionar filtro Pendentes
+- [x] Adicionar filtro Concluídas
 - [ ] Adicionar ordenação
 - [ ] Adicionar busca
 
@@ -713,3 +713,16 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
 - **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+
+## Adicionar filtros (Todas, Pendentes, Concluídas)
+
+- **Implementação**: Introdução de um sistema de filtragem de tarefas na tela inicial.
+- **Decisões Técnicas**:
+  - Adição de estado `filter` na `Home` para gerenciar o critério ativo.
+  - Criação de componentes estilizados (`FilterContainer`, `FilterButton`, `FilterText`) seguindo o tema do projeto.
+  - Implementação de lógica de derivação de estado para filtrar as tarefas antes de enviá-las ao `TaskList`.
+  - Refatoração dos botões de filtro para uso de `map`, facilitando a manutenção e adição de novos filtros.
+  - Adição de testes unitários em `src/pages/Home/__tests__/HomeFilter.test.js` para validar a lógica de filtragem.
+  - Mock do `LayoutAnimation` em `jest-setup.js` para garantir estabilidade dos testes de integração/UI.
+- **Limitações**: O filtro é aplicado apenas na visualização local; a contagem total de tarefas permanece global para dar contexto ao usuário.
+- **Riscos**: Nenhum identificado.
