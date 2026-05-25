@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTask Component should render correctly 1`] = `
+<View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "marginTop": 10,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#ffffff",
+            "borderColor": "#9cc5a1",
+            "borderWidth": 1,
+            "flexBasis": 0,
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "height": 40,
+          },
+        ]
+      }
+    >
+      <TextInput
+        allowFontScaling={true}
+        autoCapitalize="sentences"
+        autoCorrect={false}
+        maxLength={50}
+        onChangeText={[Function]}
+        onSubmitEditing={[Function]}
+        placeholder="O que você vai fazer hoje?"
+        placeholderTextColor="#9cc5a1"
+        rejectResponderTermination={true}
+        returnKeyType="done"
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "fontSize": 14,
+              "fontWeight": "400",
+              "height": 40,
+              "paddingLeft": 10,
+            },
+          ]
+        }
+        underlineColorAndroid="transparent"
+        value=""
+      />
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#49a078",
+          "height": 40,
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": 50,
+        }
+      }
+    >
+      <Icon
+        color="#1f2421"
+        name="plus"
+        size={22}
+      />
+    </View>
+  </View>
+</View>
+`;

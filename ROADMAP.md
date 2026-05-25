@@ -137,7 +137,7 @@
 # FASE 6 — Melhorias de UX/UI
 
 - [ ] Melhorar design geral
-- [ ] Melhorar input de tarefas
+- [x] Melhorar input de tarefas
 - [ ] Melhorar animações
 - [ ] Adicionar dark mode
 - [ ] Criar tema light/dark
@@ -707,6 +707,20 @@
   - Atualização dos snapshots de teste para refletir a mudança técnica de `bold` para `700` nos estilos renderizados.
 - **Limitações**: O projeto ainda utiliza as fontes padrão do sistema; a introdução de fontes customizadas exigiria uma nova etapa de infraestrutura.
 - **Riscos**: Nenhum identificado.
+
+## Melhorar input de tarefas
+
+- **Implementação**: Aprimoramento da experiência do usuário e do visual do componente `AddTask`.
+- **Decisões Técnicas**:
+  - Adição de suporte ao teclado com `onSubmitEditing` para permitir adicionar tarefas pressionando "Enter".
+  - Configuração do teclado com `returnKeyType="done"`, `autoCorrect={false}` e `autoCapitalize="sentences"`.
+  - Implementação de um botão "Limpar" (ícone 'x') que aparece quando há texto no input.
+  - Adição de um contador de caracteres que aparece quando o texto excede 40 caracteres.
+  - Refatoração dos estilos para usar um `InputContainer` com borda e flexbox para melhor responsividade.
+  - Garantia de que todos os ícones e textos consumam as cores do tema global.
+  - Criação de testes unitários abrangentes em `src/components/AddTask/__tests__/AddTask.test.js`.
+- **Limitações**: O contador é exibido de forma simples abaixo do input; animações mais complexas para sua aparição poderiam ser adicionadas no futuro.
+- **Riscos**: Baixo risco de regressão devido à cobertura de testes unitários.
 
 ## Extrair estilos repetidos
 
