@@ -37,3 +37,10 @@ export const CounterValue = styled.Text`
   font-weight: ${props => props.theme.typography.weight.bold};
   overflow: hidden;
 `;
+
+export const LoadingIndicator = styled.ActivityIndicator.attrs(props => ({
+  size: 'large',
+  color: props.theme.colors.primary,
+}))`
+  margin-top: ${props => props.theme.spacing.large};
+`;

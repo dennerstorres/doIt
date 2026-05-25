@@ -20,6 +20,7 @@ import {
   CounterBox,
   CounterLabel,
   CounterValue,
+  LoadingIndicator,
 } from './styles';
 
 import TaskList from '../../components/TaskList';
@@ -27,35 +28,38 @@ import AddTask from '../../components/AddTask';
 import Search from '../../components/Search';
 import Header from '../../components/Header';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
-import {saveTasks} from '../../services/storage';
+import {saveTasks, getTasks} from '../../services/storage';
 
 function Home() {
   const [task, setTask] = useState('');
   const [search, setSearch] = useState('');
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(null);
 
   useEffect(() => {
-    setTasks([
-      {
-        id: '1',
-        task: 'Fazer café',
-        done: false,
-      },
-      {
-        id: '2',
-        task: 'Finalizar projeto',
-        done: false,
-      },
-      {
-        id: '3',
-        task: 'Estudar',
-        done: false,
-      },
-    ]);
+    let isMounted = true;
+
+    async function loadTasks() {
+      try {
+        const storedTasks = await getTasks();
+        if (isMounted) {
+          setTasks(storedTasks);
+        }
+      } catch (error) {
+        console.error('Error loading tasks:', error);
+      }
+    }
+
+    loadTasks();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    saveTasks(tasks);
+    if (tasks !== null) {
+      saveTasks(tasks);
+    }
   }, [tasks]);
 
   function handleAddTask() {
@@ -82,7 +86,7 @@ function Home() {
       return;
     }
 
-    const taskExists = tasks.some(
+    const taskExists = (tasks || []).some(
       t => t.task.toLowerCase() === trimmedTask.toLowerCase(),
     );
 
@@ -97,7 +101,7 @@ function Home() {
       done: false,
     };
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setTasks(prevTasks => [...prevTasks, newtask]);
+    setTasks(prevTasks => [...(prevTasks || []), newtask]);
     setTask('');
     Keyboard.dismiss();
   }
@@ -137,12 +141,12 @@ function Home() {
     );
   }
 
-  const filteredTasks = tasks.filter(t =>
+  const filteredTasks = (tasks || []).filter(t =>
     t.task.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter(t => t.done).length;
+  const totalTasks = (tasks || []).length;
+  const completedTasks = (tasks || []).filter(t => t.done).length;
 
   return (
     <Container>
@@ -152,7 +156,10 @@ function Home() {
         task={task}
         onChangeText={text => setTask(text)}
         onAdd={() => handleAddTask()}
+        loading={tasks === null}
       />
+
+      {tasks === null && <LoadingIndicator />}
 
       <CounterContainer>
         <CounterBox>
