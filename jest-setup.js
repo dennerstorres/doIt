@@ -74,3 +74,21 @@ jest.mock('react-native-vector-icons/Feather', () => 'Icon');
 jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 );
+
+// Global mock for LayoutAnimation and UIManager as identified in project memories
+jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
+  ...jest.requireActual(
+    'react-native/Libraries/LayoutAnimation/LayoutAnimation',
+  ),
+  configureNext: jest.fn(),
+  Presets: {
+    easeInEaseOut: 'easeInEaseOut',
+    linear: 'linear',
+    spring: 'spring',
+  },
+}));
+
+const {UIManager} = require('react-native');
+if (UIManager) {
+  UIManager.configureNextLayoutAnimation = jest.fn();
+}

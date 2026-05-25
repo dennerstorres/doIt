@@ -177,7 +177,7 @@
 - [ ] Evitar rerenders desnecessários
 - [ ] Melhorar performance de swipe
 - [ ] Revisar dependências pesadas
-- [ ] Configurar Jest corretamente
+- [x] Configurar Jest corretamente
 - [ ] Criar testes unitários hooks
 - [ ] Criar testes components
 - [ ] Criar testes de integração
@@ -739,3 +739,14 @@
   - Correção dos scripts `lint` e `lint:fix` no `package.json` para utilizar o binário local do ESLint, resolvendo conflitos de versão no ambiente de desenvolvimento.
 - **Limitações**: Nenhuma identificada.
 - **Riscos**: Nenhum identificado.
+
+## Configurar Jest corretamente
+
+- **Implementação**: Padronização do ambiente de testes e configuração de cobertura.
+- **Decisões Técnicas**:
+  - Configuração do Jest no `package.json` para coletar cobertura automaticamente (`collectCoverage: true`).
+  - Definição de limites iniciais de cobertura (40%) para garantir uma base estável para evolução.
+  - Atualização do `jest-setup.js` com mocks globais para `LayoutAnimation` e `UIManager`, evitando erros de tipo em componentes que usam animações nativas.
+  - Exclusão do diretório de cobertura (`__coverage__`) no Git, ESLint e Prettier para manter o repositório limpo.
+- **Limitações**: A cobertura atual de ~47% reflete a falta de testes em lógica complexa da Home e componentes de Task, que devem ser endereçados em tarefas futuras.
+- **Riscos**: Baixo. As mudanças são restritas ao ambiente de desenvolvimento e testes.
