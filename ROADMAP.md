@@ -144,7 +144,7 @@
 - [ ] Melhorar swipe actions
 - [ ] Adicionar ícones consistentes
 - [ ] Melhorar responsividade
-- [ ] Adicionar confirmação para deletar
+- [x] Adicionar confirmação para deletar
 - [ ] Adicionar undo ao deletar
 - [ ] Adicionar filtro Todas
 - [ ] Adicionar filtro Pendentes
@@ -713,3 +713,15 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
 - **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+
+## Adicionar confirmação para deletar
+
+- **Implementação**: Introdução de um diálogo de confirmação antes da remoção definitiva de uma tarefa.
+- **Decisões Técnicas**:
+  - Uso da API `Alert.alert` do React Native para garantir um comportamento nativo em ambas as plataformas.
+  - O diálogo inclui título ("Excluir Tarefa?"), mensagem descritiva e dois botões: "Cancelar" e "Excluir".
+  - O botão "Excluir" utiliza o estilo `destructive` para indicar uma ação irreversível, conforme as diretrizes de interface de cada plataforma.
+  - A lógica de exclusão com `LayoutAnimation` foi encapsulada no callback `onPress` do botão de confirmação.
+  - Correção dos scripts `lint` e `lint:fix` no `package.json` para utilizar o binário local do ESLint, resolvendo conflitos de versão no ambiente de desenvolvimento.
+- **Limitações**: Nenhuma identificada.
+- **Riscos**: Nenhum identificado.
