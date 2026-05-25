@@ -3,7 +3,7 @@ import Task from '../Task';
 import EmptyState from '../EmptyState';
 import {List} from './styles';
 
-function TaskList({tasks, handleDoneTask, handleDeleteTask}) {
+function TaskList({tasks, handleDoneTask, handleDeleteTask, emptyMessage}) {
   return (
     <List
       data={tasks}
@@ -15,7 +15,7 @@ function TaskList({tasks, handleDoneTask, handleDeleteTask}) {
           handleRight={() => handleDeleteTask(item)}
         />
       )}
-      ListEmptyComponent={<EmptyState />}
+      ListEmptyComponent={<EmptyState message={emptyMessage} />}
     />
   );
 }
