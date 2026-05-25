@@ -12,7 +12,7 @@ import {
 } from './styles';
 import {MAX_TASK_LENGTH} from '../../constants/tasks';
 
-function AddTask({task, onChangeText, onAdd}) {
+function AddTask({task, onChangeText, onAdd, loading}) {
   const theme = useTheme();
   const showCounter = task.length > 40;
 
@@ -29,14 +29,15 @@ function AddTask({task, onChangeText, onAdd}) {
             returnKeyType='done'
             autoCorrect={false}
             autoCapitalize='sentences'
+            editable={!loading}
           />
           {task.length > 0 && (
-            <ClearButton onPress={() => onChangeText('')}>
+            <ClearButton onPress={() => onChangeText('')} disabled={loading}>
               <Icon name='x' size={18} color={theme.colors.accent} />
             </ClearButton>
           )}
         </InputContainer>
-        <ButtonAdd onPress={onAdd}>
+        <ButtonAdd onPress={onAdd} disabled={loading}>
           <Icon name='plus' size={22} color={theme.colors.text} />
         </ButtonAdd>
       </TaskAdd>

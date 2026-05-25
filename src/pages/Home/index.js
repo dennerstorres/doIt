@@ -46,6 +46,13 @@ function Home() {
         }
       } catch (error) {
         console.error('Error loading tasks:', error);
+        if (isMounted) {
+          Alert.alert(
+            'Erro',
+            'Não foi possível carregar suas tarefas. Usando armazenamento temporário.',
+          );
+          setTasks([]); // Fallback to empty list so user can still use the app
+        }
       }
     }
 
@@ -58,7 +65,19 @@ function Home() {
 
   useEffect(() => {
     if (tasks !== null) {
-      saveTasks(tasks);
+      const persistTasks = async () => {
+        try {
+          await saveTasks(tasks);
+        } catch (error) {
+          console.error('Error saving tasks:', error);
+          Alert.alert(
+            'Erro de Persistência',
+            'Não foi possível salvar suas alterações localmente.',
+          );
+        }
+      };
+
+      persistTasks();
     }
   }, [tasks]);
 
