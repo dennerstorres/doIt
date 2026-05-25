@@ -88,6 +88,15 @@ jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
   },
 }));
 
+// Mocking Linking to avoid errors during Navigation unmounting
+jest.mock('react-native/Libraries/Linking/Linking', () => ({
+  addEventListener: jest.fn().mockReturnValue({remove: jest.fn()}),
+  removeEventListener: jest.fn(),
+  openURL: jest.fn(),
+  canOpenURL: jest.fn(),
+  getInitialURL: jest.fn().mockResolvedValue(null),
+}));
+
 const {UIManager} = require('react-native');
 if (UIManager) {
   UIManager.configureNextLayoutAnimation = jest.fn();

@@ -47,7 +47,7 @@
 - [x] Criar estrutura `/src/constants`
 - [x] Criar estrutura `/src/theme`
 - [x] Criar estrutura `/src/storage`
-- [ ] Criar estrutura `/src/types`
+- [!] Criar estrutura `/src/types`
 - [x] Criar estrutura `/src/context`
 
 ---
@@ -85,7 +85,7 @@
 - [x] Instalar AsyncStorage
 - [x] Criar service de persistência
 - [x] Persistir tarefas localmente
-- [ ] Carregar tarefas automaticamente
+- [x] Carregar tarefas automaticamente
 - [ ] Criar estratégia de fallback
 - [ ] Adicionar tratamento de erro no storage
 - [ ] Adicionar loading inicial
@@ -371,8 +371,9 @@
 
 ## Criar estrutura /src/types
 
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `origin/feature/structure-types-8503643862023991203`) foi verificado como obsoleto (branch não existe mais no remoto).
+- **Status**: [!] Bloqueado.
+- **Motivo**: Adiado para a FASE 5 (Migração TypeScript). Como o projeto ainda está em JavaScript puro, a criação de uma estrutura de tipos agora seria prematura e não teria utilidade imediata.
+- **Sugestão de Desbloqueio**: Executar como parte do setup do TypeScript na FASE 5.
 
 ## Criar estrutura /src/constants
 
@@ -756,3 +757,15 @@
   - Uso de `testID` para garantir seletores estáveis nos testes de snapshot e unitários.
 - **Limitações**: A busca é puramente local e baseada no texto da tarefa.
 - **Riscos**: Conflito potencial com a futura implementação de filtros de status (Pendente/Concluída) na `Home`.
+
+## Carregar tarefas automaticamente
+
+- **Implementação**: Recuperação de tarefas do `AsyncStorage` no componente `Home` durante a inicialização.
+- **Decisões Técnicas**:
+  - Uso do estado `tasks === null` para distinguir o estado inicial de "não carregado" de uma lista vazia.
+  - Implementação de um `useEffect` assíncrono com a flag `isMounted` para evitar vazamentos de memória em componentes desmontados.
+  - Adição de um `LoadingIndicator` (ActivityIndicator) visual e bloqueio do input (`editable={false}`) enquanto o carregamento está em curso para evitar condições de corrida.
+  - Garantia de que o efeito de salvamento automático (`saveTasks`) não sobrescreva o armazenamento local antes que o carregamento inicial seja concluído.
+  - Mock global do `Linking` no `jest-setup.js` para evitar quebras de teste durante o unmount do React Navigation.
+- **Limitações**: O estado de erro durante o carregamento apenas loga no console; uma UI de erro dedicada poderia ser adicionada futuramente.
+- **Riscos**: Se o `AsyncStorage` estiver extremamente lento, o usuário verá o loader por mais tempo, mas a integridade dos dados está garantida.
