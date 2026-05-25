@@ -1,14 +1,17 @@
 import React from 'react';
+import {Alert} from 'react-native';
 import renderer, {act} from 'react-test-renderer';
 import {ThemeProvider} from 'styled-components/native';
 import Home from '../index';
-import {getTasks} from '../../../services/storage';
+import {getTasks, saveTasks} from '../../../services/storage';
 import theme from '../../../theme';
 
 jest.mock('../../../services/storage', () => ({
   getTasks: jest.fn(),
   saveTasks: jest.fn(),
 }));
+
+jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 // Mocking LayoutAnimation and UIManager to avoid errors in tests
 jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
@@ -79,6 +82,39 @@ describe('Home Page', () => {
     expect(consoleSpy).toHaveBeenCalledWith(
       'Error loading tasks:',
       expect.any(Error),
+    );
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Erro',
+      'Não foi possível carregar suas tarefas. Usando armazenamento temporário.',
+    );
+    consoleSpy.mockRestore();
+  });
+
+  it('should handle error when saving tasks', async () => {
+    const consoleSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    getTasks.mockResolvedValueOnce([]);
+    saveTasks.mockRejectedValueOnce(new Error('Save error'));
+
+    await act(async () => {
+      renderer.create(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>,
+      );
+    });
+
+    // saveTasks is called in an effect when tasks !== null
+    // After loadTasks resolves to [], tasks becomes [], triggering the effect
+    expect(saveTasks).toHaveBeenCalled();
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Error saving tasks:',
+      expect.any(Error),
+    );
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Erro de Persistência',
+      'Não foi possível salvar suas alterações localmente.',
     );
     consoleSpy.mockRestore();
   });

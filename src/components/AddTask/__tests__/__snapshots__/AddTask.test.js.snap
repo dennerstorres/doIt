@@ -33,6 +33,7 @@ exports[`AddTask Component should render correctly 1`] = `
         allowFontScaling={true}
         autoCapitalize="sentences"
         autoCorrect={false}
+        editable={true}
         maxLength={50}
         onChangeText={[Function]}
         onSubmitEditing={[Function]}

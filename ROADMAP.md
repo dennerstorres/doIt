@@ -86,9 +86,9 @@
 - [x] Criar service de persistência
 - [x] Persistir tarefas localmente
 - [x] Carregar tarefas automaticamente
-- [ ] Criar estratégia de fallback
-- [ ] Adicionar tratamento de erro no storage
-- [ ] Adicionar loading inicial
+- [x] Criar estratégia de fallback
+- [x] Adicionar tratamento de erro no storage
+- [x] Adicionar loading inicial
 
 ## Estrutura de Dados
 
@@ -758,14 +758,14 @@
 - **Limitações**: A busca é puramente local e baseada no texto da tarefa.
 - **Riscos**: Conflito potencial com a futura implementação de filtros de status (Pendente/Concluída) na `Home`.
 
-## Carregar tarefas automaticamente
+## Carregar tarefas automaticamente / Estratégia de fallback / Erro no storage / Loading inicial
 
-- **Implementação**: Recuperação de tarefas do `AsyncStorage` no componente `Home` durante a inicialização.
+- **Implementação**: Refinamento do ciclo de vida de persistência e carregamento com tratamento de erros robusto.
 - **Decisões Técnicas**:
-  - Uso do estado `tasks === null` para distinguir o estado inicial de "não carregado" de uma lista vazia.
-  - Implementação de um `useEffect` assíncrono com a flag `isMounted` para evitar vazamentos de memória em componentes desmontados.
-  - Adição de um `LoadingIndicator` (ActivityIndicator) visual e bloqueio do input (`editable={false}`) enquanto o carregamento está em curso para evitar condições de corrida.
-  - Garantia de que o efeito de salvamento automático (`saveTasks`) não sobrescreva o armazenamento local antes que o carregamento inicial seja concluído.
-  - Mock global do `Linking` no `jest-setup.js` para evitar quebras de teste durante o unmount do React Navigation.
-- **Limitações**: O estado de erro durante o carregamento apenas loga no console; uma UI de erro dedicada poderia ser adicionada futuramente.
-- **Riscos**: Se o `AsyncStorage` estiver extremamente lento, o usuário verá o loader por mais tempo, mas a integridade dos dados está garantida.
+  - Evolução do `getTasks` para incluir um fallback em memória (cache), garantindo que dados recém-alterados estejam disponíveis mesmo se o `AsyncStorage` falhar temporariamente.
+  - Implementação de alertas visuais (`Alert.alert`) na `Home` page para informar o usuário sobre falhas tanto no carregamento inicial quanto na persistência de alterações.
+  - Uso de um fallback para lista vazia (`[]`) em caso de erro crítico de carregamento, permitindo que a aplicação continue funcional em modo de "sessão volátil".
+  - Refatoração do componente `AddTask` para suportar o estado `loading`, desabilitando inputs e botões enquanto as tarefas estão sendo recuperadas do storage.
+  - Melhoria da cobertura de testes unitários para cobrir cenários de falha de storage e verificação de comportamento da UI sob erro.
+- **Limitações**: O cache em memória é volátil e não sobrevive ao reinício completo do app se o storage persistente estiver corrompido.
+- **Riscos**: Múltiplos alertas em sucessão se o storage falhar repetidamente; considerar um sistema de notificação menos intrusivo no futuro.
