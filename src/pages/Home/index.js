@@ -24,12 +24,14 @@ import {
 
 import TaskList from '../../components/TaskList';
 import AddTask from '../../components/AddTask';
+import Search from '../../components/Search';
 import Header from '../../components/Header';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {saveTasks} from '../../services/storage';
 
 function Home() {
   const [task, setTask] = useState('');
+  const [search, setSearch] = useState('');
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -135,12 +137,17 @@ function Home() {
     );
   }
 
+  const filteredTasks = tasks.filter(t =>
+    t.task.toLowerCase().includes(search.toLowerCase()),
+  );
+
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(t => t.done).length;
 
   return (
     <Container>
       <Header />
+      <Search value={search} onChangeText={text => setSearch(text)} />
       <AddTask
         task={task}
         onChangeText={text => setTask(text)}
@@ -159,9 +166,14 @@ function Home() {
       </CounterContainer>
 
       <TaskList
-        tasks={tasks}
+        tasks={filteredTasks}
         handleDoneTask={handleDoneTask}
         handleDeleteTask={handleDeleteTask}
+        emptyMessage={
+          search.length > 0
+            ? 'Nenhuma tarefa encontrada para sua busca.'
+            : undefined
+        }
       />
     </Container>
   );

@@ -150,7 +150,7 @@
 - [ ] Adicionar filtro Pendentes
 - [ ] Adicionar filtro Concluídas
 - [ ] Adicionar ordenação
-- [ ] Adicionar busca
+- [x] Adicionar busca
 
 ---
 
@@ -347,7 +347,7 @@
 
 - **Implementação**: Adição do script `validate` ao `package.json`.
 - **Decisões Técnicas**:
-  - O script `validate` combina `yarn lint`, `yarn prettier` e `yarn test` usando o operador `&&`.
+  - O script `validate` combines `yarn lint`, `yarn prettier` e `yarn test` usando o operador `&&`.
   - Isso garante que a validação pare imediatamente se qualquer um dos passos falhar.
 - **Limitações**: Depende de que os scripts individuais (`lint`, `prettier`, `test`) estejam configurados corretamente.
 - **Riscos**: Nenhum identificado.
@@ -532,7 +532,7 @@
 ## Adicionar feedback visual ao deletar
 
 - **Status**: Validado como já implementado.
-- **Análise**: Durante a execução desta task, foi identificado que o feedback visual para deleção já se encontrava presente na base de código através do componente `Swipeable` (que revela o ícone de lixeira) e da `LayoutAnimation` (que suaviza a transição da lista). O status no roadmap foi atualizado para refletir a realidade do projeto.
+- **Análise**: Durante a execução desta task, foi identificado que o feedback visual para deleção já se encontrava presente na base de código através do componente `Swipeable` (que revela o ícone de lixeira) e da `LayoutAnimation` (que suaviza a transição da lista). O status no roadmap foi updated para refletir a realidade do projeto.
 - **Limitações**: Nenhuma.
 - **Riscos**: Nenhum identificado.
 
@@ -631,7 +631,7 @@
 - **Implementação**: Extração da lógica de visualização de lista vazia para um componente dedicado em `src/components/EmptyState`.
 - **Decisões Técnicas**:
   - Criação de um componente funcional simples que encapsula o ícone `clipboard` e a mensagem de "sem tarefas".
-  - Migração dos styled components `EmptyStateContainer` e `EmptyStateText` para o novo componente, promovendo o desacoplamento da `Home`.
+  - Migração dos styled components `EmptyStateContainer` e `EmptyStateText` para the novo componente, promovendo o desacoplamento da `Home`.
   - Uso do novo componente via prop `ListEmptyComponent` do `FlatList` na `Home`.
 - **Limitações**: Nenhuma.
 - **Riscos**: Baixo risco, componente puramente visual e desacoplado.
@@ -746,7 +746,19 @@
 - **Decisões Técnicas**:
   - Configuração do Jest no `package.json` para coletar cobertura automaticamente (`collectCoverage: true`).
   - Definição de limites iniciais de cobertura (40%) para garantir uma base estável para evolução.
-  - Atualização do `jest-setup.js` com mocks globais para `LayoutAnimation` e `UIManager`, evitando erros de tipo em componentes que usam animações nativas.
+  - Atualização do `jest-setup.js` with mocks globais para `LayoutAnimation` e `UIManager`, evitando erros de tipo em componentes que usam animações nativas.
   - Exclusão do diretório de cobertura (`__coverage__`) no Git, ESLint e Prettier para manter o repositório limpo.
 - **Limitações**: A cobertura atual de ~47% reflete a falta de testes em lógica complexa da Home e componentes de Task, que devem ser endereçados em tarefas futuras.
 - **Riscos**: Baixo. As mudanças são restritas ao ambiente de desenvolvimento e testes.
+
+## Adicionar busca
+
+- **Implementação**: Introdução de funcionalidade de busca em tempo real na lista de tarefas.
+- **Decisões Técnicas**:
+  - Criação de um novo componente `Search` com suporte a input filtrado e botão de limpeza.
+  - Refatoração dos componentes `EmptyState` e `TaskList` para suportar mensagens personalizadas quando não há resultados de busca.
+  - Implementação de lógica de filtragem case-insensitive na `Home` page.
+  - Adição de testes unitários com cobertura de 100% para o componente `Search`.
+  - Uso de `testID` para garantir seletores estáveis nos testes de snapshot e unitários.
+- **Limitações**: A busca é puramente local e baseada no texto da tarefa.
+- **Riscos**: Conflito potencial com a futura implementação de filtros de status (Pendente/Concluída) na `Home`.
