@@ -21,7 +21,6 @@ exports[`Search Component renders correctly 1`] = `
           "backgroundColor": "#ffffff",
           "borderColor": "#9cc5a1",
           "borderRadius": 8,
-          "borderStyle": "solid",
           "borderWidth": 1,
           "flexDirection": "row",
           "height": 40,
@@ -90,7 +89,6 @@ exports[`Search Component renders with value and shows clear button 1`] = `
           "backgroundColor": "#ffffff",
           "borderColor": "#9cc5a1",
           "borderRadius": 8,
-          "borderStyle": "solid",
           "borderWidth": 1,
           "flexDirection": "row",
           "height": 40,
@@ -146,6 +144,8 @@ exports[`Search Component renders with value and shows clear button 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
+          "alignItems": "center",
+          "justifyContent": "center",
           "opacity": 1,
           "paddingBottom": 5,
           "paddingLeft": 5,
