@@ -29,6 +29,12 @@ import Search from '../../components/Search';
 import Header from '../../components/Header';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {saveTasks, getTasks} from '../../services/storage';
+import {createTask} from '../../models/Task';
+import {
+  filterTasksBySearch,
+  getTaskStats,
+  sortTasks,
+} from '../../utils/taskUtils';
 
 function Home() {
   const [task, setTask] = useState('');
@@ -114,11 +120,7 @@ function Home() {
       return;
     }
 
-    const newtask = {
-      id: String(new Date().getTime()),
-      task: trimmedTask,
-      done: false,
-    };
+    const newtask = createTask(trimmedTask);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setTasks(prevTasks => [...(prevTasks || []), newtask]);
     setTask('');
@@ -160,12 +162,8 @@ function Home() {
     );
   }
 
-  const filteredTasks = (tasks || []).filter(t =>
-    t.task.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  const totalTasks = (tasks || []).length;
-  const completedTasks = (tasks || []).filter(t => t.done).length;
+  const filteredTasks = sortTasks(filterTasksBySearch(tasks || [], search));
+  const {total: totalTasks, completed: completedTasks} = getTaskStats(tasks);
 
   return (
     <Container>
