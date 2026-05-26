@@ -113,7 +113,7 @@
 
 ## Organização
 
-- [!] Extrair estilos repetidos
+- [x] Extrair estilos repetidos
 - [x] Criar theme global
 - [x] Padronizar cores
 - [x] Padronizar espaçamentos
@@ -719,9 +719,15 @@
 
 ## Extrair estilos repetidos
 
-- **Status**: [!] Bloqueado.
-- **Motivo**: A maioria dos componentes estilizados atuais possui propriedades específicas de seu domínio. Uma extração prematura poderia levar a abstrações errôneas antes da estabilização da estrutura de componentes e hooks (FASE 4).
-- **Sugestão de Desbloqueio**: Reavaliar após a conclusão da componenteização completa e implementação de hooks, identificando padrões reais de repetição em componentes atômicos.
+- **Status**: [x] Finalizado.
+- **Implementação**: Unificação de componentes de UI repetitivos.
+- **Decisões Técnicas**:
+  - Criação de `src/components/Shared/styles.js` para centralizar componentes base (`BaseInputContainer`, `BaseClearButton`, `BaseInput`).
+  - Refatoração dos componentes `AddTask` e `Search` para estender esses estilos base via `styled(BaseComponent)`.
+  - Padronização de paddings e alinhamentos em elementos de input para garantir consistência visual em toda a aplicação.
+  - Atualização dos snapshots de teste para refletir as mudanças estruturais e de estilização implícita (como a remoção de redundâncias de `border-style`).
+- **Limitações**: Focamos apenas em inputs e botões de limpeza; outros padrões atômicos podem surgir conforme novas telas forem adicionadas.
+- **Riscos**: Alterações em componentes compartilhados afetam múltiplos pontos da UI; mitigado com testes de snapshot abrangentes.
 
 ## Adicionar confirmação para deletar
 
