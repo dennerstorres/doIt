@@ -103,13 +103,13 @@
 
 ## Componentização
 
-- [ ] Separar lógica de Home em hooks
-- [ ] Criar hook useTasks
+- [x] Separar lógica de Home em hooks
+- [x] Criar hook useTasks
 - [x] Criar TaskList component
 - [x] Criar AddTask component
 - [x] Criar EmptyState component
 - [x] Criar Header component
-- [ ] Remover lógica inline
+- [x] Remover lógica inline
 
 ## Organização
 
@@ -782,3 +782,16 @@
   - Adição de testes unitários abrangentes para o modelo e utilitários.
 - **Limitações**: O campo `createdAt` é preenchido no cliente e depende do relógio do sistema.
 - **Riscos**: Mudanças na estrutura de `Task` podem exigir migração de dados no `AsyncStorage` em versões futuras.
+
+## Separar lógica de Home em hooks / Criar hook useTasks / Remover lógica inline
+
+- **Implementação**: Extração completa da lógica de gerenciamento de tarefas da `Home` page para um hook customizado `useTasks`.
+- **Decisões Técnicas**:
+  - O hook encapsula estado (`tasks`, `loading`), persistência automática e operações (`addTask`, `toggleTask`, `deleteTask`).
+  - Uso do padrão `isMounted` para evitar atualizações de estado em componentes desmontados durante operações assíncronas.
+  - Centralização de validações (vazio, tamanho, duplicatas) e animações (`LayoutAnimation`) dentro do hook.
+  - Implementação de testes unitários abrangentes para o hook usando `react-test-renderer` e um componente de teste dedicado.
+  - Migração da configuração global do `UIManager` para Android do `Home/index.js` para `App.js` para evitar regressões visuais.
+  - Refatoração da `Home` page para ser um componente puramente de apresentação, delegando toda a lógica de domínio ao hook.
+- **Limitações**: O hook gerencia o estado global de tarefas mas ainda depende de alertas (`Alert.alert`) síncronos para feedback de erro.
+- **Riscos**: Se a lógica do hook se tornar muito complexa, pode ser necessário quebrá-lo em hooks menores (ex: `usePersistence`, `useTaskActions`).
