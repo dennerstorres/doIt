@@ -92,10 +92,10 @@
 
 ## Estrutura de Dados
 
-- [ ] Criar model Task
-- [ ] Padronizar estrutura de task
-- [ ] Criar factory de tasks
-- [ ] Criar utilitários de transformação
+- [x] Criar model Task
+- [x] Padronizar estrutura de task
+- [x] Criar factory de tasks
+- [x] Criar utilitários de transformação
 
 ---
 
@@ -769,3 +769,16 @@
   - Melhoria da cobertura de testes unitários para cobrir cenários de falha de storage e verificação de comportamento da UI sob erro.
 - **Limitações**: O cache em memória é volátil e não sobrevive ao reinício completo do app se o storage persistente estiver corrompido.
 - **Riscos**: Múltiplos alertas em sucessão se o storage falhar repetidamente; considerar um sistema de notificação menos intrusivo no futuro.
+
+## Criar model Task / Padronizar estrutura / Factory / Utilitários de transformação
+
+- **Implementação**: Formalização do modelo de dados de tarefas e criação de utilitários para manipulação de listas.
+- **Decisões Técnicas**:
+  - Criação de `src/models/Task.js` com uma factory `createTask` que centraliza a criação de novas tarefas, garantindo campos consistentes (`id`, `task`, `done`, `createdAt`).
+  - Implementação de `isValidTask` para validação estrutural básica.
+  - Criação de `src/utils/taskUtils.js` contendo lógica pura para ordenação (`sortTasks`), filtragem (`filterTasksBySearch`) e estatísticas (`getTaskStats`).
+  - A ordenação foi aprimorada para mostrar tarefas pendentes primeiro, seguidas pelas concluídas, ambas ordenadas por data de criação decrescente.
+  - Refatoração da `Home` page para delegar a criação e transformação de dados para esses novos módulos, removendo lógica inline e preparando para a extração de hooks.
+  - Adição de testes unitários abrangentes para o modelo e utilitários.
+- **Limitações**: O campo `createdAt` é preenchido no cliente e depende do relógio do sistema.
+- **Riscos**: Mudanças na estrutura de `Task` podem exigir migração de dados no `AsyncStorage` em versões futuras.
