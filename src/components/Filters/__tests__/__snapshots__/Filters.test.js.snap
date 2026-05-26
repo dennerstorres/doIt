@@ -1,0 +1,285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters Component renders correctly with active filter "all" 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "paddingBottom": 8,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 8,
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#49a078",
+        "borderColor": "#49a078",
+        "borderRadius": 20,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "opacity": 1,
+        "paddingBottom": 5,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 5,
+      }
+    }
+    testID="filter-button-all"
+  >
+    <Text
+      active={true}
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 12,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      Todas
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "#9cc5a1",
+        "borderRadius": 20,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "opacity": 1,
+        "paddingBottom": 5,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 5,
+      }
+    }
+    testID="filter-button-pending"
+  >
+    <Text
+      active={false}
+      style={
+        Array [
+          Object {
+            "color": "#216869",
+            "fontSize": 12,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      Pendentes
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "#9cc5a1",
+        "borderRadius": 20,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "opacity": 1,
+        "paddingBottom": 5,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 5,
+      }
+    }
+    testID="filter-button-completed"
+  >
+    <Text
+      active={false}
+      style={
+        Array [
+          Object {
+            "color": "#216869",
+            "fontSize": 12,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      Concluídas
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Filters Component renders correctly with active filter "pending" 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "flexDirection": "row",
+        "justifyContent": "space-around",
+        "paddingBottom": 8,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 8,
+      },
+    ]
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "#9cc5a1",
+        "borderRadius": 20,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "opacity": 1,
+        "paddingBottom": 5,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 5,
+      }
+    }
+    testID="filter-button-all"
+  >
+    <Text
+      active={false}
+      style={
+        Array [
+          Object {
+            "color": "#216869",
+            "fontSize": 12,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      Todas
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#49a078",
+        "borderColor": "#49a078",
+        "borderRadius": 20,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "opacity": 1,
+        "paddingBottom": 5,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 5,
+      }
+    }
+    testID="filter-button-pending"
+  >
+    <Text
+      active={true}
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 12,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      Pendentes
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderColor": "#9cc5a1",
+        "borderRadius": 20,
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "opacity": 1,
+        "paddingBottom": 5,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 5,
+      }
+    }
+    testID="filter-button-completed"
+  >
+    <Text
+      active={false}
+      style={
+        Array [
+          Object {
+            "color": "#216869",
+            "fontSize": 12,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      Concluídas
+    </Text>
+  </View>
+</View>
+`;

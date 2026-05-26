@@ -1,4 +1,9 @@
-import {sortTasks, filterTasksBySearch, getTaskStats} from '../taskUtils';
+import {
+  sortTasks,
+  filterTasksBySearch,
+  getTaskStats,
+  filterTasksByStatus,
+} from '../taskUtils';
 
 describe('Task Utils', () => {
   const mockTasks = [
@@ -58,6 +63,29 @@ describe('Task Utils', () => {
     it('should return all tasks if search is empty', () => {
       expect(filterTasksBySearch(mockTasks, '')).toEqual(mockTasks);
       expect(filterTasksBySearch(mockTasks, null)).toEqual(mockTasks);
+    });
+  });
+
+  describe('filterTasksByStatus', () => {
+    it('should return all tasks when status is "all"', () => {
+      expect(filterTasksByStatus(mockTasks, 'all')).toEqual(mockTasks);
+    });
+
+    it('should return only pending tasks when status is "pending"', () => {
+      const filtered = filterTasksByStatus(mockTasks, 'pending');
+      expect(filtered.length).toBe(2);
+      expect(filtered.every(t => !t.done)).toBe(true);
+    });
+
+    it('should return only completed tasks when status is "completed"', () => {
+      const filtered = filterTasksByStatus(mockTasks, 'completed');
+      expect(filtered.length).toBe(1);
+      expect(filtered.every(t => t.done)).toBe(true);
+    });
+
+    it('should handle empty or invalid input', () => {
+      expect(filterTasksByStatus(null, 'all')).toEqual([]);
+      expect(filterTasksByStatus(mockTasks, 'invalid')).toEqual(mockTasks);
     });
   });
 

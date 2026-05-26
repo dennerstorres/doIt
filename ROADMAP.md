@@ -146,9 +146,9 @@
 - [ ] Melhorar responsividade
 - [x] Adicionar confirmação para deletar
 - [ ] Adicionar undo ao deletar
-- [ ] Adicionar filtro Todas
-- [ ] Adicionar filtro Pendentes
-- [ ] Adicionar filtro Concluídas
+- [x] Adicionar filtro Todas
+- [x] Adicionar filtro Pendentes
+- [x] Adicionar filtro Concluídas
 - [ ] Adicionar ordenação
 - [x] Adicionar busca
 
@@ -757,6 +757,18 @@
   - Uso de `testID` para garantir seletores estáveis nos testes de snapshot e unitários.
 - **Limitações**: A busca é puramente local e baseada no texto da tarefa.
 - **Riscos**: Conflito potencial com a futura implementação de filtros de status (Pendente/Concluída) na `Home`.
+
+## Adicionar filtros (Todas / Pendentes / Concluídas)
+
+- **Implementação**: Introdução de um sistema de filtragem por status na lista de tarefas.
+- **Decisões Técnicas**:
+  - Criação de um novo componente `Filters` que permite alternar entre 'Todas', 'Pendentes' e 'Concluídas'.
+  - Implementação da função utilitária `filterTasksByStatus` em `src/utils/taskUtils.js` para garantir lógica pura e testável.
+  - Composição de filtros na `Home` page: a lista resultante é filtrada primeiro por status e depois pelo termo de busca, garantindo consistência na UX.
+  - Uso de transient props (`$active`) no `styled-components` para evitar avisos de propriedades desconhecidas em componentes nativos.
+  - Adição de testes unitários abrangentes para a lógica de utilitário e para o componente de interface.
+- **Limitações**: Os filtros são aplicados apenas localmente sobre a lista carregada em memória.
+- **Riscos**: Nenhum identificado.
 
 ## Carregar tarefas automaticamente / Estratégia de fallback / Erro no storage / Loading inicial
 

@@ -52,6 +52,29 @@ export const filterTasksBySearch = (tasks, search) => {
 };
 
 /**
+ * Filters tasks based on their status.
+ *
+ * @param {Array} tasks - The list of tasks to filter.
+ * @param {string} status - The status to filter by ('all', 'pending', 'completed').
+ * @returns {Array} The filtered list of tasks.
+ */
+export const filterTasksByStatus = (tasks, status) => {
+  if (!Array.isArray(tasks)) {
+    return [];
+  }
+
+  switch (status) {
+    case 'pending':
+      return tasks.filter(t => !t.done);
+    case 'completed':
+      return tasks.filter(t => t.done);
+    case 'all':
+    default:
+      return tasks;
+  }
+};
+
+/**
  * Summarizes task statistics.
  *
  * @param {Array} tasks - The list of tasks.
