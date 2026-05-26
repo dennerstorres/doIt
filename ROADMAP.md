@@ -138,7 +138,7 @@
 
 - [ ] Melhorar design geral
 - [x] Melhorar input de tarefas
-- [ ] Melhorar animações
+- [x] Melhorar animações
 - [ ] Adicionar dark mode
 - [ ] Criar tema light/dark
 - [ ] Melhorar swipe actions
@@ -788,6 +788,17 @@
   - Adição de testes unitários abrangentes para o modelo e utilitários.
 - **Limitações**: O campo `createdAt` é preenchido no cliente e depende do relógio do sistema.
 - **Riscos**: Mudanças na estrutura de `Task` podem exigir migração de dados no `AsyncStorage` em versões futuras.
+
+## Melhorar animações
+
+- **Implementação**: Refinamento das transições de interface e feedback visual em toda a aplicação.
+- **Decisões Técnicas**:
+  - Configuração de um objeto `animationConfig` customizado para `LayoutAnimation`, utilizando `spring` (damping 0.7) para atualizações de layout (movimentação de itens) e `easeInEaseOut` com opacidade para criação e deleção.
+  - Implementação de transição suave de cor de fundo no componente `Task` usando a API `Animated`. A cor interpola entre `secondary` (pendente) e `primary` (concluída) em 300ms.
+  - Refatoração do `Container` do componente `Task` para estender `Animated.View`, permitindo animações de propriedades não suportadas pelo `LayoutAnimation` (como `backgroundColor` no Android).
+  - Centralização da lógica de disparo de animações no hook `useTasks`, garantindo consistência em todas as operações de CRUD.
+- **Limitações**: O uso de `useNativeDriver: false` para animações de cor é necessário, o que pode ter um custo de performance marginal em listas extremamente longas.
+- **Riscos**: Conflitos sutis entre `LayoutAnimation` e `Animated` se disparados simultaneamente no mesmo elemento; resolvido usando `Animated` para cor e `LayoutAnimation` para estrutura/posição.
 
 ## Separar lógica de Home em hooks / Criar hook useTasks / Remover lógica inline
 

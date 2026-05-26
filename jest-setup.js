@@ -86,6 +86,20 @@ jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
     linear: 'linear',
     spring: 'spring',
   },
+  Types: {
+    spring: 'spring',
+    linear: 'linear',
+    easeInEaseOut: 'easeInEaseOut',
+    easeIn: 'easeIn',
+    easeOut: 'easeOut',
+    keyboard: 'keyboard',
+  },
+  Properties: {
+    opacity: 'opacity',
+    scaleX: 'scaleX',
+    scaleY: 'scaleY',
+    scaleXY: 'scaleXY',
+  },
 }));
 
 // Mocking Linking to avoid errors during Navigation unmounting

@@ -4,6 +4,22 @@ import {saveTasks, getTasks} from '../services/storage';
 import {createTask} from '../models/Task';
 import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../constants/tasks';
 
+const animationConfig = {
+  duration: 300,
+  create: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+    property: LayoutAnimation.Properties.opacity,
+  },
+  update: {
+    type: LayoutAnimation.Types.spring,
+    springDamping: 0.7,
+  },
+  delete: {
+    type: LayoutAnimation.Types.easeInEaseOut,
+    property: LayoutAnimation.Properties.opacity,
+  },
+};
+
 export const useTasks = () => {
   const [tasks, setTasks] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -90,13 +106,13 @@ export const useTasks = () => {
     }
 
     const newTask = createTask(trimmedTask);
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks => [...(prevTasks || []), newTask]);
     return true;
   };
 
   const toggleTask = item => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks =>
       (prevTasks || []).map(t => {
         if (t.id === item.id) {
@@ -119,9 +135,7 @@ export const useTasks = () => {
         {
           text: 'Excluir',
           onPress: () => {
-            LayoutAnimation.configureNext(
-              LayoutAnimation.Presets.easeInEaseOut,
-            );
+            LayoutAnimation.configureNext(animationConfig);
             setTasks(prevTasks =>
               (prevTasks || []).filter(t => t.id !== item.id),
             );
