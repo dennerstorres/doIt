@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
+import {Animated} from 'react-native';
 
-export const Container = styled.View`
+export const Container = styled(Animated.View)`
   background-color: ${props =>
     props.done ? props.theme.colors.primary : props.theme.colors.secondary};
   width: 100%;

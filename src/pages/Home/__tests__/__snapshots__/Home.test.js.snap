@@ -357,21 +357,19 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
           <View
             done={false}
             style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#216869",
-                  "flexDirection": "row",
-                  "height": 50,
-                  "justifyContent": "center",
-                  "marginBottom": 5,
-                  "paddingBottom": 5,
-                  "paddingLeft": 15,
-                  "paddingRight": 15,
-                  "paddingTop": 5,
-                  "width": "100%",
-                },
-              ]
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(33, 104, 105, 1)",
+                "flexDirection": "row",
+                "height": 50,
+                "justifyContent": "center",
+                "marginBottom": 5,
+                "paddingBottom": 5,
+                "paddingLeft": 15,
+                "paddingRight": 15,
+                "paddingTop": 5,
+                "width": "100%",
+              }
             }
           >
             <Text

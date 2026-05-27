@@ -1,7 +1,7 @@
 import React from 'react';
 import {useTasks} from '../useTasks';
 import {getTasks, saveTasks} from '../../services/storage';
-import {Alert, LayoutAnimation, Text, Button, View} from 'react-native';
+import {Alert, LayoutAnimation, Text, View} from 'react-native';
 import renderer, {act} from 'react-test-renderer';
 
 jest.mock('../../services/storage');
@@ -12,6 +12,14 @@ jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
   configureNext: jest.fn(),
   Presets: {
     easeInEaseOut: 'easeInEaseOut',
+    spring: 'spring',
+  },
+  Types: {
+    spring: 'spring',
+    easeInEaseOut: 'easeInEaseOut',
+  },
+  Properties: {
+    opacity: 'opacity',
   },
 }));
 

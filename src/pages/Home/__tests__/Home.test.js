@@ -17,7 +17,15 @@ jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
   configureNext: jest.fn(),
   Presets: {
-    easeInEaseOut: {},
+    easeInEaseOut: 'easeInEaseOut',
+    spring: 'spring',
+  },
+  Types: {
+    spring: 'spring',
+    easeInEaseOut: 'easeInEaseOut',
+  },
+  Properties: {
+    opacity: 'opacity',
   },
 }));
 
