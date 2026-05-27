@@ -139,7 +139,7 @@
 - [ ] Melhorar design geral
 - [x] Melhorar input de tarefas
 - [x] Melhorar animações
-- [ ] Adicionar dark mode
+- [x] Adicionar dark mode
 - [ ] Criar tema light/dark
 - [ ] Melhorar swipe actions
 - [ ] Adicionar ícones consistentes
@@ -836,3 +836,16 @@
   - Atualização abrangente da suíte de testes unitários e de integração para validar cada estratégia de ordenação.
 - **Limitações**: A preferência de ordenação é mantida apenas em memória na sessão atual (não persistida).
 - **Riscos**: Baixo. A lógica é pura e desacoplada do estado global de persistência.
+
+## Adicionar dark mode / Criar tema light/dark
+
+- **Implementação**: Introdução de sistema de temas dinâmico com persistência.
+- **Decisões Técnicas**:
+  - Refatoração de `src/theme/index.js` para exportar objetos `light` e `dark`.
+  - Implementação de `ThemeContext` para gerenciar o estado global do tema e persistir a preferência do usuário no `AsyncStorage`.
+  - Integração do `ThemeProvider` do `styled-components` com o contexto de tema no nível raiz (`App.js`).
+  - Adição de botão de alternância no `Header` com feedback visual (ícones sun/moon).
+  - Auditoria de componentes para garantir que todas as cores sejam derivadas do objeto de tema.
+  - Adição de testes unitários abrangentes para o `ThemeContext` e atualização de snapshots de componentes.
+- **Limitações**: Alguns componentes de terceiros ou nativos (como a StatusBar ou o teclado) podem exigir ajustes adicionais de estilo baseados no tema em fases futuras.
+- **Riscos**: Baixo. A arquitetura de temas é isolada e segue padrões estabelecidos de Context API.
