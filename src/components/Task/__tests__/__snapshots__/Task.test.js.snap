@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Task Component enters editing mode when edit action is pressed 1`] = `
+<View
+  testID="mock-swipeable"
+>
+  <View
+    done={false}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(33, 104, 105, 1)",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "center",
+        "marginBottom": 5,
+        "paddingBottom": 5,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "paddingTop": 5,
+        "width": "100%",
+      }
+    }
+  >
+    <TextInput
+      allowFontScaling={true}
+      autoFocus={true}
+      onChangeText={[Function]}
+      onSubmitEditing={[Function]}
+      rejectResponderTermination={true}
+      returnKeyType="done"
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "flexBasis": 0,
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "fontSize": 14,
+            "fontWeight": "400",
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "paddingRight": 0,
+            "paddingTop": 0,
+          },
+        ]
+      }
+      testID="task-edit-input"
+      underlineColorAndroid="transparent"
+      value="Test Task"
+    />
+    <View
+      style={
+        Array [
+          Object {
+            "flexDirection": "row",
+          },
+        ]
+      }
+    >
+      <Icon
+        color="#FF0000"
+        name="x"
+        onPress={[Function]}
+        size={20}
+        style={
+          Array [
+            Object {
+              "marginRight": 10,
+            },
+          ]
+        }
+        testID="cancel-edit-button"
+      />
+      <Icon
+        color="#ffffff"
+        name="check"
+        onPress={[Function]}
+        size={20}
+        testID="save-edit-button"
+      />
+    </View>
+  </View>
+</View>
+`;
+
 exports[`Task Component renders correctly for a completed task 1`] = `
 <View
   testID="mock-swipeable"
@@ -97,60 +181,129 @@ exports[`Task Component renders correctly for a completed task 1`] = `
     />
   </View>
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "flex-end",
-        "backgroundColor": "#FF0000",
-        "height": 50,
-        "justifyContent": "center",
-        "opacity": 1,
-      }
+      Array [
+        Object {
+          "flexDirection": "row",
+        },
+      ]
     }
   >
     <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "opacity": "interpolate-mock",
-          "paddingBottom": 0,
-          "paddingLeft": 15,
-          "paddingRight": 15,
-          "paddingTop": 0,
-          "transform": Array [
-            Object {
-              "scale": "interpolate-mock",
-            },
-          ],
+          "alignItems": "flex-end",
+          "backgroundColor": "#9cc5a1",
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
         }
       }
+      testID="edit-action"
     >
-      <Icon
-        color="#ffffff"
-        name="trash"
-        size={20}
-      />
-      <Text
+      <View
         style={
           Object {
-            "color": "#ffffff",
-            "fontSize": 14,
-            "fontWeight": "700",
-            "marginLeft": 8,
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": "interpolate-mock",
+            "paddingBottom": 0,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "paddingTop": 0,
+            "transform": Array [
+              Object {
+                "scale": "interpolate-mock",
+              },
+            ],
           }
         }
       >
-        Excluir
-      </Text>
+        <Icon
+          color="#ffffff"
+          name="edit-2"
+          size={20}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "marginLeft": 8,
+            }
+          }
+        >
+          Editar
+        </Text>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "backgroundColor": "#FF0000",
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
+        }
+      }
+      testID="delete-action"
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": "interpolate-mock",
+            "paddingBottom": 0,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "paddingTop": 0,
+            "transform": Array [
+              Object {
+                "scale": "interpolate-mock",
+              },
+            ],
+          }
+        }
+      >
+        <Icon
+          color="#ffffff"
+          name="trash"
+          size={20}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "marginLeft": 8,
+            }
+          }
+        >
+          Excluir
+        </Text>
+      </View>
     </View>
   </View>
 </View>
@@ -248,60 +401,129 @@ exports[`Task Component renders correctly for a pending task 1`] = `
     </Text>
   </View>
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "alignItems": "flex-end",
-        "backgroundColor": "#FF0000",
-        "height": 50,
-        "justifyContent": "center",
-        "opacity": 1,
-      }
+      Array [
+        Object {
+          "flexDirection": "row",
+        },
+      ]
     }
   >
     <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "opacity": "interpolate-mock",
-          "paddingBottom": 0,
-          "paddingLeft": 15,
-          "paddingRight": 15,
-          "paddingTop": 0,
-          "transform": Array [
-            Object {
-              "scale": "interpolate-mock",
-            },
-          ],
+          "alignItems": "flex-end",
+          "backgroundColor": "#9cc5a1",
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
         }
       }
+      testID="edit-action"
     >
-      <Icon
-        color="#ffffff"
-        name="trash"
-        size={20}
-      />
-      <Text
+      <View
         style={
           Object {
-            "color": "#ffffff",
-            "fontSize": 14,
-            "fontWeight": "700",
-            "marginLeft": 8,
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": "interpolate-mock",
+            "paddingBottom": 0,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "paddingTop": 0,
+            "transform": Array [
+              Object {
+                "scale": "interpolate-mock",
+              },
+            ],
           }
         }
       >
-        Excluir
-      </Text>
+        <Icon
+          color="#ffffff"
+          name="edit-2"
+          size={20}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "marginLeft": 8,
+            }
+          }
+        >
+          Editar
+        </Text>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "backgroundColor": "#FF0000",
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
+        }
+      }
+      testID="delete-action"
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": "interpolate-mock",
+            "paddingBottom": 0,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "paddingTop": 0,
+            "transform": Array [
+              Object {
+                "scale": "interpolate-mock",
+              },
+            ],
+          }
+        }
+      >
+        <Icon
+          color="#ffffff"
+          name="trash"
+          size={20}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "marginLeft": 8,
+            }
+          }
+        >
+          Excluir
+        </Text>
+      </View>
     </View>
   </View>
 </View>

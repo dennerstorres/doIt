@@ -189,6 +189,63 @@ describe('useTasks hook', () => {
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
   });
 
+  it('should edit a task successfully', async () => {
+    const mockTasks = [{id: '1', task: 'Original Task', done: false}];
+    getTasks.mockResolvedValueOnce(mockTasks);
+    let hook;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      const success = hook.editTask('1', 'Updated Task');
+      expect(success).toBe(true);
+    });
+
+    expect(hook.tasks[0].task).toBe('Updated Task');
+    expect(LayoutAnimation.configureNext).toHaveBeenCalled();
+  });
+
+  it('should not edit a task with empty title', async () => {
+    const mockTasks = [{id: '1', task: 'Original Task', done: false}];
+    getTasks.mockResolvedValueOnce(mockTasks);
+    let hook;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      const success = hook.editTask('1', '   ');
+      expect(success).toBe(false);
+    });
+
+    expect(hook.tasks[0].task).toBe('Original Task');
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Aviso',
+      'A tarefa não pode estar vazia.',
+    );
+  });
+
+  it('should not edit a task to a duplicate title', async () => {
+    const mockTasks = [
+      {id: '1', task: 'Task 1', done: false},
+      {id: '2', task: 'Task 2', done: false},
+    ];
+    getTasks.mockResolvedValueOnce(mockTasks);
+    let hook;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      const success = hook.editTask('1', 'Task 2');
+      expect(success).toBe(false);
+    });
+
+    expect(hook.tasks[0].task).toBe('Task 1');
+    expect(Alert.alert).toHaveBeenCalledWith('Aviso', 'Esta tarefa já existe.');
+  });
+
   it('should clear lastDeletedTask', async () => {
     const mockTasks = [{id: '1', task: 'Test Task', done: false}];
     getTasks.mockResolvedValueOnce(mockTasks);

@@ -156,7 +156,7 @@
 
 # FASE 7 — Funcionalidades Reais
 
-- [ ] Adicionar edição de tarefas
+- [x] Adicionar edição de tarefas
 - [ ] Adicionar prioridade
 - [ ] Adicionar categoria
 - [ ] Adicionar data limite
@@ -873,3 +873,16 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: Dependência de PR #17 aberto (`feature/task-filters`) que contém a implementação pendente de revisão ou merge.
 - **Sugestão de Desbloqueio**: Revisar e realizar o merge do PR #17.
+
+## Adicionar edição de tarefas
+
+- **Implementação**: Funcionalidade de edição de tarefas inline com validação e persistência.
+- **Decisões Técnicas**:
+  - Implementação da função `editTask` no hook `useTasks` com as mesmas validações de criação (`empty`, `MIN_TASK_LENGTH`, `MAX_TASK_LENGTH`) e uma verificação de duplicidade que ignora o ID da tarefa sendo editada.
+  - O componente `Task` foi aprimorado com um estado local `isEditing` para alternar entre a exibição do texto e um `TextInput`.
+  - Adição de uma nova ação de swipe à direita ("Editar") usando o ícone `edit-2` do Feather.
+  - Uso de Styled Components para gerenciar os novos elementos de UI de edição (`EditInput`, `ActionsWrapper`, `EditActions`, `CancelIcon`), removendo warnings de `no-inline-styles`.
+  - Integração de feedback visual via `LayoutAnimation` ao entrar e sair do modo de edição.
+  - Cobertura de testes unitários abrangente no hook e no componente, incluindo verificação de cancelamento, salvamento e snapshots.
+- **Limitações**: O modo de edição é focado automaticamente (`autoFocus`), mas não seleciona o texto todo ao abrir (comportamento padrão do RN).
+- **Riscos**: Baixo. A lógica é isolada por tarefa e respeita as regras de persistência global.

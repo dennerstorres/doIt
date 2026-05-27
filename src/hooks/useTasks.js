@@ -148,6 +148,51 @@ export const useTasks = () => {
     );
   };
 
+  const editTask = (id, newTaskTitle) => {
+    const trimmedTask = newTaskTitle.trim();
+
+    if (!trimmedTask) {
+      Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
+      return false;
+    }
+
+    if (trimmedTask.length < MIN_TASK_LENGTH) {
+      Alert.alert(
+        'Aviso',
+        `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+      );
+      return false;
+    }
+
+    if (trimmedTask.length > MAX_TASK_LENGTH) {
+      Alert.alert(
+        'Aviso',
+        `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
+      );
+      return false;
+    }
+
+    const taskExists = (tasks || []).some(
+      t => t.id !== id && t.task.toLowerCase() === trimmedTask.toLowerCase(),
+    );
+
+    if (taskExists) {
+      Alert.alert('Aviso', 'Esta tarefa já existe.');
+      return false;
+    }
+
+    LayoutAnimation.configureNext(animationConfig);
+    setTasks(prevTasks =>
+      (prevTasks || []).map(t => {
+        if (t.id === id) {
+          return {...t, task: trimmedTask};
+        }
+        return t;
+      }),
+    );
+    return true;
+  };
+
   const undoDelete = () => {
     if (lastDeletedTask) {
       LayoutAnimation.configureNext(animationConfig);
@@ -167,6 +212,7 @@ export const useTasks = () => {
     addTask,
     toggleTask,
     deleteTask,
+    editTask,
     undoDelete,
     clearLastDeletedTask,
   };
