@@ -140,15 +140,15 @@
 - [x] Melhorar input de tarefas
 - [x] Melhorar animações
 - [x] Adicionar dark mode
-- [ ] Criar tema light/dark
-- [ ] Melhorar swipe actions
+- [!] Criar tema light/dark
+- [x] Melhorar swipe actions
 - [ ] Adicionar ícones consistentes
 - [ ] Melhorar responsividade
 - [x] Adicionar confirmação para deletar
 - [x] Adicionar undo ao deletar
-- [ ] Adicionar filtro Todas
-- [ ] Adicionar filtro Pendentes
-- [ ] Adicionar filtro Concluídas
+- [!] Adicionar filtro Todas
+- [!] Adicionar filtro Pendentes
+- [!] Adicionar filtro Concluídas
 - [x] Adicionar ordenação
 - [x] Adicionar busca
 
@@ -849,3 +849,27 @@
   - Adição de testes unitários abrangentes para o `ThemeContext` e atualização de snapshots de componentes.
 - **Limitações**: Alguns componentes de terceiros ou nativos (como a StatusBar ou o teclado) podem exigir ajustes adicionais de estilo baseados no tema em fases futuras.
 - **Riscos**: Baixo. A arquitetura de temas é isolada e segue padrões estabelecidos de Context API.
+
+## Melhorar swipe actions
+
+- **Implementação**: Aprimoramento visual e funcional das ações de swipe nas tarefas.
+- **Decisões Técnicas**:
+  - Refatoração das ações de swipe (esquerda/direita) para incluir ícones dinâmicos (Feather) e rótulos de texto explicativos.
+  - O conteúdo das ações agora escala e altera a opacidade conforme o usuário desliza, proporcionando um feedback visual mais rico.
+  - A ação da esquerda alterna entre "Concluir" e "Desfazer" dinamicamente com base no status da tarefa.
+  - Migração completa dos estilos de swipe actions de StyleSheet para Styled Components em `src/components/Task/styles.js` para consistência arquitetural.
+  - Adição de testes unitários com snapshots para garantir a integridade da renderização do componente Task.
+- **Limitações**: A largura das ações de swipe é baseada no conteúdo e paddings; comportamentos extremos de swipe dependem da configuração interna do `react-native-gesture-handler`.
+- **Riscos**: Baixo. As mudanças são puramente de UI/UX e possuem cobertura de testes.
+
+## Criar tema light/dark
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Inconsistência entre o histórico do ROADMAP e o estado atual da branch principal. O histórico cita a implementação de `ThemeContext`, mas o arquivo não está presente na branch.
+- **Sugestão de Desbloqueio**: Reverter ou aplicar corretamente o PR #22 para restaurar a infraestrutura de temas dinâmicos.
+
+## Adicionar filtro Todas/Pendentes/Concluídas
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Dependência de PR #17 aberto (`feature/task-filters`) que contém a implementação pendente de revisão ou merge.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge do PR #17.
