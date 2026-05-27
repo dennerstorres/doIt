@@ -44,3 +44,33 @@ export const LoadingIndicator = styled.ActivityIndicator.attrs(props => ({
 }))`
   margin-top: ${props => props.theme.spacing.large};
 `;
+
+export const SortContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0 ${props => props.theme.spacing.medium};
+  margin-bottom: ${props => props.theme.spacing.small};
+`;
+
+export const SortButton = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  background-color: ${props =>
+    props.$active ? props.theme.colors.accent : 'transparent'};
+  padding: ${props =>
+    `${props.theme.spacing.tiny} ${props.theme.spacing.small}`};
+  border-radius: 5px;
+  margin-left: ${props => props.theme.spacing.tiny};
+`;
+
+export const SortText = styled.Text`
+  color: ${props =>
+    props.$active ? props.theme.colors.white : props.theme.colors.text};
+  font-size: ${props => props.theme.typography.size.small};
+  font-weight: ${props =>
+    props.$active
+      ? props.theme.typography.weight.bold
+      : props.theme.typography.weight.regular};
+  margin-left: ${props => props.theme.spacing.tiny};
+`;

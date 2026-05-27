@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {Keyboard} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+import {useTheme} from 'styled-components/native';
 
 import {
   Container,
@@ -8,6 +10,9 @@ import {
   CounterLabel,
   CounterValue,
   LoadingIndicator,
+  SortContainer,
+  SortButton,
+  SortText,
 } from './styles';
 
 import TaskList from '../../components/TaskList';
@@ -20,11 +25,15 @@ import {
   filterTasksBySearch,
   getTaskStats,
   sortTasks,
+  SORT_TYPES,
 } from '../../utils/taskUtils';
 
 function Home() {
+  const theme = useTheme();
   const [task, setTask] = useState('');
   const [search, setSearch] = useState('');
+  const [sortType, setSortType] = useState(SORT_TYPES.DEFAULT);
+
   const {
     tasks,
     loading,
@@ -44,8 +53,16 @@ function Home() {
     }
   }
 
-  const filteredTasks = sortTasks(filterTasksBySearch(tasks || [], search));
-  const {total: totalTasks, completed: completedTasks} = getTaskStats(tasks);
+  const filteredTasks = useMemo(() => {
+    const baseTasks = tasks || [];
+    const filtered = filterTasksBySearch(baseTasks, search);
+    return sortTasks(filtered, sortType);
+  }, [tasks, search, sortType]);
+
+  const {total: totalTasks, completed: completedTasks} = useMemo(
+    () => getTaskStats(tasks),
+    [tasks],
+  );
 
   return (
     <Container>
@@ -70,6 +87,56 @@ function Home() {
           <CounterValue>{completedTasks}</CounterValue>
         </CounterBox>
       </CounterContainer>
+
+      <SortContainer>
+        <SortButton
+          onPress={() => setSortType(SORT_TYPES.DEFAULT)}
+          $active={sortType === SORT_TYPES.DEFAULT}
+          testID='sort-button-default'>
+          <Icon
+            name='list'
+            size={14}
+            color={
+              sortType === SORT_TYPES.DEFAULT
+                ? theme.colors.white
+                : theme.colors.text
+            }
+          />
+          <SortText $active={sortType === SORT_TYPES.DEFAULT}>Padrão</SortText>
+        </SortButton>
+        <SortButton
+          onPress={() => setSortType(SORT_TYPES.DATE_DESC)}
+          $active={sortType === SORT_TYPES.DATE_DESC}
+          testID='sort-button-date-desc'>
+          <Icon
+            name='calendar'
+            size={14}
+            color={
+              sortType === SORT_TYPES.DATE_DESC
+                ? theme.colors.white
+                : theme.colors.text
+            }
+          />
+          <SortText $active={sortType === SORT_TYPES.DATE_DESC}>Novas</SortText>
+        </SortButton>
+        <SortButton
+          onPress={() => setSortType(SORT_TYPES.ALPHABETICAL)}
+          $active={sortType === SORT_TYPES.ALPHABETICAL}
+          testID='sort-button-alphabetical'>
+          <Icon
+            name='type'
+            size={14}
+            color={
+              sortType === SORT_TYPES.ALPHABETICAL
+                ? theme.colors.white
+                : theme.colors.text
+            }
+          />
+          <SortText $active={sortType === SORT_TYPES.ALPHABETICAL}>
+            A-Z
+          </SortText>
+        </SortButton>
+      </SortContainer>
 
       <TaskList
         tasks={filteredTasks}

@@ -1,24 +1,53 @@
-import {sortTasks, filterTasksBySearch, getTaskStats} from '../taskUtils';
+import {
+  sortTasks,
+  filterTasksBySearch,
+  getTaskStats,
+  SORT_TYPES,
+} from '../taskUtils';
 
 describe('Task Utils', () => {
   const mockTasks = [
-    {id: '1', task: 'Task 1', done: true, createdAt: '2023-01-01T10:00:00Z'},
-    {id: '2', task: 'Task 2', done: false, createdAt: '2023-01-01T11:00:00Z'},
+    {id: '1', task: 'B Task 1', done: true, createdAt: '2023-01-01T10:00:00Z'},
+    {id: '2', task: 'C Task 2', done: false, createdAt: '2023-01-01T11:00:00Z'},
     {
       id: '3',
-      task: 'Another Task',
+      task: 'A Another Task',
       done: false,
       createdAt: '2023-01-01T09:00:00Z',
     },
   ];
 
   describe('sortTasks', () => {
-    it('should sort unfinished tasks first, then by date descending', () => {
-      const sorted = sortTasks(mockTasks);
+    it('should sort by DEFAULT (unfinished first, then by date descending)', () => {
+      const sorted = sortTasks(mockTasks, SORT_TYPES.DEFAULT);
 
       expect(sorted[0].id).toBe('2'); // Unfinished, newest (11:00)
       expect(sorted[1].id).toBe('3'); // Unfinished, older (09:00)
       expect(sorted[2].id).toBe('1'); // Finished
+    });
+
+    it('should sort by DATE_DESC (newest first)', () => {
+      const sorted = sortTasks(mockTasks, SORT_TYPES.DATE_DESC);
+
+      expect(sorted[0].id).toBe('2'); // 11:00
+      expect(sorted[1].id).toBe('1'); // 10:00
+      expect(sorted[2].id).toBe('3'); // 09:00
+    });
+
+    it('should sort by DATE_ASC (oldest first)', () => {
+      const sorted = sortTasks(mockTasks, SORT_TYPES.DATE_ASC);
+
+      expect(sorted[0].id).toBe('3'); // 09:00
+      expect(sorted[1].id).toBe('1'); // 10:00
+      expect(sorted[2].id).toBe('2'); // 11:00
+    });
+
+    it('should sort by ALPHABETICAL (A-Z)', () => {
+      const sorted = sortTasks(mockTasks, SORT_TYPES.ALPHABETICAL);
+
+      expect(sorted[0].task).toBe('A Another Task');
+      expect(sorted[1].task).toBe('B Task 1');
+      expect(sorted[2].task).toBe('C Task 2');
     });
 
     it('should handle empty or invalid input', () => {
@@ -26,7 +55,7 @@ describe('Task Utils', () => {
       expect(sortTasks([])).toEqual([]);
     });
 
-    it('should fallback to ID sorting if dates are same', () => {
+    it('should fallback to ID sorting if dates are same in DEFAULT', () => {
       const sameDateTasks = [
         {
           id: 'a',
@@ -41,10 +70,9 @@ describe('Task Utils', () => {
           createdAt: '2023-01-01T10:00:00Z',
         },
       ];
-      const sorted = sortTasks(sameDateTasks);
-      expect(sorted[0].id).toBe('b'); // 'b' > 'a' alphabetically in localeCompare (wait, b.localeCompare(a) is 1, so b comes after a? No, the code is b.localeCompare(a) which returns > 0 if b > a. If it returns > 0, sort puts b after a. My code: return b.id.localeCompare(a.id); so if b > a, it returns 1, so b comes AFTER a. Let me check my logic.)
-      // Actually if it returns positive, b follows a. So a, b.
-      // My expectation was 'b' first because I wanted newest first, but for IDs it is just a fallback.
+      const sorted = sortTasks(sameDateTasks, SORT_TYPES.DEFAULT);
+      expect(sorted[0].id).toBe('b');
+      expect(sorted[1].id).toBe('a');
     });
   });
 
