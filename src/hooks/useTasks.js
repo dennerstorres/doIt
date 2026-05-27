@@ -23,6 +23,7 @@ const animationConfig = {
 export const useTasks = () => {
   const [tasks, setTasks] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [lastDeletedTask, setLastDeletedTask] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -136,6 +137,7 @@ export const useTasks = () => {
           text: 'Excluir',
           onPress: () => {
             LayoutAnimation.configureNext(animationConfig);
+            setLastDeletedTask(item);
             setTasks(prevTasks =>
               (prevTasks || []).filter(t => t.id !== item.id),
             );
@@ -146,11 +148,26 @@ export const useTasks = () => {
     );
   };
 
+  const undoDelete = () => {
+    if (lastDeletedTask) {
+      LayoutAnimation.configureNext(animationConfig);
+      setTasks(prevTasks => [...(prevTasks || []), lastDeletedTask]);
+      setLastDeletedTask(null);
+    }
+  };
+
+  const clearLastDeletedTask = () => {
+    setLastDeletedTask(null);
+  };
+
   return {
     tasks,
     loading,
+    lastDeletedTask,
     addTask,
     toggleTask,
     deleteTask,
+    undoDelete,
+    clearLastDeletedTask,
   };
 };
