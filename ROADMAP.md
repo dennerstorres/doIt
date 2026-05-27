@@ -145,7 +145,7 @@
 - [ ] Adicionar ícones consistentes
 - [ ] Melhorar responsividade
 - [x] Adicionar confirmação para deletar
-- [ ] Adicionar undo ao deletar
+- [x] Adicionar undo ao deletar
 - [ ] Adicionar filtro Todas
 - [ ] Adicionar filtro Pendentes
 - [ ] Adicionar filtro Concluídas
@@ -812,3 +812,15 @@
   - Refatoração da `Home` page para ser um componente puramente de apresentação, delegando toda a lógica de domínio ao hook.
 - **Limitações**: O hook gerencia o estado global de tarefas mas ainda depende de alertas (`Alert.alert`) síncronos para feedback de erro.
 - **Riscos**: Se a lógica do hook se tornar muito complexa, pode ser necessário quebrá-lo em hooks menores (ex: `usePersistence`, `useTaskActions`).
+
+## Adicionar undo ao deletar
+
+- **Implementação**: Adição de funcionalidade para desfazer a exclusão de uma tarefa.
+- **Decisões Técnicas**:
+  - Refatoração do hook `useTasks` para incluir um estado temporário `lastDeletedTask`.
+  - Criação do componente `UndoAction` que utiliza a API `Animated` para transições suaves de opacidade.
+  - O componente `UndoAction` gerencia seu próprio timeout de 5 segundos para auto-ocultação, chamando um callback de limpeza.
+  - Uso de `useCallback` para garantir a estabilidade das funções de dismiss e evitar loops de efeito.
+  - Cobertura de testes unitários de 100% para o novo componente e lógica do hook associada.
+- **Limitações**: A restauração da tarefa atualmente a posiciona no final da lista, não preservando o índice original.
+- **Riscos**: Baixo. A funcionalidade é isolada e possui fallback de limpeza automática.

@@ -14,6 +14,7 @@ import TaskList from '../../components/TaskList';
 import AddTask from '../../components/AddTask';
 import Search from '../../components/Search';
 import Header from '../../components/Header';
+import UndoAction from '../../components/UndoAction';
 import {useTasks} from '../../hooks/useTasks';
 import {
   filterTasksBySearch,
@@ -24,7 +25,16 @@ import {
 function Home() {
   const [task, setTask] = useState('');
   const [search, setSearch] = useState('');
-  const {tasks, loading, addTask, toggleTask, deleteTask} = useTasks();
+  const {
+    tasks,
+    loading,
+    lastDeletedTask,
+    addTask,
+    toggleTask,
+    deleteTask,
+    undoDelete,
+    clearLastDeletedTask,
+  } = useTasks();
 
   function handleAddTask() {
     const success = addTask(task);
@@ -71,6 +81,10 @@ function Home() {
             : undefined
         }
       />
+
+      {lastDeletedTask && (
+        <UndoAction onUndo={undoDelete} onDismiss={clearLastDeletedTask} />
+      )}
     </Container>
   );
 }

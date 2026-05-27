@@ -130,7 +130,7 @@ describe('useTasks hook', () => {
     expect(hook.tasks[0].done).toBe(false);
   });
 
-  it('should delete a task after confirmation', async () => {
+  it('should delete a task and set lastDeletedTask after confirmation', async () => {
     const mockTasks = [{id: '1', task: 'Test Task', done: false}];
     getTasks.mockResolvedValueOnce(mockTasks);
     let hook;
@@ -156,7 +156,63 @@ describe('useTasks hook', () => {
     });
 
     expect(hook.tasks).toHaveLength(0);
+    expect(hook.lastDeletedTask).toEqual(mockTasks[0]);
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
+  });
+
+  it('should undo delete task', async () => {
+    const mockTasks = [{id: '1', task: 'Test Task', done: false}];
+    getTasks.mockResolvedValueOnce(mockTasks);
+    let hook;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.deleteTask(mockTasks[0]);
+    });
+
+    const deleteButton = Alert.alert.mock.calls[0][2][1];
+    await act(async () => {
+      deleteButton.onPress();
+    });
+
+    expect(hook.tasks).toHaveLength(0);
+
+    await act(async () => {
+      hook.undoDelete();
+    });
+
+    expect(hook.tasks).toHaveLength(1);
+    expect(hook.tasks[0]).toEqual(mockTasks[0]);
+    expect(hook.lastDeletedTask).toBeNull();
+    expect(LayoutAnimation.configureNext).toHaveBeenCalled();
+  });
+
+  it('should clear lastDeletedTask', async () => {
+    const mockTasks = [{id: '1', task: 'Test Task', done: false}];
+    getTasks.mockResolvedValueOnce(mockTasks);
+    let hook;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.deleteTask(mockTasks[0]);
+    });
+
+    const deleteButton = Alert.alert.mock.calls[0][2][1];
+    await act(async () => {
+      deleteButton.onPress();
+    });
+
+    expect(hook.lastDeletedTask).toEqual(mockTasks[0]);
+
+    await act(async () => {
+      hook.clearLastDeletedTask();
+    });
+
+    expect(hook.lastDeletedTask).toBeNull();
   });
 
   it('should persist tasks when they change', async () => {
