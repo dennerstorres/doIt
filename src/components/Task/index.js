@@ -1,10 +1,17 @@
 import React, {useEffect, useRef} from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {View, StyleSheet, Animated, TouchableOpacity} from 'react-native';
+import {Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useTheme} from 'styled-components/native';
 
-import {Container, TaskText} from './styles';
+import {
+  Container,
+  TaskText,
+  LeftActionContainer,
+  RightActionContainer,
+  ActionContent,
+  ActionText,
+} from './styles';
 
 function Task({item, handleLeft, handleRight}) {
   const theme = useTheme();
@@ -30,40 +37,55 @@ function Task({item, handleLeft, handleRight}) {
       extrapolate: 'clamp',
     });
 
+    const opacity = dragX.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    });
+
     return (
-      <View
-        style={[styles.leftAction, {backgroundColor: theme.colors.primary}]}>
-        <Animated.Text style={[styles.actionText, {transform: [{scale}]}]}>
-          Concluir
-        </Animated.Text>
-      </View>
+      <LeftActionContainer>
+        <ActionContent style={{transform: [{scale}], opacity}}>
+          <Icon
+            name={item.done ? 'rotate-ccw' : 'check'}
+            size={20}
+            color={theme.colors.white}
+          />
+          <ActionText>{item.done ? 'Desfazer' : 'Concluir'}</ActionText>
+        </ActionContent>
+      </LeftActionContainer>
     );
   }
 
-  function RightActions({progress, dragX, onPress}) {
+  function RightActions({dragX, onPress}) {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });
 
+    const opacity = dragX.interpolate({
+      inputRange: [-100, 0],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+    });
+
     return (
-      <TouchableOpacity
-        onPress={onPress}
-        style={[styles.rightAction, {backgroundColor: theme.colors.error}]}>
-        <Animated.View
-          style={[styles.rightActionIcon, {transform: [{scale: scale}]}]}>
-          <Icon name='trash' size={30} color={theme.colors.white} />
-        </Animated.View>
-      </TouchableOpacity>
+      <RightActionContainer onPress={onPress} activeOpacity={0.7}>
+        <ActionContent style={{transform: [{scale}], opacity}}>
+          <Icon name='trash' size={20} color={theme.colors.white} />
+          <ActionText>Excluir</ActionText>
+        </ActionContent>
+      </RightActionContainer>
     );
   }
+
   return (
     <Swipeable
       renderLeftActions={LeftActions}
       onSwipeableLeftOpen={handleLeft}
       renderRightActions={(progress, dragX) => (
-        <RightActions progress={progress} dragX={dragX} onPress={handleRight} />
+        <RightActions dragX={dragX} onPress={handleRight} />
       )}>
       <Container done={item.done} style={{backgroundColor}}>
         <TaskText done={item.done}>{item.task}</TaskText>
@@ -74,26 +96,5 @@ function Task({item, handleLeft, handleRight}) {
     </Swipeable>
   );
 }
-
-const styles = StyleSheet.create({
-  leftAction: {
-    justifyContent: 'center',
-    height: 50,
-    flex: 1,
-  },
-  rightAction: {
-    justifyContent: 'center',
-    height: 50,
-    alignItems: 'flex-end',
-  },
-  actionText: {
-    fontSize: 17,
-    color: '#FFF',
-    padding: 20,
-  },
-  rightActionIcon: {
-    padding: 20,
-  },
-});
 
 export default Task;

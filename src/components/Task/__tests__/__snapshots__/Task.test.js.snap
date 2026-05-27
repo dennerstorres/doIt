@@ -1,0 +1,308 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task Component renders correctly for a completed task 1`] = `
+<View
+  testID="mock-swipeable"
+>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "backgroundColor": "#49a078",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "height": 50,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "opacity": "interpolate-mock",
+          "paddingBottom": 0,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 0,
+          "transform": Array [
+            Object {
+              "scale": "interpolate-mock",
+            },
+          ],
+        }
+      }
+    >
+      <Icon
+        color="#ffffff"
+        name="rotate-ccw"
+        size={20}
+      />
+      <Text
+        style={
+          Object {
+            "color": "#ffffff",
+            "fontSize": 14,
+            "fontWeight": "700",
+            "marginLeft": 8,
+          }
+        }
+      >
+        Desfazer
+      </Text>
+    </View>
+  </View>
+  <View
+    done={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(73, 160, 120, 1)",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "center",
+        "marginBottom": 5,
+        "paddingBottom": 5,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "paddingTop": 5,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      done={true}
+      style={
+        Array [
+          Object {
+            "color": "#9cc5a1",
+            "flexBasis": 0,
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "fontSize": 14,
+            "fontWeight": "400",
+            "textDecorationLine": "line-through",
+          },
+        ]
+      }
+    >
+      Test Task
+    </Text>
+    <Icon
+      color="#9cc5a1"
+      name="check-circle"
+      size={20}
+    />
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "flex-end",
+        "backgroundColor": "#FF0000",
+        "height": 50,
+        "justifyContent": "center",
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "opacity": "interpolate-mock",
+          "paddingBottom": 0,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 0,
+          "transform": Array [
+            Object {
+              "scale": "interpolate-mock",
+            },
+          ],
+        }
+      }
+    >
+      <Icon
+        color="#ffffff"
+        name="trash"
+        size={20}
+      />
+      <Text
+        style={
+          Object {
+            "color": "#ffffff",
+            "fontSize": 14,
+            "fontWeight": "700",
+            "marginLeft": 8,
+          }
+        }
+      >
+        Excluir
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Task Component renders correctly for a pending task 1`] = `
+<View
+  testID="mock-swipeable"
+>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "backgroundColor": "#49a078",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "height": 50,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "opacity": "interpolate-mock",
+          "paddingBottom": 0,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 0,
+          "transform": Array [
+            Object {
+              "scale": "interpolate-mock",
+            },
+          ],
+        }
+      }
+    >
+      <Icon
+        color="#ffffff"
+        name="check"
+        size={20}
+      />
+      <Text
+        style={
+          Object {
+            "color": "#ffffff",
+            "fontSize": 14,
+            "fontWeight": "700",
+            "marginLeft": 8,
+          }
+        }
+      >
+        Concluir
+      </Text>
+    </View>
+  </View>
+  <View
+    done={false}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(33, 104, 105, 1)",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "center",
+        "marginBottom": 5,
+        "paddingBottom": 5,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "paddingTop": 5,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      done={false}
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "flexBasis": 0,
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "fontSize": 14,
+            "fontWeight": "400",
+            "textDecorationLine": "none",
+          },
+        ]
+      }
+    >
+      Test Task
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "flex-end",
+        "backgroundColor": "#FF0000",
+        "height": 50,
+        "justifyContent": "center",
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "opacity": "interpolate-mock",
+          "paddingBottom": 0,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 0,
+          "transform": Array [
+            Object {
+              "scale": "interpolate-mock",
+            },
+          ],
+        }
+      }
+    >
+      <Icon
+        color="#ffffff"
+        name="trash"
+        size={20}
+      />
+      <Text
+        style={
+          Object {
+            "color": "#ffffff",
+            "fontSize": 14,
+            "fontWeight": "700",
+            "marginLeft": 8,
+          }
+        }
+      >
+        Excluir
+      </Text>
+    </View>
+  </View>
+</View>
+`;

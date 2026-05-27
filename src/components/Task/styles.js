@@ -22,3 +22,31 @@ export const TaskText = styled.Text`
   font-weight: ${props => props.theme.typography.weight.regular};
   flex: 1;
 `;
+
+export const LeftActionContainer = styled(Animated.View)`
+  background-color: ${props => props.theme.colors.primary};
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+  height: 50px;
+`;
+
+export const RightActionContainer = styled.TouchableOpacity`
+  background-color: ${props => props.theme.colors.error};
+  justify-content: center;
+  align-items: flex-end;
+  height: 50px;
+`;
+
+export const ActionContent = styled(Animated.View)`
+  flex-direction: row;
+  align-items: center;
+  padding: 0 ${props => props.theme.spacing.large};
+`;
+
+export const ActionText = styled(Animated.Text)`
+  color: ${props => props.theme.colors.white};
+  font-size: ${props => props.theme.typography.size.medium};
+  font-weight: ${props => props.theme.typography.weight.bold};
+  margin-left: ${props => props.theme.spacing.small};
+`;
