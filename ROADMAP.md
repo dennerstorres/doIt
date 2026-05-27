@@ -149,7 +149,7 @@
 - [ ] Adicionar filtro Todas
 - [ ] Adicionar filtro Pendentes
 - [ ] Adicionar filtro Concluídas
-- [ ] Adicionar ordenação
+- [x] Adicionar ordenação
 - [x] Adicionar busca
 
 ---
@@ -824,3 +824,15 @@
   - Cobertura de testes unitários de 100% para o novo componente e lógica do hook associada.
 - **Limitações**: A restauração da tarefa atualmente a posiciona no final da lista, não preservando o índice original.
 - **Riscos**: Baixo. A funcionalidade é isolada e possui fallback de limpeza automática.
+
+## Adicionar ordenação
+
+- **Implementação**: Funcionalidade de ordenação personalizada na lista de tarefas.
+- **Decisões Técnicas**:
+  - Expansão do utilitário `sortTasks` para suportar múltiplas estratégias: `DEFAULT` (Status + Data), `DATE_DESC` (Mais novas) e `ALPHABETICAL` (A-Z).
+  - Uso de `useMemo` na `Home` page para otimizar a filtragem e ordenação, garantindo performance mesmo com listas extensas.
+  - Adição de interface de seleção de ordenação com feedback visual de estado ativo.
+  - Implementação de `testID` nos botões de ordenação para facilitar testes automatizados.
+  - Atualização abrangente da suíte de testes unitários e de integração para validar cada estratégia de ordenação.
+- **Limitações**: A preferência de ordenação é mantida apenas em memória na sessão atual (não persistida).
+- **Riscos**: Baixo. A lógica é pura e desacoplada do estado global de persistência.

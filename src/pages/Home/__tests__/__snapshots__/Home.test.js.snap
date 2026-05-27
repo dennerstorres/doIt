@@ -303,6 +303,161 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
       </Text>
     </View>
   </View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "flex-end",
+          "marginBottom": 8,
+          "paddingBottom": 0,
+          "paddingLeft": 10,
+          "paddingRight": 10,
+          "paddingTop": 0,
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#9cc5a1",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "marginLeft": 5,
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 5,
+        }
+      }
+      testID="sort-button-default"
+    >
+      <Icon
+        color="#ffffff"
+        name="list"
+        size={14}
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#ffffff",
+              "fontSize": 12,
+              "fontWeight": "700",
+              "marginLeft": 5,
+            },
+          ]
+        }
+      >
+        Padrão
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "marginLeft": 5,
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 5,
+        }
+      }
+      testID="sort-button-date-desc"
+    >
+      <Icon
+        color="#1f2421"
+        name="calendar"
+        size={14}
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "fontWeight": "400",
+              "marginLeft": 5,
+            },
+          ]
+        }
+      >
+        Novas
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "marginLeft": 5,
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 5,
+        }
+      }
+      testID="sort-button-alphabetical"
+    >
+      <Icon
+        color="#1f2421"
+        name="type"
+        size={14}
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "fontWeight": "400",
+              "marginLeft": 5,
+            },
+          ]
+        }
+      >
+        A-Z
+      </Text>
+    </View>
+  </View>
   <RCTScrollView
     ListEmptyComponent={<EmptyState />}
     data={
@@ -711,6 +866,161 @@ exports[`Home Page should show loading indicator initially 1`] = `
         }
       >
         0
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "flex-end",
+          "marginBottom": 8,
+          "paddingBottom": 0,
+          "paddingLeft": 10,
+          "paddingRight": 10,
+          "paddingTop": 0,
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#9cc5a1",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "marginLeft": 5,
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 5,
+        }
+      }
+      testID="sort-button-default"
+    >
+      <Icon
+        color="#ffffff"
+        name="list"
+        size={14}
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#ffffff",
+              "fontSize": 12,
+              "fontWeight": "700",
+              "marginLeft": 5,
+            },
+          ]
+        }
+      >
+        Padrão
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "marginLeft": 5,
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 5,
+        }
+      }
+      testID="sort-button-date-desc"
+    >
+      <Icon
+        color="#1f2421"
+        name="calendar"
+        size={14}
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "fontWeight": "400",
+              "marginLeft": 5,
+            },
+          ]
+        }
+      >
+        Novas
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "marginLeft": 5,
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 5,
+        }
+      }
+      testID="sort-button-alphabetical"
+    >
+      <Icon
+        color="#1f2421"
+        name="type"
+        size={14}
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "fontWeight": "400",
+              "marginLeft": 5,
+            },
+          ]
+        }
+      >
+        A-Z
       </Text>
     </View>
   </View>

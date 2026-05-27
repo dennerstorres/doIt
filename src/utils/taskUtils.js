@@ -3,32 +3,63 @@
  */
 
 /**
- * Sorts tasks by completion status (done last) and then by creation date (newest first).
+ * Sorting types constants
+ */
+export const SORT_TYPES = {
+  DEFAULT: 'DEFAULT', // Status (unfinished first) + Date (newest first)
+  DATE_DESC: 'DATE_DESC', // Newest first
+  DATE_ASC: 'DATE_ASC', // Oldest first
+  ALPHABETICAL: 'ALPHABETICAL', // A-Z
+};
+
+/**
+ * Sorts tasks based on the specified sort type.
  *
  * @param {Array} tasks - The list of tasks to sort.
+ * @param {string} sortType - The sorting strategy to use.
  * @returns {Array} The sorted list of tasks.
  */
-export const sortTasks = tasks => {
+export const sortTasks = (tasks, sortType = SORT_TYPES.DEFAULT) => {
   if (!Array.isArray(tasks)) {
     return [];
   }
 
   return [...tasks].sort((a, b) => {
-    // First, sort by status: unfinished first
-    if (a.done !== b.done) {
-      return a.done ? 1 : -1;
+    switch (sortType) {
+      case SORT_TYPES.ALPHABETICAL:
+        return a.task.localeCompare(b.task);
+
+      case SORT_TYPES.DATE_ASC: {
+        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return dateA - dateB;
+      }
+
+      case SORT_TYPES.DATE_DESC: {
+        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return dateB - dateA;
+      }
+
+      case SORT_TYPES.DEFAULT:
+      default: {
+        // First, sort by status: unfinished first
+        if (a.done !== b.done) {
+          return a.done ? 1 : -1;
+        }
+
+        // Then, sort by creation date: newest first
+        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+
+        // If creation dates are the same (or missing), use IDs as fallback
+        if (dateA.getTime() === dateB.getTime()) {
+          return b.id.localeCompare(a.id);
+        }
+
+        return dateB - dateA;
+      }
     }
-
-    // Then, sort by creation date: newest first
-    const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-    const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
-
-    // If creation dates are the same (or missing), use IDs as fallback
-    if (dateA.getTime() === dateB.getTime()) {
-      return b.id.localeCompare(a.id);
-    }
-
-    return dateB - dateA;
   });
 };
 

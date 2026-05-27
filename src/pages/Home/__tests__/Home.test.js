@@ -3,6 +3,7 @@ import {Alert} from 'react-native';
 import renderer, {act} from 'react-test-renderer';
 import {ThemeProvider} from 'styled-components/native';
 import Home from '../index';
+import TaskList from '../../../components/TaskList';
 import {getTasks, saveTasks} from '../../../services/storage';
 import theme from '../../../theme';
 
@@ -125,5 +126,42 @@ describe('Home Page', () => {
       'Não foi possível salvar suas alterações localmente.',
     );
     consoleSpy.mockRestore();
+  });
+
+  it('should change sorting when sort buttons are pressed', async () => {
+    const mockTasks = [
+      {id: '1', task: 'A Task', done: false, createdAt: '2023-01-01T10:00:00Z'},
+      {id: '2', task: 'B Task', done: false, createdAt: '2023-01-01T11:00:00Z'},
+    ];
+    getTasks.mockResolvedValue(mockTasks);
+
+    let component;
+    await act(async () => {
+      component = renderer.create(
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>,
+      );
+    });
+
+    // wait for useEffect that loads tasks
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+
+    // Default sort: Status + Date Desc -> ID 2 (11:00), ID 1 (10:00)
+    let taskList = component.root.findByType(TaskList);
+    expect(taskList.props.tasks[0].id).toBe('2');
+
+    // Switch to Alphabetical: ID 1 (A Task), ID 2 (B Task)
+    const sortBtnAZ = component.root.findByProps({
+      testID: 'sort-button-alphabetical',
+    });
+    await act(async () => {
+      sortBtnAZ.props.onPress();
+    });
+
+    taskList = component.root.findByType(TaskList);
+    expect(taskList.props.tasks[0].id).toBe('1');
   });
 });
