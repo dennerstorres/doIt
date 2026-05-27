@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {Animated} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 export const Container = styled(Animated.View)`
   background-color: ${props =>
@@ -32,10 +33,21 @@ export const LeftActionContainer = styled(Animated.View)`
 `;
 
 export const RightActionContainer = styled.TouchableOpacity`
-  background-color: ${props => props.theme.colors.error};
+  background-color: ${props =>
+    props.type === 'edit'
+      ? props.theme.colors.accent
+      : props.theme.colors.error};
   justify-content: center;
   align-items: flex-end;
   height: 50px;
+`;
+
+export const EditInput = styled.TextInput`
+  color: ${props => props.theme.colors.white};
+  font-size: ${props => props.theme.typography.size.medium};
+  font-weight: ${props => props.theme.typography.weight.regular};
+  flex: 1;
+  padding: 0;
 `;
 
 export const ActionContent = styled(Animated.View)`
@@ -49,4 +61,16 @@ export const ActionText = styled(Animated.Text)`
   font-size: ${props => props.theme.typography.size.medium};
   font-weight: ${props => props.theme.typography.weight.bold};
   margin-left: ${props => props.theme.spacing.small};
+`;
+
+export const ActionsWrapper = styled.View`
+  flex-direction: row;
+`;
+
+export const EditActions = styled.View`
+  flex-direction: row;
+`;
+
+export const CancelIcon = styled(Icon)`
+  margin-right: ${props => props.theme.spacing.medium};
 `;

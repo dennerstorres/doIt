@@ -41,6 +41,7 @@ function Home() {
     addTask,
     toggleTask,
     deleteTask,
+    editTask,
     undoDelete,
     clearLastDeletedTask,
   } = useTasks();
@@ -142,6 +143,7 @@ function Home() {
         tasks={filteredTasks}
         handleDoneTask={toggleTask}
         handleDeleteTask={deleteTask}
+        handleEditTask={editTask}
         emptyMessage={
           search.length > 0
             ? 'Nenhuma tarefa encontrada para sua busca.'
