@@ -2,12 +2,12 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
+  bottom: ${({theme}) => theme.spacing.xlarge};
+  left: ${({theme}) => theme.spacing.xlarge};
+  right: ${({theme}) => theme.spacing.xlarge};
   background-color: ${({theme}) => theme.colors.text};
-  border-radius: 8px;
-  padding: 12px 16px;
+  border-radius: ${({theme}) => theme.spacing.small};
+  padding: ${({theme}) => `${theme.spacing.medium} ${theme.spacing.large}`};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -25,7 +25,7 @@ export const Message = styled.Text`
 `;
 
 export const UndoButton = styled.TouchableOpacity`
-  padding: 4px 8px;
+  padding: ${({theme}) => `${theme.spacing.tiny} ${theme.spacing.small}`};
 `;
 
 export const UndoText = styled.Text`
