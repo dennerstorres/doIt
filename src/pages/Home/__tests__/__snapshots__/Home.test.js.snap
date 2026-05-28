@@ -238,7 +238,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
           Object {
             "backgroundColor": "#9cc5a1",
             "borderColor": "#9cc5a1",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,
@@ -279,7 +279,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
           Object {
             "backgroundColor": "#dce1de",
             "borderColor": "#4a90e2",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,
@@ -320,7 +320,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
           Object {
             "backgroundColor": "#dce1de",
             "borderColor": "#f5a623",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,
@@ -361,7 +361,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
           Object {
             "backgroundColor": "#dce1de",
             "borderColor": "#FF0000",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,
@@ -728,7 +728,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
                     "borderRadius": 2,
                     "height": 20,
                     "marginRight": 8,
-                    "width": 4,
+                    "width": 2,
                   },
                 ]
               }
@@ -997,7 +997,7 @@ exports[`Home Page should show loading indicator initially 1`] = `
           Object {
             "backgroundColor": "#9cc5a1",
             "borderColor": "#9cc5a1",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,
@@ -1038,7 +1038,7 @@ exports[`Home Page should show loading indicator initially 1`] = `
           Object {
             "backgroundColor": "#dce1de",
             "borderColor": "#4a90e2",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,
@@ -1079,7 +1079,7 @@ exports[`Home Page should show loading indicator initially 1`] = `
           Object {
             "backgroundColor": "#dce1de",
             "borderColor": "#f5a623",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,
@@ -1120,7 +1120,7 @@ exports[`Home Page should show loading indicator initially 1`] = `
           Object {
             "backgroundColor": "#dce1de",
             "borderColor": "#FF0000",
-            "borderRadius": 4,
+            "borderRadius": 8,
             "borderStyle": "solid",
             "borderWidth": 1,
             "marginRight": 5,

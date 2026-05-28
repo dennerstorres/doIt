@@ -22,7 +22,7 @@ export const ClearButton = styled(BaseClearButton)`
 
 export const ButtonAdd = styled.TouchableOpacity`
   height: 40px;
-  width: 50px;
+  width: ${props => props.theme.spacing.huge};
   background-color: ${props => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
@@ -33,7 +33,7 @@ export const Counter = styled.Text`
   color: ${props => props.theme.colors.secondary};
   text-align: right;
   margin-top: ${props => props.theme.spacing.tiny};
-  margin-right: 50px;
+  margin-right: ${props => props.theme.spacing.huge};
 `;
 
 export const PriorityContainer = styled.View`
@@ -52,7 +52,7 @@ export const PriorityLabel = styled.Text`
 export const PriorityButton = styled.TouchableOpacity`
   padding: ${props => props.theme.spacing.tiny}
     ${props => props.theme.spacing.small};
-  border-radius: 4px;
+  border-radius: ${props => props.theme.spacing.small};
   background-color: ${props =>
     props.$active ? props.$color : props.theme.colors.background};
   margin-right: ${props => props.theme.spacing.tiny};

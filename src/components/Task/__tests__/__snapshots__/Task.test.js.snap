@@ -85,14 +85,14 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
             Object {
               "backgroundColor": "#9cc5a1",
               "borderColor": "#9cc5a1",
-              "borderRadius": 4,
+              "borderRadius": 8,
               "borderStyle": "solid",
               "borderWidth": 1,
-              "marginRight": 4,
+              "marginRight": 8,
               "opacity": 1,
               "paddingBottom": 2,
-              "paddingLeft": 6,
-              "paddingRight": 6,
+              "paddingLeft": 5,
+              "paddingRight": 5,
               "paddingTop": 2,
             }
           }
@@ -126,14 +126,14 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
             Object {
               "backgroundColor": "transparent",
               "borderColor": "#4a90e2",
-              "borderRadius": 4,
+              "borderRadius": 8,
               "borderStyle": "solid",
               "borderWidth": 1,
-              "marginRight": 4,
+              "marginRight": 8,
               "opacity": 1,
               "paddingBottom": 2,
-              "paddingLeft": 6,
-              "paddingRight": 6,
+              "paddingLeft": 5,
+              "paddingRight": 5,
               "paddingTop": 2,
             }
           }
@@ -167,14 +167,14 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
             Object {
               "backgroundColor": "transparent",
               "borderColor": "#f5a623",
-              "borderRadius": 4,
+              "borderRadius": 8,
               "borderStyle": "solid",
               "borderWidth": 1,
-              "marginRight": 4,
+              "marginRight": 8,
               "opacity": 1,
               "paddingBottom": 2,
-              "paddingLeft": 6,
-              "paddingRight": 6,
+              "paddingLeft": 5,
+              "paddingRight": 5,
               "paddingTop": 2,
             }
           }
@@ -208,14 +208,14 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
             Object {
               "backgroundColor": "transparent",
               "borderColor": "#FF0000",
-              "borderRadius": 4,
+              "borderRadius": 8,
               "borderStyle": "solid",
               "borderWidth": 1,
-              "marginRight": 4,
+              "marginRight": 8,
               "opacity": 1,
               "paddingBottom": 2,
-              "paddingLeft": 6,
-              "paddingRight": 6,
+              "paddingLeft": 5,
+              "paddingRight": 5,
               "paddingTop": 2,
             }
           }
@@ -352,7 +352,7 @@ exports[`Task Component renders correctly for a completed task 1`] = `
             "borderRadius": 2,
             "height": 20,
             "marginRight": 8,
-            "width": 4,
+            "width": 2,
           },
         ]
       }
@@ -590,7 +590,7 @@ exports[`Task Component renders correctly for a pending task 1`] = `
             "borderRadius": 2,
             "height": 20,
             "marginRight": 8,
-            "width": 4,
+            "width": 2,
           },
         ]
       }

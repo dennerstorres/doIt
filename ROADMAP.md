@@ -136,7 +136,7 @@
 
 # FASE 6 — Melhorias de UX/UI
 
-- [ ] Melhorar design geral
+- [x] Melhorar design geral
 - [x] Melhorar input de tarefas
 - [x] Melhorar animações
 - [x] Adicionar dark mode
@@ -891,7 +891,7 @@
 
 - **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
 - **Decisões Técnicas**:
-  - Definição de  em `src/constants/tasks.js`.
+  - Definição de em `src/constants/tasks.js`.
   - Atualização do model `Task` para incluir o campo `priority`, com fallback para 'none'.
   - Integração no hook `useTasks` para persistir e editar a prioridade.
   - UI: Adição de seletores de prioridade no `AddTask` e no modo de edição do componente `Task`.
@@ -914,3 +914,14 @@
   - Uso de cores semânticas (`info`, `warning`) adicionadas ao tema global.
 - **Limitações**: Tarefas antigas sem prioridade assumem automaticamente 'Nenhuma'.
 - **Riscos**: Baixo. A lógica é retrocompatível e possui ampla cobertura de testes unitários.
+
+## Melhorar design geral
+
+- **Implementação**: Refatoração abrangente para eliminar valores hardcoded e centralizar o design no sistema de temas.
+- **Decisões Técnicas**:
+  - Substituição de cores hexadecimais por variáveis de `theme.colors` (ex: EmptyState Icon).
+  - Migração de valores de espaçamento (margin, padding) e dimensões fixas para a escala semântica definida em `theme.spacing`.
+  - Padronização de bordas e arredondamentos usando tokens do tema para garantir consistência visual entre diferentes componentes.
+  - Atualização dos testes de snapshot para refletir as mudanças nas propriedades de estilo.
+- **Limitações**: Algumas dimensões específicas (como alturas de 40px/50px/60px) foram mantidas como valores fixos por não possuírem mapeamento direto ideal na escala de espaçamento atual, visando preservar a proporção da UI.
+- **Riscos**: Baixo. As mudanças são puramente de consistência arquitetural de estilo, validadas por testes automatizados.

@@ -31,7 +31,7 @@ export const CounterValue = styled.Text`
   background-color: ${props => props.theme.colors.accent};
   padding: ${props =>
     `${props.theme.spacing.nano} ${props.theme.spacing.small}`};
-  border-radius: 10px;
+  border-radius: ${props => props.theme.spacing.medium};
   margin-left: ${props => props.theme.spacing.small};
   font-size: ${props => props.theme.typography.size.small};
   font-weight: ${props => props.theme.typography.weight.bold};
@@ -60,7 +60,7 @@ export const SortButton = styled.TouchableOpacity`
     props.$active ? props.theme.colors.accent : 'transparent'};
   padding: ${props =>
     `${props.theme.spacing.tiny} ${props.theme.spacing.small}`};
-  border-radius: 5px;
+  border-radius: ${props => props.theme.spacing.tiny};
   margin-left: ${props => props.theme.spacing.tiny};
 `;
 

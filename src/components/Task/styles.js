@@ -80,9 +80,9 @@ export const CancelIcon = styled(Icon)`
 `;
 
 export const PriorityIndicator = styled.View`
-  width: 4px;
+  width: ${props => props.theme.spacing.nano};
   height: 20px;
-  border-radius: 2px;
+  border-radius: ${props => props.theme.spacing.nano};
   background-color: ${props => props.$color};
   margin-right: ${props => props.theme.spacing.small};
 `;
@@ -94,10 +94,11 @@ export const PriorityEditRow = styled.View`
 `;
 
 export const PriorityEditButton = styled.TouchableOpacity`
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: ${props => props.theme.spacing.nano}
+    ${props => props.theme.spacing.tiny};
+  border-radius: ${props => props.theme.spacing.small};
   background-color: ${props => (props.$active ? props.$color : 'transparent')};
-  margin-right: 4px;
+  margin-right: ${props => props.theme.spacing.small};
   border: 1px solid ${props => props.$color};
 `;
 
