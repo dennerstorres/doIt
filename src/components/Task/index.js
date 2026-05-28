@@ -14,8 +14,14 @@ import {
   EditInput,
   ActionsWrapper,
   EditActions,
+  EditContentWrapper,
   CancelIcon,
+  PriorityIndicator,
+  PriorityEditRow,
+  PriorityEditButton,
+  PriorityEditText,
 } from './styles';
+import {TASK_PRIORITIES} from '../../constants/tasks';
 
 function Task({item, handleLeft, handleRight, handleEdit}) {
   const theme = useTheme();
@@ -24,6 +30,7 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(item.task);
+  const [editedPriority, setEditedPriority] = useState(item.priority);
 
   useEffect(() => {
     Animated.timing(animatedValue, {
@@ -35,7 +42,8 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
 
   useEffect(() => {
     setEditedTask(item.task);
-  }, [item.task]);
+    setEditedPriority(item.priority);
+  }, [item.task, item.priority]);
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
@@ -43,7 +51,7 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
   });
 
   const handleSaveEdit = () => {
-    const success = handleEdit(item.id, editedTask);
+    const success = handleEdit(item.id, editedTask, editedPriority);
     if (success) {
       setIsEditing(false);
     }
@@ -51,13 +59,26 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
 
   const handleCancelEdit = () => {
     setEditedTask(item.task);
+    setEditedPriority(item.priority);
     setIsEditing(false);
   };
 
   const startEditing = () => {
     setIsEditing(true);
+    setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
     swipeableRef.current?.close();
   };
+
+  const priorityConfig = [
+    {id: TASK_PRIORITIES.NONE, label: 'Nenhuma', color: theme.colors.accent},
+    {id: TASK_PRIORITIES.LOW, label: 'Baixa', color: theme.colors.info},
+    {id: TASK_PRIORITIES.MEDIUM, label: 'Média', color: theme.colors.warning},
+    {id: TASK_PRIORITIES.HIGH, label: 'Alta', color: theme.colors.error},
+  ];
+
+  const currentPriorityColor =
+    priorityConfig.find(p => p.id === item.priority)?.color ||
+    theme.colors.accent;
 
   function LeftActions(progress, dragX) {
     const scale = dragX.interpolate({
@@ -141,14 +162,32 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
       <Container done={item.done} style={{backgroundColor}}>
         {isEditing ? (
           <>
-            <EditInput
-              value={editedTask}
-              onChangeText={setEditedTask}
-              autoFocus
-              onSubmitEditing={handleSaveEdit}
-              returnKeyType='done'
-              testID='task-edit-input'
-            />
+            <EditContentWrapper>
+              <EditInput
+                value={editedTask}
+                onChangeText={setEditedTask}
+                autoFocus
+                onSubmitEditing={handleSaveEdit}
+                returnKeyType='done'
+                testID='task-edit-input'
+              />
+              <PriorityEditRow>
+                {priorityConfig.map(p => (
+                  <PriorityEditButton
+                    key={p.id}
+                    $active={editedPriority === p.id}
+                    $color={p.color}
+                    onPress={() => setEditedPriority(p.id)}
+                    testID={`priority-edit-button-${p.id}`}>
+                    <PriorityEditText
+                      $active={editedPriority === p.id}
+                      $color={p.color}>
+                      {p.label}
+                    </PriorityEditText>
+                  </PriorityEditButton>
+                ))}
+              </PriorityEditRow>
+            </EditContentWrapper>
             <EditActions>
               <CancelIcon
                 name='x'
@@ -168,6 +207,7 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
           </>
         ) : (
           <>
+            <PriorityIndicator $color={currentPriorityColor} />
             <TaskText done={item.done}>{item.task}</TaskText>
             {item.done && (
               <Icon name='check-circle' size={20} color={theme.colors.accent} />

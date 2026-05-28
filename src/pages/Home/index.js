@@ -46,8 +46,8 @@ function Home() {
     clearLastDeletedTask,
   } = useTasks();
 
-  function handleAddTask() {
-    const success = addTask(task);
+  function handleAddTask(priority) {
+    const success = addTask(task, priority);
     if (success) {
       setTask('');
       Keyboard.dismiss();
@@ -72,7 +72,7 @@ function Home() {
       <AddTask
         task={task}
         onChangeText={text => setTask(text)}
-        onAdd={() => handleAddTask()}
+        onAdd={priority => handleAddTask(priority)}
         loading={loading}
       />
 

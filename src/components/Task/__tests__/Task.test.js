@@ -44,6 +44,7 @@ const mockTask = {
   id: '1',
   task: 'Test Task',
   done: false,
+  priority: 'none',
   createdAt: new Date().toISOString(),
 };
 
@@ -126,7 +127,11 @@ describe('Task Component', () => {
       component.root.findByProps({testID: 'save-edit-button'}).props.onPress();
     });
 
-    expect(handleEdit).toHaveBeenCalledWith(mockTask.id, 'Updated Task');
+    expect(handleEdit).toHaveBeenCalledWith(
+      mockTask.id,
+      'Updated Task',
+      expect.any(String),
+    );
     // Verify it returned to normal mode
     expect(
       component.root.findAllByProps({testID: 'task-edit-input'}),

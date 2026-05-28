@@ -2,7 +2,11 @@ import {useState, useEffect} from 'react';
 import {Alert, LayoutAnimation} from 'react-native';
 import {saveTasks, getTasks} from '../services/storage';
 import {createTask} from '../models/Task';
-import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../constants/tasks';
+import {
+  MIN_TASK_LENGTH,
+  MAX_TASK_LENGTH,
+  TASK_PRIORITIES,
+} from '../constants/tasks';
 
 const animationConfig = {
   duration: 300,
@@ -73,7 +77,7 @@ export const useTasks = () => {
     }
   }, [tasks]);
 
-  const addTask = taskTitle => {
+  const addTask = (taskTitle, priority = TASK_PRIORITIES.NONE) => {
     const trimmedTask = taskTitle.trim();
 
     if (!trimmedTask) {
@@ -106,7 +110,7 @@ export const useTasks = () => {
       return false;
     }
 
-    const newTask = createTask(trimmedTask);
+    const newTask = createTask(trimmedTask, priority);
     LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks => [...(prevTasks || []), newTask]);
     return true;
@@ -148,7 +152,7 @@ export const useTasks = () => {
     );
   };
 
-  const editTask = (id, newTaskTitle) => {
+  const editTask = (id, newTaskTitle, priority) => {
     const trimmedTask = newTaskTitle.trim();
 
     if (!trimmedTask) {
@@ -185,7 +189,11 @@ export const useTasks = () => {
     setTasks(prevTasks =>
       (prevTasks || []).map(t => {
         if (t.id === id) {
-          return {...t, task: trimmedTask};
+          return {
+            ...t,
+            task: trimmedTask,
+            priority: priority !== undefined ? priority : t.priority,
+          };
         }
         return t;
       }),

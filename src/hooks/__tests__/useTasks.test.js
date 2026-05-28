@@ -80,12 +80,13 @@ describe('useTasks hook', () => {
     });
 
     await act(async () => {
-      const success = hook.addTask('New Task');
+      const success = hook.addTask('New Task', 'high');
       expect(success).toBe(true);
     });
 
     expect(hook.tasks).toHaveLength(1);
     expect(hook.tasks[0].task).toBe('New Task');
+    expect(hook.tasks[0].priority).toBe('high');
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
   });
 
@@ -190,7 +191,9 @@ describe('useTasks hook', () => {
   });
 
   it('should edit a task successfully', async () => {
-    const mockTasks = [{id: '1', task: 'Original Task', done: false}];
+    const mockTasks = [
+      {id: '1', task: 'Original Task', done: false, priority: 'none'},
+    ];
     getTasks.mockResolvedValueOnce(mockTasks);
     let hook;
     await act(async () => {
@@ -198,11 +201,12 @@ describe('useTasks hook', () => {
     });
 
     await act(async () => {
-      const success = hook.editTask('1', 'Updated Task');
+      const success = hook.editTask('1', 'Updated Task', 'medium');
       expect(success).toBe(true);
     });
 
     expect(hook.tasks[0].task).toBe('Updated Task');
+    expect(hook.tasks[0].priority).toBe('medium');
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
   });
 

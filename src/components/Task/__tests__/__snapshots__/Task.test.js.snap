@@ -22,33 +22,221 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
       }
     }
   >
-    <TextInput
-      allowFontScaling={true}
-      autoFocus={true}
-      onChangeText={[Function]}
-      onSubmitEditing={[Function]}
-      rejectResponderTermination={true}
-      returnKeyType="done"
+    <View
       style={
         Array [
           Object {
-            "color": "#ffffff",
             "flexBasis": 0,
             "flexGrow": 1,
             "flexShrink": 1,
-            "fontSize": 14,
-            "fontWeight": "400",
-            "paddingBottom": 0,
-            "paddingLeft": 0,
-            "paddingRight": 0,
-            "paddingTop": 0,
           },
         ]
       }
-      testID="task-edit-input"
-      underlineColorAndroid="transparent"
-      value="Test Task"
-    />
+    >
+      <TextInput
+        allowFontScaling={true}
+        autoFocus={true}
+        onChangeText={[Function]}
+        onSubmitEditing={[Function]}
+        rejectResponderTermination={true}
+        returnKeyType="done"
+        style={
+          Array [
+            Object {
+              "color": "#ffffff",
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "flexShrink": 1,
+              "fontSize": 14,
+              "fontWeight": "400",
+              "paddingBottom": 0,
+              "paddingLeft": 0,
+              "paddingRight": 0,
+              "paddingTop": 0,
+            },
+          ]
+        }
+        testID="task-edit-input"
+        underlineColorAndroid="transparent"
+        value="Test Task"
+      />
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginTop": 2,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#9cc5a1",
+              "borderColor": "#9cc5a1",
+              "borderRadius": 4,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 4,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 6,
+              "paddingRight": 6,
+              "paddingTop": 2,
+            }
+          }
+          testID="priority-edit-button-none"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#ffffff",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Nenhuma
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderColor": "#4a90e2",
+              "borderRadius": 4,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 4,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 6,
+              "paddingRight": 6,
+              "paddingTop": 2,
+            }
+          }
+          testID="priority-edit-button-low"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#4a90e2",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Baixa
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderColor": "#f5a623",
+              "borderRadius": 4,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 4,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 6,
+              "paddingRight": 6,
+              "paddingTop": 2,
+            }
+          }
+          testID="priority-edit-button-medium"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#f5a623",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Média
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderColor": "#FF0000",
+              "borderRadius": 4,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 4,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 6,
+              "paddingRight": 6,
+              "paddingTop": 2,
+            }
+          }
+          testID="priority-edit-button-high"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#FF0000",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Alta
+          </Text>
+        </View>
+      </View>
+    </View>
     <View
       style={
         Array [
@@ -156,6 +344,19 @@ exports[`Task Component renders correctly for a completed task 1`] = `
       }
     }
   >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#9cc5a1",
+            "borderRadius": 2,
+            "height": 20,
+            "marginRight": 8,
+            "width": 4,
+          },
+        ]
+      }
+    />
     <Text
       done={true}
       style={
@@ -381,6 +582,19 @@ exports[`Task Component renders correctly for a pending task 1`] = `
       }
     }
   >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#9cc5a1",
+            "borderRadius": 2,
+            "height": 20,
+            "marginRight": 8,
+            "width": 4,
+          },
+        ]
+      }
+    />
     <Text
       done={false}
       style={

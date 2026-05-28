@@ -28,11 +28,17 @@ describe('AddTask Component', () => {
       <AddTask task='New Task' onChangeText={() => {}} onAdd={onAddMock} />,
     );
 
-    // Find ButtonAdd by its onPress prop
-    const plusButton = component.root.findByProps({onPress: onAddMock});
+    // Find the icon named 'plus'
+    const icon = component.root.findByProps({name: 'plus'});
+
+    // Find the closest parent with onPress
+    let parent = icon.parent;
+    while (parent && !parent.props.onPress) {
+      parent = parent.parent;
+    }
 
     act(() => {
-      plusButton.props.onPress();
+      parent.props.onPress();
     });
 
     expect(onAddMock).toHaveBeenCalled();
