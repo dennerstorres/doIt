@@ -4,7 +4,7 @@ export const BaseInputContainer = styled.View`
   flex-direction: row;
   align-items: center;
   background-color: ${props => props.theme.colors.white};
-  height: 40px;
+  min-height: 40px;
   border-width: 1px;
   border-color: ${props => props.theme.colors.accent};
 `;

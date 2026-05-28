@@ -2,7 +2,11 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   position: absolute;
-  bottom: ${({theme}) => theme.spacing.xlarge};
+  bottom: ${({theme, $bottomInset}) => {
+    const base = parseInt(theme.spacing.xlarge, 10);
+    const inset = $bottomInset || 0;
+    return `${base + inset}px`;
+  }};
   left: ${({theme}) => theme.spacing.xlarge};
   right: ${({theme}) => theme.spacing.xlarge};
   background-color: ${({theme}) => theme.colors.text};

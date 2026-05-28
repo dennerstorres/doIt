@@ -7,8 +7,9 @@ exports[`Header Component renders correctly 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "#49a078",
-        "height": 60,
         "justifyContent": "center",
+        "minHeight": 60,
+        "paddingTop": 0,
         "width": "100%",
       },
     ]

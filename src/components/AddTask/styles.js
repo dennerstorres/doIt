@@ -11,17 +11,17 @@ export const InputContainer = styled(BaseInputContainer)`
 `;
 
 export const TaskText = styled(BaseInput)`
-  height: 40px;
+  min-height: 40px;
   padding-left: ${props => props.theme.spacing.medium};
 `;
 
 export const ClearButton = styled(BaseClearButton)`
   padding: 0 ${props => props.theme.spacing.small};
-  height: 100%;
+  min-height: 40px;
 `;
 
 export const ButtonAdd = styled.TouchableOpacity`
-  height: 40px;
+  min-height: 40px;
   width: ${props => props.theme.spacing.huge};
   background-color: ${props => props.theme.colors.primary};
   justify-content: center;
