@@ -15,6 +15,9 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
         "paddingRight": 5,
         "paddingTop": 5,
       },
+      Object {
+        "paddingBottom": 0,
+      },
     ]
   }
 >
@@ -24,9 +27,12 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
         Object {
           "alignItems": "center",
           "backgroundColor": "#49a078",
-          "height": 60,
           "justifyContent": "center",
+          "minHeight": 60,
           "width": "100%",
+        },
+        Object {
+          "paddingTop": 0,
         },
       ]
     }
@@ -709,9 +715,9 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
                 "alignItems": "center",
                 "backgroundColor": "rgba(33, 104, 105, 1)",
                 "flexDirection": "row",
-                "height": 50,
                 "justifyContent": "center",
                 "marginBottom": 5,
+                "minHeight": 50,
                 "paddingBottom": 5,
                 "paddingLeft": 15,
                 "paddingRight": 15,
@@ -774,6 +780,9 @@ exports[`Home Page should show loading indicator initially 1`] = `
         "paddingRight": 5,
         "paddingTop": 5,
       },
+      Object {
+        "paddingBottom": 0,
+      },
     ]
   }
 >
@@ -783,9 +792,12 @@ exports[`Home Page should show loading indicator initially 1`] = `
         Object {
           "alignItems": "center",
           "backgroundColor": "#49a078",
-          "height": 60,
           "justifyContent": "center",
+          "minHeight": 60,
           "width": "100%",
+        },
+        Object {
+          "paddingTop": 0,
         },
       ]
     }

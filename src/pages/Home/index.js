@@ -2,6 +2,7 @@ import React, {useState, useMemo} from 'react';
 import {Keyboard} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useTheme} from 'styled-components/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {
   Container,
@@ -30,6 +31,7 @@ import {
 
 function Home() {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const [task, setTask] = useState('');
   const [search, setSearch] = useState('');
   const [sortType, setSortType] = useState(SORT_TYPES.DEFAULT);
@@ -66,7 +68,7 @@ function Home() {
   );
 
   return (
-    <Container>
+    <Container style={{paddingBottom: insets.bottom}}>
       <Header />
       <Search value={search} onChangeText={text => setSearch(text)} />
       <AddTask

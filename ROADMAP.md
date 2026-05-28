@@ -143,7 +143,7 @@
 - [!] Criar tema light/dark
 - [x] Melhorar swipe actions
 - [ ] Adicionar ícones consistentes
-- [ ] Melhorar responsividade
+- [x] Melhorar responsividade
 - [x] Adicionar confirmação para deletar
 - [x] Adicionar undo ao deletar
 - [!] Adicionar filtro Todas
@@ -891,20 +891,6 @@
 
 - **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
 - **Decisões Técnicas**:
-  - Definição de  em `src/constants/tasks.js`.
-  - Atualização do model `Task` para incluir o campo `priority`, com fallback para 'none'.
-  - Integração no hook `useTasks` para persistir e editar a prioridade.
-  - UI: Adição de seletores de prioridade no `AddTask` e no modo de edição do componente `Task`.
-  - UI: Indicador visual colorido na listagem de tarefas baseado na prioridade.
-  - Ordenação: Atualização do `sortTasks` para incluir prioridade no critério padrão (Status > Prioridade > Data) e adição de novo tipo de ordenação por prioridade.
-  - Uso de cores semânticas (`info`, `warning`) adicionadas ao tema global.
-- **Limitações**: Tarefas antigas sem prioridade assumem automaticamente 'Nenhuma'.
-- **Riscos**: Baixo. A lógica é retrocompatível e possui ampla cobertura de testes unitários.
-
-## Adicionar prioridade
-
-- **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
-- **Decisões Técnicas**:
   - Definição de `TASK_PRIORITIES` em `src/constants/tasks.js`.
   - Atualização do model `Task` para incluir o campo `priority`, com fallback para 'none'.
   - Integração no hook `useTasks` para persistir e editar a prioridade.
@@ -914,3 +900,15 @@
   - Uso de cores semânticas (`info`, `warning`) adicionadas ao tema global.
 - **Limitações**: Tarefas antigas sem prioridade assumem automaticamente 'Nenhuma'.
 - **Riscos**: Baixo. A lógica é retrocompatível e possui ampla cobertura de testes unitários.
+
+## Melhorar responsividade
+
+- **Implementação**: Introdução de suporte a Safe Area e layout flexível para diferentes tamanhos de tela.
+- **Decisões Técnicas**:
+  - Integração da biblioteca `react-native-safe-area-context` com `SafeAreaProvider` no root (`App.js`).
+  - Uso do hook `useSafeAreaInsets` no `Header`, `Home` page e `UndoAction` para garantir que o conteúdo não seja sobreposto por notches ou pelo home indicator do iOS.
+  - Refatoração do componente `Header` para suportar preenchimento dinâmico do status bar mantendo o background color primário.
+  - Migração de alturas fixas (`height: 50px`) para `min-height` no componente `Task` para suportar quebra de texto em telas estreitas sem truncamento.
+  - Mock abrangente da API de Safe Area no `jest-setup.js` para garantir estabilidade dos testes unitários.
+- **Limitações**: A responsividade em tablets (telas muito largas) ainda pode exigir ajustes de max-width no futuro.
+- **Riscos**: Baixo. A implementação utiliza padrões recomendados pela comunidade React Native e possui cobertura de testes.

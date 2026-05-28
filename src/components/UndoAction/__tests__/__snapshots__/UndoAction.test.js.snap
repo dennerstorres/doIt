@@ -34,6 +34,9 @@ exports[`UndoAction component renders correctly 1`] = `
           "shadowOpacity": 0.25,
           "shadowRadius": 3.84,
         },
+        Object {
+          "bottom": 20,
+        },
       ]
     }
   >

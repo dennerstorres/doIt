@@ -6,7 +6,7 @@ export const Container = styled(Animated.View)`
   background-color: ${props =>
     props.done ? props.theme.colors.primary : props.theme.colors.secondary};
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   justify-content: center;
   padding: ${props =>
     `${props.theme.spacing.tiny} ${props.theme.spacing.large}`};
@@ -29,7 +29,7 @@ export const LeftActionContainer = styled(Animated.View)`
   justify-content: center;
   align-items: flex-start;
   flex: 1;
-  height: 50px;
+  min-height: 50px;
 `;
 
 export const RightActionContainer = styled.TouchableOpacity`
@@ -39,7 +39,7 @@ export const RightActionContainer = styled.TouchableOpacity`
       : props.theme.colors.error};
   justify-content: center;
   align-items: flex-end;
-  height: 50px;
+  min-height: 50px;
 `;
 
 export const EditInput = styled.TextInput`
