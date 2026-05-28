@@ -191,7 +191,7 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
             <EditActions>
               <CancelIcon
                 name='x'
-                size={20}
+                size={18}
                 color={theme.colors.error}
                 onPress={handleCancelEdit}
                 testID='cancel-edit-button'
