@@ -143,7 +143,7 @@
 - [!] Criar tema light/dark
 - [x] Melhorar swipe actions
 - [x] Adicionar ícones consistentes
-- [ ] Melhorar responsividade
+- [x] Melhorar responsividade
 - [x] Adicionar confirmação para deletar
 - [x] Adicionar undo ao deletar
 - [!] Adicionar filtro Todas
@@ -936,3 +936,15 @@
   - Atualização dos testes de snapshot para refletir as mudanças nas propriedades de estilo.
 - **Limitações**: Algumas dimensões específicas (como alturas de 40px/50px/60px) foram mantidas como valores fixos por não possuírem mapeamento direto ideal na escala de espaçamento atual, visando preservar a proporção da UI.
 - **Riscos**: Baixo. As mudanças são puramente de consistência arquitetural de estilo, validadas por testes automatizados.
+
+## Melhorar responsividade
+
+- **Implementação**: Introdução de suporte a Safe Area e refatoração de dimensões fixas.
+- **Decisões Técnicas**:
+  - Integração da biblioteca `react-native-safe-area-context` para gerenciar insets de entalhes (notches) e barras de navegação.
+  - O root do App foi envolvido por `SafeAreaProvider` e os insets foram aplicados dinamicamente nos componentes `Header`, `Home` e `UndoAction` usando o hook `useSafeAreaInsets`.
+  - Substituição de `height` fixo por `min-height` em componentes base de input (`Shared/styles.js`) e no `AddTask` para suportar variações de conteúdo e insets.
+  - Mock global da biblioteca `react-native-safe-area-context` em `jest-setup.js` para garantir estabilidade dos testes unitários.
+  - Atualização abrangente dos snapshots de componentes para refletir as melhorias na estrutura do layout.
+- **Limitações**: A implementação foca em insets verticais (top/bottom); orientações horizontais (landscape) podem exigir ajustes adicionais em fases futuras de UX.
+- **Riscos**: Baixo. A biblioteca é padrão da indústria e a implementação é retrocompatível com dispositivos sem notches.

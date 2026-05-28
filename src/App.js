@@ -3,6 +3,7 @@ import {Platform, UIManager} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ThemeProvider} from 'styled-components/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import theme from './theme';
 
@@ -23,19 +24,21 @@ const Stack = createStackNavigator();
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name='Home'
-            component={Home}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name='Home'
+              component={Home}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
 
