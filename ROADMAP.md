@@ -142,7 +142,7 @@
 - [x] Adicionar dark mode
 - [!] Criar tema light/dark
 - [x] Melhorar swipe actions
-- [ ] Adicionar ícones consistentes
+- [x] Adicionar ícones consistentes
 - [ ] Melhorar responsividade
 - [x] Adicionar confirmação para deletar
 - [x] Adicionar undo ao deletar
@@ -900,6 +900,17 @@
   - Uso de cores semânticas (`info`, `warning`) adicionadas ao tema global.
 - **Limitações**: Tarefas antigas sem prioridade assumem automaticamente 'Nenhuma'.
 - **Riscos**: Baixo. A lógica é retrocompatível e possui ampla cobertura de testes unitários.
+
+## Adicionar ícones consistentes
+
+- **Implementação**: Padronização do uso de ícones em toda a aplicação para garantir consistência visual e facilitar a manutenção temática.
+- **Decisões Técnicas**:
+  - Refatoração do componente `EmptyState` para utilizar o hook `useTheme` e cores dinâmicas do tema em vez de cores estáticas.
+  - Padronização do tamanho dos ícones de ação de limpeza e cancelamento (`x`) para `18px` em todos os componentes (`Search`, `AddTask`, `Task`).
+  - Auditoria completa para garantir que todos os ícones Feather consumam as cores do `ThemeProvider`.
+  - Atualização dos snapshots de testes unitários para refletir as mudanças nas propriedades dos ícones.
+- **Limitações**: A biblioteca `react-native-vector-icons` ainda requer linkagem nativa para novos ícones, embora o conjunto Feather atual seja suficiente.
+- **Riscos**: Alterações sutis em tamanhos de ícones podem impactar o alinhamento visual em dispositivos muito pequenos (verificado nos testes).
 
 ## Adicionar prioridade
 

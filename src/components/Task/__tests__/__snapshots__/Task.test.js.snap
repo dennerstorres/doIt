@@ -250,7 +250,7 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
         color="#FF0000"
         name="x"
         onPress={[Function]}
-        size={20}
+        size={18}
         style={
           Array [
             Object {
