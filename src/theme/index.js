@@ -7,6 +7,8 @@ const theme = {
     accent: '#9cc5a1',
     error: '#FF0000',
     white: '#ffffff',
+    info: '#4a90e2',
+    warning: '#f5a623',
   },
   spacing: {
     nano: '2px',

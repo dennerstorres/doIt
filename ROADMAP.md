@@ -157,7 +157,7 @@
 # FASE 7 — Funcionalidades Reais
 
 - [x] Adicionar edição de tarefas
-- [ ] Adicionar prioridade
+- [x] Adicionar prioridade
 - [ ] Adicionar categoria
 - [ ] Adicionar data limite
 - [ ] Adicionar lembretes locais
@@ -886,3 +886,31 @@
   - Cobertura de testes unitários abrangente no hook e no componente, incluindo verificação de cancelamento, salvamento e snapshots.
 - **Limitações**: O modo de edição é focado automaticamente (`autoFocus`), mas não seleciona o texto todo ao abrir (comportamento padrão do RN).
 - **Riscos**: Baixo. A lógica é isolada por tarefa e respeita as regras de persistência global.
+
+## Adicionar prioridade
+
+- **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
+- **Decisões Técnicas**:
+  - Definição de  em `src/constants/tasks.js`.
+  - Atualização do model `Task` para incluir o campo `priority`, com fallback para 'none'.
+  - Integração no hook `useTasks` para persistir e editar a prioridade.
+  - UI: Adição de seletores de prioridade no `AddTask` e no modo de edição do componente `Task`.
+  - UI: Indicador visual colorido na listagem de tarefas baseado na prioridade.
+  - Ordenação: Atualização do `sortTasks` para incluir prioridade no critério padrão (Status > Prioridade > Data) e adição de novo tipo de ordenação por prioridade.
+  - Uso de cores semânticas (`info`, `warning`) adicionadas ao tema global.
+- **Limitações**: Tarefas antigas sem prioridade assumem automaticamente 'Nenhuma'.
+- **Riscos**: Baixo. A lógica é retrocompatível e possui ampla cobertura de testes unitários.
+
+## Adicionar prioridade
+
+- **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
+- **Decisões Técnicas**:
+  - Definição de `TASK_PRIORITIES` em `src/constants/tasks.js`.
+  - Atualização do model `Task` para incluir o campo `priority`, com fallback para 'none'.
+  - Integração no hook `useTasks` para persistir e editar a prioridade.
+  - UI: Adição de seletores de prioridade no `AddTask` e no modo de edição do componente `Task`.
+  - UI: Indicador visual colorido na listagem de tarefas baseado na prioridade.
+  - Ordenação: Atualização do `sortTasks` para incluir prioridade no critério padrão (Status > Prioridade > Data) e adição de novo tipo de ordenação por prioridade.
+  - Uso de cores semânticas (`info`, `warning`) adicionadas ao tema global.
+- **Limitações**: Tarefas antigas sem prioridade assumem automaticamente 'Nenhuma'.
+- **Riscos**: Baixo. A lógica é retrocompatível e possui ampla cobertura de testes unitários.

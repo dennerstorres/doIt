@@ -71,6 +71,38 @@ export const EditActions = styled.View`
   flex-direction: row;
 `;
 
+export const EditContentWrapper = styled.View`
+  flex: 1;
+`;
+
 export const CancelIcon = styled(Icon)`
   margin-right: ${props => props.theme.spacing.medium};
+`;
+
+export const PriorityIndicator = styled.View`
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+  background-color: ${props => props.$color};
+  margin-right: ${props => props.theme.spacing.small};
+`;
+
+export const PriorityEditRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${props => props.theme.spacing.nano};
+`;
+
+export const PriorityEditButton = styled.TouchableOpacity`
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: ${props => (props.$active ? props.$color : 'transparent')};
+  margin-right: 4px;
+  border: 1px solid ${props => props.$color};
+`;
+
+export const PriorityEditText = styled.Text`
+  font-size: 8px;
+  font-weight: ${props => props.theme.typography.weight.bold};
+  color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
 `;

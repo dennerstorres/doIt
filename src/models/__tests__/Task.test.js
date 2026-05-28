@@ -19,6 +19,7 @@ describe('Task Model', () => {
         id: expect.any(String),
         task: 'New Task',
         done: false,
+        priority: 'none',
         createdAt: '2023-01-01T12:00:00.000Z',
       });
     });
@@ -27,6 +28,11 @@ describe('Task Model', () => {
       const text = '  Trimmed Task  ';
       const task = createTask(text);
       expect(task.task).toBe('Trimmed Task');
+    });
+
+    it('should create a task with specific priority', () => {
+      const task = createTask('Important', 'high');
+      expect(task.priority).toBe('high');
     });
   });
 

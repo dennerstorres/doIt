@@ -1,3 +1,5 @@
+import {TASK_PRIORITIES} from '../constants/tasks';
+
 /**
  * Task Utility Functions
  */
@@ -6,10 +8,18 @@
  * Sorting types constants
  */
 export const SORT_TYPES = {
-  DEFAULT: 'DEFAULT', // Status (unfinished first) + Date (newest first)
+  DEFAULT: 'DEFAULT', // Status (unfinished first) + Priority + Date (newest first)
   DATE_DESC: 'DATE_DESC', // Newest first
   DATE_ASC: 'DATE_ASC', // Oldest first
   ALPHABETICAL: 'ALPHABETICAL', // A-Z
+  PRIORITY: 'PRIORITY', // High -> Medium -> Low -> None
+};
+
+const PRIORITY_SCORE = {
+  [TASK_PRIORITIES.HIGH]: 3,
+  [TASK_PRIORITIES.MEDIUM]: 2,
+  [TASK_PRIORITIES.LOW]: 1,
+  [TASK_PRIORITIES.NONE]: 0,
 };
 
 /**
@@ -41,11 +51,29 @@ export const sortTasks = (tasks, sortType = SORT_TYPES.DEFAULT) => {
         return dateB - dateA;
       }
 
+      case SORT_TYPES.PRIORITY: {
+        const scoreA = PRIORITY_SCORE[a.priority] || 0;
+        const scoreB = PRIORITY_SCORE[b.priority] || 0;
+        if (scoreA !== scoreB) {
+          return scoreB - scoreA;
+        }
+        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
+        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        return dateB - dateA;
+      }
+
       case SORT_TYPES.DEFAULT:
       default: {
         // First, sort by status: unfinished first
         if (a.done !== b.done) {
           return a.done ? 1 : -1;
+        }
+
+        // Then, sort by priority
+        const scoreA = PRIORITY_SCORE[a.priority] || 0;
+        const scoreB = PRIORITY_SCORE[b.priority] || 0;
+        if (scoreA !== scoreB) {
+          return scoreB - scoreA;
         }
 
         // Then, sort by creation date: newest first

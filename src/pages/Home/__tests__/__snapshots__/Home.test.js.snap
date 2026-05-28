@@ -196,6 +196,199 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
         />
       </View>
     </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginTop": 8,
+            "paddingBottom": 0,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+            "paddingTop": 0,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "marginRight": 8,
+            },
+          ]
+        }
+      >
+        Prioridade:
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#9cc5a1",
+            "borderColor": "#9cc5a1",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-none"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#ffffff",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Nenhuma
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#4a90e2",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-low"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#4a90e2",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Baixa
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#f5a623",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-medium"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#f5a623",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Média
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#FF0000",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-high"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#FF0000",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Alta
+        </Text>
+      </View>
+    </View>
   </View>
   <View
     style={
@@ -527,6 +720,19 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
               }
             }
           >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#9cc5a1",
+                    "borderRadius": 2,
+                    "height": 20,
+                    "marginRight": 8,
+                    "width": 4,
+                  },
+                ]
+              }
+            />
             <Text
               done={false}
               style={
@@ -747,6 +953,199 @@ exports[`Home Page should show loading indicator initially 1`] = `
           name="plus"
           size={22}
         />
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginTop": 8,
+            "paddingBottom": 0,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+            "paddingTop": 0,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "marginRight": 8,
+            },
+          ]
+        }
+      >
+        Prioridade:
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#9cc5a1",
+            "borderColor": "#9cc5a1",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-none"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#ffffff",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Nenhuma
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#4a90e2",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-low"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#4a90e2",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Baixa
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#f5a623",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-medium"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#f5a623",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Média
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#FF0000",
+            "borderRadius": 4,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="priority-button-high"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#FF0000",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Alta
+        </Text>
       </View>
     </View>
   </View>
