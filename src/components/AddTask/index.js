@@ -13,17 +13,28 @@ import {
   PriorityLabel,
   PriorityButton,
   PriorityText,
+  CategoryContainer,
+  CategoryLabel,
+  CategoryScroll,
+  CategoryButton,
+  CategoryText,
 } from './styles';
-import {MAX_TASK_LENGTH, TASK_PRIORITIES} from '../../constants/tasks';
+import {
+  MAX_TASK_LENGTH,
+  TASK_PRIORITIES,
+  TASK_CATEGORIES,
+} from '../../constants/tasks';
 
 function AddTask({task, onChangeText, onAdd, loading}) {
   const theme = useTheme();
   const [priority, setPriority] = useState(TASK_PRIORITIES.NONE);
+  const [category, setCategory] = useState(TASK_CATEGORIES.NONE);
   const showCounter = task.length > 40;
 
   const handleAdd = () => {
-    onAdd(priority);
+    onAdd(priority, category);
     setPriority(TASK_PRIORITIES.NONE);
+    setCategory(TASK_CATEGORIES.NONE);
   };
 
   const priorityConfig = [
@@ -31,6 +42,15 @@ function AddTask({task, onChangeText, onAdd, loading}) {
     {id: TASK_PRIORITIES.LOW, label: 'Baixa', color: theme.colors.info},
     {id: TASK_PRIORITIES.MEDIUM, label: 'Média', color: theme.colors.warning},
     {id: TASK_PRIORITIES.HIGH, label: 'Alta', color: theme.colors.error},
+  ];
+
+  const categoryConfig = [
+    {id: TASK_CATEGORIES.NONE, label: 'Geral'},
+    {id: TASK_CATEGORIES.WORK, label: 'Trabalho'},
+    {id: TASK_CATEGORIES.PERSONAL, label: 'Pessoal'},
+    {id: TASK_CATEGORIES.SHOPPING, label: 'Compras'},
+    {id: TASK_CATEGORIES.HEALTH, label: 'Saúde'},
+    {id: TASK_CATEGORIES.STUDY, label: 'Estudo'},
   ];
 
   return (
@@ -74,6 +94,22 @@ function AddTask({task, onChangeText, onAdd, loading}) {
           </PriorityButton>
         ))}
       </PriorityContainer>
+
+      <CategoryContainer>
+        <CategoryLabel>Categoria:</CategoryLabel>
+        <CategoryScroll>
+          {categoryConfig.map(c => (
+            <CategoryButton
+              key={c.id}
+              $active={category === c.id}
+              onPress={() => setCategory(c.id)}
+              disabled={loading}
+              testID={`category-button-${c.id}`}>
+              <CategoryText $active={category === c.id}>{c.label}</CategoryText>
+            </CategoryButton>
+          ))}
+        </CategoryScroll>
+      </CategoryContainer>
 
       {showCounter && (
         <Counter>

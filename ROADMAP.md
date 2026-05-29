@@ -158,7 +158,7 @@
 
 - [x] Adicionar edição de tarefas
 - [x] Adicionar prioridade
-- [ ] Adicionar categoria
+- [x] Adicionar categoria
 - [ ] Adicionar data limite
 - [ ] Adicionar lembretes locais
 - [ ] Adicionar repetição de tarefas
@@ -948,3 +948,17 @@
   - Atualização abrangente dos snapshots de componentes para refletir as melhorias na estrutura do layout.
 - **Limitações**: A implementação foca em insets verticais (top/bottom); orientações horizontais (landscape) podem exigir ajustes adicionais em fases futuras de UX.
 - **Riscos**: Baixo. A biblioteca é padrão da indústria e a implementação é retrocompatível com dispositivos sem notches.
+
+## Adicionar categoria
+
+- **Implementação**: Sistema de categorias para tarefas (Geral, Trabalho, Pessoal, Compras, Saúde, Estudo).
+- **Decisões Técnicas**:
+  - Definição de `TASK_CATEGORIES` em `src/constants/tasks.js`.
+  - Atualização do model `Task` para incluir o campo `category`, com fallback para 'none'.
+  - Integração no hook `useTasks` para persistir e editar a categoria.
+  - UI: Adição de seletores de categoria com scroll horizontal no `AddTask` e no modo de edição do componente `Task`.
+  - UI: Exibição de tag de categoria na listagem de tarefas (exceto para categoria 'Geral').
+  - Uso de Styled Components para garantir consistência visual e suporte a temas.
+  - Ampla cobertura de testes unitários e atualização de snapshots.
+- **Limitações**: Categorias são pré-definidas e não podem ser customizadas pelo usuário nesta fase.
+- **Riscos**: Baixo. A implementação é retrocompatível com dados antigos.

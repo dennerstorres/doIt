@@ -1,4 +1,4 @@
-import {TASK_PRIORITIES} from '../constants/tasks';
+import {TASK_PRIORITIES, TASK_CATEGORIES} from '../constants/tasks';
 
 /**
  * Task Model Factory
@@ -11,19 +11,26 @@ import {TASK_PRIORITIES} from '../constants/tasks';
  *
  * @param {string} text - The description of the task.
  * @param {string} [priority=TASK_PRIORITIES.NONE] - The priority of the task.
+ * @param {string} [category=TASK_CATEGORIES.NONE] - The category of the task.
  * @returns {Object} A new task object.
  * @property {string} id - Unique identifier (timestamp based).
  * @property {string} task - The trimmed task description.
  * @property {boolean} done - Initial completion status (false).
  * @property {string} priority - Task priority.
+ * @property {string} category - Task category.
  * @property {string} createdAt - ISO string of the creation date.
  */
-export const createTask = (text, priority = TASK_PRIORITIES.NONE) => {
+export const createTask = (
+  text,
+  priority = TASK_PRIORITIES.NONE,
+  category = TASK_CATEGORIES.NONE,
+) => {
   return {
     id: String(new Date().getTime()),
     task: text.trim(),
     done: false,
     priority,
+    category,
     createdAt: new Date().toISOString(),
   };
 };
@@ -39,6 +46,7 @@ export const isValidTask = taskObj => {
     !!taskObj &&
     typeof taskObj.id === 'string' &&
     typeof taskObj.task === 'string' &&
-    typeof taskObj.done === 'boolean'
+    typeof taskObj.done === 'boolean' &&
+    (typeof taskObj.category === 'string' || taskObj.category === undefined)
   );
 };

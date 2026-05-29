@@ -20,6 +20,7 @@ describe('Task Model', () => {
         task: 'New Task',
         done: false,
         priority: 'none',
+        category: 'none',
         createdAt: '2023-01-01T12:00:00.000Z',
       });
     });
@@ -33,6 +34,11 @@ describe('Task Model', () => {
     it('should create a task with specific priority', () => {
       const task = createTask('Important', 'high');
       expect(task.priority).toBe('high');
+    });
+
+    it('should create a task with specific category', () => {
+      const task = createTask('Shopping list', 'low', 'shopping');
+      expect(task.category).toBe('shopping');
     });
   });
 
