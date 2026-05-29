@@ -123,7 +123,7 @@
 
 # FASE 5 — TypeScript
 
-- [ ] Instalar TypeScript
+- [x] Instalar TypeScript
 - [ ] Configurar tsconfig
 - [ ] Migrar App.js para App.tsx
 - [ ] Criar tipagem Task
@@ -998,3 +998,14 @@
   - Verificação de ambiente de testes: correção de dependências ausentes via `yarn install` para garantir a execução do preset `react-native`.
 - **Limitações**: Testes de estilo via styled-components em React Native são validados primariamente via snapshots, dada a complexidade de acessar propriedades computadas no renderer.
 - **Riscos**: Baixo. A adição de testes aumenta a confiança no refactoring e evita regressões visuais.
+
+## Instalar TypeScript
+
+- **Implementação**: Instalação do compilador TypeScript e das definições de tipos básicas para o ecossistema do projeto.
+- **Decisões Técnicas**:
+  - Instalação do `typescript` (v6+).
+  - Instalação de `@types/jest`, `@types/react` e `@types/react-native`.
+  - Fixação da versão do `@types/react` em `^16.14.0` para manter compatibilidade com a versão do React do projeto (16.13.1), já que a versão `16.13.1` não foi encontrada no registro.
+  - Fixação da versão do `@types/react-native` em `0.63.4` para paridade exata com a versão do React Native instalada.
+- **Limitações**: Apenas a instalação foi realizada; a configuração do `tsconfig.json` e a migração de arquivos serão tratadas em tarefas subsequentes para garantir estabilidade incremental.
+- **Riscos**: Baixo, pois a coexistência de TypeScript no ambiente de desenvolvimento não afeta a execução do código JavaScript atual.
