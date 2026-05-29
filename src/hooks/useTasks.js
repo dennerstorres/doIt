@@ -6,6 +6,7 @@ import {
   MIN_TASK_LENGTH,
   MAX_TASK_LENGTH,
   TASK_PRIORITIES,
+  TASK_CATEGORIES,
 } from '../constants/tasks';
 
 const animationConfig = {
@@ -77,7 +78,11 @@ export const useTasks = () => {
     }
   }, [tasks]);
 
-  const addTask = (taskTitle, priority = TASK_PRIORITIES.NONE) => {
+  const addTask = (
+    taskTitle,
+    priority = TASK_PRIORITIES.NONE,
+    category = TASK_CATEGORIES.NONE,
+  ) => {
     const trimmedTask = taskTitle.trim();
 
     if (!trimmedTask) {
@@ -110,7 +115,7 @@ export const useTasks = () => {
       return false;
     }
 
-    const newTask = createTask(trimmedTask, priority);
+    const newTask = createTask(trimmedTask, priority, category);
     LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks => [...(prevTasks || []), newTask]);
     return true;
@@ -152,7 +157,7 @@ export const useTasks = () => {
     );
   };
 
-  const editTask = (id, newTaskTitle, priority) => {
+  const editTask = (id, newTaskTitle, priority, category) => {
     const trimmedTask = newTaskTitle.trim();
 
     if (!trimmedTask) {
@@ -193,6 +198,7 @@ export const useTasks = () => {
             ...t,
             task: trimmedTask,
             priority: priority !== undefined ? priority : t.priority,
+            category: category !== undefined ? category : t.category,
           };
         }
         return t;

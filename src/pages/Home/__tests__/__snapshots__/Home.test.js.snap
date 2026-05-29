@@ -393,6 +393,297 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
         </Text>
       </View>
     </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginTop": 8,
+            "paddingBottom": 0,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+            "paddingTop": 0,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "marginRight": 8,
+            },
+          ]
+        }
+      >
+        Categoria:
+      </Text>
+      <RCTScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        style={
+          Array [
+            Object {
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "flexShrink": 1,
+            },
+          ]
+        }
+      >
+        <View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#49a078",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-none"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#ffffff",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Geral
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-work"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Trabalho
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-personal"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Pessoal
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-shopping"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Compras
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-health"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Saúde
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-study"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Estudo
+            </Text>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
   </View>
   <View
     style={
@@ -1155,6 +1446,297 @@ exports[`Home Page should show loading indicator initially 1`] = `
           Alta
         </Text>
       </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginTop": 8,
+            "paddingBottom": 0,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+            "paddingTop": 0,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "marginRight": 8,
+            },
+          ]
+        }
+      >
+        Categoria:
+      </Text>
+      <RCTScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        style={
+          Array [
+            Object {
+              "flexBasis": 0,
+              "flexGrow": 1,
+              "flexShrink": 1,
+            },
+          ]
+        }
+      >
+        <View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#49a078",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-none"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#ffffff",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Geral
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-work"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Trabalho
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-personal"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Pessoal
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-shopping"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Compras
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-health"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Saúde
+            </Text>
+          </View>
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderColor": "#49a078",
+                "borderRadius": 8,
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "marginRight": 5,
+                "opacity": 1,
+                "paddingBottom": 5,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 5,
+              }
+            }
+            testID="category-button-study"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#49a078",
+                    "fontSize": 10,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              Estudo
+            </Text>
+          </View>
+        </View>
+      </RCTScrollView>
     </View>
   </View>
   <ActivityIndicator

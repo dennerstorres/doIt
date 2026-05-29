@@ -107,3 +107,44 @@ export const PriorityEditText = styled.Text`
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
 `;
+
+export const CategoryTag = styled.View`
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: ${props => props.theme.colors.accent};
+  margin-left: ${props => props.theme.spacing.small};
+`;
+
+export const CategoryTagText = styled.Text`
+  font-size: 10px;
+  color: ${props => props.theme.colors.secondary};
+  font-weight: ${props => props.theme.typography.weight.bold};
+`;
+
+export const CategoryEditRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${props => props.theme.spacing.nano};
+`;
+
+export const CategoryEditScroll = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})`
+  flex: 1;
+`;
+
+export const CategoryEditButton = styled.TouchableOpacity`
+  padding: ${props => props.theme.spacing.nano}
+    ${props => props.theme.spacing.tiny};
+  border-radius: ${props => props.theme.spacing.small};
+  background-color: ${props => (props.$active ? props.$color : 'transparent')};
+  margin-right: ${props => props.theme.spacing.small};
+  border: 1px solid ${props => props.$color};
+`;
+
+export const CategoryEditText = styled.Text`
+  font-size: 8px;
+  font-weight: ${props => props.theme.typography.weight.bold};
+  color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
+`;

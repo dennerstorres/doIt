@@ -7,3 +7,12 @@ export const TASK_PRIORITIES = {
   MEDIUM: 'medium',
   HIGH: 'high',
 };
+
+export const TASK_CATEGORIES = {
+  NONE: 'none',
+  WORK: 'work',
+  PERSONAL: 'personal',
+  SHOPPING: 'shopping',
+  HEALTH: 'health',
+  STUDY: 'study',
+};

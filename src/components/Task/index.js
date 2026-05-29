@@ -20,8 +20,14 @@ import {
   PriorityEditRow,
   PriorityEditButton,
   PriorityEditText,
+  CategoryTag,
+  CategoryTagText,
+  CategoryEditRow,
+  CategoryEditScroll,
+  CategoryEditButton,
+  CategoryEditText,
 } from './styles';
-import {TASK_PRIORITIES} from '../../constants/tasks';
+import {TASK_PRIORITIES, TASK_CATEGORIES} from '../../constants/tasks';
 
 function Task({item, handleLeft, handleRight, handleEdit}) {
   const theme = useTheme();
@@ -30,7 +36,12 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(item.task);
-  const [editedPriority, setEditedPriority] = useState(item.priority);
+  const [editedPriority, setEditedPriority] = useState(
+    item.priority || TASK_PRIORITIES.NONE,
+  );
+  const [editedCategory, setEditedCategory] = useState(
+    item.category || TASK_CATEGORIES.NONE,
+  );
 
   useEffect(() => {
     Animated.timing(animatedValue, {
@@ -42,8 +53,9 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
 
   useEffect(() => {
     setEditedTask(item.task);
-    setEditedPriority(item.priority);
-  }, [item.task, item.priority]);
+    setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
+    setEditedCategory(item.category || TASK_CATEGORIES.NONE);
+  }, [item.task, item.priority, item.category]);
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
@@ -51,7 +63,12 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
   });
 
   const handleSaveEdit = () => {
-    const success = handleEdit(item.id, editedTask, editedPriority);
+    const success = handleEdit(
+      item.id,
+      editedTask,
+      editedPriority,
+      editedCategory,
+    );
     if (success) {
       setIsEditing(false);
     }
@@ -60,12 +77,14 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
   const handleCancelEdit = () => {
     setEditedTask(item.task);
     setEditedPriority(item.priority);
+    setEditedCategory(item.category);
     setIsEditing(false);
   };
 
   const startEditing = () => {
     setIsEditing(true);
     setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
+    setEditedCategory(item.category || TASK_CATEGORIES.NONE);
     swipeableRef.current?.close();
   };
 
@@ -76,9 +95,21 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
     {id: TASK_PRIORITIES.HIGH, label: 'Alta', color: theme.colors.error},
   ];
 
+  const categoryConfig = [
+    {id: TASK_CATEGORIES.NONE, label: 'Geral'},
+    {id: TASK_CATEGORIES.WORK, label: 'Trabalho'},
+    {id: TASK_CATEGORIES.PERSONAL, label: 'Pessoal'},
+    {id: TASK_CATEGORIES.SHOPPING, label: 'Compras'},
+    {id: TASK_CATEGORIES.HEALTH, label: 'Saúde'},
+    {id: TASK_CATEGORIES.STUDY, label: 'Estudo'},
+  ];
+
   const currentPriorityColor =
     priorityConfig.find(p => p.id === item.priority)?.color ||
     theme.colors.accent;
+
+  const currentCategoryLabel =
+    categoryConfig.find(c => c.id === item.category)?.label || 'Geral';
 
   function LeftActions(progress, dragX) {
     const scale = dragX.interpolate({
@@ -187,6 +218,24 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
                   </PriorityEditButton>
                 ))}
               </PriorityEditRow>
+              <CategoryEditRow>
+                <CategoryEditScroll>
+                  {categoryConfig.map(c => (
+                    <CategoryEditButton
+                      key={c.id}
+                      $active={editedCategory === c.id}
+                      $color={theme.colors.primary}
+                      onPress={() => setEditedCategory(c.id)}
+                      testID={`category-edit-button-${c.id}`}>
+                      <CategoryEditText
+                        $active={editedCategory === c.id}
+                        $color={theme.colors.primary}>
+                        {c.label}
+                      </CategoryEditText>
+                    </CategoryEditButton>
+                  ))}
+                </CategoryEditScroll>
+              </CategoryEditRow>
             </EditContentWrapper>
             <EditActions>
               <CancelIcon
@@ -209,6 +258,11 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
           <>
             <PriorityIndicator $color={currentPriorityColor} />
             <TaskText done={item.done}>{item.task}</TaskText>
+            {item.category && item.category !== TASK_CATEGORIES.NONE && (
+              <CategoryTag>
+                <CategoryTagText>{currentCategoryLabel}</CategoryTagText>
+              </CategoryTag>
+            )}
             {item.done && (
               <Icon name='check-circle' size={20} color={theme.colors.accent} />
             )}

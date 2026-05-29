@@ -41,7 +41,38 @@ describe('AddTask Component', () => {
       parent.props.onPress();
     });
 
-    expect(onAddMock).toHaveBeenCalled();
+    expect(onAddMock).toHaveBeenCalledWith('none', 'none');
+  });
+
+  it('should call onAdd with selected priority and category', () => {
+    const onAddMock = jest.fn();
+    const component = renderWithTheme(
+      <AddTask task='New Task' onChangeText={() => {}} onAdd={onAddMock} />,
+    );
+
+    const highPriorityButton = component.root.findByProps({
+      testID: 'priority-button-high',
+    });
+    const workCategoryButton = component.root.findByProps({
+      testID: 'category-button-work',
+    });
+
+    act(() => {
+      highPriorityButton.props.onPress();
+      workCategoryButton.props.onPress();
+    });
+
+    const plusIcon = component.root.findByProps({name: 'plus'});
+    let addButton = plusIcon.parent;
+    while (addButton && !addButton.props.onPress) {
+      addButton = addButton.parent;
+    }
+
+    act(() => {
+      addButton.props.onPress();
+    });
+
+    expect(onAddMock).toHaveBeenCalledWith('high', 'work');
   });
 
   it('should call onChangeText with empty string when clear button is pressed', () => {

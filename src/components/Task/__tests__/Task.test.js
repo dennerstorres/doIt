@@ -131,6 +131,7 @@ describe('Task Component', () => {
       mockTask.id,
       'Updated Task',
       expect.any(String),
+      expect.any(String),
     );
     // Verify it returned to normal mode
     expect(
@@ -167,5 +168,44 @@ describe('Task Component', () => {
     expect(
       component.root.findAllByProps({testID: 'task-edit-input'}),
     ).toHaveLength(0);
+  });
+
+  it('allows changing category in editing mode', () => {
+    const handleEdit = jest.fn().mockReturnValue(true);
+    const component = renderer.create(
+      <ThemeProvider theme={theme}>
+        <Task
+          item={mockTask}
+          handleLeft={jest.fn()}
+          handleRight={jest.fn()}
+          handleEdit={handleEdit}
+        />
+      </ThemeProvider>,
+    );
+
+    // Enter editing mode
+    renderer.act(() => {
+      component.root.findByProps({testID: 'edit-action'}).props.onPress();
+    });
+
+    // Change category
+    const workCategoryButton = component.root.findByProps({
+      testID: 'category-edit-button-work',
+    });
+    renderer.act(() => {
+      workCategoryButton.props.onPress();
+    });
+
+    // Save
+    renderer.act(() => {
+      component.root.findByProps({testID: 'save-edit-button'}).props.onPress();
+    });
+
+    expect(handleEdit).toHaveBeenCalledWith(
+      mockTask.id,
+      mockTask.task,
+      mockTask.priority,
+      'work',
+    );
   });
 });
