@@ -18,7 +18,7 @@ exports[`TaskList Component should render EmptyState when list is empty 1`] = `
   onScroll={[Function]}
   onScrollBeginDrag={[Function]}
   onScrollEndDrag={[Function]}
-  removeClippedSubviews={false}
+  removeClippedSubviews={true}
   renderItem={[Function]}
   scrollEventThrottle={50}
   stickyHeaderIndices={Array []}
@@ -32,7 +32,7 @@ exports[`TaskList Component should render EmptyState when list is empty 1`] = `
   }
   updateCellsBatchingPeriod={50}
   viewabilityConfigCallbackPairs={Array []}
-  windowSize={21}
+  windowSize={5}
 >
   <View>
     <Text>
@@ -73,7 +73,7 @@ exports[`TaskList Component should render tasks correctly 1`] = `
   onScroll={[Function]}
   onScrollBeginDrag={[Function]}
   onScrollEndDrag={[Function]}
-  removeClippedSubviews={false}
+  removeClippedSubviews={true}
   renderItem={[Function]}
   scrollEventThrottle={50}
   stickyHeaderIndices={Array []}
@@ -87,7 +87,7 @@ exports[`TaskList Component should render tasks correctly 1`] = `
   }
   updateCellsBatchingPeriod={50}
   viewabilityConfigCallbackPairs={Array []}
-  windowSize={21}
+  windowSize={5}
 >
   <View>
     <View

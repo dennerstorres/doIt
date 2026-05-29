@@ -55,8 +55,9 @@ describe('Task Component', () => {
         <ThemeProvider theme={theme}>
           <Task
             item={mockTask}
-            handleLeft={jest.fn()}
-            handleRight={jest.fn()}
+            onDone={jest.fn()}
+            onDelete={jest.fn()}
+            onEdit={jest.fn()}
           />
         </ThemeProvider>,
       )
@@ -71,8 +72,9 @@ describe('Task Component', () => {
         <ThemeProvider theme={theme}>
           <Task
             item={completedTask}
-            handleLeft={jest.fn()}
-            handleRight={jest.fn()}
+            onDone={jest.fn()}
+            onDelete={jest.fn()}
+            onEdit={jest.fn()}
           />
         </ThemeProvider>,
       )
@@ -83,7 +85,12 @@ describe('Task Component', () => {
   it('enters editing mode when edit action is pressed', () => {
     const component = renderer.create(
       <ThemeProvider theme={theme}>
-        <Task item={mockTask} handleLeft={jest.fn()} handleRight={jest.fn()} />
+        <Task
+          item={mockTask}
+          onDone={jest.fn()}
+          onDelete={jest.fn()}
+          onEdit={jest.fn()}
+        />
       </ThemeProvider>,
     );
 
@@ -98,15 +105,15 @@ describe('Task Component', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('calls handleEdit and leaves editing mode on save', () => {
-    const handleEdit = jest.fn().mockReturnValue(true);
+  it('calls onEdit and leaves editing mode on save', () => {
+    const onEdit = jest.fn().mockReturnValue(true);
     const component = renderer.create(
       <ThemeProvider theme={theme}>
         <Task
           item={mockTask}
-          handleLeft={jest.fn()}
-          handleRight={jest.fn()}
-          handleEdit={handleEdit}
+          onDone={jest.fn()}
+          onDelete={jest.fn()}
+          onEdit={onEdit}
         />
       </ThemeProvider>,
     );
@@ -127,7 +134,7 @@ describe('Task Component', () => {
       component.root.findByProps({testID: 'save-edit-button'}).props.onPress();
     });
 
-    expect(handleEdit).toHaveBeenCalledWith(
+    expect(onEdit).toHaveBeenCalledWith(
       mockTask.id,
       'Updated Task',
       expect.any(String),
@@ -140,15 +147,15 @@ describe('Task Component', () => {
     ).toHaveLength(0);
   });
 
-  it('leaves editing mode on cancel without calling handleEdit', () => {
-    const handleEdit = jest.fn();
+  it('leaves editing mode on cancel without calling onEdit', () => {
+    const onEdit = jest.fn();
     const component = renderer.create(
       <ThemeProvider theme={theme}>
         <Task
           item={mockTask}
-          handleLeft={jest.fn()}
-          handleRight={jest.fn()}
-          handleEdit={handleEdit}
+          onDone={jest.fn()}
+          onDelete={jest.fn()}
+          onEdit={onEdit}
         />
       </ThemeProvider>,
     );
@@ -165,21 +172,21 @@ describe('Task Component', () => {
         .props.onPress();
     });
 
-    expect(handleEdit).not.toHaveBeenCalled();
+    expect(onEdit).not.toHaveBeenCalled();
     expect(
       component.root.findAllByProps({testID: 'task-edit-input'}),
     ).toHaveLength(0);
   });
 
   it('allows changing category in editing mode', () => {
-    const handleEdit = jest.fn().mockReturnValue(true);
+    const onEdit = jest.fn().mockReturnValue(true);
     const component = renderer.create(
       <ThemeProvider theme={theme}>
         <Task
           item={mockTask}
-          handleLeft={jest.fn()}
-          handleRight={jest.fn()}
-          handleEdit={handleEdit}
+          onDone={jest.fn()}
+          onDelete={jest.fn()}
+          onEdit={onEdit}
         />
       </ThemeProvider>,
     );
@@ -202,7 +209,7 @@ describe('Task Component', () => {
       component.root.findByProps({testID: 'save-edit-button'}).props.onPress();
     });
 
-    expect(handleEdit).toHaveBeenCalledWith(
+    expect(onEdit).toHaveBeenCalledWith(
       mockTask.id,
       mockTask.task,
       mockTask.priority,

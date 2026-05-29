@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Task from '../Task';
 import EmptyState from '../EmptyState';
 import {List} from './styles';
@@ -10,19 +10,28 @@ function TaskList({
   handleEditTask,
   emptyMessage,
 }) {
+  const renderItem = useCallback(
+    ({item}) => (
+      <Task
+        item={item}
+        onDone={handleDoneTask}
+        onDelete={handleDeleteTask}
+        onEdit={handleEditTask}
+      />
+    ),
+    [handleDoneTask, handleDeleteTask, handleEditTask],
+  );
+
   return (
     <List
       data={tasks}
       keyExtractor={item => item.id}
-      renderItem={({item}) => (
-        <Task
-          item={item}
-          handleLeft={() => handleDoneTask(item)}
-          handleRight={() => handleDeleteTask(item)}
-          handleEdit={handleEditTask}
-        />
-      )}
+      renderItem={renderItem}
       ListEmptyComponent={<EmptyState message={emptyMessage} />}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
+      windowSize={5}
+      removeClippedSubviews={true}
     />
   );
 }

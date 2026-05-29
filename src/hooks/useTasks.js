@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import {Alert, LayoutAnimation} from 'react-native';
 import {saveTasks, getTasks} from '../services/storage';
 import {createTask} from '../models/Task';
@@ -78,51 +78,54 @@ export const useTasks = () => {
     }
   }, [tasks]);
 
-  const addTask = (
-    taskTitle,
-    priority = TASK_PRIORITIES.NONE,
-    category = TASK_CATEGORIES.NONE,
-    deadline = null,
-  ) => {
-    const trimmedTask = taskTitle.trim();
+  const addTask = useCallback(
+    (
+      taskTitle,
+      priority = TASK_PRIORITIES.NONE,
+      category = TASK_CATEGORIES.NONE,
+      deadline = null,
+    ) => {
+      const trimmedTask = taskTitle.trim();
 
-    if (!trimmedTask) {
-      Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
-      return false;
-    }
+      if (!trimmedTask) {
+        Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
+        return false;
+      }
 
-    if (trimmedTask.length < MIN_TASK_LENGTH) {
-      Alert.alert(
-        'Aviso',
-        `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+      if (trimmedTask.length < MIN_TASK_LENGTH) {
+        Alert.alert(
+          'Aviso',
+          `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+        );
+        return false;
+      }
+
+      if (trimmedTask.length > MAX_TASK_LENGTH) {
+        Alert.alert(
+          'Aviso',
+          `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
+        );
+        return false;
+      }
+
+      const taskExists = (tasks || []).some(
+        t => t.task.toLowerCase() === trimmedTask.toLowerCase(),
       );
-      return false;
-    }
 
-    if (trimmedTask.length > MAX_TASK_LENGTH) {
-      Alert.alert(
-        'Aviso',
-        `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
-      );
-      return false;
-    }
+      if (taskExists) {
+        Alert.alert('Aviso', 'Esta tarefa já existe.');
+        return false;
+      }
 
-    const taskExists = (tasks || []).some(
-      t => t.task.toLowerCase() === trimmedTask.toLowerCase(),
-    );
+      const newTask = createTask(trimmedTask, priority, category, deadline);
+      LayoutAnimation.configureNext(animationConfig);
+      setTasks(prevTasks => [...(prevTasks || []), newTask]);
+      return true;
+    },
+    [tasks],
+  );
 
-    if (taskExists) {
-      Alert.alert('Aviso', 'Esta tarefa já existe.');
-      return false;
-    }
-
-    const newTask = createTask(trimmedTask, priority, category, deadline);
-    LayoutAnimation.configureNext(animationConfig);
-    setTasks(prevTasks => [...(prevTasks || []), newTask]);
-    return true;
-  };
-
-  const toggleTask = item => {
+  const toggleTask = useCallback(item => {
     LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks =>
       (prevTasks || []).map(t => {
@@ -132,9 +135,9 @@ export const useTasks = () => {
         return t;
       }),
     );
-  };
+  }, []);
 
-  const deleteTask = item => {
+  const deleteTask = useCallback(item => {
     Alert.alert(
       'Excluir Tarefa?',
       'Tem certeza que deseja excluir esta tarefa?',
@@ -156,70 +159,73 @@ export const useTasks = () => {
         },
       ],
     );
-  };
+  }, []);
 
-  const editTask = (id, newTaskTitle, priority, category, deadline) => {
-    const trimmedTask = newTaskTitle.trim();
+  const editTask = useCallback(
+    (id, newTaskTitle, priority, category, deadline) => {
+      const trimmedTask = newTaskTitle.trim();
 
-    if (!trimmedTask) {
-      Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
-      return false;
-    }
+      if (!trimmedTask) {
+        Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
+        return false;
+      }
 
-    if (trimmedTask.length < MIN_TASK_LENGTH) {
-      Alert.alert(
-        'Aviso',
-        `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+      if (trimmedTask.length < MIN_TASK_LENGTH) {
+        Alert.alert(
+          'Aviso',
+          `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+        );
+        return false;
+      }
+
+      if (trimmedTask.length > MAX_TASK_LENGTH) {
+        Alert.alert(
+          'Aviso',
+          `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
+        );
+        return false;
+      }
+
+      const taskExists = (tasks || []).some(
+        t => t.id !== id && t.task.toLowerCase() === trimmedTask.toLowerCase(),
       );
-      return false;
-    }
 
-    if (trimmedTask.length > MAX_TASK_LENGTH) {
-      Alert.alert(
-        'Aviso',
-        `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
+      if (taskExists) {
+        Alert.alert('Aviso', 'Esta tarefa já existe.');
+        return false;
+      }
+
+      LayoutAnimation.configureNext(animationConfig);
+      setTasks(prevTasks =>
+        (prevTasks || []).map(t => {
+          if (t.id === id) {
+            return {
+              ...t,
+              task: trimmedTask,
+              priority: priority !== undefined ? priority : t.priority,
+              category: category !== undefined ? category : t.category,
+              deadline: deadline !== undefined ? deadline : t.deadline,
+            };
+          }
+          return t;
+        }),
       );
-      return false;
-    }
+      return true;
+    },
+    [tasks],
+  );
 
-    const taskExists = (tasks || []).some(
-      t => t.id !== id && t.task.toLowerCase() === trimmedTask.toLowerCase(),
-    );
-
-    if (taskExists) {
-      Alert.alert('Aviso', 'Esta tarefa já existe.');
-      return false;
-    }
-
-    LayoutAnimation.configureNext(animationConfig);
-    setTasks(prevTasks =>
-      (prevTasks || []).map(t => {
-        if (t.id === id) {
-          return {
-            ...t,
-            task: trimmedTask,
-            priority: priority !== undefined ? priority : t.priority,
-            category: category !== undefined ? category : t.category,
-            deadline: deadline !== undefined ? deadline : t.deadline,
-          };
-        }
-        return t;
-      }),
-    );
-    return true;
-  };
-
-  const undoDelete = () => {
+  const undoDelete = useCallback(() => {
     if (lastDeletedTask) {
       LayoutAnimation.configureNext(animationConfig);
       setTasks(prevTasks => [...(prevTasks || []), lastDeletedTask]);
       setLastDeletedTask(null);
     }
-  };
+  }, [lastDeletedTask]);
 
-  const clearLastDeletedTask = () => {
+  const clearLastDeletedTask = useCallback(() => {
     setLastDeletedTask(null);
-  };
+  }, []);
 
   return {
     tasks,
