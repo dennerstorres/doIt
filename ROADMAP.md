@@ -159,7 +159,7 @@
 - [x] Adicionar edição de tarefas
 - [x] Adicionar prioridade
 - [x] Adicionar categoria
-- [ ] Adicionar data limite
+- [x] Adicionar data limite
 - [ ] Adicionar lembretes locais
 - [ ] Adicionar repetição de tarefas
 - [ ] Adicionar arquivamento
@@ -962,3 +962,17 @@
   - Ampla cobertura de testes unitários e atualização de snapshots.
 - **Limitações**: Categorias são pré-definidas e não podem ser customizadas pelo usuário nesta fase.
 - **Riscos**: Baixo. A implementação é retrocompatível com dados antigos.
+
+## Adicionar data limite
+
+- **Implementação**: Sistema de data limite (deadline) para tarefas com suporte a seleção nativa.
+- **Decisões Técnicas**:
+  - Inclusão do campo `deadline` (ISO string) no model `Task`.
+  - Instalação da biblioteca `@react-native-community/datetimepicker` para fornecer uma experiência de seleção de data nativa em Android e iOS.
+  - Atualização do hook `useTasks` para suportar a persistência e edição da data limite.
+  - UI: Adição de seletor de data no componente `AddTask` com feedback visual (ícone de calendário e cor de destaque).
+  - UI: Exibição de tag de prazo na listagem de tarefas, com mudança automática de cor (vermelho) se a tarefa estiver atrasada e não concluída.
+  - UI: Suporte total à edição e remoção do prazo no modo de edição da tarefa.
+  - Testes: Atualização abrangente dos testes unitários do hook, model e componentes para cobrir os novos fluxos de dados.
+- **Limitações**: A seleção de hora não foi incluída nesta fase, focando apenas na data (dia/mês/ano).
+- **Riscos**: Dependência de biblioteca nativa pode exigir `pod install` em ambientes iOS reais ou builds manuais em Android.

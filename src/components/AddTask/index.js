@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useTheme} from 'styled-components/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   TaskAdd,
   InputContainer,
@@ -18,6 +19,10 @@ import {
   CategoryScroll,
   CategoryButton,
   CategoryText,
+  DeadlineContainer,
+  DeadlineLabel,
+  DeadlineButton,
+  DeadlineText,
 } from './styles';
 import {
   MAX_TASK_LENGTH,
@@ -29,12 +34,32 @@ function AddTask({task, onChangeText, onAdd, loading}) {
   const theme = useTheme();
   const [priority, setPriority] = useState(TASK_PRIORITIES.NONE);
   const [category, setCategory] = useState(TASK_CATEGORIES.NONE);
+  const [deadline, setDeadline] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
   const showCounter = task.length > 40;
 
   const handleAdd = () => {
-    onAdd(priority, category);
+    onAdd(priority, category, deadline ? deadline.toISOString() : null);
     setPriority(TASK_PRIORITIES.NONE);
     setCategory(TASK_CATEGORIES.NONE);
+    setDeadline(null);
+  };
+
+  const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || deadline;
+    setShowDatePicker(Platform.OS === 'ios');
+    if (selectedDate) {
+      setDeadline(currentDate);
+    }
+  };
+
+  const toggleDatePicker = () => {
+    if (deadline && !showDatePicker) {
+      setDeadline(null);
+    } else {
+      setShowDatePicker(true);
+    }
   };
 
   const priorityConfig = [
@@ -52,6 +77,13 @@ function AddTask({task, onChangeText, onAdd, loading}) {
     {id: TASK_CATEGORIES.HEALTH, label: 'Saúde'},
     {id: TASK_CATEGORIES.STUDY, label: 'Estudo'},
   ];
+
+  const formatDate = date => {
+    if (!date) {
+      return 'Definir data';
+    }
+    return date.toLocaleDateString('pt-BR');
+  };
 
   return (
     <View>
@@ -78,6 +110,7 @@ function AddTask({task, onChangeText, onAdd, loading}) {
           <Icon name='plus' size={22} color={theme.colors.text} />
         </ButtonAdd>
       </TaskAdd>
+
       <PriorityContainer>
         <PriorityLabel>Prioridade:</PriorityLabel>
         {priorityConfig.map(p => (
@@ -110,6 +143,40 @@ function AddTask({task, onChangeText, onAdd, loading}) {
           ))}
         </CategoryScroll>
       </CategoryContainer>
+
+      <DeadlineContainer>
+        <DeadlineLabel>Prazo:</DeadlineLabel>
+        <DeadlineButton
+          $active={!!deadline}
+          onPress={toggleDatePicker}
+          disabled={loading}
+          testID='deadline-button'>
+          <Icon
+            name={deadline ? 'calendar' : 'plus'}
+            size={14}
+            color={deadline ? theme.colors.white : theme.colors.accent}
+          />
+          <DeadlineText $active={!!deadline}>{formatDate(deadline)}</DeadlineText>
+        </DeadlineButton>
+        {deadline && (
+          <ClearButton
+            onPress={() => setDeadline(null)}
+            style={{minHeight: 20, padding: 5}}>
+            <Icon name='x' size={14} color={theme.colors.error} />
+          </ClearButton>
+        )}
+      </DeadlineContainer>
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={deadline || new Date()}
+          mode='date'
+          display='default'
+          onChange={onChangeDate}
+          minimumDate={new Date()}
+          testID='date-picker'
+        />
+      )}
 
       {showCounter && (
         <Counter>

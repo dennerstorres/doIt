@@ -29,7 +29,7 @@ describe('AddTask Component', () => {
     );
 
     // Find the icon named 'plus'
-    const icon = component.root.findByProps({name: 'plus'});
+    const icon = component.root.findAllByProps({name: 'plus'})[0];
 
     // Find the closest parent with onPress
     let parent = icon.parent;
@@ -41,10 +41,10 @@ describe('AddTask Component', () => {
       parent.props.onPress();
     });
 
-    expect(onAddMock).toHaveBeenCalledWith('none', 'none');
+    expect(onAddMock).toHaveBeenCalledWith('none', 'none', null);
   });
 
-  it('should call onAdd with selected priority and category', () => {
+  it('should call onAdd with selected priority, category and deadline', () => {
     const onAddMock = jest.fn();
     const component = renderWithTheme(
       <AddTask task='New Task' onChangeText={() => {}} onAdd={onAddMock} />,
@@ -62,7 +62,9 @@ describe('AddTask Component', () => {
       workCategoryButton.props.onPress();
     });
 
-    const plusIcon = component.root.findByProps({name: 'plus'});
+    expect(onAddMock).not.toHaveBeenCalled();
+
+    const plusIcon = component.root.findAllByProps({name: 'plus'})[0];
     let addButton = plusIcon.parent;
     while (addButton && !addButton.props.onPress) {
       addButton = addButton.parent;
@@ -72,7 +74,7 @@ describe('AddTask Component', () => {
       addButton.props.onPress();
     });
 
-    expect(onAddMock).toHaveBeenCalledWith('high', 'work');
+    expect(onAddMock).toHaveBeenCalledWith('high', 'work', null);
   });
 
   it('should call onChangeText with empty string when clear button is pressed', () => {

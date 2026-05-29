@@ -101,3 +101,35 @@ export const CategoryText = styled.Text`
   color: ${props =>
     props.$active ? props.theme.colors.white : props.theme.colors.primary};
 `;
+
+export const DeadlineContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${props => props.theme.spacing.small};
+  padding: 0 ${props => props.theme.spacing.tiny};
+`;
+
+export const DeadlineLabel = styled.Text`
+  font-size: ${props => props.theme.typography.size.small};
+  color: ${props => props.theme.colors.text};
+  margin-right: ${props => props.theme.spacing.small};
+`;
+
+export const DeadlineButton = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  padding: ${props => props.theme.spacing.tiny}
+    ${props => props.theme.spacing.small};
+  border-radius: ${props => props.theme.spacing.small};
+  background-color: ${props =>
+    props.$active ? props.theme.colors.accent : props.theme.colors.background};
+  border: 1px solid ${props => props.theme.colors.accent};
+`;
+
+export const DeadlineText = styled.Text`
+  font-size: 10px;
+  font-weight: ${props => props.theme.typography.weight.bold};
+  color: ${props =>
+    props.$active ? props.theme.colors.white : props.theme.colors.accent};
+  margin-left: ${props => props.theme.spacing.tiny};
+`;

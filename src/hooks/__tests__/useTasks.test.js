@@ -79,8 +79,9 @@ describe('useTasks hook', () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
     });
 
+    const deadline = new Date().toISOString();
     await act(async () => {
-      const success = hook.addTask('New Task', 'high', 'work');
+      const success = hook.addTask('New Task', 'high', 'work', deadline);
       expect(success).toBe(true);
     });
 
@@ -88,6 +89,7 @@ describe('useTasks hook', () => {
     expect(hook.tasks[0].task).toBe('New Task');
     expect(hook.tasks[0].priority).toBe('high');
     expect(hook.tasks[0].category).toBe('work');
+    expect(hook.tasks[0].deadline).toBe(deadline);
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
   });
 
@@ -207,14 +209,22 @@ describe('useTasks hook', () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
     });
 
+    const deadline = new Date().toISOString();
     await act(async () => {
-      const success = hook.editTask('1', 'Updated Task', 'medium', 'personal');
+      const success = hook.editTask(
+        '1',
+        'Updated Task',
+        'medium',
+        'personal',
+        deadline,
+      );
       expect(success).toBe(true);
     });
 
     expect(hook.tasks[0].task).toBe('Updated Task');
     expect(hook.tasks[0].priority).toBe('medium');
     expect(hook.tasks[0].category).toBe('personal');
+    expect(hook.tasks[0].deadline).toBe(deadline);
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
   });
 

@@ -82,6 +82,7 @@ export const useTasks = () => {
     taskTitle,
     priority = TASK_PRIORITIES.NONE,
     category = TASK_CATEGORIES.NONE,
+    deadline = null,
   ) => {
     const trimmedTask = taskTitle.trim();
 
@@ -115,7 +116,7 @@ export const useTasks = () => {
       return false;
     }
 
-    const newTask = createTask(trimmedTask, priority, category);
+    const newTask = createTask(trimmedTask, priority, category, deadline);
     LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks => [...(prevTasks || []), newTask]);
     return true;
@@ -157,7 +158,7 @@ export const useTasks = () => {
     );
   };
 
-  const editTask = (id, newTaskTitle, priority, category) => {
+  const editTask = (id, newTaskTitle, priority, category, deadline) => {
     const trimmedTask = newTaskTitle.trim();
 
     if (!trimmedTask) {
@@ -199,6 +200,7 @@ export const useTasks = () => {
             task: trimmedTask,
             priority: priority !== undefined ? priority : t.priority,
             category: category !== undefined ? category : t.category,
+            deadline: deadline !== undefined ? deadline : t.deadline,
           };
         }
         return t;

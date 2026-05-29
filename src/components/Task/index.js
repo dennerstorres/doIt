@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {Animated} from 'react-native';
+import {Animated, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useTheme} from 'styled-components/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import {
   Container,
@@ -26,6 +27,11 @@ import {
   CategoryEditScroll,
   CategoryEditButton,
   CategoryEditText,
+  DeadlineTag,
+  DeadlineTagText,
+  DeadlineEditRow,
+  DeadlineEditButton,
+  DeadlineEditText,
 } from './styles';
 import {TASK_PRIORITIES, TASK_CATEGORIES} from '../../constants/tasks';
 
@@ -42,6 +48,8 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
   const [editedCategory, setEditedCategory] = useState(
     item.category || TASK_CATEGORIES.NONE,
   );
+  const [editedDeadline, setEditedDeadline] = useState(item.deadline || null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     Animated.timing(animatedValue, {
@@ -55,7 +63,8 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
     setEditedTask(item.task);
     setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
     setEditedCategory(item.category || TASK_CATEGORIES.NONE);
-  }, [item.task, item.priority, item.category]);
+    setEditedDeadline(item.deadline || null);
+  }, [item.task, item.priority, item.category, item.deadline]);
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
@@ -68,6 +77,7 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
       editedTask,
       editedPriority,
       editedCategory,
+      editedDeadline,
     );
     if (success) {
       setIsEditing(false);
@@ -78,6 +88,7 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
     setEditedTask(item.task);
     setEditedPriority(item.priority);
     setEditedCategory(item.category);
+    setEditedDeadline(item.deadline);
     setIsEditing(false);
   };
 
@@ -85,7 +96,16 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
     setIsEditing(true);
     setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
     setEditedCategory(item.category || TASK_CATEGORIES.NONE);
+    setEditedDeadline(item.deadline || null);
     swipeableRef.current?.close();
+  };
+
+  const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || editedDeadline;
+    setShowDatePicker(Platform.OS === 'ios');
+    if (selectedDate) {
+      setEditedDeadline(currentDate.toISOString());
+    }
   };
 
   const priorityConfig = [
@@ -110,6 +130,24 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
 
   const currentCategoryLabel =
     categoryConfig.find(c => c.id === item.category)?.label || 'Geral';
+
+  const formatDate = dateStr => {
+    if (!dateStr) {
+      return '';
+    }
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('pt-BR');
+  };
+
+  const isExpired = dateStr => {
+    if (!dateStr) {
+      return false;
+    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const deadlineDate = new Date(dateStr);
+    return deadlineDate < today;
+  };
 
   function LeftActions(progress, dragX) {
     const scale = dragX.interpolate({
@@ -236,6 +274,33 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
                   ))}
                 </CategoryEditScroll>
               </CategoryEditRow>
+              <DeadlineEditRow>
+                <DeadlineEditButton
+                  $active={!!editedDeadline}
+                  onPress={() => setShowDatePicker(true)}
+                  testID='deadline-edit-button'>
+                  <Icon
+                    name='calendar'
+                    size={10}
+                    color={
+                      editedDeadline ? theme.colors.white : theme.colors.accent
+                    }
+                  />
+                  <DeadlineEditText $active={!!editedDeadline}>
+                    {formatDate(editedDeadline) || 'Prazo'}
+                  </DeadlineEditText>
+                </DeadlineEditButton>
+                {editedDeadline && (
+                  <Icon
+                    name='x'
+                    size={12}
+                    color={theme.colors.error}
+                    onPress={() => setEditedDeadline(null)}
+                    style={{marginLeft: 5}}
+                    testID='clear-deadline-edit'
+                  />
+                )}
+              </DeadlineEditRow>
             </EditContentWrapper>
             <EditActions>
               <CancelIcon
@@ -258,6 +323,23 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
           <>
             <PriorityIndicator $color={currentPriorityColor} />
             <TaskText done={item.done}>{item.task}</TaskText>
+            {item.deadline && (
+              <DeadlineTag>
+                <Icon
+                  name='calendar'
+                  size={10}
+                  color={
+                    isExpired(item.deadline) && !item.done
+                      ? theme.colors.error
+                      : theme.colors.accent
+                  }
+                />
+                <DeadlineTagText
+                  isExpired={isExpired(item.deadline) && !item.done}>
+                  {formatDate(item.deadline)}
+                </DeadlineTagText>
+              </DeadlineTag>
+            )}
             {item.category && item.category !== TASK_CATEGORIES.NONE && (
               <CategoryTag>
                 <CategoryTagText>{currentCategoryLabel}</CategoryTagText>
@@ -269,6 +351,15 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
           </>
         )}
       </Container>
+      {showDatePicker && (
+        <DateTimePicker
+          value={editedDeadline ? new Date(editedDeadline) : new Date()}
+          mode='date'
+          display='default'
+          onChange={onChangeDate}
+          minimumDate={new Date()}
+        />
+      )}
     </Swipeable>
   );
 }

@@ -571,5 +571,82 @@ exports[`AddTask Component should render correctly 1`] = `
       </View>
     </RCTScrollView>
   </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginTop": 8,
+          "paddingBottom": 0,
+          "paddingLeft": 5,
+          "paddingRight": 5,
+          "paddingTop": 0,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1f2421",
+            "fontSize": 12,
+            "marginRight": 8,
+          },
+        ]
+      }
+    >
+      Prazo:
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#dce1de",
+          "borderColor": "#9cc5a1",
+          "borderRadius": 8,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "flexDirection": "row",
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 5,
+        }
+      }
+      testID="deadline-button"
+    >
+      <Icon
+        color="#9cc5a1"
+        name="plus"
+        size={14}
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#9cc5a1",
+              "fontSize": 10,
+              "fontWeight": "700",
+              "marginLeft": 5,
+            },
+          ]
+        }
+      >
+        Definir data
+      </Text>
+    </View>
+  </View>
 </View>
 `;

@@ -11,9 +11,9 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
         "alignItems": "center",
         "backgroundColor": "rgba(33, 104, 105, 1)",
         "flexDirection": "row",
-        "height": 50,
         "justifyContent": "center",
         "marginBottom": 5,
+        "minHeight": 50,
         "paddingBottom": 5,
         "paddingLeft": 15,
         "paddingRight": 15,
@@ -510,6 +510,66 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
           </View>
         </RCTScrollView>
       </View>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginTop": 2,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderColor": "#9cc5a1",
+              "borderRadius": 8,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+              "paddingTop": 2,
+            }
+          }
+          testID="deadline-edit-button"
+        >
+          <Icon
+            color="#9cc5a1"
+            name="calendar"
+            size={10}
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#9cc5a1",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                  "marginLeft": 2,
+                },
+              ]
+            }
+          >
+            Prazo
+          </Text>
+        </View>
+      </View>
     </View>
     <View
       style={
@@ -607,9 +667,9 @@ exports[`Task Component renders correctly for a completed task 1`] = `
         "alignItems": "center",
         "backgroundColor": "rgba(73, 160, 120, 1)",
         "flexDirection": "row",
-        "height": 50,
         "justifyContent": "center",
         "marginBottom": 5,
+        "minHeight": 50,
         "paddingBottom": 5,
         "paddingLeft": 15,
         "paddingRight": 15,
@@ -845,9 +905,9 @@ exports[`Task Component renders correctly for a pending task 1`] = `
         "alignItems": "center",
         "backgroundColor": "rgba(33, 104, 105, 1)",
         "flexDirection": "row",
-        "height": 50,
         "justifyContent": "center",
         "marginBottom": 5,
+        "minHeight": 50,
         "paddingBottom": 5,
         "paddingLeft": 15,
         "paddingRight": 15,

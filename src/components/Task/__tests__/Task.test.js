@@ -132,6 +132,7 @@ describe('Task Component', () => {
       'Updated Task',
       expect.any(String),
       expect.any(String),
+      null,
     );
     // Verify it returned to normal mode
     expect(
@@ -206,6 +207,7 @@ describe('Task Component', () => {
       mockTask.task,
       mockTask.priority,
       'work',
+      null,
     );
   });
 });
