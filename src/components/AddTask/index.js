@@ -156,7 +156,9 @@ function AddTask({task, onChangeText, onAdd, loading}) {
             size={14}
             color={deadline ? theme.colors.white : theme.colors.accent}
           />
-          <DeadlineText $active={!!deadline}>{formatDate(deadline)}</DeadlineText>
+          <DeadlineText $active={!!deadline}>
+            {formatDate(deadline)}
+          </DeadlineText>
         </DeadlineButton>
         {deadline && (
           <ClearButton

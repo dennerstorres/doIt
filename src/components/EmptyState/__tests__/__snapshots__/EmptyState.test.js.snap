@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyState Component renders correctly with custom message 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginTop": 50,
+      },
+    ]
+  }
+>
+  <Icon
+    color="#9cc5a1"
+    name="clipboard"
+    size={50}
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#9cc5a1",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginTop": 10,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    No tasks found for your search.
+  </Text>
+</View>
+`;
+
+exports[`EmptyState Component renders correctly with default message 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginTop": 50,
+      },
+    ]
+  }
+>
+  <Icon
+    color="#9cc5a1"
+    name="clipboard"
+    size={50}
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#9cc5a1",
+          "fontSize": 16,
+          "fontWeight": "400",
+          "marginTop": 10,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Você ainda não tem tarefas cadastradas.
+  </Text>
+</View>
+`;

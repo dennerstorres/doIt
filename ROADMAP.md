@@ -179,7 +179,7 @@
 - [ ] Revisar dependências pesadas
 - [x] Configurar Jest corretamente
 - [ ] Criar testes unitários hooks
-- [ ] Criar testes components
+- [x] Criar testes components
 - [ ] Criar testes de integração
 - [ ] Configurar coverage
 
@@ -987,3 +987,14 @@
   - Refatoração de props no componente `Task` (`onDone`, `onDelete`, `onEdit`) para maior clareza semântica e estabilidade.
 - **Limitações**: `removeClippedSubviews` pode apresentar comportamento variado no Android dependendo da versão do RN; `initialNumToRender` é fixo em 10.
 - **Riscos**: Baixo. As mudanças foram validadas por testes unitários e atualização de snapshots.
+
+## Criar testes components
+
+- **Implementação**: Criação de testes unitários para componentes que ainda não possuíam cobertura.
+- **Decisões Técnicas**:
+  - Foco inicial no componente `EmptyState`, garantindo que ele renderize corretamente mensagens padrão e customizadas.
+  - Uso de `react-test-renderer` e `ThemeProvider` para validar a integração com o tema global do projeto.
+  - Mock de ícones (`react-native-vector-icons`) para evitar dependências nativas durante os testes unitários.
+  - Verificação de ambiente de testes: correção de dependências ausentes via `yarn install` para garantir a execução do preset `react-native`.
+- **Limitações**: Testes de estilo via styled-components em React Native são validados primariamente via snapshots, dada a complexidade de acessar propriedades computadas no renderer.
+- **Riscos**: Baixo. A adição de testes aumenta a confiança no refactoring e evita regressões visuais.
