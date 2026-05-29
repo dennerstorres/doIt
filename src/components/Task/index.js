@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, memo} from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {Animated, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -35,7 +35,7 @@ import {
 } from './styles';
 import {TASK_PRIORITIES, TASK_CATEGORIES} from '../../constants/tasks';
 
-function Task({item, handleLeft, handleRight, handleEdit}) {
+const Task = memo(({item, onDone, onDelete, onEdit}) => {
   const theme = useTheme();
   const animatedValue = useRef(new Animated.Value(item.done ? 1 : 0)).current;
   const swipeableRef = useRef(null);
@@ -72,7 +72,7 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
   });
 
   const handleSaveEdit = () => {
-    const success = handleEdit(
+    const success = onEdit(
       item.id,
       editedTask,
       editedPriority,
@@ -176,6 +176,14 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
     );
   }
 
+  const handleDone = () => {
+    onDone(item);
+  };
+
+  const handleDelete = () => {
+    onDelete(item);
+  };
+
   function RightActions({dragX, onDelete, onEdit}) {
     const scale = dragX.interpolate({
       inputRange: [-200, 0],
@@ -218,12 +226,12 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
     <Swipeable
       ref={swipeableRef}
       renderLeftActions={isEditing ? null : LeftActions}
-      onSwipeableLeftOpen={handleLeft}
+      onSwipeableLeftOpen={handleDone}
       renderRightActions={(progress, dragX) =>
         isEditing ? null : (
           <RightActions
             dragX={dragX}
-            onDelete={handleRight}
+            onDelete={handleDelete}
             onEdit={startEditing}
           />
         )
@@ -362,6 +370,6 @@ function Task({item, handleLeft, handleRight, handleEdit}) {
       )}
     </Swipeable>
   );
-}
+});
 
 export default Task;

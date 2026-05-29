@@ -1048,7 +1048,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
     onScroll={[Function]}
     onScrollBeginDrag={[Function]}
     onScrollEndDrag={[Function]}
-    removeClippedSubviews={false}
+    removeClippedSubviews={true}
     renderItem={[Function]}
     scrollEventThrottle={50}
     stickyHeaderIndices={Array []}
@@ -1062,7 +1062,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
     }
     updateCellsBatchingPeriod={50}
     viewabilityConfigCallbackPairs={Array []}
-    windowSize={21}
+    windowSize={5}
   >
     <View>
       <View
@@ -2184,7 +2184,7 @@ exports[`Home Page should show loading indicator initially 1`] = `
     onScroll={[Function]}
     onScrollBeginDrag={[Function]}
     onScrollEndDrag={[Function]}
-    removeClippedSubviews={false}
+    removeClippedSubviews={true}
     renderItem={[Function]}
     scrollEventThrottle={50}
     stickyHeaderIndices={Array []}
@@ -2198,7 +2198,7 @@ exports[`Home Page should show loading indicator initially 1`] = `
     }
     updateCellsBatchingPeriod={50}
     viewabilityConfigCallbackPairs={Array []}
-    windowSize={21}
+    windowSize={5}
   >
     <View>
       <View

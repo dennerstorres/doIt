@@ -172,9 +172,9 @@
 
 # FASE 8 — Performance e Qualidade
 
-- [ ] Otimizar FlatList
-- [ ] Adicionar memoização
-- [ ] Evitar rerenders desnecessários
+- [x] Otimizar FlatList
+- [x] Adicionar memoização
+- [x] Evitar rerenders desnecessários
 - [ ] Melhorar performance de swipe
 - [ ] Revisar dependências pesadas
 - [x] Configurar Jest corretamente
@@ -976,3 +976,14 @@
   - Testes: Atualização abrangente dos testes unitários do hook, model e componentes para cobrir os novos fluxos de dados.
 - **Limitações**: A seleção de hora não foi incluída nesta fase, focando apenas na data (dia/mês/ano).
 - **Riscos**: Dependência de biblioteca nativa pode exigir `pod install` em ambientes iOS reais ou builds manuais em Android.
+
+## Otimizar FlatList
+
+- **Implementação**: Otimização completa do ciclo de renderização da lista de tarefas.
+- **Decisões Técnicas**:
+  - Implementação de `React.memo` no componente `Task` para evitar re-renderizações desnecessárias de itens da lista quando outros itens mudam.
+  - Uso de `useCallback` no hook `useTasks` para garantir referências estáveis de todos os handlers de operação de tarefas (`addTask`, `toggleTask`, etc.).
+  - Configuração de propriedades de performance no `FlatList` (`TaskList`): `initialNumToRender`, `maxToRenderPerBatch`, `windowSize` e `removeClippedSubviews`.
+  - Refatoração de props no componente `Task` (`onDone`, `onDelete`, `onEdit`) para maior clareza semântica e estabilidade.
+- **Limitações**: `removeClippedSubviews` pode apresentar comportamento variado no Android dependendo da versão do RN; `initialNumToRender` é fixo em 10.
+- **Riscos**: Baixo. As mudanças foram validadas por testes unitários e atualização de snapshots.
