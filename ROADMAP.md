@@ -125,7 +125,7 @@
 
 - [x] Instalar TypeScript
 - [x] Configurar tsconfig
-- [ ] Migrar App.js para App.tsx
+- [x] Migrar App.js para App.tsx
 - [ ] Criar tipagem Task
 - [ ] Migrar componentes principais
 - [ ] Migrar hooks
