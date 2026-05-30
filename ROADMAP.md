@@ -124,7 +124,7 @@
 # FASE 5 — TypeScript
 
 - [x] Instalar TypeScript
-- [ ] Configurar tsconfig
+- [x] Configurar tsconfig
 - [ ] Migrar App.js para App.tsx
 - [ ] Criar tipagem Task
 - [ ] Migrar componentes principais
@@ -1009,3 +1009,16 @@
   - Fixação da versão do `@types/react-native` em `0.63.4` para paridade exata com a versão do React Native instalada.
 - **Limitações**: Apenas a instalação foi realizada; a configuração do `tsconfig.json` e a migração de arquivos serão tratadas em tarefas subsequentes para garantir estabilidade incremental.
 - **Riscos**: Baixo, pois a coexistência de TypeScript no ambiente de desenvolvimento não afeta a execução do código JavaScript atual.
+
+## Configurar tsconfig
+
+- **Implementação**: Criação e configuração do arquivo `tsconfig.json` para habilitar o suporte ao TypeScript no projeto.
+- **Decisões Técnicas**:
+  - Configuração do `target` e `module` como `esnext` para suportar as funcionalidades mais recentes do JavaScript.
+  - Habilitação de `allowJs` para permitir a convivência de arquivos JS e TS durante a migração incremental.
+  - Configuração de `jsx` como `react-native`.
+  - Ativação de `strict` para garantir a máxima segurança de tipos nas novas implementações.
+  - Configuração de `baseUrl` e `paths` para suportar imports absolutos a partir da pasta `src`.
+  - Exclusão de arquivos de configuração e pastas de build no `exclude`.
+- **Limitações**: A migração de arquivos existentes para `.tsx` ou `.ts` ainda não foi iniciada.
+- **Riscos**: Baixo. A configuração `noEmit: true` garante que o TypeScript seja usado apenas para checagem de tipos, sem interferir no processo de build atual do Metro.
