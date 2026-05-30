@@ -10,6 +10,7 @@ import theme from './theme';
 /**
  * Importação de páginas
  */
+// @ts-ignore - Home is still in JS
 import Home from './pages/Home';
 /** */
 
@@ -22,9 +23,10 @@ if (
 
 const Stack = createStackNavigator();
 
-function App() {
+const App: React.FC = () => {
   return (
     <SafeAreaProvider>
+      {/* @ts-ignore - ThemeProvider conflict with React 16 types */}
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           <Stack.Navigator>
@@ -40,6 +42,6 @@ function App() {
       </ThemeProvider>
     </SafeAreaProvider>
   );
-}
+};
 
 export default App;
