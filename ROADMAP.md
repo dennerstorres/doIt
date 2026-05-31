@@ -47,7 +47,7 @@
 - [x] Criar estrutura `/src/constants`
 - [x] Criar estrutura `/src/theme`
 - [x] Criar estrutura `/src/storage`
-- [!] Criar estrutura `/src/types`
+- [x] Criar estrutura `/src/types`
 - [x] Criar estrutura `/src/context`
 
 ---
@@ -126,7 +126,7 @@
 - [x] Instalar TypeScript
 - [x] Configurar tsconfig
 - [x] Migrar App.js para App.tsx
-- [ ] Criar tipagem Task
+- [x] Criar tipagem Task
 - [ ] Migrar componentes principais
 - [ ] Migrar hooks
 - [ ] Migrar navegação
@@ -1022,3 +1022,14 @@
   - Exclusão de arquivos de configuração e pastas de build no `exclude`.
 - **Limitações**: A migração de arquivos existentes para `.tsx` ou `.ts` ainda não foi iniciada.
 - **Riscos**: Baixo. A configuração `noEmit: true` garante que o TypeScript seja usado apenas para checagem de tipos, sem interferir no processo de build atual do Metro.
+
+## Criar tipagem Task
+
+- **Implementação**: Criação da estrutura de tipos TypeScript centralizada para o modelo de tarefas.
+- **Decisões Técnicas**:
+  - Criação do diretório `src/types` (previamente adiado na FASE 1).
+  - Definição de `TaskPriority` e `TaskCategory` como tipos de união baseados nas constantes do projeto.
+  - Definição da interface `Task` refletindo a estrutura formal do modelo de dados.
+  - Centralização dos exports em `src/types/index.ts` para facilitar o uso em futuros componentes e hooks migrados.
+- **Limitações**: Os tipos são puramente declarativos e não incluem validação em tempo de execução (runtime), que permanece sob responsabilidade do model `Task.js`.
+- **Riscos**: Baixo. A introdução de tipos prepara o terreno para a migração total sem quebrar a compatibilidade com o código JS existente.
