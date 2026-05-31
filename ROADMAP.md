@@ -126,7 +126,7 @@
 - [x] Instalar TypeScript
 - [x] Configurar tsconfig
 - [x] Migrar App.js para App.tsx
-- [ ] Criar tipagem Task
+- [x] Criar tipagem Task
 - [ ] Migrar componentes principais
 - [ ] Migrar hooks
 - [ ] Migrar navegação
@@ -1022,3 +1022,13 @@
   - Exclusão de arquivos de configuração e pastas de build no `exclude`.
 - **Limitações**: A migração de arquivos existentes para `.tsx` ou `.ts` ainda não foi iniciada.
 - **Riscos**: Baixo. A configuração `noEmit: true` garante que o TypeScript seja usado apenas para checagem de tipos, sem interferir no processo de build atual do Metro.
+
+## Criar tipagem Task
+
+- **Implementação**: Definição formal das interfaces e tipos de dados para o modelo de Tarefa em TypeScript.
+- **Decisões Técnicas**:
+  - Criação do diretório `src/types` para centralizar as definições de tipo do projeto.
+  - Definição da interface `Task` e tipos `TaskPriority` e `TaskCategory` em `src/types/task.ts`, refletindo fielmente a estrutura de dados atual.
+  - Exportação centralizada via `src/types/index.ts` para facilitar o consumo futuro em componentes e hooks.
+- **Limitações**: Os tipos ainda não estão sendo aplicados ao código JavaScript legado para evitar quebras imediatas, mas estão prontos para a fase de migração de componentes.
+- **Riscos**: Baixo. A coexistência é garantida pela configuração do compilador.
