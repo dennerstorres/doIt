@@ -127,7 +127,7 @@
 - [x] Configurar tsconfig
 - [x] Migrar App.js para App.tsx
 - [x] Criar tipagem Task
-- [ ] Migrar componentes principais
+- [x] Migrar componentes principais
 - [ ] Migrar hooks
 - [ ] Migrar navegação
 - [ ] Remover arquivos JS restantes
@@ -1047,3 +1047,17 @@
 - **Validações**: `npx tsc` para checagem de tipos, `yarn lint` e `yarn test`.
 - **Limitações**: Os tipos ainda não estão sendo consumidos pelos componentes JS, o que ocorrerá durante a migração individual de cada arquivo.
 - **Riscos**: Nenhum. A adição de tipos é segura e não afeta o runtime.
+
+## Migrar componentes principais
+
+- **Implementação**: Migração de todos os componentes da pasta `src/components` para TypeScript (.tsx e .ts).
+- **Decisões Técnicas**:
+  - Migração de `AddTask`, `EmptyState`, `Header`, `Search`, `Task`, `TaskList`, `UndoAction` e `Shared` styles.
+  - Criação de `src/types/styled-components.d.ts` para tipagem do `DefaultTheme`.
+  - Criação de `src/types/declarations.d.ts` para módulos sem tipagem oficial (`react-native-vector-icons/Feather`).
+  - Migração de `src/constants/tasks.js` para `.ts` para prover tipos seguros às constantes.
+  - Uso de `@ts-ignore` e castings de tipo em casos específicos onde as definições do React Native 0.63.4 conflitam com o uso de `Animated` ou styled-components.
+- **Arquivos Alterados**: Todos os arquivos em `src/components/`, `src/constants/tasks.ts`, `src/types/*.d.ts`, `package.json`.
+- **Validações**: Execução bem-sucedida do `tsc` e de todos os testes unitários (`yarn test`).
+- **Limitações**: Algumas tipagens complexas de animação e FlatList exigiram bypasses técnicos devido a limitações de versão das libs.
+- **Riscos**: Possíveis regressões em dispositivos físicos se as animações nativas se comportarem diferente com a nova estrutura (mitigado por testes).

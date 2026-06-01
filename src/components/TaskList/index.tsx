@@ -1,18 +1,34 @@
 import React, {useCallback} from 'react';
-import Task from '../Task';
+import {ListRenderItem} from 'react-native';
+import TaskComponent from '../Task';
 import EmptyState from '../EmptyState';
 import {List} from './styles';
+import {Task, TaskPriority, TaskCategory} from '../../types';
 
-function TaskList({
+interface TaskListProps {
+  tasks: Task[];
+  handleDoneTask: (task: Task) => void;
+  handleDeleteTask: (task: Task) => void;
+  handleEditTask: (
+    id: string,
+    task: string,
+    priority: TaskPriority,
+    category: TaskCategory,
+    deadline: string | null,
+  ) => boolean;
+  emptyMessage?: string;
+}
+
+const TaskList: React.FC<TaskListProps> = ({
   tasks,
   handleDoneTask,
   handleDeleteTask,
   handleEditTask,
   emptyMessage,
-}) {
-  const renderItem = useCallback(
+}) => {
+  const renderItem: ListRenderItem<Task> = useCallback(
     ({item}) => (
-      <Task
+      <TaskComponent
         item={item}
         onDone={handleDoneTask}
         onDelete={handleDeleteTask}
@@ -23,6 +39,7 @@ function TaskList({
   );
 
   return (
+    // @ts-ignore
     <List
       data={tasks}
       keyExtractor={item => item.id}
@@ -34,6 +51,6 @@ function TaskList({
       removeClippedSubviews={true}
     />
   );
-}
+};
 
 export default TaskList;

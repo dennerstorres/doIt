@@ -8,7 +8,12 @@ import {
   ClearButton,
 } from './styles';
 
-function Search({value, onChangeText}) {
+interface SearchProps {
+  value: string;
+  onChangeText: (text: string) => void;
+}
+
+const Search: React.FC<SearchProps> = ({value, onChangeText}) => {
   const theme = useTheme();
 
   return (
@@ -32,6 +37,6 @@ function Search({value, onChangeText}) {
       </InputContainer>
     </SearchContainer>
   );
-}
+};
 
 export default Search;
