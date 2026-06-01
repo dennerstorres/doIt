@@ -19,16 +19,16 @@ describe('UndoAction component', () => {
     jest.clearAllMocks();
     jest.clearAllTimers();
     // Default implementation for timing that just calls the callback
-    timingSpy.mockImplementation((value, config) => {
+    timingSpy.mockImplementation((value, config: any) => {
       return {
-        start: callback => {
+        start: (callback?: (result: {finished: boolean}) => void) => {
           value.setValue(config.toValue);
           if (callback) {
             callback({finished: true});
           }
         },
         stop: () => {},
-      };
+      } as any;
     });
   });
 
@@ -36,8 +36,9 @@ describe('UndoAction component', () => {
     timingSpy.mockRestore();
   });
 
-  const renderComponent = props => {
+  const renderComponent = (props?: any) => {
     return renderer.create(
+      // @ts-ignore
       <ThemeProvider theme={theme}>
         <UndoAction onUndo={mockOnUndo} onDismiss={mockOnDismiss} {...props} />
       </ThemeProvider>,
@@ -73,7 +74,7 @@ describe('UndoAction component', () => {
   });
 
   it('clears timeout on unmount', () => {
-    let component;
+    let component: any;
     act(() => {
       component = renderComponent();
     });

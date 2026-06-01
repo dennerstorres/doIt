@@ -1,14 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {ThemeProvider} from 'styled-components/native';
-import Task from '../index';
+import TaskComponent from '../index';
 import theme from '../../../theme';
+import {Task, TaskPriority, TaskCategory} from '../../../types';
 
 // Mocking Swipeable from react-native-gesture-handler
 jest.mock('react-native-gesture-handler/Swipeable', () => {
   const ReactMock = require('react');
   const {View} = require('react-native');
-  return class Swipeable extends ReactMock.Component {
+  return class Swipeable extends ReactMock.Component<any> {
     render() {
       const {renderLeftActions, renderRightActions, children} = this.props;
       const dragXMock = {
@@ -29,8 +30,8 @@ jest.mock('react-native-gesture-handler/Swipeable', () => {
 // Mocking Animated.timing
 jest.mock('react-native', () => {
   const RN = jest.requireActual('react-native');
-  RN.Animated.timing = (value, config) => ({
-    start: callback => {
+  RN.Animated.timing = (value: any, config: any) => ({
+    start: (callback?: () => void) => {
       value.setValue(config.toValue);
       if (callback) {
         callback();
@@ -40,11 +41,13 @@ jest.mock('react-native', () => {
   return RN;
 });
 
-const mockTask = {
+const mockTask: Task = {
   id: '1',
   task: 'Test Task',
   done: false,
-  priority: 'none',
+  priority: 'none' as TaskPriority,
+  category: 'none' as TaskCategory,
+  deadline: null,
   createdAt: new Date().toISOString(),
 };
 
@@ -52,8 +55,9 @@ describe('Task Component', () => {
   it('renders correctly for a pending task', () => {
     const tree = renderer
       .create(
+        // @ts-ignore
         <ThemeProvider theme={theme}>
-          <Task
+          <TaskComponent
             item={mockTask}
             onDone={jest.fn()}
             onDelete={jest.fn()}
@@ -69,8 +73,9 @@ describe('Task Component', () => {
     const completedTask = {...mockTask, done: true};
     const tree = renderer
       .create(
+        // @ts-ignore
         <ThemeProvider theme={theme}>
-          <Task
+          <TaskComponent
             item={completedTask}
             onDone={jest.fn()}
             onDelete={jest.fn()}
@@ -84,8 +89,9 @@ describe('Task Component', () => {
 
   it('enters editing mode when edit action is pressed', () => {
     const component = renderer.create(
+      // @ts-ignore
       <ThemeProvider theme={theme}>
-        <Task
+        <TaskComponent
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}
@@ -108,8 +114,9 @@ describe('Task Component', () => {
   it('calls onEdit and leaves editing mode on save', () => {
     const onEdit = jest.fn().mockReturnValue(true);
     const component = renderer.create(
+      // @ts-ignore
       <ThemeProvider theme={theme}>
-        <Task
+        <TaskComponent
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}
@@ -150,8 +157,9 @@ describe('Task Component', () => {
   it('leaves editing mode on cancel without calling onEdit', () => {
     const onEdit = jest.fn();
     const component = renderer.create(
+      // @ts-ignore
       <ThemeProvider theme={theme}>
-        <Task
+        <TaskComponent
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}
@@ -181,8 +189,9 @@ describe('Task Component', () => {
   it('allows changing category in editing mode', () => {
     const onEdit = jest.fn().mockReturnValue(true);
     const component = renderer.create(
+      // @ts-ignore
       <ThemeProvider theme={theme}>
-        <Task
+        <TaskComponent
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}

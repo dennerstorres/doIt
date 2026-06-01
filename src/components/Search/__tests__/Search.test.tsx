@@ -4,8 +4,9 @@ import {ThemeProvider} from 'styled-components/native';
 import Search from '../index';
 import theme from '../../../theme';
 
-const renderWithTheme = component => {
+const renderWithTheme = (component: React.ReactElement) => {
   return renderer.create(
+    // @ts-ignore
     <ThemeProvider theme={theme}>{component}</ThemeProvider>,
   );
 };
@@ -30,6 +31,7 @@ describe('Search Component', () => {
     const testRenderer = renderWithTheme(
       <Search value='' onChangeText={onChangeTextMock} />,
     );
+    // @ts-ignore
     const input = testRenderer.root.findByType('TextInput');
 
     act(() => {

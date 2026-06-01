@@ -39,10 +39,12 @@ const TaskList: React.FC<TaskListProps> = ({
   );
 
   return (
-    // @ts-ignore
     <List
+      // @ts-ignore
       data={tasks}
+      // @ts-ignore
       keyExtractor={item => item.id}
+      // @ts-ignore
       renderItem={renderItem}
       ListEmptyComponent={<EmptyState message={emptyMessage} />}
       initialNumToRender={10}
