@@ -8,6 +8,7 @@ describe('Header Component', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
+        // @ts-ignore
         <ThemeProvider theme={theme}>
           <Header />
         </ThemeProvider>,

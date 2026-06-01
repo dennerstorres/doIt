@@ -11,6 +11,7 @@ describe('EmptyState Component', () => {
   it('renders correctly with default message', () => {
     const tree = renderer
       .create(
+        // @ts-ignore
         <ThemeProvider theme={theme}>
           <EmptyState />
         </ThemeProvider>,
@@ -23,6 +24,7 @@ describe('EmptyState Component', () => {
     const customMessage = 'No tasks found for your search.';
     const tree = renderer
       .create(
+        // @ts-ignore
         <ThemeProvider theme={theme}>
           <EmptyState message={customMessage} />
         </ThemeProvider>,
@@ -37,6 +39,7 @@ describe('EmptyState Component', () => {
 
   it('uses theme colors for the icon and text', () => {
     const component = renderer.create(
+      // @ts-ignore
       <ThemeProvider theme={theme}>
         <EmptyState />
       </ThemeProvider>,
@@ -44,6 +47,7 @@ describe('EmptyState Component', () => {
     const root = component.root;
 
     // Check Icon color
+    // @ts-ignore
     const icon = root.findByType('Icon');
     expect(icon.props.color).toBe(theme.colors.accent);
 

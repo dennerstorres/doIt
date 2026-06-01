@@ -49,18 +49,18 @@ describe('Task Model', () => {
         id: '1',
         task: 'Valid Task',
         done: false,
-      };
+      } as any;
       expect(isValidTask(task)).toBe(true);
     });
 
     it('should return false for invalid tasks', () => {
       expect(isValidTask(null)).toBe(false);
       expect(isValidTask({})).toBe(false);
-      expect(isValidTask({id: 1, task: 'Invalid ID type', done: false})).toBe(
-        false,
-      );
-      expect(isValidTask({id: '1', task: 123, done: false})).toBe(false);
-      expect(isValidTask({id: '1', task: 'No done'})).toBe(false);
+      expect(
+        isValidTask({id: 1, task: 'Invalid ID type', done: false} as any),
+      ).toBe(false);
+      expect(isValidTask({id: '1', task: 123, done: false} as any)).toBe(false);
+      expect(isValidTask({id: '1', task: 'No done'} as any)).toBe(false);
     });
   });
 });

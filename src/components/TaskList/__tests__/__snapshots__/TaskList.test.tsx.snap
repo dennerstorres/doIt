@@ -25,7 +25,9 @@ exports[`TaskList Component should render EmptyState when list is empty 1`] = `
   style={
     Array [
       Object {
-        "marginTop": 10,
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
         "width": "100%",
       },
     ]
@@ -48,13 +50,21 @@ exports[`TaskList Component should render tasks correctly 1`] = `
   data={
     Array [
       Object {
+        "category": "none",
+        "createdAt": "2023-01-01T12:00:00.000Z",
+        "deadline": null,
         "done": false,
         "id": "1",
+        "priority": "none",
         "task": "Task 1",
       },
       Object {
+        "category": "none",
+        "createdAt": "2023-01-01T12:00:00.000Z",
+        "deadline": null,
         "done": true,
         "id": "2",
+        "priority": "none",
         "task": "Task 2",
       },
     ]
@@ -80,7 +90,9 @@ exports[`TaskList Component should render tasks correctly 1`] = `
   style={
     Array [
       Object {
-        "marginTop": 10,
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
         "width": "100%",
       },
     ]

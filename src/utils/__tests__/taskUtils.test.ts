@@ -4,16 +4,36 @@ import {
   getTaskStats,
   SORT_TYPES,
 } from '../taskUtils';
+import {Task} from '../../types';
 
 describe('Task Utils', () => {
-  const mockTasks = [
-    {id: '1', task: 'B Task 1', done: true, createdAt: '2023-01-01T10:00:00Z'},
-    {id: '2', task: 'C Task 2', done: false, createdAt: '2023-01-01T11:00:00Z'},
+  const mockTasks: Task[] = [
+    {
+      id: '1',
+      task: 'B Task 1',
+      done: true,
+      createdAt: '2023-01-01T10:00:00Z',
+      priority: 'none',
+      category: 'none',
+      deadline: null,
+    },
+    {
+      id: '2',
+      task: 'C Task 2',
+      done: false,
+      createdAt: '2023-01-01T11:00:00Z',
+      priority: 'none',
+      category: 'none',
+      deadline: null,
+    },
     {
       id: '3',
       task: 'A Another Task',
       done: false,
       createdAt: '2023-01-01T09:00:00Z',
+      priority: 'none',
+      category: 'none',
+      deadline: null,
     },
   ];
 
@@ -51,23 +71,29 @@ describe('Task Utils', () => {
     });
 
     it('should handle empty or invalid input', () => {
-      expect(sortTasks(null)).toEqual([]);
+      expect(sortTasks(null as any)).toEqual([]);
       expect(sortTasks([])).toEqual([]);
     });
 
     it('should fallback to ID sorting if dates are same in DEFAULT', () => {
-      const sameDateTasks = [
+      const sameDateTasks: Task[] = [
         {
           id: 'a',
           task: 'Task A',
           done: false,
           createdAt: '2023-01-01T10:00:00Z',
+          priority: 'none',
+          category: 'none',
+          deadline: null,
         },
         {
           id: 'b',
           task: 'Task B',
           done: false,
           createdAt: '2023-01-01T10:00:00Z',
+          priority: 'none',
+          category: 'none',
+          deadline: null,
         },
       ];
       const sorted = sortTasks(sameDateTasks, SORT_TYPES.DEFAULT);
@@ -85,7 +111,7 @@ describe('Task Utils', () => {
 
     it('should return all tasks if search is empty', () => {
       expect(filterTasksBySearch(mockTasks, '')).toEqual(mockTasks);
-      expect(filterTasksBySearch(mockTasks, null)).toEqual(mockTasks);
+      expect(filterTasksBySearch(mockTasks, null as any)).toEqual(mockTasks);
     });
   });
 
@@ -100,7 +126,7 @@ describe('Task Utils', () => {
 
     it('should handle empty input', () => {
       expect(getTaskStats([])).toEqual({total: 0, completed: 0});
-      expect(getTaskStats(null)).toEqual({total: 0, completed: 0});
+      expect(getTaskStats(null as any)).toEqual({total: 0, completed: 0});
     });
   });
 });

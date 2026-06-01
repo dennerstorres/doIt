@@ -1056,7 +1056,9 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
     style={
       Array [
         Object {
-          "marginTop": 10,
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "flexShrink": 1,
           "width": "100%",
         },
       ]
@@ -2192,7 +2194,9 @@ exports[`Home Page should show loading indicator initially 1`] = `
     style={
       Array [
         Object {
-          "marginTop": 10,
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "flexShrink": 1,
           "width": "100%",
         },
       ]

@@ -3,11 +3,12 @@ import renderer from 'react-test-renderer';
 import {ThemeProvider} from 'styled-components/native';
 import TaskList from '../index';
 import theme from '../../../theme';
+import {Task, TaskPriority, TaskCategory} from '../../../types';
 
 // Mocking dependencies to focus on TaskList rendering
 jest.mock('../../../components/Task', () => {
   const {Text} = require('react-native');
-  return ({item}) => <Text>{item.task}</Text>;
+  return ({item}: {item: Task}) => <Text>{item.task}</Text>;
 });
 
 jest.mock('../../../components/EmptyState', () => {
@@ -17,18 +18,36 @@ jest.mock('../../../components/EmptyState', () => {
 
 describe('TaskList Component', () => {
   it('should render tasks correctly', () => {
-    const tasks = [
-      {id: '1', task: 'Task 1', done: false},
-      {id: '2', task: 'Task 2', done: true},
+    const tasks: Task[] = [
+      {
+        id: '1',
+        task: 'Task 1',
+        done: false,
+        priority: 'none' as TaskPriority,
+        category: 'none' as TaskCategory,
+        deadline: null,
+        createdAt: '2023-01-01T12:00:00.000Z',
+      },
+      {
+        id: '2',
+        task: 'Task 2',
+        done: true,
+        priority: 'none' as TaskPriority,
+        category: 'none' as TaskCategory,
+        deadline: null,
+        createdAt: '2023-01-01T12:00:00.000Z',
+      },
     ];
 
     const tree = renderer
       .create(
+        // @ts-ignore
         <ThemeProvider theme={theme}>
           <TaskList
             tasks={tasks}
             handleDoneTask={() => {}}
             handleDeleteTask={() => {}}
+            handleEditTask={() => true}
           />
         </ThemeProvider>,
       )
@@ -40,11 +59,13 @@ describe('TaskList Component', () => {
   it('should render EmptyState when list is empty', () => {
     const tree = renderer
       .create(
+        // @ts-ignore
         <ThemeProvider theme={theme}>
           <TaskList
             tasks={[]}
             handleDoneTask={() => {}}
             handleDeleteTask={() => {}}
+            handleEditTask={() => true}
           />
         </ThemeProvider>,
       )
