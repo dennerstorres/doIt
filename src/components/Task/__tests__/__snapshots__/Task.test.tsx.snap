@@ -533,6 +533,182 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
+              "backgroundColor": "#216869",
+              "borderColor": "#216869",
+              "borderRadius": 8,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 8,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+              "paddingTop": 2,
+            }
+          }
+          testID="repeat-edit-button-none"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#ffffff",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Não repetir
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderColor": "#216869",
+              "borderRadius": 8,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 8,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+              "paddingTop": 2,
+            }
+          }
+          testID="repeat-edit-button-daily"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#216869",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Diário
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderColor": "#216869",
+              "borderRadius": 8,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 8,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+              "paddingTop": 2,
+            }
+          }
+          testID="repeat-edit-button-weekly"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#216869",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Semanal
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderColor": "#216869",
+              "borderRadius": 8,
+              "borderStyle": "solid",
+              "borderWidth": 1,
+              "marginRight": 8,
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 5,
+              "paddingRight": 5,
+              "paddingTop": 2,
+            }
+          }
+          testID="repeat-edit-button-monthly"
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#216869",
+                  "fontSize": 8,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            Mensal
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "marginTop": 2,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
               "alignItems": "center",
               "backgroundColor": "transparent",
               "borderColor": "#9cc5a1",

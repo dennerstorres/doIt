@@ -21,6 +21,8 @@ export interface Theme {
   };
   typography: {
     size: {
+      nano: string;
+      tiny: string;
       small: string;
       medium: string;
       large: string;
@@ -56,6 +58,8 @@ const theme: Theme = {
   },
   typography: {
     size: {
+      nano: '8px',
+      tiny: '10px',
       small: '12px',
       medium: '14px',
       large: '16px',

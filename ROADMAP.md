@@ -160,8 +160,8 @@
 - [x] Adicionar prioridade
 - [x] Adicionar categoria
 - [x] Adicionar data limite
-- [ ] Adicionar lembretes locais
-- [ ] Adicionar repetição de tarefas
+- [!] Adicionar lembretes locais
+- [x] Adicionar repetição de tarefas
 - [ ] Adicionar arquivamento
 - [ ] Adicionar estatísticas
 - [ ] Adicionar progresso diário
@@ -975,6 +975,24 @@
   - Ampla cobertura de testes unitários e atualização de snapshots.
 - **Limitações**: Categorias são pré-definidas e não podem ser customizadas pelo usuário nesta fase.
 - **Riscos**: Baixo. A implementação é retrocompatível com dados antigos.
+
+## Adicionar lembretes locais
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A implementação e verificação de notificações locais requerem um ambiente com hardware real ou emuladores configurados com suporte a serviços de push/notificação, o que não é suportado pelo ambiente de sandbox atual.
+- **Sugestão de Desbloqueio**: Executar esta tarefa em um ambiente de desenvolvimento local com acesso a simuladores/emuladores ou dispositivos físicos.
+
+## Adicionar repetição de tarefas
+
+- **Implementação**: Sistema de tarefas recorrentes que gera automaticamente uma nova instância da tarefa ao ser concluída.
+- **Decisões Técnicas**:
+  - Adição do campo `repeat` ('none', 'daily', 'weekly', 'monthly') ao modelo `Task`.
+  - A lógica de recorrência foi centralizada no hook `useTasks` (função `toggleTask`).
+  - Se uma tarefa com repetição é marcada como `done`, uma cópia idêntica é criada com o status `done: false` e ID novo.
+  - Se a tarefa original possuía prazo (`deadline`), a nova instância tem seu prazo incrementado com base no intervalo escolhido.
+  - Interface de seleção integrada no `AddTask` e no modo de edição do componente `Task`.
+- **Limitações**: A recorrência ocorre apenas no momento da conclusão; não há agendamento futuro passivo de múltiplas instâncias.
+- **Riscos**: Se o usuário concluir e desmarcar repetidamente, múltiplas instâncias serão geradas.
 
 ## Adicionar data limite
 

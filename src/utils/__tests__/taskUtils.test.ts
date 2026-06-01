@@ -15,6 +15,7 @@ describe('Task Utils', () => {
       createdAt: '2023-01-01T10:00:00Z',
       priority: 'none',
       category: 'none',
+      repeat: 'none',
       deadline: null,
     },
     {
@@ -24,6 +25,7 @@ describe('Task Utils', () => {
       createdAt: '2023-01-01T11:00:00Z',
       priority: 'none',
       category: 'none',
+      repeat: 'none',
       deadline: null,
     },
     {
@@ -33,6 +35,7 @@ describe('Task Utils', () => {
       createdAt: '2023-01-01T09:00:00Z',
       priority: 'none',
       category: 'none',
+      repeat: 'none',
       deadline: null,
     },
   ];
@@ -84,6 +87,7 @@ describe('Task Utils', () => {
           createdAt: '2023-01-01T10:00:00Z',
           priority: 'none',
           category: 'none',
+          repeat: 'none',
           deadline: null,
         },
         {
@@ -93,6 +97,7 @@ describe('Task Utils', () => {
           createdAt: '2023-01-01T10:00:00Z',
           priority: 'none',
           category: 'none',
+          repeat: 'none',
           deadline: null,
         },
       ];

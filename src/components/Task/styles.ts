@@ -129,9 +129,53 @@ interface PriorityEditTextProps {
 }
 
 export const PriorityEditText = styled.Text<PriorityEditTextProps>`
-  font-size: 8px;
+  font-size: ${props => props.theme.typography.size.nano};
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
+`;
+
+export const RepeatEditRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${props => props.theme.spacing.nano};
+`;
+
+interface RepeatEditButtonProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const RepeatEditButton = styled.TouchableOpacity<RepeatEditButtonProps>`
+  padding: ${props => props.theme.spacing.nano}
+    ${props => props.theme.spacing.tiny};
+  border-radius: ${props => props.theme.spacing.small};
+  background-color: ${props => (props.$active ? props.$color : 'transparent')};
+  margin-right: ${props => props.theme.spacing.small};
+  border: 1px solid ${props => props.$color};
+`;
+
+interface RepeatEditTextProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const RepeatEditText = styled.Text<RepeatEditTextProps>`
+  font-size: ${props => props.theme.typography.size.nano};
+  font-weight: ${props => props.theme.typography.weight.bold};
+  color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
+`;
+
+export const RepeatTag = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-left: ${props => props.theme.spacing.small};
+`;
+
+export const RepeatTagText = styled.Text`
+  font-size: ${props => props.theme.typography.size.tiny};
+  color: ${props => props.theme.colors.white};
+  font-weight: ${props => props.theme.typography.weight.bold};
+  margin-left: 2px;
 `;
 
 export const DeadlineTag = styled.View`
@@ -145,7 +189,7 @@ interface DeadlineTagTextProps {
 }
 
 export const DeadlineTagText = styled.Text<DeadlineTagTextProps>`
-  font-size: 10px;
+  font-size: ${props => props.theme.typography.size.tiny};
   color: ${props =>
     props.isExpired ? props.theme.colors.error : props.theme.colors.accent};
   font-weight: ${props => props.theme.typography.weight.bold};
@@ -178,7 +222,7 @@ interface DeadlineEditTextProps {
 }
 
 export const DeadlineEditText = styled.Text<DeadlineEditTextProps>`
-  font-size: 8px;
+  font-size: ${props => props.theme.typography.size.nano};
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props =>
     props.$active ? props.theme.colors.white : props.theme.colors.accent};
@@ -193,7 +237,7 @@ export const CategoryTag = styled.View`
 `;
 
 export const CategoryTagText = styled.Text`
-  font-size: 10px;
+  font-size: ${props => props.theme.typography.size.tiny};
   color: ${props => props.theme.colors.secondary};
   font-weight: ${props => props.theme.typography.weight.bold};
 `;
@@ -231,7 +275,7 @@ interface CategoryEditTextProps {
 }
 
 export const CategoryEditText = styled.Text<CategoryEditTextProps>`
-  font-size: 8px;
+  font-size: ${props => props.theme.typography.size.nano};
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
 `;

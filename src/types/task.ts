@@ -8,12 +8,15 @@ export type TaskCategory =
   | 'health'
   | 'study';
 
+export type TaskRepeat = 'none' | 'daily' | 'weekly' | 'monthly';
+
 export interface Task {
   id: string;
   task: string;
   done: boolean;
   priority: TaskPriority;
   category: TaskCategory;
+  repeat: TaskRepeat;
   deadline: string | null;
   createdAt: string;
 }

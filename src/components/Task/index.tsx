@@ -32,9 +32,23 @@ import {
   DeadlineEditRow,
   DeadlineEditButton,
   DeadlineEditText,
+  RepeatEditRow,
+  RepeatEditButton,
+  RepeatEditText,
+  RepeatTag,
+  RepeatTagText,
 } from './styles';
-import {TASK_PRIORITIES, TASK_CATEGORIES} from '../../constants/tasks';
-import {Task as TaskType, TaskPriority, TaskCategory} from '../../types';
+import {
+  TASK_PRIORITIES,
+  TASK_CATEGORIES,
+  TASK_REPEATS,
+} from '../../constants/tasks';
+import {
+  Task as TaskType,
+  TaskPriority,
+  TaskCategory,
+  TaskRepeat,
+} from '../../types';
 
 interface TaskProps {
   item: TaskType;
@@ -46,6 +60,7 @@ interface TaskProps {
     priority: TaskPriority,
     category: TaskCategory,
     deadline: string | null,
+    repeat: TaskRepeat,
   ) => boolean;
 }
 
@@ -65,6 +80,9 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
   const [editedDeadline, setEditedDeadline] = useState<string | null>(
     item.deadline || null,
   );
+  const [editedRepeat, setEditedRepeat] = useState<TaskRepeat>(
+    item.repeat || TASK_REPEATS.NONE,
+  );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
@@ -80,7 +98,8 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
     setEditedCategory(item.category || TASK_CATEGORIES.NONE);
     setEditedDeadline(item.deadline || null);
-  }, [item.task, item.priority, item.category, item.deadline]);
+    setEditedRepeat(item.repeat || TASK_REPEATS.NONE);
+  }, [item.task, item.priority, item.category, item.deadline, item.repeat]);
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
@@ -94,6 +113,7 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
       editedPriority,
       editedCategory,
       editedDeadline,
+      editedRepeat,
     );
     if (success) {
       setIsEditing(false);
@@ -105,6 +125,7 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     setEditedPriority(item.priority);
     setEditedCategory(item.category);
     setEditedDeadline(item.deadline);
+    setEditedRepeat(item.repeat);
     setIsEditing(false);
   };
 
@@ -113,6 +134,7 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
     setEditedCategory(item.category || TASK_CATEGORIES.NONE);
     setEditedDeadline(item.deadline || null);
+    setEditedRepeat(item.repeat || TASK_REPEATS.NONE);
     swipeableRef.current?.close();
   };
 
@@ -145,12 +167,22 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     {id: TASK_CATEGORIES.STUDY, label: 'Estudo'},
   ];
 
+  const repeatConfig: Array<{id: TaskRepeat; label: string}> = [
+    {id: TASK_REPEATS.NONE, label: 'Não repetir'},
+    {id: TASK_REPEATS.DAILY, label: 'Diário'},
+    {id: TASK_REPEATS.WEEKLY, label: 'Semanal'},
+    {id: TASK_REPEATS.MONTHLY, label: 'Mensal'},
+  ];
+
   const currentPriorityColor =
     priorityConfig.find(p => p.id === item.priority)?.color ||
     theme.colors.accent;
 
   const currentCategoryLabel =
     categoryConfig.find(c => c.id === item.category)?.label || 'Geral';
+
+  const currentRepeatLabel =
+    repeatConfig.find(r => r.id === item.repeat)?.label || '';
 
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) {
@@ -322,6 +354,22 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
                   ))}
                 </CategoryEditScroll>
               </CategoryEditRow>
+              <RepeatEditRow>
+                {repeatConfig.map(r => (
+                  <RepeatEditButton
+                    key={r.id}
+                    $active={editedRepeat === r.id}
+                    $color={theme.colors.secondary}
+                    onPress={() => setEditedRepeat(r.id)}
+                    testID={`repeat-edit-button-${r.id}`}>
+                    <RepeatEditText
+                      $active={editedRepeat === r.id}
+                      $color={theme.colors.secondary}>
+                      {r.label}
+                    </RepeatEditText>
+                  </RepeatEditButton>
+                ))}
+              </RepeatEditRow>
               <DeadlineEditRow>
                 <DeadlineEditButton
                   $active={!!editedDeadline}
@@ -392,6 +440,12 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
               <CategoryTag>
                 <CategoryTagText>{currentCategoryLabel}</CategoryTagText>
               </CategoryTag>
+            )}
+            {item.repeat && item.repeat !== TASK_REPEATS.NONE && (
+              <RepeatTag>
+                <Icon name='refresh-cw' size={10} color={theme.colors.white} />
+                <RepeatTagText>{currentRepeatLabel}</RepeatTagText>
+              </RepeatTag>
             )}
             {item.done && (
               <Icon name='check-circle' size={20} color={theme.colors.accent} />

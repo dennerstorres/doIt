@@ -70,7 +70,7 @@ interface PriorityTextProps {
 }
 
 export const PriorityText = styled.Text<PriorityTextProps>`
-  font-size: 10px;
+  font-size: ${props => props.theme.typography.size.tiny};
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
 `;
@@ -114,7 +114,7 @@ interface CategoryTextProps {
 }
 
 export const CategoryText = styled.Text<CategoryTextProps>`
-  font-size: 10px;
+  font-size: ${props => props.theme.typography.size.tiny};
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props =>
     props.$active ? props.theme.colors.white : props.theme.colors.primary};
@@ -153,9 +153,49 @@ interface DeadlineTextProps {
 }
 
 export const DeadlineText = styled.Text<DeadlineTextProps>`
-  font-size: 10px;
+  font-size: ${props => props.theme.typography.size.tiny};
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props =>
     props.$active ? props.theme.colors.white : props.theme.colors.accent};
   margin-left: ${props => props.theme.spacing.tiny};
+`;
+
+export const RepeatContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${props => props.theme.spacing.small};
+  padding: 0 ${props => props.theme.spacing.tiny};
+`;
+
+export const RepeatLabel = styled.Text`
+  font-size: ${props => props.theme.typography.size.small};
+  color: ${props => props.theme.colors.text};
+  margin-right: ${props => props.theme.spacing.small};
+`;
+
+interface RepeatButtonProps {
+  $active: boolean;
+}
+
+export const RepeatButton = styled.TouchableOpacity<RepeatButtonProps>`
+  padding: ${props => props.theme.spacing.tiny}
+    ${props => props.theme.spacing.small};
+  border-radius: ${props => props.theme.spacing.small};
+  background-color: ${props =>
+    props.$active
+      ? props.theme.colors.secondary
+      : props.theme.colors.background};
+  margin-right: ${props => props.theme.spacing.tiny};
+  border: 1px solid ${props => props.theme.colors.secondary};
+`;
+
+interface RepeatTextProps {
+  $active: boolean;
+}
+
+export const RepeatText = styled.Text<RepeatTextProps>`
+  font-size: ${props => props.theme.typography.size.tiny};
+  font-weight: ${props => props.theme.typography.weight.bold};
+  color: ${props =>
+    props.$active ? props.theme.colors.white : props.theme.colors.secondary};
 `;

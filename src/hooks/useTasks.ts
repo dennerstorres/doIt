@@ -1,16 +1,15 @@
 import {useState, useEffect, useCallback} from 'react';
 import {Alert, LayoutAnimation, LayoutAnimationConfig} from 'react-native';
-// @ts-ignore - storage.js is still in JS
 import {saveTasks, getTasks} from '../services/storage';
-// @ts-ignore - Task.js is still in JS
 import {createTask} from '../models/Task';
 import {
   MIN_TASK_LENGTH,
   MAX_TASK_LENGTH,
   TASK_PRIORITIES,
   TASK_CATEGORIES,
+  TASK_REPEATS,
 } from '../constants/tasks';
-import {Task, TaskPriority, TaskCategory} from '../types';
+import {Task, TaskPriority, TaskCategory, TaskRepeat} from '../types';
 
 const animationConfig: LayoutAnimationConfig = {
   duration: 300,
@@ -87,6 +86,7 @@ export const useTasks = () => {
       priority: TaskPriority = TASK_PRIORITIES.NONE,
       category: TaskCategory = TASK_CATEGORIES.NONE,
       deadline: string | null = null,
+      repeat: TaskRepeat = TASK_REPEATS.NONE,
     ): boolean => {
       const trimmedTask = taskTitle.trim();
 
@@ -125,7 +125,8 @@ export const useTasks = () => {
         priority,
         category,
         deadline,
-      ) as Task;
+        repeat,
+      );
       LayoutAnimation.configureNext(animationConfig);
       setTasks(prevTasks => [...(prevTasks || []), newTask]);
       return true;
@@ -135,14 +136,43 @@ export const useTasks = () => {
 
   const toggleTask = useCallback((item: Task) => {
     LayoutAnimation.configureNext(animationConfig);
-    setTasks(prevTasks =>
-      (prevTasks || []).map(t => {
+    setTasks(prevTasks => {
+      const currentTasks = prevTasks || [];
+      const updatedTasks = currentTasks.map(t => {
         if (t.id === item.id) {
           return {...t, done: !t.done};
         }
         return t;
-      }),
-    );
+      });
+
+      // If task was marked as done and it is a repeating task, create next instance
+      if (!item.done && item.repeat !== TASK_REPEATS.NONE) {
+        let nextDeadline: string | null = null;
+        if (item.deadline) {
+          const date = new Date(item.deadline);
+          if (item.repeat === TASK_REPEATS.DAILY) {
+            date.setDate(date.getDate() + 1);
+          } else if (item.repeat === TASK_REPEATS.WEEKLY) {
+            date.setDate(date.getDate() + 7);
+          } else if (item.repeat === TASK_REPEATS.MONTHLY) {
+            date.setMonth(date.getMonth() + 1);
+          }
+          nextDeadline = date.toISOString();
+        }
+
+        const newTask = createTask(
+          item.task,
+          item.priority,
+          item.category,
+          nextDeadline,
+          item.repeat,
+        );
+
+        return [...updatedTasks, newTask];
+      }
+
+      return updatedTasks;
+    });
   }, []);
 
   const deleteTask = useCallback((item: Task) => {
@@ -176,6 +206,7 @@ export const useTasks = () => {
       priority?: TaskPriority,
       category?: TaskCategory,
       deadline?: string | null,
+      repeat?: TaskRepeat,
     ): boolean => {
       const trimmedTask = newTaskTitle.trim();
 
@@ -219,6 +250,7 @@ export const useTasks = () => {
               priority: priority !== undefined ? priority : t.priority,
               category: category !== undefined ? category : t.category,
               deadline: deadline !== undefined ? deadline : t.deadline,
+              repeat: repeat !== undefined ? repeat : t.repeat,
             };
           }
           return t;
