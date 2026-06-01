@@ -12,7 +12,7 @@ jest.mock('../../../services/storage', () => ({
   saveTasks: jest.fn(),
 }));
 
-jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+const mockAlert = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
 // Mocking LayoutAnimation and UIManager to avoid errors in tests
 jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
@@ -36,11 +36,12 @@ describe('Home Page', () => {
   });
 
   it('should show loading indicator initially', async () => {
-    getTasks.mockReturnValue(new Promise(() => {})); // Never resolves
+    (getTasks as jest.Mock).mockReturnValue(new Promise(() => {})); // Never resolves
 
-    let component;
+    let component: any;
     await act(async () => {
       component = renderer.create(
+        /* @ts-ignore */
         <ThemeProvider theme={theme}>
           <Home />
         </ThemeProvider>,
@@ -55,12 +56,20 @@ describe('Home Page', () => {
   });
 
   it('should load tasks from storage on mount', async () => {
-    const mockTasks = [{id: '1', task: 'Test Task', done: false}];
-    getTasks.mockResolvedValueOnce(mockTasks);
+    const mockTasks = [
+      {
+        id: '1',
+        task: 'Test Task',
+        done: false,
+        createdAt: '2023-01-01T10:00:00Z',
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
 
-    let component;
+    let component: any;
     await act(async () => {
       component = renderer.create(
+        /* @ts-ignore */
         <ThemeProvider theme={theme}>
           <Home />
         </ThemeProvider>,
@@ -77,10 +86,11 @@ describe('Home Page', () => {
     const consoleSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
-    getTasks.mockRejectedValueOnce(new Error('Load error'));
+    (getTasks as jest.Mock).mockRejectedValueOnce(new Error('Load error'));
 
     await act(async () => {
       renderer.create(
+        /* @ts-ignore */
         <ThemeProvider theme={theme}>
           <Home />
         </ThemeProvider>,
@@ -92,7 +102,7 @@ describe('Home Page', () => {
       'Error loading tasks:',
       expect.any(Error),
     );
-    expect(Alert.alert).toHaveBeenCalledWith(
+    expect(mockAlert).toHaveBeenCalledWith(
       'Erro',
       'Não foi possível carregar suas tarefas. Usando armazenamento temporário.',
     );
@@ -103,11 +113,12 @@ describe('Home Page', () => {
     const consoleSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
-    getTasks.mockResolvedValueOnce([]);
-    saveTasks.mockRejectedValueOnce(new Error('Save error'));
+    (getTasks as jest.Mock).mockResolvedValueOnce([]);
+    (saveTasks as jest.Mock).mockRejectedValueOnce(new Error('Save error'));
 
     await act(async () => {
       renderer.create(
+        /* @ts-ignore */
         <ThemeProvider theme={theme}>
           <Home />
         </ThemeProvider>,
@@ -121,7 +132,7 @@ describe('Home Page', () => {
       'Error saving tasks:',
       expect.any(Error),
     );
-    expect(Alert.alert).toHaveBeenCalledWith(
+    expect(mockAlert).toHaveBeenCalledWith(
       'Erro de Persistência',
       'Não foi possível salvar suas alterações localmente.',
     );
@@ -133,11 +144,12 @@ describe('Home Page', () => {
       {id: '1', task: 'A Task', done: false, createdAt: '2023-01-01T10:00:00Z'},
       {id: '2', task: 'B Task', done: false, createdAt: '2023-01-01T11:00:00Z'},
     ];
-    getTasks.mockResolvedValue(mockTasks);
+    (getTasks as jest.Mock).mockResolvedValue(mockTasks);
 
-    let component;
+    let component: any;
     await act(async () => {
       component = renderer.create(
+        /* @ts-ignore */
         <ThemeProvider theme={theme}>
           <Home />
         </ThemeProvider>,

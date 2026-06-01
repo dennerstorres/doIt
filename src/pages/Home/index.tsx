@@ -27,14 +27,16 @@ import {
   getTaskStats,
   sortTasks,
   SORT_TYPES,
+  SortType,
 } from '../../utils/taskUtils';
+import {TaskPriority} from '../../types';
 
-function Home() {
+const Home: React.FC = () => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [task, setTask] = useState('');
   const [search, setSearch] = useState('');
-  const [sortType, setSortType] = useState(SORT_TYPES.DEFAULT);
+  const [sortType, setSortType] = useState<SortType>(SORT_TYPES.DEFAULT);
 
   const {
     tasks,
@@ -48,7 +50,7 @@ function Home() {
     clearLastDeletedTask,
   } = useTasks();
 
-  function handleAddTask(priority) {
+  function handleAddTask(priority: TaskPriority) {
     const success = addTask(task, priority);
     if (success) {
       setTask('');
@@ -63,7 +65,7 @@ function Home() {
   }, [tasks, search, sortType]);
 
   const {total: totalTasks, completed: completedTasks} = useMemo(
-    () => getTaskStats(tasks),
+    () => getTaskStats(tasks || []),
     [tasks],
   );
 
@@ -158,6 +160,6 @@ function Home() {
       )}
     </Container>
   );
-}
+};
 
 export default Home;

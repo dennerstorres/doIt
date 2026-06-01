@@ -129,7 +129,7 @@
 - [x] Criar tipagem Task
 - [x] Migrar componentes principais
 - [x] Migrar hooks
-- [ ] Migrar navegação
+- [x] Migrar navegação
 - [ ] Remover arquivos JS restantes
 
 ---
@@ -1075,3 +1075,17 @@
 - **Validações**: Verificação completa de tipos com `tsc` e execução de 100% da suíte de testes unitários (`yarn test`).
 - **Limitações**: Integração com `storage.js` e `Task.js` ainda depende de `@ts-ignore` até que esses arquivos sejam migrados.
 - **Riscos**: Baixo, dado que a lógica de negócio foi preservada e validada por testes pré-existentes e novos tipos.
+
+## Migrar navegação
+
+- **Implementação**: Migração da infraestrutura de navegação e da página principal (Home) para TypeScript.
+- **Decisões Técnicas**:
+  - Criação de `src/types/navigation.ts` para definir `RootStackParamList`.
+  - Migração de `src/App.tsx` para usar `createStackNavigator<RootStackParamList>()`.
+  - Migração completa de `src/pages/Home` (index, styles e testes) para TypeScript.
+  - Migração de `src/utils/taskUtils.js` para `.ts` para prover tipos seguros à página Home.
+  - Uso de transient props (`$active`) tipadas em Styled Components para evitar warnings de props inválidas no DOM nativo.
+- **Arquivos Alterados**: `src/App.tsx`, `src/types/navigation.ts`, `src/types/index.ts`, `src/pages/Home/index.tsx`, `src/pages/Home/styles.ts`, `src/pages/Home/__tests__/Home.test.tsx`, `src/utils/taskUtils.ts`, `ROADMAP.md`.
+- **Validações**: Execução bem-sucedida do `tsc` (zero erros), `yarn lint` e todos os testes unitários (`yarn test`).
+- **Limitações**: O aplicativo possui apenas uma rota no momento; conforme novas telas forem adicionadas, o `RootStackParamList` precisará ser expandido.
+- **Riscos**: Baixo. A migração foi incremental e validada por testes automatizados e checagem de tipos estática.

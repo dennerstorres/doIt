@@ -120,7 +120,12 @@ export const useTasks = () => {
         return false;
       }
 
-      const newTask = createTask(trimmedTask, priority, category, deadline) as Task;
+      const newTask = createTask(
+        trimmedTask,
+        priority,
+        category,
+        deadline,
+      ) as Task;
       LayoutAnimation.configureNext(animationConfig);
       setTasks(prevTasks => [...(prevTasks || []), newTask]);
       return true;
