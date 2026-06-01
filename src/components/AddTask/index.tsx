@@ -21,6 +21,10 @@ import {
   CategoryText,
   DeadlineContainer,
   DeadlineLabel,
+  RepeatContainer,
+  RepeatLabel,
+  RepeatButton,
+  RepeatText,
   DeadlineButton,
   DeadlineText,
 } from './styles';
@@ -28,8 +32,9 @@ import {
   MAX_TASK_LENGTH,
   TASK_PRIORITIES,
   TASK_CATEGORIES,
+  TASK_REPEATS,
 } from '../../constants/tasks';
-import {TaskPriority, TaskCategory} from '../../types';
+import {TaskPriority, TaskCategory, TaskRepeat} from '../../types';
 
 interface AddTaskProps {
   task: string;
@@ -38,6 +43,7 @@ interface AddTaskProps {
     priority: TaskPriority,
     category: TaskCategory,
     deadline: string | null,
+    repeat: TaskRepeat,
   ) => void;
   loading: boolean;
 }
@@ -51,15 +57,17 @@ const AddTask: React.FC<AddTaskProps> = ({
   const theme = useTheme();
   const [priority, setPriority] = useState<TaskPriority>(TASK_PRIORITIES.NONE);
   const [category, setCategory] = useState<TaskCategory>(TASK_CATEGORIES.NONE);
+  const [repeat, setRepeat] = useState<TaskRepeat>(TASK_REPEATS.NONE);
   const [deadline, setDeadline] = useState<Date | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const showCounter = task.length > 40;
 
   const handleAdd = () => {
-    onAdd(priority, category, deadline ? deadline.toISOString() : null);
+    onAdd(priority, category, deadline ? deadline.toISOString() : null, repeat);
     setPriority(TASK_PRIORITIES.NONE);
     setCategory(TASK_CATEGORIES.NONE);
+    setRepeat(TASK_REPEATS.NONE);
     setDeadline(null);
   };
 
@@ -97,6 +105,13 @@ const AddTask: React.FC<AddTaskProps> = ({
     {id: TASK_CATEGORIES.SHOPPING, label: 'Compras'},
     {id: TASK_CATEGORIES.HEALTH, label: 'Saúde'},
     {id: TASK_CATEGORIES.STUDY, label: 'Estudo'},
+  ];
+
+  const repeatConfig: Array<{id: TaskRepeat; label: string}> = [
+    {id: TASK_REPEATS.NONE, label: 'Não repetir'},
+    {id: TASK_REPEATS.DAILY, label: 'Diário'},
+    {id: TASK_REPEATS.WEEKLY, label: 'Semanal'},
+    {id: TASK_REPEATS.MONTHLY, label: 'Mensal'},
   ];
 
   const formatDate = (date: Date | null) => {
@@ -165,6 +180,20 @@ const AddTask: React.FC<AddTaskProps> = ({
           ))}
         </CategoryScroll>
       </CategoryContainer>
+
+      <RepeatContainer>
+        <RepeatLabel>Repetir:</RepeatLabel>
+        {repeatConfig.map(r => (
+          <RepeatButton
+            key={r.id}
+            $active={repeat === r.id}
+            onPress={() => setRepeat(r.id)}
+            disabled={loading}
+            testID={`repeat-button-${r.id}`}>
+            <RepeatText $active={repeat === r.id}>{r.label}</RepeatText>
+          </RepeatButton>
+        ))}
+      </RepeatContainer>
 
       <DeadlineContainer>
         <DeadlineLabel>Prazo:</DeadlineLabel>

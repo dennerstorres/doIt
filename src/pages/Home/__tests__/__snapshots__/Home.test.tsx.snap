@@ -710,6 +710,199 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
           ]
         }
       >
+        Repetir:
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#216869",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-none"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#ffffff",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Não repetir
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-daily"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#216869",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Diário
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-weekly"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#216869",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Semanal
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-monthly"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#216869",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Mensal
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginTop": 8,
+            "paddingBottom": 0,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+            "paddingTop": 0,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "marginRight": 8,
+            },
+          ]
+        }
+      >
         Prazo:
       </Text>
       <View
@@ -1817,6 +2010,199 @@ exports[`Home Page should show loading indicator initially 1`] = `
           </View>
         </View>
       </RCTScrollView>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "marginTop": 8,
+            "paddingBottom": 0,
+            "paddingLeft": 5,
+            "paddingRight": 5,
+            "paddingTop": 0,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 12,
+              "marginRight": 8,
+            },
+          ]
+        }
+      >
+        Repetir:
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#216869",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-none"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#ffffff",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Não repetir
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-daily"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#216869",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Diário
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-weekly"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#216869",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Semanal
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dce1de",
+            "borderColor": "#216869",
+            "borderRadius": 8,
+            "borderStyle": "solid",
+            "borderWidth": 1,
+            "marginRight": 5,
+            "opacity": 1,
+            "paddingBottom": 5,
+            "paddingLeft": 8,
+            "paddingRight": 8,
+            "paddingTop": 5,
+          }
+        }
+        testID="repeat-button-monthly"
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#216869",
+                "fontSize": 10,
+                "fontWeight": "700",
+              },
+            ]
+          }
+        >
+          Mensal
+        </Text>
+      </View>
     </View>
     <View
       style={

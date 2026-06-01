@@ -52,7 +52,7 @@ describe('AddTask Component', () => {
       parent.props.onPress();
     });
 
-    expect(onAddMock).toHaveBeenCalledWith('none', 'none', null);
+    expect(onAddMock).toHaveBeenCalledWith('none', 'none', null, 'none');
   });
 
   it('should call onAdd with selected priority, category and deadline', () => {
@@ -90,7 +90,7 @@ describe('AddTask Component', () => {
       addButton.props.onPress();
     });
 
-    expect(onAddMock).toHaveBeenCalledWith('high', 'work', null);
+    expect(onAddMock).toHaveBeenCalledWith('high', 'work', null, 'none');
   });
 
   it('should call onChangeText with empty string when clear button is pressed', () => {

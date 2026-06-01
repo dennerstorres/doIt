@@ -29,7 +29,7 @@ import {
   SORT_TYPES,
   SortType,
 } from '../../utils/taskUtils';
-import {TaskPriority} from '../../types';
+import {TaskPriority, TaskCategory, TaskRepeat} from '../../types';
 
 const Home: React.FC = () => {
   const theme = useTheme();
@@ -50,8 +50,13 @@ const Home: React.FC = () => {
     clearLastDeletedTask,
   } = useTasks();
 
-  function handleAddTask(priority: TaskPriority) {
-    const success = addTask(task, priority);
+  function handleAddTask(
+    priority: TaskPriority,
+    category: TaskCategory,
+    deadline: string | null,
+    repeat: TaskRepeat,
+  ) {
+    const success = addTask(task, priority, category, deadline, repeat);
     if (success) {
       setTask('');
       Keyboard.dismiss();
@@ -76,7 +81,9 @@ const Home: React.FC = () => {
       <AddTask
         task={task}
         onChangeText={text => setTask(text)}
-        onAdd={priority => handleAddTask(priority)}
+        onAdd={(priority, category, deadline, repeat) =>
+          handleAddTask(priority, category, deadline, repeat)
+        }
         loading={loading}
       />
 

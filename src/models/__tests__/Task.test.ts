@@ -21,6 +21,7 @@ describe('Task Model', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
       });

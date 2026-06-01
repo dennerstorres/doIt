@@ -18,3 +18,10 @@ export const TASK_CATEGORIES: Record<string, TaskCategory> = {
   HEALTH: 'health',
   STUDY: 'study',
 };
+
+export const TASK_REPEATS = {
+  NONE: 'none',
+  DAILY: 'daily',
+  WEEKLY: 'weekly',
+  MONTHLY: 'monthly',
+} as const;

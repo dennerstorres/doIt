@@ -61,6 +61,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -143,6 +144,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -181,6 +183,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -221,6 +224,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -262,6 +266,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -301,6 +306,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -333,6 +339,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -342,6 +349,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -371,6 +379,7 @@ describe('useTasks hook', () => {
         done: false,
         priority: 'none',
         category: 'none',
+        repeat: 'none',
         deadline: null,
         createdAt: new Date().toISOString(),
       },
@@ -411,5 +420,121 @@ describe('useTasks hook', () => {
     });
 
     expect(saveTasks).toHaveBeenCalledWith(expect.any(Array));
+  });
+
+  it('should create a new instance when a daily repeating task is completed', async () => {
+    const today = new Date();
+    today.setHours(12, 0, 0, 0);
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Repeat Daily',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'daily',
+        deadline: today.toISOString(),
+        createdAt: today.toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.toggleTask(mockTasks[0]);
+    });
+
+    expect(hook.tasks).toHaveLength(2);
+    if (hook.tasks) {
+      const originalTask = hook.tasks.find(t => t.id === '1');
+      const newTask = hook.tasks.find(t => t.id !== '1');
+
+      expect(originalTask?.done).toBe(true);
+      expect(newTask?.task).toBe('Repeat Daily');
+      expect(newTask?.repeat).toBe('daily');
+      expect(newTask?.done).toBe(false);
+
+      if (newTask?.deadline) {
+        const nextDate = new Date(newTask.deadline);
+        const expectedDate = new Date(today);
+        expectedDate.setDate(expectedDate.getDate() + 1);
+        expect(nextDate.toISOString()).toBe(expectedDate.toISOString());
+      }
+    }
+  });
+
+  it('should create a new instance when a weekly repeating task is completed', async () => {
+    const today = new Date();
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Repeat Weekly',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'weekly',
+        deadline: today.toISOString(),
+        createdAt: today.toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.toggleTask(mockTasks[0]);
+    });
+
+    expect(hook.tasks).toHaveLength(2);
+    if (hook.tasks) {
+      const newTask = hook.tasks.find(t => t.id !== '1');
+      if (newTask?.deadline) {
+        const nextDate = new Date(newTask.deadline);
+        const expectedDate = new Date(today);
+        expectedDate.setDate(expectedDate.getDate() + 7);
+        expect(nextDate.toISOString()).toBe(expectedDate.toISOString());
+      }
+    }
+  });
+
+  it('should create a new instance when a monthly repeating task is completed', async () => {
+    const today = new Date();
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Repeat Monthly',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'monthly',
+        deadline: today.toISOString(),
+        createdAt: today.toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.toggleTask(mockTasks[0]);
+    });
+
+    expect(hook.tasks).toHaveLength(2);
+    if (hook.tasks) {
+      const newTask = hook.tasks.find(t => t.id !== '1');
+      if (newTask?.deadline) {
+        const nextDate = new Date(newTask.deadline);
+        const expectedDate = new Date(today);
+        expectedDate.setMonth(expectedDate.getMonth() + 1);
+        expect(nextDate.toISOString()).toBe(expectedDate.toISOString());
+      }
+    }
   });
 });

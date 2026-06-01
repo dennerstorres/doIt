@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import {ThemeProvider} from 'styled-components/native';
 import TaskComponent from '../index';
 import theme from '../../../theme';
-import {Task, TaskPriority, TaskCategory} from '../../../types';
+import {Task, TaskPriority, TaskCategory, TaskRepeat} from '../../../types';
 
 // Mocking Swipeable from react-native-gesture-handler
 jest.mock('react-native-gesture-handler/Swipeable', () => {
@@ -47,6 +47,7 @@ const mockTask: Task = {
   done: false,
   priority: 'none' as TaskPriority,
   category: 'none' as TaskCategory,
+  repeat: 'none' as TaskRepeat,
   deadline: null,
   createdAt: new Date().toISOString(),
 };
@@ -147,6 +148,7 @@ describe('Task Component', () => {
       expect.any(String),
       expect.any(String),
       null,
+      'none',
     );
     // Verify it returned to normal mode
     expect(
@@ -224,6 +226,7 @@ describe('Task Component', () => {
       mockTask.priority,
       'work',
       null,
+      'none',
     );
   });
 });
