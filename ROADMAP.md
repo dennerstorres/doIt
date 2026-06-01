@@ -47,7 +47,7 @@
 - [x] Criar estrutura `/src/constants`
 - [x] Criar estrutura `/src/theme`
 - [x] Criar estrutura `/src/storage`
-- [!] Criar estrutura `/src/types`
+- [x] Criar estrutura `/src/types`
 - [x] Criar estrutura `/src/context`
 
 ---
@@ -371,9 +371,22 @@
 
 ## Criar estrutura /src/types
 
-- **Status**: [!] Bloqueado.
-- **Motivo**: Adiado para a FASE 5 (Migração TypeScript). Como o projeto ainda está em JavaScript puro, a criação de uma estrutura de tipos agora seria prematura e não teria utilidade imediata.
-- **Sugestão de Desbloqueio**: Executar como parte do setup do TypeScript na FASE 5.
+- **Implementação**: Criação do diretório `/src/types` para centralizar as definições de tipos TypeScript do projeto.
+- **Decisões Técnicas**:
+  - Centralização de tipos e interfaces em um local dedicado para suportar a migração incremental para TypeScript (Fase 5).
+  - Inclusão de um `index.ts` para exportação centralizada, facilitando a importação em outros módulos.
+- **Limitações**: Inicialmente focado no modelo de dados de Task; outros tipos serão adicionados conforme a migração prossegue.
+- **Riscos**: Nenhum identificado.
+
+## Criar tipagem Task
+
+- **Implementação**: Definição formal da interface `Task` e tipos auxiliares (`TaskPriority`, `TaskCategory`).
+- **Decisões Técnicas**:
+  - Mapeamento exato das propriedades do modelo `Task.js` e das constantes de prioridade e categoria.
+  - Uso de uniões de strings literais para garantir segurança de tipos em estados de prioridade e categoria.
+  - Localização em `src/types/task.ts` seguindo o padrão de organização por domínio.
+- **Limitações**: Nenhuma.
+- **Riscos**: Baixo. As definições refletem fielmente a estrutura de dados atual do projeto.
 
 ## Criar estrutura /src/constants
 
