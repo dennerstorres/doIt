@@ -2,7 +2,7 @@ import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Container, Title} from './styles';
 
-function Header() {
+const Header: React.FC = () => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -10,6 +10,6 @@ function Header() {
       <Title>doIt</Title>
     </Container>
   );
-}
+};
 
 export default Header;

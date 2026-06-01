@@ -49,7 +49,12 @@ export const PriorityLabel = styled.Text`
   margin-right: ${props => props.theme.spacing.small};
 `;
 
-export const PriorityButton = styled.TouchableOpacity`
+interface PriorityButtonProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const PriorityButton = styled.TouchableOpacity<PriorityButtonProps>`
   padding: ${props => props.theme.spacing.tiny}
     ${props => props.theme.spacing.small};
   border-radius: ${props => props.theme.spacing.small};
@@ -59,7 +64,12 @@ export const PriorityButton = styled.TouchableOpacity`
   border: 1px solid ${props => props.$color};
 `;
 
-export const PriorityText = styled.Text`
+interface PriorityTextProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const PriorityText = styled.Text<PriorityTextProps>`
   font-size: 10px;
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
@@ -85,7 +95,11 @@ export const CategoryScroll = styled.ScrollView.attrs({
   flex: 1;
 `;
 
-export const CategoryButton = styled.TouchableOpacity`
+interface CategoryButtonProps {
+  $active: boolean;
+}
+
+export const CategoryButton = styled.TouchableOpacity<CategoryButtonProps>`
   padding: ${props => props.theme.spacing.tiny}
     ${props => props.theme.spacing.small};
   border-radius: ${props => props.theme.spacing.small};
@@ -95,7 +109,11 @@ export const CategoryButton = styled.TouchableOpacity`
   border: 1px solid ${props => props.theme.colors.primary};
 `;
 
-export const CategoryText = styled.Text`
+interface CategoryTextProps {
+  $active: boolean;
+}
+
+export const CategoryText = styled.Text<CategoryTextProps>`
   font-size: 10px;
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props =>
@@ -115,7 +133,11 @@ export const DeadlineLabel = styled.Text`
   margin-right: ${props => props.theme.spacing.small};
 `;
 
-export const DeadlineButton = styled.TouchableOpacity`
+interface DeadlineButtonProps {
+  $active: boolean;
+}
+
+export const DeadlineButton = styled.TouchableOpacity<DeadlineButtonProps>`
   flex-direction: row;
   align-items: center;
   padding: ${props => props.theme.spacing.tiny}
@@ -126,7 +148,11 @@ export const DeadlineButton = styled.TouchableOpacity`
   border: 1px solid ${props => props.theme.colors.accent};
 `;
 
-export const DeadlineText = styled.Text`
+interface DeadlineTextProps {
+  $active: boolean;
+}
+
+export const DeadlineText = styled.Text<DeadlineTextProps>`
   font-size: 10px;
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props =>

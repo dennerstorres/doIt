@@ -1,6 +1,10 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+interface ContainerProps {
+  $bottomInset?: number;
+}
+
+export const Container = styled.View<ContainerProps>`
   position: absolute;
   bottom: ${({theme, $bottomInset}) => {
     const base = parseInt(theme.spacing.xlarge, 10);

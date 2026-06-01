@@ -2,7 +2,11 @@ import styled from 'styled-components/native';
 import {Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-export const Container = styled(Animated.View)`
+interface ContainerProps {
+  done: boolean;
+}
+
+export const Container = styled(Animated.View)<ContainerProps>`
   background-color: ${props =>
     props.done ? props.theme.colors.primary : props.theme.colors.secondary};
   width: 100%;
@@ -15,7 +19,11 @@ export const Container = styled(Animated.View)`
   align-items: center;
 `;
 
-export const TaskText = styled.Text`
+interface TaskTextProps {
+  done: boolean;
+}
+
+export const TaskText = styled.Text<TaskTextProps>`
   color: ${props =>
     props.done ? props.theme.colors.accent : props.theme.colors.white};
   text-decoration-line: ${props => (props.done ? 'line-through' : 'none')};
@@ -32,7 +40,11 @@ export const LeftActionContainer = styled(Animated.View)`
   height: 50px;
 `;
 
-export const RightActionContainer = styled.TouchableOpacity`
+interface RightActionContainerProps {
+  type?: 'edit';
+}
+
+export const RightActionContainer = styled.TouchableOpacity<RightActionContainerProps>`
   background-color: ${props =>
     props.type === 'edit'
       ? props.theme.colors.accent
@@ -79,7 +91,11 @@ export const CancelIcon = styled(Icon)`
   margin-right: ${props => props.theme.spacing.medium};
 `;
 
-export const PriorityIndicator = styled.View`
+interface PriorityIndicatorProps {
+  $color: string;
+}
+
+export const PriorityIndicator = styled.View<PriorityIndicatorProps>`
   width: ${props => props.theme.spacing.nano};
   height: 20px;
   border-radius: ${props => props.theme.spacing.nano};
@@ -93,7 +109,12 @@ export const PriorityEditRow = styled.View`
   margin-top: ${props => props.theme.spacing.nano};
 `;
 
-export const PriorityEditButton = styled.TouchableOpacity`
+interface PriorityEditButtonProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const PriorityEditButton = styled.TouchableOpacity<PriorityEditButtonProps>`
   padding: ${props => props.theme.spacing.nano}
     ${props => props.theme.spacing.tiny};
   border-radius: ${props => props.theme.spacing.small};
@@ -102,7 +123,12 @@ export const PriorityEditButton = styled.TouchableOpacity`
   border: 1px solid ${props => props.$color};
 `;
 
-export const PriorityEditText = styled.Text`
+interface PriorityEditTextProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const PriorityEditText = styled.Text<PriorityEditTextProps>`
   font-size: 8px;
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props => (props.$active ? props.theme.colors.white : props.$color)};
@@ -114,7 +140,11 @@ export const DeadlineTag = styled.View`
   margin-left: ${props => props.theme.spacing.small};
 `;
 
-export const DeadlineTagText = styled.Text`
+interface DeadlineTagTextProps {
+  isExpired: boolean;
+}
+
+export const DeadlineTagText = styled.Text<DeadlineTagTextProps>`
   font-size: 10px;
   color: ${props =>
     props.isExpired ? props.theme.colors.error : props.theme.colors.accent};
@@ -128,7 +158,11 @@ export const DeadlineEditRow = styled.View`
   margin-top: ${props => props.theme.spacing.nano};
 `;
 
-export const DeadlineEditButton = styled.TouchableOpacity`
+interface DeadlineEditButtonProps {
+  $active: boolean;
+}
+
+export const DeadlineEditButton = styled.TouchableOpacity<DeadlineEditButtonProps>`
   flex-direction: row;
   align-items: center;
   padding: ${props => props.theme.spacing.nano}
@@ -139,7 +173,11 @@ export const DeadlineEditButton = styled.TouchableOpacity`
   border: 1px solid ${props => props.theme.colors.accent};
 `;
 
-export const DeadlineEditText = styled.Text`
+interface DeadlineEditTextProps {
+  $active: boolean;
+}
+
+export const DeadlineEditText = styled.Text<DeadlineEditTextProps>`
   font-size: 8px;
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props =>
@@ -173,7 +211,12 @@ export const CategoryEditScroll = styled.ScrollView.attrs({
   flex: 1;
 `;
 
-export const CategoryEditButton = styled.TouchableOpacity`
+interface CategoryEditButtonProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const CategoryEditButton = styled.TouchableOpacity<CategoryEditButtonProps>`
   padding: ${props => props.theme.spacing.nano}
     ${props => props.theme.spacing.tiny};
   border-radius: ${props => props.theme.spacing.small};
@@ -182,7 +225,12 @@ export const CategoryEditButton = styled.TouchableOpacity`
   border: 1px solid ${props => props.$color};
 `;
 
-export const CategoryEditText = styled.Text`
+interface CategoryEditTextProps {
+  $active: boolean;
+  $color: string;
+}
+
+export const CategoryEditText = styled.Text<CategoryEditTextProps>`
   font-size: 8px;
   font-weight: ${props => props.theme.typography.weight.bold};
   color: ${props => (props.$active ? props.theme.colors.white : props.$color)};

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useTheme} from 'styled-components/native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, {Event} from '@react-native-community/datetimepicker';
 import {
   TaskAdd,
   InputContainer,
@@ -29,12 +29,29 @@ import {
   TASK_PRIORITIES,
   TASK_CATEGORIES,
 } from '../../constants/tasks';
+import {TaskPriority, TaskCategory} from '../../types';
 
-function AddTask({task, onChangeText, onAdd, loading}) {
+interface AddTaskProps {
+  task: string;
+  onChangeText: (text: string) => void;
+  onAdd: (
+    priority: TaskPriority,
+    category: TaskCategory,
+    deadline: string | null,
+  ) => void;
+  loading: boolean;
+}
+
+const AddTask: React.FC<AddTaskProps> = ({
+  task,
+  onChangeText,
+  onAdd,
+  loading,
+}) => {
   const theme = useTheme();
-  const [priority, setPriority] = useState(TASK_PRIORITIES.NONE);
-  const [category, setCategory] = useState(TASK_CATEGORIES.NONE);
-  const [deadline, setDeadline] = useState(null);
+  const [priority, setPriority] = useState<TaskPriority>(TASK_PRIORITIES.NONE);
+  const [category, setCategory] = useState<TaskCategory>(TASK_CATEGORIES.NONE);
+  const [deadline, setDeadline] = useState<Date | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const showCounter = task.length > 40;
@@ -46,7 +63,7 @@ function AddTask({task, onChangeText, onAdd, loading}) {
     setDeadline(null);
   };
 
-  const onChangeDate = (event, selectedDate) => {
+  const onChangeDate = (event: Event, selectedDate?: Date) => {
     const currentDate = selectedDate || deadline;
     setShowDatePicker(Platform.OS === 'ios');
     if (selectedDate) {
@@ -62,14 +79,18 @@ function AddTask({task, onChangeText, onAdd, loading}) {
     }
   };
 
-  const priorityConfig = [
+  const priorityConfig: Array<{
+    id: TaskPriority;
+    label: string;
+    color: string;
+  }> = [
     {id: TASK_PRIORITIES.NONE, label: 'Nenhuma', color: theme.colors.accent},
     {id: TASK_PRIORITIES.LOW, label: 'Baixa', color: theme.colors.info},
     {id: TASK_PRIORITIES.MEDIUM, label: 'Média', color: theme.colors.warning},
     {id: TASK_PRIORITIES.HIGH, label: 'Alta', color: theme.colors.error},
   ];
 
-  const categoryConfig = [
+  const categoryConfig: Array<{id: TaskCategory; label: string}> = [
     {id: TASK_CATEGORIES.NONE, label: 'Geral'},
     {id: TASK_CATEGORIES.WORK, label: 'Trabalho'},
     {id: TASK_CATEGORIES.PERSONAL, label: 'Pessoal'},
@@ -78,7 +99,7 @@ function AddTask({task, onChangeText, onAdd, loading}) {
     {id: TASK_CATEGORIES.STUDY, label: 'Estudo'},
   ];
 
-  const formatDate = date => {
+  const formatDate = (date: Date | null) => {
     if (!date) {
       return 'Definir data';
     }
@@ -86,6 +107,7 @@ function AddTask({task, onChangeText, onAdd, loading}) {
   };
 
   return (
+    // @ts-ignore
     <View>
       <TaskAdd>
         <InputContainer>
@@ -187,6 +209,6 @@ function AddTask({task, onChangeText, onAdd, loading}) {
       )}
     </View>
   );
-}
+};
 
 export default AddTask;

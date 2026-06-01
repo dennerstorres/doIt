@@ -1,6 +1,10 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+interface ContainerProps {
+  $topInset?: number;
+}
+
+export const Container = styled.View<ContainerProps>`
   width: 100%;
   min-height: 60px;
   padding-top: ${props => props.$topInset || 0}px;

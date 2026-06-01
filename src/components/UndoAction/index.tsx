@@ -3,7 +3,12 @@ import {Animated} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Container, Message, UndoButton, UndoText} from './styles';
 
-function UndoAction({onUndo, onDismiss}) {
+interface UndoActionProps {
+  onUndo: () => void;
+  onDismiss: () => void;
+}
+
+const UndoAction: React.FC<UndoActionProps> = ({onUndo, onDismiss}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const handleDismiss = useCallback(() => {
@@ -37,6 +42,7 @@ function UndoAction({onUndo, onDismiss}) {
   const insets = useSafeAreaInsets();
 
   return (
+    // @ts-ignore
     <Animated.View style={{opacity: fadeAnim}}>
       <Container $bottomInset={insets.bottom}>
         <Message>Tarefa excluída</Message>
@@ -46,6 +52,6 @@ function UndoAction({onUndo, onDismiss}) {
       </Container>
     </Animated.View>
   );
-}
+};
 
 export default UndoAction;

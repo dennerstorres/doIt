@@ -3,7 +3,13 @@ import Icon from 'react-native-vector-icons/Feather';
 import {useTheme} from 'styled-components/native';
 import {EmptyStateContainer, EmptyStateText} from './styles';
 
-function EmptyState({message = 'Você ainda não tem tarefas cadastradas.'}) {
+interface EmptyStateProps {
+  message?: string;
+}
+
+const EmptyState: React.FC<EmptyStateProps> = ({
+  message = 'Você ainda não tem tarefas cadastradas.',
+}) => {
   const theme = useTheme();
 
   return (
@@ -12,6 +18,6 @@ function EmptyState({message = 'Você ainda não tem tarefas cadastradas.'}) {
       <EmptyStateText>{message}</EmptyStateText>
     </EmptyStateContainer>
   );
-}
+};
 
 export default EmptyState;
