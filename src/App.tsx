@@ -6,13 +6,8 @@ import {ThemeProvider} from 'styled-components/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import theme from './theme';
-
-/**
- * Importação de páginas
- */
-// @ts-ignore - Home is still in JS
 import Home from './pages/Home';
-/** */
+import {RootStackParamList} from './types';
 
 if (
   Platform.OS === 'android' &&
@@ -21,7 +16,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   return (

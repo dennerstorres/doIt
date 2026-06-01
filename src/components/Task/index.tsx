@@ -117,7 +117,8 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
   };
 
   const onChangeDate = (event: Event, selectedDate?: Date) => {
-    const currentDate = selectedDate || (editedDeadline ? new Date(editedDeadline) : new Date());
+    const currentDate =
+      selectedDate || (editedDeadline ? new Date(editedDeadline) : new Date());
     setShowDatePicker(Platform.OS === 'ios');
     if (selectedDate) {
       setEditedDeadline(currentDate.toISOString());
@@ -169,7 +170,10 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     return deadlineDate < today;
   };
 
-  function LeftActions(progress: Animated.AnimatedInterpolation, dragX: Animated.AnimatedInterpolation) {
+  function LeftActions(
+    progress: Animated.AnimatedInterpolation,
+    dragX: Animated.AnimatedInterpolation,
+  ) {
     const scale = dragX.interpolate({
       inputRange: [0, 100],
       outputRange: [0, 1],
@@ -203,17 +207,17 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     onDone(item);
   };
 
-  const handleDelete = () => {
+  const handleDeleteItem = () => {
     onDelete(item);
   };
 
   interface RightActionsProps {
     dragX: Animated.AnimatedInterpolation;
-    onDelete: () => void;
-    onEdit: () => void;
+    onDeleteItem: () => void;
+    onEditItem: () => void;
   }
 
-  function RightActions({dragX, onDelete, onEdit}: RightActionsProps) {
+  function RightActions({dragX, onDeleteItem, onEditItem}: RightActionsProps) {
     const scale = dragX.interpolate({
       inputRange: [-200, 0],
       outputRange: [1, 0],
@@ -229,7 +233,7 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     return (
       <ActionsWrapper>
         <RightActionContainer
-          onPress={onEdit}
+          onPress={onEditItem}
           activeOpacity={0.7}
           type='edit'
           testID='edit-action'>
@@ -241,7 +245,7 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
           </ActionContent>
         </RightActionContainer>
         <RightActionContainer
-          onPress={onDelete}
+          onPress={onDeleteItem}
           activeOpacity={0.7}
           testID='delete-action'>
           {/* @ts-ignore */}
@@ -260,13 +264,16 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
       ref={swipeableRef}
       renderLeftActions={isEditing ? undefined : LeftActions}
       onSwipeableLeftOpen={handleDone}
-      renderRightActions={isEditing ? undefined : (progress, dragX) => (
-          <RightActions
-            dragX={dragX}
-            onDelete={handleDelete}
-            onEdit={startEditing}
-          />
-        )
+      renderRightActions={
+        isEditing
+          ? undefined
+          : (progress, dragX) => (
+              <RightActions
+                dragX={dragX}
+                onDeleteItem={handleDeleteItem}
+                onEditItem={startEditing}
+              />
+            )
       }>
       {/* @ts-ignore */}
       <Container done={item.done} style={{backgroundColor}}>

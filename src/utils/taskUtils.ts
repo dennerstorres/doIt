@@ -1,4 +1,4 @@
-import {TASK_PRIORITIES} from '../constants/tasks';
+import {Task, TaskPriority} from '../types';
 
 /**
  * Task Utility Functions
@@ -13,23 +13,28 @@ export const SORT_TYPES = {
   DATE_ASC: 'DATE_ASC', // Oldest first
   ALPHABETICAL: 'ALPHABETICAL', // A-Z
   PRIORITY: 'PRIORITY', // High -> Medium -> Low -> None
-};
+} as const;
 
-const PRIORITY_SCORE = {
-  [TASK_PRIORITIES.HIGH]: 3,
-  [TASK_PRIORITIES.MEDIUM]: 2,
-  [TASK_PRIORITIES.LOW]: 1,
-  [TASK_PRIORITIES.NONE]: 0,
+export type SortType = typeof SORT_TYPES[keyof typeof SORT_TYPES];
+
+const PRIORITY_SCORE: Record<TaskPriority, number> = {
+  high: 3,
+  medium: 2,
+  low: 1,
+  none: 0,
 };
 
 /**
  * Sorts tasks based on the specified sort type.
  *
- * @param {Array} tasks - The list of tasks to sort.
- * @param {string} sortType - The sorting strategy to use.
- * @returns {Array} The sorted list of tasks.
+ * @param tasks - The list of tasks to sort.
+ * @param sortType - The sorting strategy to use.
+ * @returns The sorted list of tasks.
  */
-export const sortTasks = (tasks, sortType = SORT_TYPES.DEFAULT) => {
+export const sortTasks = (
+  tasks: Task[],
+  sortType: SortType = SORT_TYPES.DEFAULT,
+): Task[] => {
   if (!Array.isArray(tasks)) {
     return [];
   }
@@ -40,14 +45,14 @@ export const sortTasks = (tasks, sortType = SORT_TYPES.DEFAULT) => {
         return a.task.localeCompare(b.task);
 
       case SORT_TYPES.DATE_ASC: {
-        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
         return dateA - dateB;
       }
 
       case SORT_TYPES.DATE_DESC: {
-        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
         return dateB - dateA;
       }
 
@@ -57,8 +62,8 @@ export const sortTasks = (tasks, sortType = SORT_TYPES.DEFAULT) => {
         if (scoreA !== scoreB) {
           return scoreB - scoreA;
         }
-        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
         return dateB - dateA;
       }
 
@@ -77,11 +82,11 @@ export const sortTasks = (tasks, sortType = SORT_TYPES.DEFAULT) => {
         }
 
         // Then, sort by creation date: newest first
-        const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0);
-        const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0);
+        const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+        const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
 
         // If creation dates are the same (or missing), use IDs as fallback
-        if (dateA.getTime() === dateB.getTime()) {
+        if (dateA === dateB) {
           return b.id.localeCompare(a.id);
         }
 
@@ -94,11 +99,11 @@ export const sortTasks = (tasks, sortType = SORT_TYPES.DEFAULT) => {
 /**
  * Filters tasks based on a search term.
  *
- * @param {Array} tasks - The list of tasks to filter.
- * @param {string} search - The search term.
- * @returns {Array} The filtered list of tasks.
+ * @param tasks - The list of tasks to filter.
+ * @param search - The search term.
+ * @returns The filtered list of tasks.
  */
-export const filterTasksBySearch = (tasks, search) => {
+export const filterTasksBySearch = (tasks: Task[], search: string): Task[] => {
   if (!Array.isArray(tasks)) {
     return [];
   }
@@ -110,13 +115,18 @@ export const filterTasksBySearch = (tasks, search) => {
   return tasks.filter(t => t.task.toLowerCase().includes(normalizedSearch));
 };
 
+interface TaskStats {
+  total: number;
+  completed: number;
+}
+
 /**
  * Summarizes task statistics.
  *
- * @param {Array} tasks - The list of tasks.
- * @returns {Object} Statistics object with total and completed counts.
+ * @param tasks - The list of tasks.
+ * @returns Statistics object with total and completed counts.
  */
-export const getTaskStats = tasks => {
+export const getTaskStats = (tasks: Task[]): TaskStats => {
   const safeTasks = Array.isArray(tasks) ? tasks : [];
   return {
     total: safeTasks.length,

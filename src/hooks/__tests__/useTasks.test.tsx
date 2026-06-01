@@ -28,7 +28,11 @@ jest.mock('react-native/Libraries/LayoutAnimation/LayoutAnimation', () => ({
 type UseTasksHookType = ReturnType<typeof useTasks>;
 
 // Test component to exercise the hook
-const TestComponent = ({onHook}: {onHook: (data: UseTasksHookType) => void}) => {
+const TestComponent = ({
+  onHook,
+}: {
+  onHook: (data: UseTasksHookType) => void;
+}) => {
   const hookData = useTasks();
   onHook(hookData);
   return (
@@ -50,15 +54,17 @@ describe('useTasks hook', () => {
   });
 
   it('should load tasks from storage on mount', async () => {
-    const mockTasks: Task[] = [{
-      id: '1',
-      task: 'Test Task',
-      done: false,
-      priority: 'none',
-      category: 'none',
-      deadline: null,
-      createdAt: new Date().toISOString(),
-    }];
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Test Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
 
     let hook!: UseTasksHookType;
@@ -130,15 +136,17 @@ describe('useTasks hook', () => {
   });
 
   it('should toggle task status', async () => {
-    const mockTasks: Task[] = [{
-      id: '1',
-      task: 'Test Task',
-      done: false,
-      priority: 'none',
-      category: 'none',
-      deadline: null,
-      createdAt: new Date().toISOString(),
-    }];
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Test Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
@@ -166,15 +174,17 @@ describe('useTasks hook', () => {
   });
 
   it('should delete a task and set lastDeletedTask after confirmation', async () => {
-    const mockTasks: Task[] = [{
-      id: '1',
-      task: 'Test Task',
-      done: false,
-      priority: 'none',
-      category: 'none',
-      deadline: null,
-      createdAt: new Date().toISOString(),
-    }];
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Test Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
@@ -204,15 +214,17 @@ describe('useTasks hook', () => {
   });
 
   it('should undo delete task', async () => {
-    const mockTasks: Task[] = [{
-      id: '1',
-      task: 'Test Task',
-      done: false,
-      priority: 'none',
-      category: 'none',
-      deadline: null,
-      createdAt: new Date().toISOString(),
-    }];
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Test Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
@@ -282,15 +294,17 @@ describe('useTasks hook', () => {
   });
 
   it('should not edit a task with empty title', async () => {
-    const mockTasks: Task[] = [{
-      id: '1',
-      task: 'Original Task',
-      done: false,
-      priority: 'none',
-      category: 'none',
-      deadline: null,
-      createdAt: new Date().toISOString(),
-    }];
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Original Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
@@ -350,15 +364,17 @@ describe('useTasks hook', () => {
   });
 
   it('should clear lastDeletedTask', async () => {
-    const mockTasks: Task[] = [{
-      id: '1',
-      task: 'Test Task',
-      done: false,
-      priority: 'none',
-      category: 'none',
-      deadline: null,
-      createdAt: new Date().toISOString(),
-    }];
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Test Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {

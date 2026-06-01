@@ -1028,6 +1028,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
     data={
       Array [
         Object {
+          "createdAt": "2023-01-01T10:00:00Z",
           "done": false,
           "id": "1",
           "task": "Test Task",

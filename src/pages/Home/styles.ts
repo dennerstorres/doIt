@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+interface SortProps {
+  $active?: boolean;
+}
+
 export const Container = styled.View`
   flex: 1;
   background-color: ${props => props.theme.colors.background};
@@ -53,7 +57,7 @@ export const SortContainer = styled.View`
   margin-bottom: ${props => props.theme.spacing.small};
 `;
 
-export const SortButton = styled.TouchableOpacity`
+export const SortButton = styled.TouchableOpacity<SortProps>`
   flex-direction: row;
   align-items: center;
   background-color: ${props =>
@@ -64,7 +68,7 @@ export const SortButton = styled.TouchableOpacity`
   margin-left: ${props => props.theme.spacing.tiny};
 `;
 
-export const SortText = styled.Text`
+export const SortText = styled.Text<SortProps>`
   color: ${props =>
     props.$active ? props.theme.colors.white : props.theme.colors.text};
   font-size: ${props => props.theme.typography.size.small};
