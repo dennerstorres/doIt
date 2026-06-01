@@ -128,7 +128,7 @@
 - [x] Migrar App.js para App.tsx
 - [x] Criar tipagem Task
 - [x] Migrar componentes principais
-- [ ] Migrar hooks
+- [x] Migrar hooks
 - [ ] Migrar navegação
 - [ ] Remover arquivos JS restantes
 
@@ -1061,3 +1061,17 @@
 - **Validações**: Execução bem-sucedida do `tsc` e de todos os testes unitários (`yarn test`).
 - **Limitações**: Algumas tipagens complexas de animação e FlatList exigiram bypasses técnicos devido a limitações de versão das libs.
 - **Riscos**: Possíveis regressões em dispositivos físicos se as animações nativas se comportarem diferente com a nova estrutura (mitigado por testes).
+
+## Migrar hooks
+
+- **Implementação**: Migração do hook central `useTasks` e seus testes unitários para TypeScript.
+- **Decisões Técnicas**:
+  - Migração de `src/hooks/useTasks.js` para `.ts` e `src/hooks/__tests__/useTasks.test.js` para `.tsx`.
+  - Uso da interface `Task` centralizada em `src/types` para tipar o estado e os retornos do hook.
+  - Tipagem rigorosa dos handlers (`addTask`, `editTask`, etc.) para garantir segurança no fluxo de dados.
+  - Adição de `@types/react-test-renderer` para suportar testes unitários de hooks em TypeScript.
+  - Uso de castings explícitos (`as Task`) e `@ts-ignore` em pontos de integração com código JS legado para manter a estabilidade do build.
+- **Arquivos Alterados**: `src/hooks/useTasks.ts`, `src/hooks/__tests__/useTasks.test.tsx`, `package.json`, `yarn.lock`, `ROADMAP.md`.
+- **Validações**: Verificação completa de tipos com `tsc` e execução de 100% da suíte de testes unitários (`yarn test`).
+- **Limitações**: Integração com `storage.js` e `Task.js` ainda depende de `@ts-ignore` até que esses arquivos sejam migrados.
+- **Riscos**: Baixo, dado que a lógica de negócio foi preservada e validada por testes pré-existentes e novos tipos.

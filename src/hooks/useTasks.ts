@@ -1,6 +1,8 @@
 import {useState, useEffect, useCallback} from 'react';
-import {Alert, LayoutAnimation} from 'react-native';
+import {Alert, LayoutAnimation, LayoutAnimationConfig} from 'react-native';
+// @ts-ignore - storage.js is still in JS
 import {saveTasks, getTasks} from '../services/storage';
+// @ts-ignore - Task.js is still in JS
 import {createTask} from '../models/Task';
 import {
   MIN_TASK_LENGTH,
@@ -8,8 +10,9 @@ import {
   TASK_PRIORITIES,
   TASK_CATEGORIES,
 } from '../constants/tasks';
+import {Task, TaskPriority, TaskCategory} from '../types';
 
-const animationConfig = {
+const animationConfig: LayoutAnimationConfig = {
   duration: 300,
   create: {
     type: LayoutAnimation.Types.easeInEaseOut,
@@ -26,9 +29,9 @@ const animationConfig = {
 };
 
 export const useTasks = () => {
-  const [tasks, setTasks] = useState(null);
+  const [tasks, setTasks] = useState<Task[] | null>(null);
   const [loading, setLoading] = useState(true);
-  const [lastDeletedTask, setLastDeletedTask] = useState(null);
+  const [lastDeletedTask, setLastDeletedTask] = useState<Task | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -80,11 +83,11 @@ export const useTasks = () => {
 
   const addTask = useCallback(
     (
-      taskTitle,
-      priority = TASK_PRIORITIES.NONE,
-      category = TASK_CATEGORIES.NONE,
-      deadline = null,
-    ) => {
+      taskTitle: string,
+      priority: TaskPriority = TASK_PRIORITIES.NONE,
+      category: TaskCategory = TASK_CATEGORIES.NONE,
+      deadline: string | null = null,
+    ): boolean => {
       const trimmedTask = taskTitle.trim();
 
       if (!trimmedTask) {
@@ -117,7 +120,7 @@ export const useTasks = () => {
         return false;
       }
 
-      const newTask = createTask(trimmedTask, priority, category, deadline);
+      const newTask = createTask(trimmedTask, priority, category, deadline) as Task;
       LayoutAnimation.configureNext(animationConfig);
       setTasks(prevTasks => [...(prevTasks || []), newTask]);
       return true;
@@ -125,7 +128,7 @@ export const useTasks = () => {
     [tasks],
   );
 
-  const toggleTask = useCallback(item => {
+  const toggleTask = useCallback((item: Task) => {
     LayoutAnimation.configureNext(animationConfig);
     setTasks(prevTasks =>
       (prevTasks || []).map(t => {
@@ -137,7 +140,7 @@ export const useTasks = () => {
     );
   }, []);
 
-  const deleteTask = useCallback(item => {
+  const deleteTask = useCallback((item: Task) => {
     Alert.alert(
       'Excluir Tarefa?',
       'Tem certeza que deseja excluir esta tarefa?',
@@ -162,7 +165,13 @@ export const useTasks = () => {
   }, []);
 
   const editTask = useCallback(
-    (id, newTaskTitle, priority, category, deadline) => {
+    (
+      id: string,
+      newTaskTitle: string,
+      priority?: TaskPriority,
+      category?: TaskCategory,
+      deadline?: string | null,
+    ): boolean => {
       const trimmedTask = newTaskTitle.trim();
 
       if (!trimmedTask) {
