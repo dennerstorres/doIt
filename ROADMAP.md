@@ -165,7 +165,7 @@
 - [x] Adicionar arquivamento
 - [x] Adicionar estatísticas
 - [x] Adicionar progresso diário
-- [ ] Adicionar streak de produtividade
+- [x] Adicionar streak de produtividade
 - [ ] Adicionar tela de histórico
 
 ---
@@ -1147,6 +1147,18 @@
   - Cobertura total de testes unitários para os novos componentes e lógica de utilitário, incluindo snapshots.
 - **Limitações**: O progresso diário considera apenas tarefas concluídas no dia atual do calendário; tarefas concluídas em dias anteriores não contam para o "Progresso de Hoje".
 - **Riscos**: Se o relógio do dispositivo do usuário estiver incorreto, a filtragem por "hoje" pode não refletir as tarefas concluídas na sessão atual.
+
+## Adicionar streak de produtividade
+
+- **Implementação**: Sistema de rastreamento de dias consecutivos de conclusão de tarefas.
+- **Decisões Técnicas**:
+  - Implementação de um algoritmo de cálculo de streak em `src/utils/taskUtils.ts` que analisa os timestamps de `completedAt`.
+  - A streak é considerada ativa se houver conclusões hoje ou ontem, permitindo que o usuário mantenha o progresso antes de completar a primeira tarefa do dia.
+  - Exibição visual na `Home` page (indicador compacto com ícone de raio) e na tela de `Statistics` (linha detalhada).
+  - Atualização do `TaskStats` para incluir a métrica de streak, garantindo que o cálculo seja reativo às mudanças na lista de tarefas.
+  - Cobertura de testes unitários abrangente para o algoritmo de streak, cobrindo cenários de lacunas, tarefas arquivadas e fusos horários (baseado em datas ISO).
+- **Limitações**: O cálculo é baseado em UTC via strings ISO, o que pode ter pequenas variações de percepção para usuários em fusos horários extremos no final do dia.
+- **Riscos**: Baixo. A funcionalidade é puramente informativa e baseada em dados já existentes no modelo de Task.
 
 ## Adicionar estatísticas
 

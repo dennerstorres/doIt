@@ -2,6 +2,7 @@ import {
   sortTasks,
   filterTasksBySearch,
   getTaskStats,
+  calculateStreak,
   SORT_TYPES,
   isToday,
 } from '../taskUtils';
@@ -127,6 +128,194 @@ describe('Task Utils', () => {
       const sorted = sortTasks(sameDateTasks, SORT_TYPES.DEFAULT);
       expect(sorted[0].id).toBe('b');
       expect(sorted[1].id).toBe('a');
+    });
+  });
+
+  describe('calculateStreak', () => {
+    it('should return 0 if no tasks', () => {
+      expect(calculateStreak([])).toBe(0);
+      expect(calculateStreak(null as any)).toBe(0);
+    });
+
+    it('should return 1 if task completed today', () => {
+      const tasks: Task[] = [
+        {
+          id: '1',
+          task: 'Task 1',
+          done: true,
+          completedAt: new Date().toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: new Date().toISOString(),
+        },
+      ];
+      expect(calculateStreak(tasks)).toBe(1);
+    });
+
+    it('should return 1 if task completed yesterday but none today', () => {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const tasks: Task[] = [
+        {
+          id: '1',
+          task: 'Task 1',
+          done: true,
+          completedAt: yesterday.toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: yesterday.toISOString(),
+        },
+      ];
+      expect(calculateStreak(tasks)).toBe(1);
+    });
+
+    it('should return 2 if tasks completed today and yesterday', () => {
+      const today = new Date();
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const tasks: Task[] = [
+        {
+          id: '1',
+          task: 'Today',
+          done: true,
+          completedAt: today.toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: today.toISOString(),
+        },
+        {
+          id: '2',
+          task: 'Yesterday',
+          done: true,
+          completedAt: yesterday.toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: yesterday.toISOString(),
+        },
+      ];
+      expect(calculateStreak(tasks)).toBe(2);
+    });
+
+    it('should return 3 for a 3-day streak', () => {
+      const dates = [0, 1, 2].map(daysAgo => {
+        const d = new Date();
+        d.setDate(d.getDate() - daysAgo);
+        return d.toISOString();
+      });
+
+      const tasks: Task[] = dates.map((date, index) => ({
+        id: String(index),
+        task: `Task ${index}`,
+        done: true,
+        completedAt: date,
+        archived: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        deadline: null,
+        createdAt: date,
+      }));
+
+      expect(calculateStreak(tasks)).toBe(3);
+    });
+
+    it('should reset streak if there is a gap', () => {
+      const today = new Date();
+      const twoDaysAgo = new Date();
+      twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+      const tasks: Task[] = [
+        {
+          id: '1',
+          task: 'Today',
+          done: true,
+          completedAt: today.toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: today.toISOString(),
+        },
+        {
+          id: '2',
+          task: 'Two days ago',
+          done: true,
+          completedAt: twoDaysAgo.toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: twoDaysAgo.toISOString(),
+        },
+      ];
+      // Streak is 1 because yesterday is missing
+      expect(calculateStreak(tasks)).toBe(1);
+    });
+
+    it('should return 0 if last completion was 2 days ago', () => {
+      const twoDaysAgo = new Date();
+      twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+      const tasks: Task[] = [
+        {
+          id: '2',
+          task: 'Two days ago',
+          done: true,
+          completedAt: twoDaysAgo.toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: twoDaysAgo.toISOString(),
+        },
+      ];
+      expect(calculateStreak(tasks)).toBe(0);
+    });
+
+    it('should ignore archived or not done tasks', () => {
+      const today = new Date();
+      const tasks: Task[] = [
+        {
+          id: '1',
+          task: 'Archived',
+          done: true,
+          completedAt: today.toISOString(),
+          archived: true,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: today.toISOString(),
+        },
+        {
+          id: '2',
+          task: 'Not done',
+          done: false,
+          completedAt: today.toISOString(),
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: today.toISOString(),
+        },
+      ];
+      expect(calculateStreak(tasks)).toBe(0);
     });
   });
 
@@ -274,6 +463,7 @@ describe('Task Utils', () => {
         },
         totalArchived: 0,
         dailyProgress: 0,
+        streak: 0,
       };
       expect(getTaskStats([])).toEqual(emptyStats);
       expect(getTaskStats(null as any)).toEqual(emptyStats);

@@ -142,7 +142,67 @@ export interface TaskStats {
   byCategory: Record<TaskCategory, number>;
   totalArchived: number;
   dailyProgress: number;
+  streak: number;
 }
+
+/**
+ * Calculates the current productivity streak (consecutive days with at least one completed task).
+ *
+ * @param tasks - The list of tasks.
+ * @returns The number of consecutive days of completion.
+ */
+export const calculateStreak = (tasks: Task[]): number => {
+  if (!Array.isArray(tasks) || tasks.length === 0) {
+    return 0;
+  }
+
+  // Get completed and non-archived tasks with a valid completedAt timestamp
+  const completedTasks = tasks.filter(
+    t => !t.archived && t.done && t.completedAt,
+  );
+  if (completedTasks.length === 0) {
+    return 0;
+  }
+
+  // Extract unique dates (YYYY-MM-DD)
+  const completionDates = new Set<string>();
+  completedTasks.forEach(t => {
+    if (t.completedAt) {
+      completionDates.add(t.completedAt.split('T')[0]);
+    }
+  });
+
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+  const hasCompletedToday = completionDates.has(todayStr);
+  const hasCompletedYesterday = completionDates.has(yesterdayStr);
+
+  // If no completions today or yesterday, the streak is broken (0)
+  if (!hasCompletedToday && !hasCompletedYesterday) {
+    return 0;
+  }
+
+  let streak = 0;
+  let currentDate = hasCompletedToday ? today : yesterday;
+
+  // Count backwards from the most recent active day
+  while (true) {
+    const dateStr = currentDate.toISOString().split('T')[0];
+    if (completionDates.has(dateStr)) {
+      streak++;
+      currentDate.setDate(currentDate.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+
+  return streak;
+};
 
 /**
  * Summarizes task statistics.
@@ -167,6 +227,7 @@ export const getTaskStats = (tasks: Task[]): TaskStats => {
       },
       totalArchived: 0,
       dailyProgress: 0,
+      streak: 0,
     };
   }
 
@@ -210,6 +271,8 @@ export const getTaskStats = (tasks: Task[]): TaskStats => {
   const dailyProgress =
     dailyTotal > 0 ? Math.round((completedToday / dailyTotal) * 100) : 0;
 
+  const streak = calculateStreak(tasks);
+
   return {
     total,
     completed,
@@ -218,5 +281,6 @@ export const getTaskStats = (tasks: Task[]): TaskStats => {
     byCategory,
     totalArchived,
     dailyProgress,
+    streak,
   };
 };

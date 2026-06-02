@@ -14,6 +14,7 @@ export const Container = styled.View`
 export const CounterContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: ${props =>
     `${props.theme.spacing.large} ${props.theme.spacing.medium} ${props.theme.spacing.tiny} ${props.theme.spacing.medium}`};
@@ -28,6 +29,18 @@ export const CounterLabel = styled.Text`
   color: ${props => props.theme.colors.text};
   font-weight: ${props => props.theme.typography.weight.bold};
   font-size: ${props => props.theme.typography.size.medium};
+`;
+
+export const StreakContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const StreakText = styled.Text`
+  color: ${props => props.theme.colors.text};
+  font-size: ${props => props.theme.typography.size.small};
+  font-weight: ${props => props.theme.typography.weight.bold};
+  margin-left: ${props => props.theme.spacing.nano};
 `;
 
 export const CounterValue = styled.Text`

@@ -85,6 +85,12 @@ const Statistics: React.FC = () => {
             <Label>Arquivadas</Label>
             <Value>{stats.totalArchived}</Value>
           </Row>
+          <Row>
+            <Label>Streak de Produtividade</Label>
+            <Value>
+              🔥 {stats.streak} {stats.streak === 1 ? 'dia' : 'dias'}
+            </Value>
+          </Row>
         </Card>
 
         <SectionTitle>Por Prioridade</SectionTitle>
@@ -115,10 +121,7 @@ const Statistics: React.FC = () => {
                       {count} ({percentage}%)
                     </Value>
                   </Row>
-                  <ProgressBar
-                    progress={percentage}
-                    color={colors[priority]}
-                  />
+                  <ProgressBar progress={percentage} color={colors[priority]} />
                 </StatItem>
               );
             })}

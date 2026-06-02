@@ -314,6 +314,46 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
             0
           </Text>
         </View>
+        <View
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginBottom": 8,
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                },
+              ]
+            }
+          >
+            Streak de Produtividade
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            🔥
+            0
+
+            dias
+          </Text>
+        </View>
       </View>
       <Text
         style={
