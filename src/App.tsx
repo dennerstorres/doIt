@@ -8,6 +8,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import theme from './theme';
 import Home from './pages/Home';
 import Statistics from './pages/Statistics';
+import History from './pages/History';
 import {RootStackParamList} from './types';
 
 if (
@@ -36,6 +37,13 @@ const App: React.FC = () => {
             <Stack.Screen
               name='Statistics'
               component={Statistics}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name='History'
+              component={History}
               options={{
                 headerShown: false,
               }}

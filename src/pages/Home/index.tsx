@@ -84,7 +84,7 @@ const Home: React.FC = () => {
 
   return (
     <Container style={{paddingBottom: insets.bottom}}>
-      <Header />
+      <Header showHistoryButton />
       <Search value={search} onChangeText={text => setSearch(text)} />
       <AddTask
         task={task}

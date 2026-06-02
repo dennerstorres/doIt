@@ -296,7 +296,9 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onArchive, onEdit}) => {
           <ActionContent style={{transform: [{scale}], opacity}}>
             <Icon name='archive' size={20} color={theme.colors.white} />
             {/* @ts-ignore */}
-            <ActionText>Arquivar</ActionText>
+            <ActionText>
+              {item.archived ? 'Desarquivar' : 'Arquivar'}
+            </ActionText>
           </ActionContent>
         </RightActionContainer>
         <RightActionContainer

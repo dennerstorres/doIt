@@ -166,7 +166,7 @@
 - [x] Adicionar estatísticas
 - [x] Adicionar progresso diário
 - [x] Adicionar streak de produtividade
-- [ ] Adicionar tela de histórico
+- [x] Adicionar tela de histórico
 
 ---
 
@@ -1159,6 +1159,19 @@
   - Cobertura de testes unitários abrangente para o algoritmo de streak, cobrindo cenários de lacunas, tarefas arquivadas e fusos horários (baseado em datas ISO).
 - **Limitações**: O cálculo é baseado em UTC via strings ISO, o que pode ter pequenas variações de percepção para usuários em fusos horários extremos no final do dia.
 - **Riscos**: Baixo. A funcionalidade é puramente informativa e baseada em dados já existentes no modelo de Task.
+
+## Adicionar tela de histórico
+
+- **Implementação**: Criação de uma tela dedicada para visualizar e gerenciar tarefas arquivadas.
+- **Decisões Técnicas**:
+  - Implementação da página `History` que filtra a lista global de tarefas para exibir apenas aquelas com o atributo `archived: true`.
+  - Reutilização do componente `TaskList` para manter a consistência visual e funcional.
+  - Refatoração do componente `Task` para alternar dinamicamente entre os rótulos "Arquivar" e "Desarquivar" com base no estado da tarefa.
+  - Adição de um botão de acesso rápido (ícone de arquivo) no `Header` da tela inicial.
+  - Configuração de tipos de navegação TypeScript e registro da nova rota no `App.tsx`.
+  - Cobertura de testes unitários abrangente para a nova tela e para as interações no `Header`.
+- **Limitações**: A lista de histórico não possui filtros ou ordenação específica nesta fase, seguindo a ordem padrão de tarefas.
+- **Riscos**: Baixo. A funcionalidade utiliza o estado e as ações já existentes no hook `useTasks`.
 
 ## Adicionar estatísticas
 
