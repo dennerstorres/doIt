@@ -78,24 +78,8 @@ export const Value = styled.Text`
   font-weight: ${props => props.theme.typography.weight.bold};
 `;
 
-export const ProgressBarContainer = styled.View`
-  width: 100%;
-  height: 8px;
-  background-color: ${props => props.theme.colors.background};
-  border-radius: 4px;
-  margin-top: ${props => props.theme.spacing.tiny};
-  overflow: hidden;
-`;
-
-export const SpacedProgressBarContainer = styled(ProgressBarContainer)`
+export const SpacedProgressBarContainer = styled.View`
   margin-top: ${props => props.theme.spacing.xlarge};
-`;
-
-export const ProgressBar = styled.View<ProgressProps>`
-  height: 100%;
-  width: ${props => props.$width};
-  background-color: ${props => props.$color};
-  border-radius: 4px;
 `;
 
 export const StatItem = styled.View`

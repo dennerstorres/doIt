@@ -20,4 +20,5 @@ export interface Task {
   archived: boolean;
   deadline: string | null;
   createdAt: string;
+  completedAt: string | null;
 }

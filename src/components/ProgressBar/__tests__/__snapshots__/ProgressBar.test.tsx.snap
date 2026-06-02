@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressBar clamps progress between 0 and 100: progress-150 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "borderRadius": 4,
+        "height": 8,
+        "overflow": "hidden",
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#49a078",
+          "borderRadius": 4,
+          "height": "100%",
+          "width": "100%",
+        },
+      ]
+    }
+    testID="undefined-fill"
+  />
+</View>
+`;
+
+exports[`ProgressBar clamps progress between 0 and 100: progress-minus-50 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "borderRadius": 4,
+        "height": 8,
+        "overflow": "hidden",
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#49a078",
+          "borderRadius": 4,
+          "height": "100%",
+          "width": "0%",
+        },
+      ]
+    }
+    testID="undefined-fill"
+  />
+</View>
+`;
+
+exports[`ProgressBar renders correctly with given progress 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "borderRadius": 4,
+        "height": 8,
+        "overflow": "hidden",
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#49a078",
+          "borderRadius": 4,
+          "height": "100%",
+          "width": "50%",
+        },
+      ]
+    }
+    testID="undefined-fill"
+  />
+</View>
+`;

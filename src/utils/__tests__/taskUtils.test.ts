@@ -3,10 +3,12 @@ import {
   filterTasksBySearch,
   getTaskStats,
   SORT_TYPES,
+  isToday,
 } from '../taskUtils';
 import {Task} from '../../types';
 
 describe('Task Utils', () => {
+  const todayISO = new Date().toISOString();
   const mockTasks: Task[] = [
     {
       id: '1',
@@ -18,6 +20,7 @@ describe('Task Utils', () => {
       repeat: 'none',
       archived: false,
       deadline: null,
+      completedAt: '2023-01-01T10:30:00Z',
     },
     {
       id: '2',
@@ -42,6 +45,21 @@ describe('Task Utils', () => {
       deadline: null,
     },
   ];
+
+  describe('isToday', () => {
+    it('should return true for current date', () => {
+      expect(isToday(todayISO)).toBe(true);
+    });
+
+    it('should return false for past date', () => {
+      expect(isToday('2020-01-01T10:00:00Z')).toBe(false);
+    });
+
+    it('should return false for null or undefined', () => {
+      expect(isToday(null)).toBe(false);
+      expect(isToday(undefined)).toBe(false);
+    });
+  });
 
   describe('sortTasks', () => {
     it('should sort by DEFAULT (unfinished first, then by date descending)', () => {
@@ -197,6 +215,49 @@ describe('Task Utils', () => {
       expect(stats.byCategory.personal).toBe(1);
     });
 
+    it('should calculate dailyProgress correctly', () => {
+      const dailyTasks: Task[] = [
+        {
+          id: '1',
+          task: 'Done today',
+          done: true,
+          completedAt: todayISO,
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: todayISO,
+        },
+        {
+          id: '2',
+          task: 'Pending',
+          done: false,
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: todayISO,
+        },
+        {
+          id: '3',
+          task: 'Done yesterday',
+          done: true,
+          completedAt: '2023-01-01T10:00:00Z',
+          archived: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+          createdAt: '2023-01-01T09:00:00Z',
+        },
+      ];
+
+      const stats = getTaskStats(dailyTasks);
+      expect(stats.dailyProgress).toBe(50); // 1 completed today / (1 completed today + 1 pending)
+    });
+
     it('should handle empty input', () => {
       const emptyStats = {
         total: 0,
@@ -212,6 +273,7 @@ describe('Task Utils', () => {
           study: 0,
         },
         totalArchived: 0,
+        dailyProgress: 0,
       };
       expect(getTaskStats([])).toEqual(emptyStats);
       expect(getTaskStats(null as any)).toEqual(emptyStats);

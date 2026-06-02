@@ -140,7 +140,12 @@ export const useTasks = () => {
       const currentTasks = prevTasks || [];
       const updatedTasks = currentTasks.map(t => {
         if (t.id === item.id) {
-          return {...t, done: !t.done};
+          const newDone = !t.done;
+          return {
+            ...t,
+            done: newDone,
+            completedAt: newDone ? new Date().toISOString() : null,
+          };
         }
         return t;
       });

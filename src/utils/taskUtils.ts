@@ -5,6 +5,25 @@ import {Task, TaskPriority, TaskCategory} from '../types';
  */
 
 /**
+ * Checks if a given date string is today.
+ *
+ * @param dateStr - ISO date string.
+ * @returns True if today.
+ */
+export const isToday = (dateStr: string | null | undefined): boolean => {
+  if (!dateStr) {
+    return false;
+  }
+  const date = new Date(dateStr);
+  const today = new Date();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
+};
+
+/**
  * Sorting types constants
  */
 export const SORT_TYPES = {
@@ -122,6 +141,7 @@ export interface TaskStats {
   byPriority: Record<TaskPriority, number>;
   byCategory: Record<TaskCategory, number>;
   totalArchived: number;
+  dailyProgress: number;
 }
 
 /**
@@ -146,6 +166,7 @@ export const getTaskStats = (tasks: Task[]): TaskStats => {
         study: 0,
       },
       totalArchived: 0,
+      dailyProgress: 0,
     };
   }
 
@@ -181,6 +202,14 @@ export const getTaskStats = (tasks: Task[]): TaskStats => {
     }
   });
 
+  const completedToday = activeTasks.filter(
+    t => t.done && isToday(t.completedAt),
+  ).length;
+  const pending = activeTasks.filter(t => !t.done).length;
+  const dailyTotal = completedToday + pending;
+  const dailyProgress =
+    dailyTotal > 0 ? Math.round((completedToday / dailyTotal) * 100) : 0;
+
   return {
     total,
     completed,
@@ -188,5 +217,6 @@ export const getTaskStats = (tasks: Task[]): TaskStats => {
     byPriority,
     byCategory,
     totalArchived,
+    dailyProgress,
   };
 };

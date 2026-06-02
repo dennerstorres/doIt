@@ -137,7 +137,7 @@ describe('useTasks hook', () => {
     );
   });
 
-  it('should toggle task status', async () => {
+  it('should toggle task status and update completedAt', async () => {
     const mockTasks: Task[] = [
       {
         id: '1',
@@ -149,6 +149,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -163,6 +164,8 @@ describe('useTasks hook', () => {
 
     if (hook.tasks) {
       expect(hook.tasks[0].done).toBe(true);
+      expect(hook.tasks[0].completedAt).not.toBeNull();
+      expect(typeof hook.tasks[0].completedAt).toBe('string');
     }
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
 
@@ -174,6 +177,7 @@ describe('useTasks hook', () => {
 
     if (hook.tasks) {
       expect(hook.tasks[0].done).toBe(false);
+      expect(hook.tasks[0].completedAt).toBeNull();
     }
   });
 

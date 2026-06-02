@@ -169,12 +169,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
           style={
             Array [
               Object {
-                "backgroundColor": "#dce1de",
-                "borderRadius": 4,
-                "height": 8,
                 "marginTop": 20,
-                "overflow": "hidden",
-                "width": "100%",
               },
             ]
           }
@@ -183,14 +178,29 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
             style={
               Array [
                 Object {
-                  "backgroundColor": "#49a078",
+                  "backgroundColor": "#dce1de",
                   "borderRadius": 4,
-                  "height": "100%",
-                  "width": "50%",
+                  "height": 8,
+                  "overflow": "hidden",
+                  "width": "100%",
                 },
               ]
             }
-          />
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#49a078",
+                    "borderRadius": 4,
+                    "height": "100%",
+                    "width": "50%",
+                  },
+                ]
+              }
+              testID="undefined-fill"
+            />
+          </View>
         </View>
         <View
           style={
@@ -399,7 +409,6 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   "backgroundColor": "#dce1de",
                   "borderRadius": 4,
                   "height": 8,
-                  "marginTop": 5,
                   "overflow": "hidden",
                   "width": "100%",
                 },
@@ -417,6 +426,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   },
                 ]
               }
+              testID="undefined-fill"
             />
           </View>
         </View>
@@ -476,7 +486,6 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   "backgroundColor": "#dce1de",
                   "borderRadius": 4,
                   "height": 8,
-                  "marginTop": 5,
                   "overflow": "hidden",
                   "width": "100%",
                 },
@@ -494,6 +503,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   },
                 ]
               }
+              testID="undefined-fill"
             />
           </View>
         </View>
@@ -553,7 +563,6 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   "backgroundColor": "#dce1de",
                   "borderRadius": 4,
                   "height": 8,
-                  "marginTop": 5,
                   "overflow": "hidden",
                   "width": "100%",
                 },
@@ -571,6 +580,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   },
                 ]
               }
+              testID="undefined-fill"
             />
           </View>
         </View>
@@ -630,7 +640,6 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   "backgroundColor": "#dce1de",
                   "borderRadius": 4,
                   "height": 8,
-                  "marginTop": 5,
                   "overflow": "hidden",
                   "width": "100%",
                 },
@@ -648,6 +657,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   },
                 ]
               }
+              testID="undefined-fill"
             />
           </View>
         </View>
@@ -746,7 +756,6 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   "backgroundColor": "#dce1de",
                   "borderRadius": 4,
                   "height": 8,
-                  "marginTop": 5,
                   "overflow": "hidden",
                   "width": "100%",
                 },
@@ -764,6 +773,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   },
                 ]
               }
+              testID="undefined-fill"
             />
           </View>
         </View>
@@ -823,7 +833,6 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   "backgroundColor": "#dce1de",
                   "borderRadius": 4,
                   "height": 8,
-                  "marginTop": 5,
                   "overflow": "hidden",
                   "width": "100%",
                 },
@@ -841,6 +850,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
                   },
                 ]
               }
+              testID="undefined-fill"
             />
           </View>
         </View>

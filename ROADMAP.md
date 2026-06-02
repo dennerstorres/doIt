@@ -164,7 +164,7 @@
 - [x] Adicionar repetição de tarefas
 - [x] Adicionar arquivamento
 - [x] Adicionar estatísticas
-- [ ] Adicionar progresso diário
+- [x] Adicionar progresso diário
 - [ ] Adicionar streak de produtividade
 - [ ] Adicionar tela de histórico
 
@@ -1134,6 +1134,19 @@
 - **Validations**: `tsc` (zero erros), `yarn test` (67/67 passando), `yarn lint` (sem erros).
 - **Limitações**: Algumas bibliotecas legadas ainda exigem bypasses de tipo (`@ts-ignore`) para funcionar corretamente com o compilador estrito.
 - **Riscos**: Baixo. O projeto agora possui 100% de cobertura de tipos na camada `src`.
+
+## Adicionar progresso diário
+
+- **Implementação**: Introdução de um indicador de progresso diário na Home e criação de um componente de barra de progresso reutilizável.
+- **Decisões Técnicas**:
+  - Adição do campo `completedAt` ao modelo `Task` para rastrear o momento exato da conclusão.
+  - Criação do componente `ProgressBar` (src/components/ProgressBar) extraído da lógica da tela de estatísticas para promover o reuso.
+  - Implementação do componente `DailyProgress` (src/components/DailyProgress) que calcula o progresso baseado nas tarefas concluídas hoje versus as pendentes.
+  - Refatoração da tela `Statistics` para utilizar o novo componente `ProgressBar`.
+  - Atualização do utilitário `getTaskStats` para incluir a métrica `dailyProgress`.
+  - Cobertura total de testes unitários para os novos componentes e lógica de utilitário, incluindo snapshots.
+- **Limitações**: O progresso diário considera apenas tarefas concluídas no dia atual do calendário; tarefas concluídas em dias anteriores não contam para o "Progresso de Hoje".
+- **Riscos**: Se o relógio do dispositivo do usuário estiver incorreto, a filtragem por "hoje" pode não refletir as tarefas concluídas na sessão atual.
 
 ## Adicionar estatísticas
 

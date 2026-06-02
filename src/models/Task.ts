@@ -38,6 +38,7 @@ export const createTask = (
     archived: false,
     deadline,
     createdAt: new Date().toISOString(),
+    completedAt: null,
   };
 };
 
@@ -59,6 +60,9 @@ export const isValidTask = (taskObj: any): taskObj is Task => {
     (typeof taskObj.archived === 'boolean' || taskObj.archived === undefined) &&
     (taskObj.deadline === null ||
       typeof taskObj.deadline === 'string' ||
-      taskObj.deadline === undefined)
+      taskObj.deadline === undefined) &&
+    (taskObj.completedAt === null ||
+      typeof taskObj.completedAt === 'string' ||
+      taskObj.completedAt === undefined)
   );
 };
