@@ -127,3 +127,14 @@ jest.mock('react-native-safe-area-context', () => {
     useSafeAreaFrame: () => ({x: 0, y: 0, width: 390, height: 844}),
   };
 });
+
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: jest.fn(),
+      goBack: jest.fn(),
+    }),
+  };
+});

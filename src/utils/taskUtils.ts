@@ -1,4 +1,4 @@
-import {Task, TaskPriority} from '../types';
+import {Task, TaskPriority, TaskCategory} from '../types';
 
 /**
  * Task Utility Functions
@@ -115,21 +115,78 @@ export const filterTasksBySearch = (tasks: Task[], search: string): Task[] => {
   return tasks.filter(t => t.task.toLowerCase().includes(normalizedSearch));
 };
 
-interface TaskStats {
+export interface TaskStats {
   total: number;
   completed: number;
+  completionPercentage: number;
+  byPriority: Record<TaskPriority, number>;
+  byCategory: Record<TaskCategory, number>;
+  totalArchived: number;
 }
 
 /**
  * Summarizes task statistics.
  *
  * @param tasks - The list of tasks.
- * @returns Statistics object with total and completed counts.
+ * @returns Statistics object with detailed metrics.
  */
 export const getTaskStats = (tasks: Task[]): TaskStats => {
-  const safeTasks = Array.isArray(tasks) ? tasks.filter(t => !t.archived) : [];
+  if (!Array.isArray(tasks)) {
+    return {
+      total: 0,
+      completed: 0,
+      completionPercentage: 0,
+      byPriority: {none: 0, low: 0, medium: 0, high: 0},
+      byCategory: {
+        none: 0,
+        work: 0,
+        personal: 0,
+        shopping: 0,
+        health: 0,
+        study: 0,
+      },
+      totalArchived: 0,
+    };
+  }
+
+  const activeTasks = tasks.filter(t => !t.archived);
+  const totalArchived = tasks.filter(t => t.archived).length;
+  const total = activeTasks.length;
+  const completed = activeTasks.filter(t => t.done).length;
+  const completionPercentage =
+    total > 0 ? Math.round((completed / total) * 100) : 0;
+
+  const byPriority: Record<TaskPriority, number> = {
+    none: 0,
+    low: 0,
+    medium: 0,
+    high: 0,
+  };
+
+  const byCategory: Record<TaskCategory, number> = {
+    none: 0,
+    work: 0,
+    personal: 0,
+    shopping: 0,
+    health: 0,
+    study: 0,
+  };
+
+  activeTasks.forEach(t => {
+    if (byPriority[t.priority] !== undefined) {
+      byPriority[t.priority]++;
+    }
+    if (byCategory[t.category] !== undefined) {
+      byCategory[t.category]++;
+    }
+  });
+
   return {
-    total: safeTasks.length,
-    completed: safeTasks.filter(t => t.done).length,
+    total,
+    completed,
+    completionPercentage,
+    byPriority,
+    byCategory,
+    totalArchived,
   };
 };

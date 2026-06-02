@@ -1,0 +1,945 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Statistics Screen renders correctly with tasks 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "alignItems": "center",
+      "paddingBottom": 20,
+    }
+  }
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+    ]
+  }
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#49a078",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "minHeight": 60,
+            "paddingTop": 0,
+            "position": "relative",
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "bottom": 10,
+            "left": 10,
+            "opacity": 1,
+            "position": "absolute",
+          }
+        }
+        testID="header-back-button"
+      >
+        <Icon
+          color="#fff"
+          name="arrow-left"
+          size={24}
+        />
+      </View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#ffffff",
+              "fontSize": 24,
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        doIt
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "paddingBottom": 10,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+            "paddingTop": 10,
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "marginBottom": 10,
+            },
+          ]
+        }
+      >
+        Visão Geral
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#ffffff",
+              "borderRadius": 8,
+              "elevation": 2,
+              "marginBottom": 10,
+              "paddingBottom": 15,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 15,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 2,
+                "width": 0,
+              },
+              "shadowOpacity": 0.1,
+              "shadowRadius": 4,
+              "width": "100%",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "justifyContent": "center",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#49a078",
+                  "fontSize": 48,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            50
+            %
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                  "marginTop": 5,
+                },
+              ]
+            }
+          >
+            Tarefas Concluídas
+          </Text>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#dce1de",
+                "borderRadius": 4,
+                "height": 8,
+                "marginTop": 20,
+                "overflow": "hidden",
+                "width": "100%",
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#49a078",
+                  "borderRadius": 4,
+                  "height": "100%",
+                  "width": "50%",
+                },
+              ]
+            }
+          />
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginBottom": 8,
+                "marginTop": 20,
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                },
+              ]
+            }
+          >
+            Total de Tarefas
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            2
+          </Text>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginBottom": 8,
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                },
+              ]
+            }
+          >
+            Concluídas
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            1
+          </Text>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginBottom": 8,
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                },
+              ]
+            }
+          >
+            Arquivadas
+          </Text>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1f2421",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                },
+              ]
+            }
+          >
+            0
+          </Text>
+        </View>
+      </View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "marginBottom": 10,
+            },
+          ]
+        }
+      >
+        Por Prioridade
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#ffffff",
+              "borderRadius": 8,
+              "elevation": 2,
+              "marginBottom": 10,
+              "paddingBottom": 15,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 15,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 2,
+                "width": 0,
+              },
+              "shadowOpacity": 0.1,
+              "shadowRadius": 4,
+              "width": "100%",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginBottom": 8,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              Alta
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              1
+               (
+              50
+              %)
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#dce1de",
+                  "borderRadius": 4,
+                  "height": 8,
+                  "marginTop": 5,
+                  "overflow": "hidden",
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#FF0000",
+                    "borderRadius": 4,
+                    "height": "100%",
+                    "width": "50%",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginBottom": 8,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              Média
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              1
+               (
+              50
+              %)
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#dce1de",
+                  "borderRadius": 4,
+                  "height": 8,
+                  "marginTop": 5,
+                  "overflow": "hidden",
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#f5a623",
+                    "borderRadius": 4,
+                    "height": "100%",
+                    "width": "50%",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginBottom": 8,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              Baixa
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              0
+               (
+              0
+              %)
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#dce1de",
+                  "borderRadius": 4,
+                  "height": 8,
+                  "marginTop": 5,
+                  "overflow": "hidden",
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#4a90e2",
+                    "borderRadius": 4,
+                    "height": "100%",
+                    "width": "0%",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginBottom": 8,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              Nenhuma
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              0
+               (
+              0
+              %)
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#dce1de",
+                  "borderRadius": 4,
+                  "height": 8,
+                  "marginTop": 5,
+                  "overflow": "hidden",
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#9cc5a1",
+                    "borderRadius": 4,
+                    "height": "100%",
+                    "width": "0%",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+      </View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 16,
+              "fontWeight": "700",
+              "marginBottom": 10,
+            },
+          ]
+        }
+      >
+        Por Categoria
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#ffffff",
+              "borderRadius": 8,
+              "elevation": 2,
+              "marginBottom": 10,
+              "paddingBottom": 15,
+              "paddingLeft": 15,
+              "paddingRight": 15,
+              "paddingTop": 15,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 2,
+                "width": 0,
+              },
+              "shadowOpacity": 0.1,
+              "shadowRadius": 4,
+              "width": "100%",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginBottom": 8,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              Trabalho
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              1
+               (
+              50
+              %)
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#dce1de",
+                  "borderRadius": 4,
+                  "height": 8,
+                  "marginTop": 5,
+                  "overflow": "hidden",
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#216869",
+                    "borderRadius": 4,
+                    "height": "100%",
+                    "width": "50%",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "marginBottom": 8,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              Pessoal
+            </Text>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1f2421",
+                    "fontSize": 14,
+                    "fontWeight": "700",
+                  },
+                ]
+              }
+            >
+              1
+               (
+              50
+              %)
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#dce1de",
+                  "borderRadius": 4,
+                  "height": 8,
+                  "marginTop": 5,
+                  "overflow": "hidden",
+                  "width": "100%",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#216869",
+                    "borderRadius": 4,
+                    "height": "100%",
+                    "width": "50%",
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`Statistics Screen renders empty message when no tasks 1`] = `
+<RCTScrollView
+  contentContainerStyle={
+    Object {
+      "alignItems": "center",
+      "paddingBottom": 20,
+    }
+  }
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+    ]
+  }
+>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#49a078",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "minHeight": 60,
+            "paddingTop": 0,
+            "position": "relative",
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "bottom": 10,
+            "left": 10,
+            "opacity": 1,
+            "position": "absolute",
+          }
+        }
+        testID="header-back-button"
+      >
+        <Icon
+          color="#fff"
+          name="arrow-left"
+          size={24}
+        />
+      </View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#ffffff",
+              "fontSize": 24,
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        doIt
+      </Text>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1f2421",
+            "fontSize": 14,
+            "marginTop": 50,
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      Crie algumas tarefas para ver estatísticas.
+    </Text>
+  </View>
+</RCTScrollView>
+`;

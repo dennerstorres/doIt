@@ -29,7 +29,8 @@ describe('Storage Service', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          archived: false, deadline: null,
+          archived: false,
+          deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
         },
       ];
@@ -50,7 +51,8 @@ describe('Storage Service', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          archived: false, deadline: null,
+          archived: false,
+          deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
         },
       ];
@@ -71,7 +73,8 @@ describe('Storage Service', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          archived: false, deadline: null,
+          archived: false,
+          deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
         },
       ];
@@ -113,7 +116,8 @@ describe('Storage Service', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          archived: false, deadline: null,
+          archived: false,
+          deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
         },
       ];

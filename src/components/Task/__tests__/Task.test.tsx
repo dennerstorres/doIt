@@ -48,7 +48,8 @@ const mockTask: Task = {
   priority: 'none' as TaskPriority,
   category: 'none' as TaskCategory,
   repeat: 'none' as TaskRepeat,
-  archived: false, deadline: null,
+  archived: false,
+  deadline: null,
   createdAt: new Date().toISOString(),
 };
 

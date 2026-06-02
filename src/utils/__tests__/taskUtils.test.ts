@@ -16,7 +16,8 @@ describe('Task Utils', () => {
       priority: 'none',
       category: 'none',
       repeat: 'none',
-      archived: false, deadline: null,
+      archived: false,
+      deadline: null,
     },
     {
       id: '2',
@@ -26,7 +27,8 @@ describe('Task Utils', () => {
       priority: 'none',
       category: 'none',
       repeat: 'none',
-      archived: false, deadline: null,
+      archived: false,
+      deadline: null,
     },
     {
       id: '3',
@@ -36,7 +38,8 @@ describe('Task Utils', () => {
       priority: 'none',
       category: 'none',
       repeat: 'none',
-      archived: false, deadline: null,
+      archived: false,
+      deadline: null,
     },
   ];
 
@@ -88,7 +91,8 @@ describe('Task Utils', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          archived: false, deadline: null,
+          archived: false,
+          deadline: null,
         },
         {
           id: 'b',
@@ -98,7 +102,8 @@ describe('Task Utils', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          archived: false, deadline: null,
+          archived: false,
+          deadline: null,
         },
       ];
       const sorted = sortTasks(sameDateTasks, SORT_TYPES.DEFAULT);
@@ -130,22 +135,86 @@ describe('Task Utils', () => {
           done: false,
           archived: true,
           createdAt: '2023-01-01T12:00:00Z',
-          priority: 'none',
-          category: 'none',
+          priority: 'high',
+          category: 'work',
           repeat: 'none',
           deadline: null,
         },
       ];
       const stats = getTaskStats(tasksWithArchived);
-      expect(stats).toEqual({
-        total: 3,
-        completed: 1,
-      });
+      expect(stats.total).toBe(3);
+      expect(stats.completed).toBe(1);
+      expect(stats.completionPercentage).toBe(33);
+      expect(stats.totalArchived).toBe(1);
+      expect(stats.byPriority.none).toBe(3);
+      expect(stats.byPriority.high).toBe(0); // Archived task should be ignored
+    });
+
+    it('should calculate breakdown by priority and category', () => {
+      const diverseTasks: Task[] = [
+        {
+          id: '1',
+          task: 'Task 1',
+          done: true,
+          priority: 'high',
+          category: 'work',
+          archived: false,
+          repeat: 'none',
+          deadline: null,
+          createdAt: '2023-01-01T10:00:00Z',
+        },
+        {
+          id: '2',
+          task: 'Task 2',
+          done: false,
+          priority: 'medium',
+          category: 'personal',
+          archived: false,
+          repeat: 'none',
+          deadline: null,
+          createdAt: '2023-01-01T10:00:00Z',
+        },
+        {
+          id: '3',
+          task: 'Task 3',
+          done: true,
+          priority: 'high',
+          category: 'work',
+          archived: false,
+          repeat: 'none',
+          deadline: null,
+          createdAt: '2023-01-01T10:00:00Z',
+        },
+      ];
+
+      const stats = getTaskStats(diverseTasks);
+      expect(stats.total).toBe(3);
+      expect(stats.completed).toBe(2);
+      expect(stats.completionPercentage).toBe(67);
+      expect(stats.byPriority.high).toBe(2);
+      expect(stats.byPriority.medium).toBe(1);
+      expect(stats.byCategory.work).toBe(2);
+      expect(stats.byCategory.personal).toBe(1);
     });
 
     it('should handle empty input', () => {
-      expect(getTaskStats([])).toEqual({total: 0, completed: 0});
-      expect(getTaskStats(null as any)).toEqual({total: 0, completed: 0});
+      const emptyStats = {
+        total: 0,
+        completed: 0,
+        completionPercentage: 0,
+        byPriority: {none: 0, low: 0, medium: 0, high: 0},
+        byCategory: {
+          none: 0,
+          work: 0,
+          personal: 0,
+          shopping: 0,
+          health: 0,
+          study: 0,
+        },
+        totalArchived: 0,
+      };
+      expect(getTaskStats([])).toEqual(emptyStats);
+      expect(getTaskStats(null as any)).toEqual(emptyStats);
     });
   });
 });
