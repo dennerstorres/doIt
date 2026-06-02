@@ -19,6 +19,7 @@ import {
 import TaskList from '../../components/TaskList';
 import AddTask from '../../components/AddTask';
 import Search from '../../components/Search';
+import DailyProgress from '../../components/DailyProgress';
 import Header from '../../components/Header';
 import UndoAction from '../../components/UndoAction';
 import {useTasks} from '../../hooks/useTasks';
@@ -70,10 +71,9 @@ const Home: React.FC = () => {
     return sortTasks(filtered, sortType);
   }, [tasks, search, sortType]);
 
-  const {total: totalTasks, completed: completedTasks} = useMemo(
-    () => getTaskStats(tasks || []),
-    [tasks],
-  );
+  const stats = useMemo(() => getTaskStats(tasks || []), [tasks]);
+
+  const {total: totalTasks, completed: completedTasks, dailyProgress} = stats;
 
   return (
     <Container style={{paddingBottom: insets.bottom}}>
@@ -100,6 +100,8 @@ const Home: React.FC = () => {
           <CounterValue>{completedTasks}</CounterValue>
         </CounterBox>
       </CounterContainer>
+
+      <DailyProgress progress={dailyProgress} />
 
       <SortContainer>
         <SortButton

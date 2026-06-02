@@ -25,6 +25,7 @@ describe('Task Model', () => {
         archived: false,
         deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
+        completedAt: null,
       });
     });
 

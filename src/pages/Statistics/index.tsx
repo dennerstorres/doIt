@@ -4,6 +4,7 @@ import {useTheme} from 'styled-components/native';
 import {useTasks} from '../../hooks/useTasks';
 import {getTaskStats} from '../../utils/taskUtils';
 import Header from '../../components/Header';
+import ProgressBar from '../../components/ProgressBar';
 import {
   Container,
   Section,
@@ -16,9 +17,7 @@ import {
   SpacedRow,
   Label,
   Value,
-  ProgressBarContainer,
   SpacedProgressBarContainer,
-  ProgressBar,
   StatItem,
   EmptyMessage,
 } from './styles';
@@ -69,8 +68,8 @@ const Statistics: React.FC = () => {
 
           <SpacedProgressBarContainer>
             <ProgressBar
-              $width={`${stats.completionPercentage}%`}
-              $color={theme.colors.primary}
+              progress={stats.completionPercentage}
+              color={theme.colors.primary}
             />
           </SpacedProgressBarContainer>
 
@@ -116,12 +115,10 @@ const Statistics: React.FC = () => {
                       {count} ({percentage}%)
                     </Value>
                   </Row>
-                  <ProgressBarContainer>
-                    <ProgressBar
-                      $width={`${percentage}%`}
-                      $color={colors[priority]}
-                    />
-                  </ProgressBarContainer>
+                  <ProgressBar
+                    progress={percentage}
+                    color={colors[priority]}
+                  />
                 </StatItem>
               );
             })}
@@ -146,12 +143,10 @@ const Statistics: React.FC = () => {
                       {count} ({percentage}%)
                     </Value>
                   </Row>
-                  <ProgressBarContainer>
-                    <ProgressBar
-                      $width={`${percentage}%`}
-                      $color={theme.colors.secondary}
-                    />
-                  </ProgressBarContainer>
+                  <ProgressBar
+                    progress={percentage}
+                    color={theme.colors.secondary}
+                  />
                 </StatItem>
               );
             })}

@@ -1093,6 +1093,101 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
     style={
       Array [
         Object {
+          "marginBottom": 10,
+          "marginTop": 8,
+          "paddingBottom": 0,
+          "paddingLeft": 10,
+          "paddingRight": 10,
+          "paddingTop": 0,
+          "width": "100%",
+        },
+      ]
+    }
+    testID="daily-progress-container"
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginBottom": 5,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 14,
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        Progresso de Hoje
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#49a078",
+              "fontSize": 14,
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        0
+        %
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#dce1de",
+              "borderRadius": 4,
+              "height": 10,
+              "overflow": "hidden",
+              "width": "100%",
+            },
+          ]
+        }
+        testID="daily-progress-bar"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#49a078",
+                "borderRadius": 4,
+                "height": "100%",
+                "width": "0%",
+              },
+            ]
+          }
+          testID="daily-progress-bar-fill"
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
           "flexDirection": "row",
           "justifyContent": "flex-end",
           "marginBottom": 8,
@@ -2455,6 +2550,101 @@ exports[`Home Page should show loading indicator initially 1`] = `
       >
         0
       </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "marginBottom": 10,
+          "marginTop": 8,
+          "paddingBottom": 0,
+          "paddingLeft": 10,
+          "paddingRight": 10,
+          "paddingTop": 0,
+          "width": "100%",
+        },
+      ]
+    }
+    testID="daily-progress-container"
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginBottom": 5,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1f2421",
+              "fontSize": 14,
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        Progresso de Hoje
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#49a078",
+              "fontSize": 14,
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        0
+        %
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#dce1de",
+              "borderRadius": 4,
+              "height": 10,
+              "overflow": "hidden",
+              "width": "100%",
+            },
+          ]
+        }
+        testID="daily-progress-bar"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#49a078",
+                "borderRadius": 4,
+                "height": "100%",
+                "width": "0%",
+              },
+            ]
+          }
+          testID="daily-progress-bar-fill"
+        />
+      </View>
     </View>
   </View>
   <View
