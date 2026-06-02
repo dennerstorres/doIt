@@ -162,7 +162,7 @@
 - [x] Adicionar data limite
 - [!] Adicionar lembretes locais
 - [x] Adicionar repetição de tarefas
-- [ ] Adicionar arquivamento
+- [x] Adicionar arquivamento
 - [ ] Adicionar estatísticas
 - [ ] Adicionar progresso diário
 - [ ] Adicionar streak de produtividade
@@ -1093,6 +1093,19 @@
 - **Validações**: Verificação completa de tipos com `tsc` e execução de 100% da suíte de testes unitários (`yarn test`).
 - **Limitações**: Integração com `storage.js` e `Task.js` ainda depende de `@ts-ignore` até que esses arquivos sejam migrados.
 - **Riscos**: Baixo, dado que a lógica de negócio foi preservada e validada por testes pré-existentes e novos tipos.
+
+## Adicionar arquivamento
+
+- **Implementação**: Adição de funcionalidade para arquivar tarefas, permitindo que os usuários ocultem tarefas da lista principal sem excluí-las permanentemente.
+- **Decisões Técnicas**:
+  - Adição do campo `archived` (boolean) ao modelo `Task` e interface TypeScript.
+  - Implementação da função `archiveTask` no hook `useTasks` para alternar o status de arquivamento.
+  - Atualização do utilitário `getTaskStats` para ignorar tarefas arquivadas nos contadores da Home.
+  - Inclusão de uma nova ação de swipe à direita ("Arquivar") no componente `Task`, utilizando o ícone `archive` do Feather e a cor `secondary` do tema.
+  - Filtragem de tarefas arquivadas no `useMemo` da `Home` page para garantir que não apareçam na listagem principal.
+  - Atualização abrangente da suíte de testes unitários (hook, model, utils e components) para cobrir o novo fluxo.
+- **Limitações**: Não existe no momento uma tela de "Arquivo" ou "Histórico" para visualizar ou desarquivar tarefas; elas ficam ocultas da visualização principal mas permanecem no storage.
+- **Riscos**: Se o usuário arquivar muitas tarefas, o `AsyncStorage` continuará crescendo, o que pode impactar a performance de carregamento inicial em longo prazo (necessita de estratégia de limpeza ou paginação futura).
 
 ## Migrar navegação
 

@@ -17,6 +17,7 @@ export interface Task {
   priority: TaskPriority;
   category: TaskCategory;
   repeat: TaskRepeat;
+  archived: boolean;
   deadline: string | null;
   createdAt: string;
 }

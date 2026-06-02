@@ -35,6 +35,7 @@ export const createTask = (
     priority,
     category,
     repeat,
+    archived: false,
     deadline,
     createdAt: new Date().toISOString(),
   };
@@ -55,6 +56,7 @@ export const isValidTask = (taskObj: any): taskObj is Task => {
     (typeof taskObj.priority === 'string' || taskObj.priority === undefined) &&
     (typeof taskObj.category === 'string' || taskObj.category === undefined) &&
     (typeof taskObj.repeat === 'string' || taskObj.repeat === undefined) &&
+    (typeof taskObj.archived === 'boolean' || taskObj.archived === undefined) &&
     (taskObj.deadline === null ||
       typeof taskObj.deadline === 'string' ||
       taskObj.deadline === undefined)

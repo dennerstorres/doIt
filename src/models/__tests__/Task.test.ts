@@ -22,6 +22,7 @@ describe('Task Model', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
+        archived: false,
         deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
       });
@@ -50,6 +51,7 @@ describe('Task Model', () => {
         id: '1',
         task: 'Valid Task',
         done: false,
+        archived: false,
       } as any;
       expect(isValidTask(task)).toBe(true);
     });

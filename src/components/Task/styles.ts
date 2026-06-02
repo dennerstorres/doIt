@@ -41,14 +41,15 @@ export const LeftActionContainer = styled(Animated.View)`
 `;
 
 interface RightActionContainerProps {
-  type?: 'edit';
+  type?: 'edit' | 'archive';
 }
 
 export const RightActionContainer = styled.TouchableOpacity<RightActionContainerProps>`
-  background-color: ${props =>
-    props.type === 'edit'
-      ? props.theme.colors.accent
-      : props.theme.colors.error};
+  background-color: ${props => {
+    if (props.type === 'edit') return props.theme.colors.accent;
+    if (props.type === 'archive') return props.theme.colors.secondary;
+    return props.theme.colors.error;
+  }};
   justify-content: center;
   align-items: flex-end;
   height: 50px;

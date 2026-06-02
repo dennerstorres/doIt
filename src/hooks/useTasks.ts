@@ -199,6 +199,18 @@ export const useTasks = () => {
     );
   }, []);
 
+  const archiveTask = useCallback((item: Task) => {
+    LayoutAnimation.configureNext(animationConfig);
+    setTasks(prevTasks =>
+      (prevTasks || []).map(t => {
+        if (t.id === item.id) {
+          return {...t, archived: !t.archived};
+        }
+        return t;
+      }),
+    );
+  }, []);
+
   const editTask = useCallback(
     (
       id: string,
@@ -280,6 +292,7 @@ export const useTasks = () => {
     addTask,
     toggleTask,
     deleteTask,
+    archiveTask,
     editTask,
     undoDelete,
     clearLastDeletedTask,
