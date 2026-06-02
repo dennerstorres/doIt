@@ -46,8 +46,12 @@ interface RightActionContainerProps {
 
 export const RightActionContainer = styled.TouchableOpacity<RightActionContainerProps>`
   background-color: ${props => {
-    if (props.type === 'edit') return props.theme.colors.accent;
-    if (props.type === 'archive') return props.theme.colors.secondary;
+    if (props.type === 'edit') {
+      return props.theme.colors.accent;
+    }
+    if (props.type === 'archive') {
+      return props.theme.colors.secondary;
+    }
     return props.theme.colors.error;
   }};
   justify-content: center;

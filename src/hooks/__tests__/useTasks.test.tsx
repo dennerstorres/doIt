@@ -62,7 +62,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -145,7 +146,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -184,7 +186,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -225,7 +228,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -267,7 +271,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -307,7 +312,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -340,7 +346,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
       {
@@ -350,7 +357,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -410,7 +418,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        archived: false, deadline: null,
+        archived: false,
+        deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -463,7 +472,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'daily',
-        archived: false, deadline: today.toISOString(),
+        archived: false,
+        deadline: today.toISOString(),
         createdAt: today.toISOString(),
       },
     ];
@@ -506,7 +516,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'weekly',
-        archived: false, deadline: today.toISOString(),
+        archived: false,
+        deadline: today.toISOString(),
         createdAt: today.toISOString(),
       },
     ];
@@ -542,7 +553,8 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'monthly',
-        archived: false, deadline: today.toISOString(),
+        archived: false,
+        deadline: today.toISOString(),
         createdAt: today.toISOString(),
       },
     ];

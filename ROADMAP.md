@@ -163,7 +163,7 @@
 - [!] Adicionar lembretes locais
 - [x] Adicionar repetição de tarefas
 - [x] Adicionar arquivamento
-- [ ] Adicionar estatísticas
+- [x] Adicionar estatísticas
 - [ ] Adicionar progresso diário
 - [ ] Adicionar streak de produtividade
 - [ ] Adicionar tela de histórico
@@ -1127,10 +1127,24 @@
 - **Decisões Técnicas**:
   - Migração de `src/models/Task.js` e `src/services/storage.js` para `.ts`, utilizando as interfaces de tipo centrais.
   - Migração de `src/theme/index.js` para `.ts` com a definição da interface `Theme`.
-  - Conversão de 10 arquivos de teste para `.ts` ou `.tsx`.
+  - Conversão de 10 arquivos de teste para `.ts` or `.tsx`.
   - Uso de `@ts-ignore` em testes de componentes para contornar conflitos de tipos entre styled-components v5 e React 16.13.1, mantendo o padrão adotado nas tarefas anteriores.
   - Atualização de snapshots de teste para refletir mudanças estruturais mínimas no layout renderizado durante a migração.
 - **Arquivos Alterados**: `src/models/Task.ts`, `src/services/storage.ts`, `src/theme/index.ts`, `src/components/**/__tests__/*.test.tsx`, `src/utils/__tests__/*.test.ts`, `src/pages/Home/__tests__/Home.test.tsx`.
-- **Validações**: `tsc` (zero erros), `yarn test` (67/67 passando), `yarn lint` (sem erros).
+- **Validations**: `tsc` (zero erros), `yarn test` (67/67 passando), `yarn lint` (sem erros).
 - **Limitações**: Algumas bibliotecas legadas ainda exigem bypasses de tipo (`@ts-ignore`) para funcionar corretamente com o compilador estrito.
 - **Riscos**: Baixo. O projeto agora possui 100% de cobertura de tipos na camada `src`.
+
+## Adicionar estatísticas
+
+- **Implementação**: Criação de uma tela dedicada de estatísticas e expansão da lógica de cálculo de métricas de tarefas.
+- **Decisões Técnicas**:
+  - Expansão do utilitário `getTaskStats` para calcular porcentagem de conclusão, distribuição por prioridade e distribuição por categoria.
+  - Implementação da tela `Statistics` utilizando `styled-components` com cartões informativos e barras de progresso visuais.
+  - Atualização do componente `Header` para suportar botões de ação e navegação de retorno.
+  - Uso de `useMemo` para garantir que as estatísticas sejam recalculadas apenas quando a lista de tarefas mudar.
+  - Adição de mock global do `useNavigation` no `jest-setup.js` para suportar testes de componentes que dependem de navegação.
+- **Arquivos Alterados**: `src/utils/taskUtils.ts`, `src/utils/__tests__/taskUtils.test.ts`, `src/types/navigation.ts`, `src/App.tsx`, `src/pages/Statistics/index.tsx`, `src/pages/Statistics/styles.ts`, `src/pages/Statistics/__tests__/Statistics.test.tsx`, `src/components/Header/index.tsx`, `src/components/Header/styles.ts`, `jest-setup.js`.
+- **Validações**: `tsc` (zero erros), `yarn test` (74/74 passando), `yarn lint` (sem erros).
+- **Limitações**: As estatísticas são baseadas apenas nas tarefas atuais em memória/storage local; não há persistência de histórico temporal (ex: produtividade da última semana).
+- **Riscos**: Se o número de categorias ou prioridades crescer significativamente, o layout da tela de estatísticas pode precisar de scroll adicional ou agrupamento.
