@@ -17,7 +17,7 @@ const DailyProgress: React.FC<DailyProgressProps> = ({progress}) => {
   const theme = useTheme();
 
   return (
-    <Container testID="daily-progress-container">
+    <Container testID='daily-progress-container'>
       <HeaderRow>
         <Label>Progresso de Hoje</Label>
         <Percentage>{progress}%</Percentage>
@@ -27,7 +27,7 @@ const DailyProgress: React.FC<DailyProgressProps> = ({progress}) => {
           progress={progress}
           color={theme.colors.primary}
           height={10}
-          testID="daily-progress-bar"
+          testID='daily-progress-bar'
         />
       </ProgressBarWrapper>
     </Container>

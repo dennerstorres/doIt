@@ -10,6 +10,8 @@ import {
   CounterBox,
   CounterLabel,
   CounterValue,
+  StreakContainer,
+  StreakText,
   LoadingIndicator,
   SortContainer,
   SortButton,
@@ -73,7 +75,12 @@ const Home: React.FC = () => {
 
   const stats = useMemo(() => getTaskStats(tasks || []), [tasks]);
 
-  const {total: totalTasks, completed: completedTasks, dailyProgress} = stats;
+  const {
+    total: totalTasks,
+    completed: completedTasks,
+    dailyProgress,
+    streak,
+  } = stats;
 
   return (
     <Container style={{paddingBottom: insets.bottom}}>
@@ -95,6 +102,16 @@ const Home: React.FC = () => {
           <CounterLabel>Tarefas</CounterLabel>
           <CounterValue>{totalTasks}</CounterValue>
         </CounterBox>
+
+        {streak > 0 && (
+          <StreakContainer>
+            <Icon name='zap' size={16} color={theme.colors.warning} />
+            <StreakText>
+              {streak} {streak === 1 ? 'dia' : 'dias'}
+            </StreakText>
+          </StreakContainer>
+        )}
+
         <CounterBox>
           <CounterLabel>Concluídas</CounterLabel>
           <CounterValue>{completedTasks}</CounterValue>
