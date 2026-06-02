@@ -16,7 +16,7 @@ describe('Task Utils', () => {
       priority: 'none',
       category: 'none',
       repeat: 'none',
-      deadline: null,
+      archived: false, deadline: null,
     },
     {
       id: '2',
@@ -26,7 +26,7 @@ describe('Task Utils', () => {
       priority: 'none',
       category: 'none',
       repeat: 'none',
-      deadline: null,
+      archived: false, deadline: null,
     },
     {
       id: '3',
@@ -36,7 +36,7 @@ describe('Task Utils', () => {
       priority: 'none',
       category: 'none',
       repeat: 'none',
-      deadline: null,
+      archived: false, deadline: null,
     },
   ];
 
@@ -88,7 +88,7 @@ describe('Task Utils', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          deadline: null,
+          archived: false, deadline: null,
         },
         {
           id: 'b',
@@ -98,7 +98,7 @@ describe('Task Utils', () => {
           priority: 'none',
           category: 'none',
           repeat: 'none',
-          deadline: null,
+          archived: false, deadline: null,
         },
       ];
       const sorted = sortTasks(sameDateTasks, SORT_TYPES.DEFAULT);
@@ -121,8 +121,22 @@ describe('Task Utils', () => {
   });
 
   describe('getTaskStats', () => {
-    it('should return correct statistics', () => {
-      const stats = getTaskStats(mockTasks);
+    it('should return correct statistics excluding archived tasks', () => {
+      const tasksWithArchived: Task[] = [
+        ...mockTasks,
+        {
+          id: '4',
+          task: 'Archived Task',
+          done: false,
+          archived: true,
+          createdAt: '2023-01-01T12:00:00Z',
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          deadline: null,
+        },
+      ];
+      const stats = getTaskStats(tasksWithArchived);
       expect(stats).toEqual({
         total: 3,
         completed: 1,

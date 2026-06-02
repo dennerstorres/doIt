@@ -127,7 +127,7 @@ interface TaskStats {
  * @returns Statistics object with total and completed counts.
  */
 export const getTaskStats = (tasks: Task[]): TaskStats => {
-  const safeTasks = Array.isArray(tasks) ? tasks : [];
+  const safeTasks = Array.isArray(tasks) ? tasks.filter(t => !t.archived) : [];
   return {
     total: safeTasks.length,
     completed: safeTasks.filter(t => t.done).length,

@@ -48,7 +48,7 @@ const mockTask: Task = {
   priority: 'none' as TaskPriority,
   category: 'none' as TaskCategory,
   repeat: 'none' as TaskRepeat,
-  deadline: null,
+  archived: false, deadline: null,
   createdAt: new Date().toISOString(),
 };
 
@@ -62,6 +62,7 @@ describe('Task Component', () => {
             item={mockTask}
             onDone={jest.fn()}
             onDelete={jest.fn()}
+            onArchive={jest.fn()}
             onEdit={jest.fn()}
           />
         </ThemeProvider>,
@@ -80,6 +81,7 @@ describe('Task Component', () => {
             item={completedTask}
             onDone={jest.fn()}
             onDelete={jest.fn()}
+            onArchive={jest.fn()}
             onEdit={jest.fn()}
           />
         </ThemeProvider>,
@@ -96,6 +98,7 @@ describe('Task Component', () => {
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}
+          onArchive={jest.fn()}
           onEdit={jest.fn()}
         />
       </ThemeProvider>,
@@ -121,6 +124,7 @@ describe('Task Component', () => {
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}
+          onArchive={jest.fn()}
           onEdit={onEdit}
         />
       </ThemeProvider>,
@@ -165,6 +169,7 @@ describe('Task Component', () => {
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}
+          onArchive={jest.fn()}
           onEdit={onEdit}
         />
       </ThemeProvider>,
@@ -197,6 +202,7 @@ describe('Task Component', () => {
           item={mockTask}
           onDone={jest.fn()}
           onDelete={jest.fn()}
+          onArchive={jest.fn()}
           onEdit={onEdit}
         />
       </ThemeProvider>,

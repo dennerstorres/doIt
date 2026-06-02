@@ -62,7 +62,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -145,7 +145,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -184,7 +184,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -225,7 +225,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -267,7 +267,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -307,7 +307,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -340,7 +340,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
       {
@@ -350,7 +350,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -371,6 +371,36 @@ describe('useTasks hook', () => {
     expect(Alert.alert).toHaveBeenCalledWith('Aviso', 'Esta tarefa já existe.');
   });
 
+  it('should archive a task', async () => {
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Test Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.archiveTask(mockTasks[0]);
+    });
+
+    if (hook.tasks) {
+      expect(hook.tasks[0].archived).toBe(true);
+    }
+    expect(LayoutAnimation.configureNext).toHaveBeenCalled();
+  });
+
   it('should clear lastDeletedTask', async () => {
     const mockTasks: Task[] = [
       {
@@ -380,7 +410,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: new Date().toISOString(),
       },
     ];
@@ -433,7 +463,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'daily',
-        deadline: today.toISOString(),
+        archived: false, deadline: today.toISOString(),
         createdAt: today.toISOString(),
       },
     ];
@@ -476,7 +506,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'weekly',
-        deadline: today.toISOString(),
+        archived: false, deadline: today.toISOString(),
         createdAt: today.toISOString(),
       },
     ];
@@ -512,7 +542,7 @@ describe('useTasks hook', () => {
         priority: 'none',
         category: 'none',
         repeat: 'monthly',
-        deadline: today.toISOString(),
+        archived: false, deadline: today.toISOString(),
         createdAt: today.toISOString(),
       },
     ];

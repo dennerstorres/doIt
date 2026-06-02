@@ -45,6 +45,7 @@ const Home: React.FC = () => {
     addTask,
     toggleTask,
     deleteTask,
+    archiveTask,
     editTask,
     undoDelete,
     clearLastDeletedTask,
@@ -64,7 +65,7 @@ const Home: React.FC = () => {
   }
 
   const filteredTasks = useMemo(() => {
-    const baseTasks = tasks || [];
+    const baseTasks = (tasks || []).filter(t => !t.archived);
     const filtered = filterTasksBySearch(baseTasks, search);
     return sortTasks(filtered, sortType);
   }, [tasks, search, sortType]);
@@ -154,6 +155,7 @@ const Home: React.FC = () => {
         tasks={filteredTasks}
         handleDoneTask={toggleTask}
         handleDeleteTask={deleteTask}
+        handleArchiveTask={archiveTask}
         handleEditTask={editTask}
         emptyMessage={
           search.length > 0

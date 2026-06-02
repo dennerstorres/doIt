@@ -971,6 +971,64 @@ exports[`Task Component renders correctly for a completed task 1`] = `
       style={
         Object {
           "alignItems": "flex-end",
+          "backgroundColor": "#216869",
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
+        }
+      }
+      testID="archive-action"
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": "interpolate-mock",
+            "paddingBottom": 0,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "paddingTop": 0,
+            "transform": Array [
+              Object {
+                "scale": "interpolate-mock",
+              },
+            ],
+          }
+        }
+      >
+        <Icon
+          color="#ffffff"
+          name="archive"
+          size={20}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "marginLeft": 8,
+            }
+          }
+        >
+          Arquivar
+        </Text>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "flex-end",
           "backgroundColor": "#FF0000",
           "height": 50,
           "justifyContent": "center",
@@ -1188,6 +1246,64 @@ exports[`Task Component renders correctly for a pending task 1`] = `
           }
         >
           Editar
+        </Text>
+      </View>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "backgroundColor": "#216869",
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
+        }
+      }
+      testID="archive-action"
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "opacity": "interpolate-mock",
+            "paddingBottom": 0,
+            "paddingLeft": 15,
+            "paddingRight": 15,
+            "paddingTop": 0,
+            "transform": Array [
+              Object {
+                "scale": "interpolate-mock",
+              },
+            ],
+          }
+        }
+      >
+        <Icon
+          color="#ffffff"
+          name="archive"
+          size={20}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#ffffff",
+              "fontSize": 14,
+              "fontWeight": "700",
+              "marginLeft": 8,
+            }
+          }
+        >
+          Arquivar
         </Text>
       </View>
     </View>

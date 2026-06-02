@@ -26,7 +26,7 @@ describe('TaskList Component', () => {
         priority: 'none' as TaskPriority,
         category: 'none' as TaskCategory,
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
       },
       {
@@ -36,7 +36,7 @@ describe('TaskList Component', () => {
         priority: 'none' as TaskPriority,
         category: 'none' as TaskCategory,
         repeat: 'none',
-        deadline: null,
+        archived: false, deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
       },
     ];
@@ -49,6 +49,7 @@ describe('TaskList Component', () => {
             tasks={tasks}
             handleDoneTask={() => {}}
             handleDeleteTask={() => {}}
+            handleArchiveTask={() => {}}
             handleEditTask={() => true}
           />
         </ThemeProvider>,
@@ -67,6 +68,7 @@ describe('TaskList Component', () => {
             tasks={[]}
             handleDoneTask={() => {}}
             handleDeleteTask={() => {}}
+            handleArchiveTask={() => {}}
             handleEditTask={() => true}
           />
         </ThemeProvider>,

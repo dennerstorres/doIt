@@ -3,18 +3,20 @@ import {ListRenderItem} from 'react-native';
 import TaskComponent from '../Task';
 import EmptyState from '../EmptyState';
 import {List} from './styles';
-import {Task, TaskPriority, TaskCategory} from '../../types';
+import {Task, TaskPriority, TaskCategory, TaskRepeat} from '../../types';
 
 interface TaskListProps {
   tasks: Task[];
   handleDoneTask: (task: Task) => void;
   handleDeleteTask: (task: Task) => void;
+  handleArchiveTask: (task: Task) => void;
   handleEditTask: (
     id: string,
     task: string,
     priority: TaskPriority,
     category: TaskCategory,
     deadline: string | null,
+    repeat: TaskRepeat,
   ) => boolean;
   emptyMessage?: string;
 }
@@ -23,6 +25,7 @@ const TaskList: React.FC<TaskListProps> = ({
   tasks,
   handleDoneTask,
   handleDeleteTask,
+  handleArchiveTask,
   handleEditTask,
   emptyMessage,
 }) => {
@@ -32,10 +35,11 @@ const TaskList: React.FC<TaskListProps> = ({
         item={item}
         onDone={handleDoneTask}
         onDelete={handleDeleteTask}
+        onArchive={handleArchiveTask}
         onEdit={handleEditTask}
       />
     ),
-    [handleDoneTask, handleDeleteTask, handleEditTask],
+    [handleDoneTask, handleDeleteTask, handleArchiveTask, handleEditTask],
   );
 
   return (

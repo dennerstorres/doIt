@@ -54,6 +54,7 @@ interface TaskProps {
   item: TaskType;
   onDone: (task: TaskType) => void;
   onDelete: (task: TaskType) => void;
+  onArchive: (task: TaskType) => void;
   onEdit: (
     id: string,
     task: string,
@@ -64,7 +65,7 @@ interface TaskProps {
   ) => boolean;
 }
 
-const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
+const Task = memo<TaskProps>(({item, onDone, onDelete, onArchive, onEdit}) => {
   const theme = useTheme();
   const animatedValue = useRef(new Animated.Value(item.done ? 1 : 0)).current;
   const swipeableRef = useRef<Swipeable>(null);
@@ -243,21 +244,31 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
     onDelete(item);
   };
 
+  const handleArchiveItem = () => {
+    onArchive(item);
+  };
+
   interface RightActionsProps {
     dragX: Animated.AnimatedInterpolation;
     onDeleteItem: () => void;
+    onArchiveItem: () => void;
     onEditItem: () => void;
   }
 
-  function RightActions({dragX, onDeleteItem, onEditItem}: RightActionsProps) {
+  function RightActions({
+    dragX,
+    onDeleteItem,
+    onArchiveItem,
+    onEditItem,
+  }: RightActionsProps) {
     const scale = dragX.interpolate({
-      inputRange: [-200, 0],
+      inputRange: [-300, 0],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });
 
     const opacity = dragX.interpolate({
-      inputRange: [-200, 0],
+      inputRange: [-300, 0],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });
@@ -274,6 +285,18 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
             <Icon name='edit-2' size={20} color={theme.colors.white} />
             {/* @ts-ignore */}
             <ActionText>Editar</ActionText>
+          </ActionContent>
+        </RightActionContainer>
+        <RightActionContainer
+          onPress={onArchiveItem}
+          activeOpacity={0.7}
+          type='archive'
+          testID='archive-action'>
+          {/* @ts-ignore */}
+          <ActionContent style={{transform: [{scale}], opacity}}>
+            <Icon name='archive' size={20} color={theme.colors.white} />
+            {/* @ts-ignore */}
+            <ActionText>Arquivar</ActionText>
           </ActionContent>
         </RightActionContainer>
         <RightActionContainer
@@ -303,6 +326,7 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onEdit}) => {
               <RightActions
                 dragX={dragX}
                 onDeleteItem={handleDeleteItem}
+                onArchiveItem={handleArchiveItem}
                 onEditItem={startEditing}
               />
             )
