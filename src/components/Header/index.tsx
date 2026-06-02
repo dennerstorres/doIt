@@ -7,12 +7,14 @@ import {Container, Title, ActionButton, BackButton} from './styles';
 interface HeaderProps {
   showBackButton?: boolean;
   showStatsButton?: boolean;
+  showHistoryButton?: boolean;
   onBack?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
   showBackButton = false,
   showStatsButton = true,
+  showHistoryButton = false,
   onBack,
 }) => {
   const insets = useSafeAreaInsets();
@@ -20,10 +22,18 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <Container $topInset={insets.top}>
-      {showBackButton && (
+      {showBackButton ? (
         <BackButton onPress={onBack} testID='header-back-button'>
           <Icon name='arrow-left' size={24} color='#fff' />
         </BackButton>
+      ) : (
+        showHistoryButton && (
+          <BackButton
+            onPress={() => navigation.navigate('History')}
+            testID='header-history-button'>
+            <Icon name='archive' size={24} color='#fff' />
+          </BackButton>
+        )
       )}
       <Title>doIt</Title>
       {!showBackButton && showStatsButton && (

@@ -1,0 +1,499 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`History Page renders correctly when loading 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#49a078",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "minHeight": 60,
+          "paddingTop": 0,
+          "position": "relative",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "bottom": 10,
+          "left": 10,
+          "opacity": 1,
+          "position": "absolute",
+        }
+      }
+      testID="header-back-button"
+    >
+      <Icon
+        color="#fff"
+        name="arrow-left"
+        size={24}
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 24,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      doIt
+    </Text>
+  </View>
+  <ActivityIndicator
+    animating={true}
+    color="#49a078"
+    hidesWhenStopped={true}
+    size="large"
+    style={
+      Array [
+        Object {
+          "marginTop": 15,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`History Page renders correctly with archived tasks 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#49a078",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "minHeight": 60,
+          "paddingTop": 0,
+          "position": "relative",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "bottom": 10,
+          "left": 10,
+          "opacity": 1,
+          "position": "absolute",
+        }
+      }
+      testID="header-back-button"
+    >
+      <Icon
+        color="#fff"
+        name="arrow-left"
+        size={24}
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 24,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      doIt
+    </Text>
+  </View>
+  <RCTScrollView
+    ListEmptyComponent={
+      <EmptyState
+        message="Nenhuma tarefa arquivada."
+      />
+    }
+    data={
+      Array [
+        Object {
+          "archived": true,
+          "createdAt": "2026-06-02T20:00:00.000Z",
+          "done": false,
+          "id": "1",
+          "task": "Task 1",
+        },
+        Object {
+          "archived": true,
+          "createdAt": "2026-06-02T20:00:00.000Z",
+          "done": true,
+          "id": "2",
+          "task": "Task 2",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={true}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={
+      Array [
+        Object {
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "width": "100%",
+        },
+      ]
+    }
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={5}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          onSwipeableLeftOpen={[Function]}
+          renderLeftActions={[Function]}
+          renderRightActions={[Function]}
+        >
+          <View
+            done={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(33, 104, 105, 1)",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginBottom": 5,
+                "minHeight": 50,
+                "paddingBottom": 5,
+                "paddingLeft": 15,
+                "paddingRight": 15,
+                "paddingTop": 5,
+                "width": "100%",
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#9cc5a1",
+                    "borderRadius": 2,
+                    "height": 20,
+                    "marginRight": 8,
+                    "width": 2,
+                  },
+                ]
+              }
+            />
+            <Text
+              done={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#ffffff",
+                    "flexBasis": 0,
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "textDecorationLine": "none",
+                  },
+                ]
+              }
+            >
+              Task 1
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          onSwipeableLeftOpen={[Function]}
+          renderLeftActions={[Function]}
+          renderRightActions={[Function]}
+        >
+          <View
+            done={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(73, 160, 120, 1)",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginBottom": 5,
+                "minHeight": 50,
+                "paddingBottom": 5,
+                "paddingLeft": 15,
+                "paddingRight": 15,
+                "paddingTop": 5,
+                "width": "100%",
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#9cc5a1",
+                    "borderRadius": 2,
+                    "height": 20,
+                    "marginRight": 8,
+                    "width": 2,
+                  },
+                ]
+              }
+            />
+            <Text
+              done={true}
+              style={
+                Array [
+                  Object {
+                    "color": "#9cc5a1",
+                    "flexBasis": 0,
+                    "flexGrow": 1,
+                    "flexShrink": 1,
+                    "fontSize": 14,
+                    "fontWeight": "400",
+                    "textDecorationLine": "line-through",
+                  },
+                ]
+              }
+            >
+              Task 2
+            </Text>
+            <Icon
+              color="#9cc5a1"
+              name="check-circle"
+              size={20}
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
+
+exports[`History Page renders correctly with empty archived list 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#dce1de",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      Object {
+        "paddingBottom": 0,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#49a078",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "minHeight": 60,
+          "paddingTop": 0,
+          "position": "relative",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "bottom": 10,
+          "left": 10,
+          "opacity": 1,
+          "position": "absolute",
+        }
+      }
+      testID="header-back-button"
+    >
+      <Icon
+        color="#fff"
+        name="arrow-left"
+        size={24}
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 24,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      doIt
+    </Text>
+  </View>
+  <RCTScrollView
+    ListEmptyComponent={
+      <EmptyState
+        message="Nenhuma tarefa arquivada."
+      />
+    }
+    data={Array []}
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={true}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={
+      Array [
+        Object {
+          "flexBasis": 0,
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "width": "100%",
+        },
+      ]
+    }
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={5}
+  >
+    <View>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "justifyContent": "center",
+              "marginTop": 50,
+            },
+          ]
+        }
+      >
+        <Icon
+          color="#9cc5a1"
+          name="clipboard"
+          size={50}
+        />
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#9cc5a1",
+                "fontSize": 16,
+                "fontWeight": "400",
+                "marginTop": 10,
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          Nenhuma tarefa arquivada.
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
