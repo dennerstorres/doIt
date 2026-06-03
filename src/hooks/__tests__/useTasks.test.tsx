@@ -2,10 +2,7 @@ import React from 'react';
 import {useTasks} from '../useTasks';
 // @ts-ignore - storage.js is still in JS
 import {getTasks, saveTasks} from '../../services/storage';
-import {
-  MIN_TASK_LENGTH,
-  MAX_TASK_LENGTH,
-} from '../../constants/tasks';
+import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
 import {Alert, LayoutAnimation, Text, View} from 'react-native';
 import renderer, {act} from 'react-test-renderer';
 import {Task} from '../../types';
