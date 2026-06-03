@@ -2,6 +2,10 @@ import React from 'react';
 import {useTasks} from '../useTasks';
 // @ts-ignore - storage.js is still in JS
 import {getTasks, saveTasks} from '../../services/storage';
+import {
+  MIN_TASK_LENGTH,
+  MAX_TASK_LENGTH,
+} from '../../constants/tasks';
 import {Alert, LayoutAnimation, Text, View} from 'react-native';
 import renderer, {act} from 'react-test-renderer';
 import {Task} from '../../types';
@@ -463,6 +467,196 @@ describe('useTasks hook', () => {
     });
 
     expect(saveTasks).toHaveBeenCalledWith(expect.any(Array));
+  });
+
+  it('should handle error when saving tasks', async () => {
+    const consoleSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    (getTasks as jest.Mock).mockResolvedValueOnce([]);
+    (saveTasks as jest.Mock).mockRejectedValueOnce(new Error('Save error'));
+
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.addTask('New Task');
+    });
+
+    expect(saveTasks).toHaveBeenCalled();
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Error saving tasks:',
+      expect.any(Error),
+    );
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Erro de Persistência',
+      'Não foi possível salvar suas alterações localmente.',
+    );
+    consoleSpy.mockRestore();
+  });
+
+  it('should not add a task with title shorter than MIN_TASK_LENGTH', async () => {
+    (getTasks as jest.Mock).mockResolvedValueOnce([]);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      const success = hook.addTask('ab');
+      expect(success).toBe(false);
+    });
+
+    expect(hook.tasks).toHaveLength(0);
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Aviso',
+      `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+    );
+  });
+
+  it('should not add a task with title longer than MAX_TASK_LENGTH', async () => {
+    (getTasks as jest.Mock).mockResolvedValueOnce([]);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    const longTask = 'a'.repeat(MAX_TASK_LENGTH + 1);
+    await act(async () => {
+      const success = hook.addTask(longTask);
+      expect(success).toBe(false);
+    });
+
+    expect(hook.tasks).toHaveLength(0);
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Aviso',
+      `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
+    );
+  });
+
+  it('should not add a duplicate task title', async () => {
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Duplicate Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      const success = hook.addTask('duplicate task');
+      expect(success).toBe(false);
+    });
+
+    expect(hook.tasks).toHaveLength(1);
+    expect(Alert.alert).toHaveBeenCalledWith('Aviso', 'Esta tarefa já existe.');
+  });
+
+  it('should not edit a task with title shorter than MIN_TASK_LENGTH', async () => {
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Valid Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      const success = hook.editTask('1', 'ab');
+      expect(success).toBe(false);
+    });
+
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Aviso',
+      `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
+    );
+  });
+
+  it('should not edit a task with title longer than MAX_TASK_LENGTH', async () => {
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Valid Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    const longTask = 'a'.repeat(MAX_TASK_LENGTH + 1);
+    await act(async () => {
+      const success = hook.editTask('1', longTask);
+      expect(success).toBe(false);
+    });
+
+    expect(Alert.alert).toHaveBeenCalledWith(
+      'Aviso',
+      `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
+    );
+  });
+
+  it('should create a new instance without deadline when a repeating task without deadline is completed', async () => {
+    const mockTasks: Task[] = [
+      {
+        id: '1',
+        task: 'Repeat Daily No Deadline',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'daily',
+        archived: false,
+        deadline: null,
+        createdAt: new Date().toISOString(),
+      },
+    ];
+    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    let hook!: UseTasksHookType;
+    await act(async () => {
+      renderer.create(<TestComponent onHook={h => (hook = h)} />);
+    });
+
+    await act(async () => {
+      hook.toggleTask(mockTasks[0]);
+    });
+
+    expect(hook.tasks).toHaveLength(2);
+    if (hook.tasks) {
+      const newTask = hook.tasks.find(t => t.id !== '1');
+      expect(newTask?.deadline).toBeNull();
+    }
   });
 
   it('should create a new instance when a daily repeating task is completed', async () => {

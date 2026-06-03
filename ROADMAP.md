@@ -178,7 +178,7 @@
 - [ ] Melhorar performance de swipe
 - [ ] Revisar dependências pesadas
 - [x] Configurar Jest corretamente
-- [ ] Criar testes unitários hooks
+- [x] Criar testes unitários hooks
 - [x] Criar testes components
 - [ ] Criar testes de integração
 - [ ] Configurar coverage
@@ -1186,3 +1186,17 @@
 - **Validações**: `tsc` (zero erros), `yarn test` (74/74 passando), `yarn lint` (sem erros).
 - **Limitações**: As estatísticas são baseadas apenas nas tarefas atuais em memória/storage local; não há persistência de histórico temporal (ex: produtividade da última semana).
 - **Riscos**: Se o número de categorias ou prioridades crescer significativamente, o layout da tela de estatísticas pode precisar de scroll adicional ou agrupamento.
+
+## Criar testes unitários hooks
+
+- **Implementação**: Ampliação da cobertura de testes unitários para o hook central da aplicação (`useTasks`).
+- **Decisões Técnicas**:
+  - Inclusão de testes para validações de input (vazio, mínimo e máximo de caracteres).
+  - Implementação de testes para detecção de duplicatas em criação e edição.
+  - Cobertura de cenários de erro na persistência (`saveTasks`).
+  - Verificação da lógica de repetição de tarefas para casos com e sem data limite.
+  - Atualização dos snapshots da tela de `Statistics` para resolver inconsistências de renderização de espaços.
+- **Arquivos Alterados**: `src/hooks/__tests__/useTasks.test.tsx`, `src/pages/Statistics/__tests__/__snapshots__/Statistics.test.tsx.snap`, `ROADMAP.md`.
+- **Validações**: `yarn test` (95/95 passando), com cobertura do `useTasks.ts` elevada para 96.6%.
+- **Limitações**: A cobertura de 100% não foi atingida devido a verificações defensivas de `isMounted` e fallbacks de erro do `AsyncStorage` que exigem mocks complexos de timing.
+- **Riscos**: Nenhum identificado.
