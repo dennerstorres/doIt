@@ -176,7 +176,7 @@
 - [x] Adicionar memoização
 - [x] Evitar rerenders desnecessários
 - [x] Melhorar performance de swipe
-- [ ] Revisar dependências pesadas
+- [x] Revisar dependências pesadas
 - [x] Configurar Jest corretamente
 - [x] Criar testes unitários hooks
 - [x] Criar testes components
@@ -1213,3 +1213,15 @@
 - **Validações**: `yarn lint` (sem erros), `yarn test` (102/102 passando), auditoria de dependências de hooks.
 - **Limitações**: A performance de swipe ainda depende da eficiência do `react-native-gesture-handler` e da complexidade do layout renderizado nas ações.
 - **Riscos**: Uso de `useRef` para leitura de estado requer cuidado para garantir que atualizações funcionais (`setTasks(prev => ...)`) continuem sendo usadas para mutações.
+
+## Revisar dependências pesadas
+
+- **Implementação**: Auditoria e otimização das dependências do projeto para reduzir o tamanho do bundle e melhorar a performance nativa.
+- **Decisões Técnicas**:
+  - Remoção de `react-native-reanimated` (^1.13.2) por não estar sendo utilizado no projeto e ser uma dependência pesada que impacta o tempo de inicialização.
+  - Ativação de `react-native-screens` no ponto de entrada (`index.js`) através da chamada `enableScreens()`. Isso otimiza o uso de memória e a performance de transição do React Navigation ao utilizar componentes nativos para as telas.
+  - Manutenção de `@react-native-community/masked-view` por ser uma dependência necessária para o `@react-navigation/stack` v5.
+- **Arquivos Alterados**: `package.json`, `yarn.lock`, `index.js`, `ROADMAP.md`.
+- **Validações**: `yarn test` (102/102 passando) para garantir integridade do ambiente JS; auditoria manual de uso de dependências via grep.
+- **Limitações**: O ganho de performance de `react-native-screens` é mais perceptível em dispositivos físicos com muitas telas empilhadas.
+- **Riscos**: Nenhuma regressão identificada no ambiente de testes unitários.
