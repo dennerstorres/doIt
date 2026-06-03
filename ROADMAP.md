@@ -175,7 +175,7 @@
 - [x] Otimizar FlatList
 - [x] Adicionar memoização
 - [x] Evitar rerenders desnecessários
-- [ ] Melhorar performance de swipe
+- [x] Melhorar performance de swipe
 - [ ] Revisar dependências pesadas
 - [x] Configurar Jest corretamente
 - [x] Criar testes unitários hooks
@@ -1200,3 +1200,16 @@
 - **Validações**: `yarn test` (95/95 passando), com cobertura do `useTasks.ts` elevada para 96.6%.
 - **Limitações**: A cobertura de 100% não foi atingida devido a verificações defensivas de `isMounted` e fallbacks de erro do `AsyncStorage` que exigem mocks complexos de timing.
 - **Riscos**: Nenhum identificado.
+
+## Melhorar performance de swipe
+
+- **Implementação**: Otimização profunda da performance de interação na lista de tarefas, focando em estabilidade de callbacks e memoização de componentes.
+- **Decisões Técnicas**:
+  - Introdução do padrão `useRef` no hook `useTasks` para rastrear o estado de tarefas sem disparar re-renderizações ou invalidar dependências de `useCallback`. Isso permitiu tornar as funções `addTask` e `editTask` estáveis (referência constante).
+  - Memoização de todas as funções de renderização de ações de swipe (`renderLeftActions`, `renderRightActions`) no componente `Task` usando `useCallback`.
+  - Estabilização de todos os handlers de evento (`handleDone`, `handleDeleteItem`, `handleArchiveItem`, `startEditing`) para evitar re-renderizações internas do componente `Swipeable`.
+  - Correção de bug de regressão de snapshot na tela de `Statistics` causado por manipulação inconsistente de espaços em branco em elementos JSX que combinam texto estático e dinâmico.
+- **Arquivos Alterados**: `src/hooks/useTasks.ts`, `src/components/Task/index.tsx`, `src/pages/Statistics/index.tsx`, `src/pages/Statistics/__tests__/__snapshots__/Statistics.test.tsx.snap`, `ROADMAP.md`.
+- **Validações**: `yarn lint` (sem erros), `yarn test` (102/102 passando), auditoria de dependências de hooks.
+- **Limitações**: A performance de swipe ainda depende da eficiência do `react-native-gesture-handler` e da complexidade do layout renderizado nas ações.
+- **Riscos**: Uso de `useRef` para leitura de estado requer cuidado para garantir que atualizações funcionais (`setTasks(prev => ...)`) continuem sendo usadas para mutações.

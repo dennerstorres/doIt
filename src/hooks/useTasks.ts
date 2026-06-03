@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, useRef} from 'react';
 import {Alert, LayoutAnimation, LayoutAnimationConfig} from 'react-native';
 import {saveTasks, getTasks} from '../services/storage';
 import {createTask} from '../models/Task';
@@ -29,7 +29,12 @@ const animationConfig: LayoutAnimationConfig = {
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[] | null>(null);
+  const tasksRef = useRef<Task[] | null>(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    tasksRef.current = tasks;
+  }, [tasks]);
   const [lastDeletedTask, setLastDeletedTask] = useState<Task | null>(null);
 
   useEffect(() => {
@@ -111,7 +116,8 @@ export const useTasks = () => {
         return false;
       }
 
-      const taskExists = (tasks || []).some(
+      const currentTasks = tasksRef.current || [];
+      const taskExists = currentTasks.some(
         t => t.task.toLowerCase() === trimmedTask.toLowerCase(),
       );
 
@@ -131,7 +137,7 @@ export const useTasks = () => {
       setTasks(prevTasks => [...(prevTasks || []), newTask]);
       return true;
     },
-    [tasks],
+    [],
   );
 
   const toggleTask = useCallback((item: Task) => {
@@ -248,7 +254,8 @@ export const useTasks = () => {
         return false;
       }
 
-      const taskExists = (tasks || []).some(
+      const currentTasks = tasksRef.current || [];
+      const taskExists = currentTasks.some(
         t => t.id !== id && t.task.toLowerCase() === trimmedTask.toLowerCase(),
       );
 
@@ -275,7 +282,7 @@ export const useTasks = () => {
       );
       return true;
     },
-    [tasks],
+    [],
   );
 
   const undoDelete = useCallback(() => {

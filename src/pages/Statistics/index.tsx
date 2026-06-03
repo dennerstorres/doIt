@@ -87,9 +87,9 @@ const Statistics: React.FC = () => {
           </Row>
           <Row>
             <Label>Streak de Produtividade</Label>
-            <Value>
-              🔥 {stats.streak} {stats.streak === 1 ? 'dia' : 'dias'}
-            </Value>
+            <Value>{`🔥 ${stats.streak} ${
+              stats.streak === 1 ? 'dia' : 'dias'
+            }`}</Value>
           </Row>
         </Card>
 

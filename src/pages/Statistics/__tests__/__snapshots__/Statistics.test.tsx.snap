@@ -348,10 +348,7 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
               ]
             }
           >
-            🔥
-            0
-
-            dias
+            🔥 0 dias
           </Text>
         </View>
       </View>

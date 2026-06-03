@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState, memo} from 'react';
+import React, {useEffect, useRef, useState, memo, useCallback} from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {Animated, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -130,14 +130,14 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onArchive, onEdit}) => {
     setIsEditing(false);
   };
 
-  const startEditing = () => {
+  const startEditing = useCallback(() => {
     setIsEditing(true);
     setEditedPriority(item.priority || TASK_PRIORITIES.NONE);
     setEditedCategory(item.category || TASK_CATEGORIES.NONE);
     setEditedDeadline(item.deadline || null);
     setEditedRepeat(item.repeat || TASK_REPEATS.NONE);
     swipeableRef.current?.close();
-  };
+  }, [item.priority, item.category, item.deadline, item.repeat]);
 
   const onChangeDate = (event: Event, selectedDate?: Date) => {
     const currentDate =
@@ -185,15 +185,15 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onArchive, onEdit}) => {
   const currentRepeatLabel =
     repeatConfig.find(r => r.id === item.repeat)?.label || '';
 
-  const formatDate = (dateStr: string | null) => {
+  const formatDate = useCallback((dateStr: string | null) => {
     if (!dateStr) {
       return '';
     }
     const date = new Date(dateStr);
     return date.toLocaleDateString('pt-BR');
-  };
+  }, []);
 
-  const isExpired = (dateStr: string | null) => {
+  const isExpired = useCallback((dateStr: string | null) => {
     if (!dateStr) {
       return false;
     }
@@ -201,138 +201,130 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onArchive, onEdit}) => {
     today.setHours(0, 0, 0, 0);
     const deadlineDate = new Date(dateStr);
     return deadlineDate < today;
-  };
+  }, []);
 
-  function LeftActions(
-    progress: Animated.AnimatedInterpolation,
-    dragX: Animated.AnimatedInterpolation,
-  ) {
-    const scale = dragX.interpolate({
-      inputRange: [0, 100],
-      outputRange: [0, 1],
-      extrapolate: 'clamp',
-    });
+  const renderLeftActions = useCallback(
+    (
+      progress: Animated.AnimatedInterpolation,
+      dragX: Animated.AnimatedInterpolation,
+    ) => {
+      const scale = dragX.interpolate({
+        inputRange: [0, 100],
+        outputRange: [0, 1],
+        extrapolate: 'clamp',
+      });
 
-    const opacity = dragX.interpolate({
-      inputRange: [0, 100],
-      outputRange: [0, 1],
-      extrapolate: 'clamp',
-    });
+      const opacity = dragX.interpolate({
+        inputRange: [0, 100],
+        outputRange: [0, 1],
+        extrapolate: 'clamp',
+      });
 
-    return (
-      // @ts-ignore
-      <LeftActionContainer>
-        {/* @ts-ignore */}
-        <ActionContent style={{transform: [{scale}], opacity}}>
-          <Icon
-            name={item.done ? 'rotate-ccw' : 'check'}
-            size={20}
-            color={theme.colors.white}
-          />
+      return (
+        // @ts-ignore
+        <LeftActionContainer>
           {/* @ts-ignore */}
-          <ActionText>{item.done ? 'Desfazer' : 'Concluir'}</ActionText>
-        </ActionContent>
-      </LeftActionContainer>
-    );
-  }
+          <ActionContent style={{transform: [{scale}], opacity}}>
+            <Icon
+              name={item.done ? 'rotate-ccw' : 'check'}
+              size={20}
+              color={theme.colors.white}
+            />
+            {/* @ts-ignore */}
+            <ActionText>{item.done ? 'Desfazer' : 'Concluir'}</ActionText>
+          </ActionContent>
+        </LeftActionContainer>
+      );
+    },
+    [item.done, theme.colors.white],
+  );
 
-  const handleDone = () => {
+  const handleDone = useCallback(() => {
     onDone(item);
-  };
+  }, [onDone, item]);
 
-  const handleDeleteItem = () => {
+  const handleDeleteItem = useCallback(() => {
     onDelete(item);
-  };
+  }, [onDelete, item]);
 
-  const handleArchiveItem = () => {
+  const handleArchiveItem = useCallback(() => {
     onArchive(item);
-  };
+  }, [onArchive, item]);
 
-  interface RightActionsProps {
-    dragX: Animated.AnimatedInterpolation;
-    onDeleteItem: () => void;
-    onArchiveItem: () => void;
-    onEditItem: () => void;
-  }
+  const renderRightActions = useCallback(
+    (
+      progress: Animated.AnimatedInterpolation,
+      dragX: Animated.AnimatedInterpolation,
+    ) => {
+      const scale = dragX.interpolate({
+        inputRange: [-300, 0],
+        outputRange: [1, 0],
+        extrapolate: 'clamp',
+      });
 
-  function RightActions({
-    dragX,
-    onDeleteItem,
-    onArchiveItem,
-    onEditItem,
-  }: RightActionsProps) {
-    const scale = dragX.interpolate({
-      inputRange: [-300, 0],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
+      const opacity = dragX.interpolate({
+        inputRange: [-300, 0],
+        outputRange: [1, 0],
+        extrapolate: 'clamp',
+      });
 
-    const opacity = dragX.interpolate({
-      inputRange: [-300, 0],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
-
-    return (
-      <ActionsWrapper>
-        <RightActionContainer
-          onPress={onEditItem}
-          activeOpacity={0.7}
-          type='edit'
-          testID='edit-action'>
-          {/* @ts-ignore */}
-          <ActionContent style={{transform: [{scale}], opacity}}>
-            <Icon name='edit-2' size={20} color={theme.colors.white} />
+      return (
+        <ActionsWrapper>
+          <RightActionContainer
+            onPress={startEditing}
+            activeOpacity={0.7}
+            type='edit'
+            testID='edit-action'>
             {/* @ts-ignore */}
-            <ActionText>Editar</ActionText>
-          </ActionContent>
-        </RightActionContainer>
-        <RightActionContainer
-          onPress={onArchiveItem}
-          activeOpacity={0.7}
-          type='archive'
-          testID='archive-action'>
-          {/* @ts-ignore */}
-          <ActionContent style={{transform: [{scale}], opacity}}>
-            <Icon name='archive' size={20} color={theme.colors.white} />
+            <ActionContent style={{transform: [{scale}], opacity}}>
+              <Icon name='edit-2' size={20} color={theme.colors.white} />
+              {/* @ts-ignore */}
+              <ActionText>Editar</ActionText>
+            </ActionContent>
+          </RightActionContainer>
+          <RightActionContainer
+            onPress={handleArchiveItem}
+            activeOpacity={0.7}
+            type='archive'
+            testID='archive-action'>
             {/* @ts-ignore */}
-            <ActionText>
-              {item.archived ? 'Desarquivar' : 'Arquivar'}
-            </ActionText>
-          </ActionContent>
-        </RightActionContainer>
-        <RightActionContainer
-          onPress={onDeleteItem}
-          activeOpacity={0.7}
-          testID='delete-action'>
-          {/* @ts-ignore */}
-          <ActionContent style={{transform: [{scale}], opacity}}>
-            <Icon name='trash' size={20} color={theme.colors.white} />
+            <ActionContent style={{transform: [{scale}], opacity}}>
+              <Icon name='archive' size={20} color={theme.colors.white} />
+              {/* @ts-ignore */}
+              <ActionText>
+                {item.archived ? 'Desarquivar' : 'Arquivar'}
+              </ActionText>
+            </ActionContent>
+          </RightActionContainer>
+          <RightActionContainer
+            onPress={handleDeleteItem}
+            activeOpacity={0.7}
+            testID='delete-action'>
             {/* @ts-ignore */}
-            <ActionText>Excluir</ActionText>
-          </ActionContent>
-        </RightActionContainer>
-      </ActionsWrapper>
-    );
-  }
+            <ActionContent style={{transform: [{scale}], opacity}}>
+              <Icon name='trash' size={20} color={theme.colors.white} />
+              {/* @ts-ignore */}
+              <ActionText>Excluir</ActionText>
+            </ActionContent>
+          </RightActionContainer>
+        </ActionsWrapper>
+      );
+    },
+    [
+      item.archived,
+      handleArchiveItem,
+      handleDeleteItem,
+      startEditing,
+      theme.colors.white,
+    ],
+  );
 
   return (
     <Swipeable
       ref={swipeableRef}
-      renderLeftActions={isEditing ? undefined : LeftActions}
+      renderLeftActions={isEditing ? undefined : renderLeftActions}
       onSwipeableLeftOpen={handleDone}
-      renderRightActions={
-        isEditing
-          ? undefined
-          : (progress, dragX) => (
-              <RightActions
-                dragX={dragX}
-                onDeleteItem={handleDeleteItem}
-                onArchiveItem={handleArchiveItem}
-                onEditItem={startEditing}
-              />
-            )
-      }>
+      renderRightActions={isEditing ? undefined : renderRightActions}>
       {/* @ts-ignore */}
       <Container done={item.done} style={{backgroundColor}}>
         {isEditing ? (
