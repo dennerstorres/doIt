@@ -180,7 +180,7 @@
 - [x] Configurar Jest corretamente
 - [x] Criar testes unitários hooks
 - [x] Criar testes components
-- [ ] Criar testes de integração
+- [x] Criar testes de integração
 - [ ] Configurar coverage
 
 ---
@@ -1225,3 +1225,16 @@
 - **Validações**: `yarn test` (102/102 passando) para garantir integridade do ambiente JS; auditoria manual de uso de dependências via grep.
 - **Limitações**: O ganho de performance de `react-native-screens` é mais perceptível em dispositivos físicos com muitas telas empilhadas.
 - **Riscos**: Nenhuma regressão identificada no ambiente de testes unitários.
+
+## Criar testes de integração
+
+- **Implementação**: Criação de uma suíte de testes de integração para validar os principais fluxos de usuário.
+- **Decisões Técnicas**:
+  - Implementação de testes em `__tests__/Integration.test.tsx` utilizando `react-test-renderer` e `AsyncStorage` mockado.
+  - Os testes cobrem o ciclo de vida completo de uma tarefa: criação, conclusão, busca, arquivamento e persistência.
+  - Validação da persistência de estado entre diferentes montagens da aplicação, garantindo que o `AsyncStorage` e o hook `useTasks` funcionam em conjunto.
+  - Uso de `act()` para gerenciar atualizações de estado assíncronas e garantir que a árvore de componentes reflita o estado real.
+- **Arquivos Alterados**: `__tests__/Integration.test.tsx`, `ROADMAP.md`.
+- **Validações**: `yarn jest __tests__/Integration.test.tsx` (2/2 passando).
+- **Limitações**: Os testes focam na lógica de estado e integração de componentes; interações nativas complexas (como gestos reais de swipe) são simuladas via chamadas diretas de props devido às limitações do `react-test-renderer`.
+- **Riscos**: Se a estrutura de persistência mudar significativamente, os testes de integração precisarão de atualização para refletir o novo schema de dados.
