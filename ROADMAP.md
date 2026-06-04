@@ -181,7 +181,7 @@
 - [x] Criar testes unitários hooks
 - [x] Criar testes components
 - [x] Criar testes de integração
-- [ ] Configurar coverage
+- [x] Configurar coverage
 
 ---
 
@@ -1213,6 +1213,18 @@
 - **Validações**: `yarn lint` (sem erros), `yarn test` (102/102 passando), auditoria de dependências de hooks.
 - **Limitações**: A performance de swipe ainda depende da eficiência do `react-native-gesture-handler` e da complexidade do layout renderizado nas ações.
 - **Riscos**: Uso de `useRef` para leitura de estado requer cuidado para garantir que atualizações funcionais (`setTasks(prev => ...)`) continuem sendo usadas para mutações.
+
+## Configurar coverage
+
+- **Implementação**: Refinamento da configuração de cobertura de testes do Jest e migração final do conjunto de testes para TypeScript.
+- **Decisões Técnicas**:
+  - Aumento dos limiares de cobertura globais em `package.json` de 40% para 70% (branches) e 80% (statements, functions, lines) para refletir e proteger a alta qualidade alcançada (~90%).
+  - Configuração explícita de `coverageReporters` para incluir `text`, `lcov`, `clover` e `json`.
+  - Migração de `__tests__/App-test.js` para `__tests__/App.test.tsx`, completando formalmente a migração da Fase 5.
+- **Arquivos Alterados**: `package.json`, `__tests__/App.test.tsx`, `ROADMAP.md`.
+- **Validações**: `yarn validate` confirmando que todos os testes passam e os novos limiares são respeitados.
+- **Limitações**: Algumas áreas de UI e animações complexas ainda possuem lacunas de cobertura menores devido à natureza do ambiente de teste.
+- **Riscos**: Limiares rigorosos podem exigir mais esforço em novas funcionalidades para manter a conformidade, mas garantem a estabilidade do projeto.
 
 ## Revisar dependências pesadas
 
