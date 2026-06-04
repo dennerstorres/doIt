@@ -116,6 +116,21 @@ if (UIManager) {
   UIManager.configureNextLayoutAnimation = jest.fn();
 }
 
+// Synchronous mock for TimingAnimation to prevent _bezier is not a function during teardown
+jest.mock(
+  'react-native/Libraries/Animated/src/animations/TimingAnimation',
+  () => {
+    return function (config) {
+      this.start = callback => {
+        if (callback && typeof callback === 'function') {
+          callback({finished: true});
+        }
+      };
+      this.stop = () => {};
+    };
+  },
+);
+
 jest.mock('react-native-safe-area-context', () => {
   const React = require('react');
   const View = require('react-native').View;

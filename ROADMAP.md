@@ -187,9 +187,9 @@
 
 # FASE 9 — Atualização Tecnológica
 
-- [ ] Atualizar React Native
-- [ ] Atualizar React Navigation
-- [ ] Revisar dependências deprecated
+- [!] Atualizar React Native
+- [!] Atualizar React Navigation
+- [x] Revisar dependências deprecated
 - [ ] Remover bibliotecas obsoletas
 - [ ] Migrar gesture-handler se necessário
 - [ ] Validar Android 13+
@@ -1250,3 +1250,25 @@
 - **Validações**: `yarn jest __tests__/Integration.test.tsx` (2/2 passando).
 - **Limitações**: Os testes focam na lógica de estado e integração de componentes; interações nativas complexas (como gestos reais de swipe) são simuladas via chamadas diretas de props devido às limitações do `react-test-renderer`.
 - **Riscos**: Se a estrutura de persistência mudar significativamente, os testes de integração precisarão de atualização para refletir o novo schema de dados.
+
+## Atualizar React Native
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Incompatibilidade entre a versão do Java instalada no ambiente (Java 21) e a versão do Gradle utilizada no projeto (Gradle 6.2). O Gradle 6.2 não suporta Java 21. Além disso, o upgrade de versão major do React Native exige validação em dispositivos reais/emuladores, o que é limitado no ambiente de sandbox.
+- **Sugestão de Desbloqueio**: Instalar uma versão compatível do JDK (ex: JDK 11) ou atualizar o Gradle e o Android Gradle Plugin em um ambiente de desenvolvimento local com suporte a emuladores.
+
+## Atualizar React Navigation
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existem branches de feature pendentes (`feature/upgrade-react-navigation-v6-*`) indicando que o trabalho já foi iniciado ou está sob revisão. Realizar o upgrade agora causaria conflitos arquiteturais com o trabalho em andamento.
+- **Sugestão de Desbloqueio**: Revisar, finalizar e realizar o merge das branches de upgrade existentes antes de prosseguir com novas alterações na navegação.
+
+## Revisar dependências deprecated
+
+- **Implementação**: Auditoria de dependências para identificar e mitigar avisos de depreciação.
+- **Decisões Técnicas**:
+  - Atualização do `@react-native-community/masked-view` para a versão `0.1.11`. Embora a biblioteca tenha sido movida para `@react-native-masked-view/masked-view`, o `@react-navigation/stack` v5 possui uma dependência síncrona fixa no nome do pacote antigo. Alterar o nome causaria quebras em tempo de execução sem refatoração profunda da navegação (planejada para a Fase 9).
+  - Adição de um mock síncrono para `TimingAnimation` em `jest-setup.js`. Isso resolve o erro intermitente `ReferenceError: _bezier is not a function` que ocorria durante o encerramento dos testes no ambiente React Native 0.63.
+- **Arquivos Alterados**: `package.json`, `yarn.lock`, `jest-setup.js`, `ROADMAP.md`.
+- **Validações**: `yarn validate` confirmando integridade do projeto e estabilidade da suíte de testes.
+- **Riscos**: A permanência no nome do pacote antigo do `masked-view` mantém o aviso de "Repository moved" no `yarn install`, mas garante a estabilidade do app até o upgrade para Navigation v6.
