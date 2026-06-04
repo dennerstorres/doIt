@@ -187,8 +187,8 @@
 
 # FASE 9 — Atualização Tecnológica
 
-- [ ] Atualizar React Native
-- [ ] Atualizar React Navigation
+- [!] Atualizar React Native
+- [x] Atualizar React Navigation
 - [ ] Revisar dependências deprecated
 - [ ] Remover bibliotecas obsoletas
 - [ ] Migrar gesture-handler se necessário
@@ -1172,6 +1172,22 @@
   - Cobertura de testes unitários abrangente para a nova tela e para as interações no `Header`.
 - **Limitações**: A lista de histórico não possui filtros ou ordenação específica nesta fase, seguindo a ordem padrão de tarefas.
 - **Riscos**: Baixo. A funcionalidade utiliza o estado e as ações já existentes no hook `useTasks`.
+
+## Atualizar React Native
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Incompatibilidade entre a versão do Java instalada no ambiente (Java 21) e a versão do Gradle utilizada no projeto (Gradle 6.2). O Gradle 6.2 não suporta Java 21, resultando em erros de inicialização do Groovy. Além disso, o React Native 0.63.4 é uma versão antiga que requer cuidados específicos de compatibilidade em ambientes de build modernos.
+- **Sugestão de Desbloqueio**: Instalar uma versão compatível do JDK (ex: JDK 8 ou 11) ou atualizar o Gradle e o Android Gradle Plugin antes de prosseguir com a atualização do React Native.
+
+## Atualizar React Navigation
+
+- **Implementação**: Upgrade do `@react-navigation/native` e `@react-navigation/stack` da v5 para a v6.
+- **Decisões Técnicas**:
+  - Centralização de configurações de cabeçalho (`headerShown: false`) no `screenOptions` do `Stack.Navigator` para reduzir redundância, seguindo as melhores práticas da v6.
+  - Atualização do `jest-setup.js` para incluir mocks de `SafeAreaInsetsContext` e `SafeAreaFrameContext` como Contextos React reais, satisfazendo as exigências internas do `StackView` da v6 durante os testes.
+  - Upgrade sincronizado de `react-native-screens` (^3.29.0) e `react-native-safe-area-context` (^4.8.2) para garantir compatibilidade e performance com a nova versão do Navigation.
+- **Limitações**: Nenhuma identificada. A tipagem `RootStackParamList` e a estrutura de rotas foram preservadas integralmente.
+- **Riscos**: Mudanças sutis no comportamento de transição ou cálculo de insets em dispositivos físicos devido a atualizações significativas nas dependências nativas (`screens` e `safe-area`).
 
 ## Adicionar estatísticas
 

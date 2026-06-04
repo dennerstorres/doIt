@@ -26,28 +26,10 @@ const App: React.FC = () => {
       {/* @ts-ignore - ThemeProvider conflict with React 16 types */}
       <ThemeProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name='Home'
-              component={Home}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name='Statistics'
-              component={Statistics}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name='History'
-              component={History}
-              options={{
-                headerShown: false,
-              }}
-            />
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name='Home' component={Home} />
+            <Stack.Screen name='Statistics' component={Statistics} />
+            <Stack.Screen name='History' component={History} />
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>
