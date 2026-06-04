@@ -1437,6 +1437,7 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
                 "width": "100%",
               }
             }
+            testID="task-item"
           >
             <View
               style={

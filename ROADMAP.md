@@ -180,7 +180,7 @@
 - [x] Configurar Jest corretamente
 - [x] Criar testes unitários hooks
 - [x] Criar testes components
-- [ ] Criar testes de integração
+- [x] Criar testes de integração
 - [ ] Configurar coverage
 
 ---
@@ -1225,3 +1225,18 @@
 - **Validações**: `yarn test` (102/102 passando) para garantir integridade do ambiente JS; auditoria manual de uso de dependências via grep.
 - **Limitações**: O ganho de performance de `react-native-screens` é mais perceptível em dispositivos físicos com muitas telas empilhadas.
 - **Riscos**: Nenhuma regressão identificada no ambiente de testes unitários.
+
+## Criar testes de integração
+
+- **Implementação**: Criação de um conjunto de testes de integração ponta a ponta simulando o fluxo real do usuário.
+- **Decisões Técnicas**:
+  - Implementação em `__tests__/integration/TaskFlow.test.tsx` utilizando `react-test-renderer` para renderizar o `App` completo.
+  - Simulação de ciclo de vida completo: criação de tarefa (com metadados), conclusão, busca, deleção com confirmação de alerta, e desfazer deleção.
+  - Verificação de consistência de dados entre a Home e a tela de Estatísticas através de um storage mockado compartilhado.
+  - Migração do último teste JS (`App-test.js`) para TypeScript (`App.test.tsx`), atingindo 100% de tipagem na suite de testes.
+  - Melhoria da infraestrutura de testes com mock síncrono de `TimingAnimation` para evitar erros de referência (`_bezier`) durante o teardown.
+  - Inclusão de `testID='task-item'` no componente `Task` para seletores de teste mais robustos.
+- **Arquivos Alterados**: `__tests__/integration/TaskFlow.test.tsx`, `__tests__/App.test.tsx`, `src/components/Task/index.tsx`, `jest-setup.js`, `package.json`, `ROADMAP.md`.
+- **Validações**: `yarn validate` (lint, prettier e testes passando), cobertura global atingindo ~90% de statements.
+- **Limitações**: Testes de navegação entre telas em `react-test-renderer` dependem de renderizações separadas devido à natureza estática do renderer comparado ao RNTL.
+- **Riscos**: Mocks de animação síncrona podem ocultar bugs de timing muito específicos de UI, mas garantem estabilidade no ambiente CI.

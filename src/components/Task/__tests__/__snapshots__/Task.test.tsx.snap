@@ -21,6 +21,7 @@ exports[`Task Component enters editing mode when edit action is pressed 1`] = `
         "width": "100%",
       }
     }
+    testID="task-item"
   >
     <View
       style={
@@ -853,6 +854,7 @@ exports[`Task Component renders correctly for a completed task 1`] = `
         "width": "100%",
       }
     }
+    testID="task-item"
   >
     <View
       style={
@@ -1149,6 +1151,7 @@ exports[`Task Component renders correctly for a pending task 1`] = `
         "width": "100%",
       }
     }
+    testID="task-item"
   >
     <View
       style={

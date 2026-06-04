@@ -326,7 +326,7 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onArchive, onEdit}) => {
       onSwipeableLeftOpen={handleDone}
       renderRightActions={isEditing ? undefined : renderRightActions}>
       {/* @ts-ignore */}
-      <Container done={item.done} style={{backgroundColor}}>
+      <Container done={item.done} style={{backgroundColor}} testID='task-item'>
         {isEditing ? (
           <>
             <EditContentWrapper>

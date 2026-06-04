@@ -243,6 +243,7 @@ exports[`History Page renders correctly with archived tasks 1`] = `
                 "width": "100%",
               }
             }
+            testID="task-item"
           >
             <View
               style={
@@ -304,6 +305,7 @@ exports[`History Page renders correctly with archived tasks 1`] = `
                 "width": "100%",
               }
             }
+            testID="task-item"
           >
             <View
               style={
