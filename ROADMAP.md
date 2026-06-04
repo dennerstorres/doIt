@@ -180,7 +180,7 @@
 - [x] Configurar Jest corretamente
 - [x] Criar testes unitários hooks
 - [x] Criar testes components
-- [ ] Criar testes de integração
+- [x] Criar testes de integração
 - [ ] Configurar coverage
 
 ---
@@ -1225,3 +1225,16 @@
 - **Validações**: `yarn test` (102/102 passando) para garantir integridade do ambiente JS; auditoria manual de uso de dependências via grep.
 - **Limitações**: O ganho de performance de `react-native-screens` é mais perceptível em dispositivos físicos com muitas telas empilhadas.
 - **Riscos**: Nenhuma regressão identificada no ambiente de testes unitários.
+
+## Criar testes de integração
+
+- **Implementação**: Criação de uma suíte de testes de integração abrangente e migração de testes remanescentes para TypeScript.
+- **Decisões Técnicas**:
+  - Implementação de `__tests__/Integration.test.tsx` cobrindo o ciclo de vida completo do usuário (adicionar, concluir, buscar, editar, arquivar e persistir).
+  - Migração de `__tests__/App-test.js` para `__tests__/App.test.tsx` para atingir 100% de TypeScript na pasta de testes.
+  - Uso de `react-test-renderer` com `act` e `Promise.resolve()` para lidar com atualizações de estado assíncronas do hook `useTasks`.
+  - Mock de `AsyncStorage` e `Alert` para garantir testes isolados e determinísticos.
+- **Arquivos Alterados**: `__tests__/Integration.test.tsx`, `__tests__/App.test.tsx`, `ROADMAP.md`.
+- **Validações**: `yarn test` (105/105 passando), `yarn lint`, `npx tsc`.
+- **Limitações**: Testes de integração via `react-test-renderer` não validam interações nativas de gestos (swipe), focando na lógica de estado e props.
+- **Riscos**: Sensibilidade a timings em atualizações assíncronas complexas.
