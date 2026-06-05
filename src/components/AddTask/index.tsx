@@ -27,6 +27,7 @@ import {
   RepeatText,
   DeadlineButton,
   DeadlineText,
+  SmallClearButton,
 } from './styles';
 import {
   MAX_TASK_LENGTH,
@@ -212,11 +213,9 @@ const AddTask: React.FC<AddTaskProps> = ({
           </DeadlineText>
         </DeadlineButton>
         {deadline && (
-          <ClearButton
-            onPress={() => setDeadline(null)}
-            style={{minHeight: 20, padding: 5}}>
+          <SmallClearButton onPress={() => setDeadline(null)}>
             <Icon name='x' size={14} color={theme.colors.error} />
-          </ClearButton>
+          </SmallClearButton>
         )}
       </DeadlineContainer>
 

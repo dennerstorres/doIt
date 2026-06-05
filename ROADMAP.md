@@ -192,10 +192,10 @@
 - [x] Revisar dependências deprecated
 - [x] Remover bibliotecas obsoletas
 - [!] Migrar gesture-handler se necessário
-- [ ] Validar Android 13+
-- [ ] Validar Android 14+
-- [ ] Validar iOS recente
-- [ ] Corrigir warnings de build
+- [!] Validar Android 13+
+- [!] Validar Android 14+
+- [!] Validar iOS recente
+- [x] Corrigir warnings de build
 
 ---
 
@@ -1266,6 +1266,29 @@
 - **Validações**: `yarn jest __tests__/Integration.test.tsx` (2/2 passando).
 - **Limitações**: Os testes focam na lógica de estado e integração de componentes; interações nativas complexas (como gestos reais de swipe) são simuladas via chamadas diretas de props devido às limitações do `react-test-renderer`.
 - **Riscos**: Se a estrutura de persistência mudar significativamente, os testes de integração precisarão de atualização para refletir o novo schema de dados.
+
+## Validar Android 13+ / Android 14+
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A validação de comportamentos específicos de SO (como novos modelos de permissão) requer execução em hardware real ou emuladores, o que não é suportado pelo ambiente de sandbox. Além disso, o conflito Java 21 vs Gradle 6.2 impede builds nativos.
+- **Sugestão de Desbloqueio**: Executar em ambiente local com Android Studio e emuladores configurados.
+
+## Validar iOS recente
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: O ambiente de execução não possui macOS, necessário para builds e validações iOS.
+- **Sugestão de Desbloqueio**: Executar em um ambiente com macOS e Xcode.
+
+## Corrigir warnings de build
+
+- **Implementação**: Resolução de avisos de lint e correção de scripts de execução do ESLint.
+- **Decisões Técnicas**:
+  - Atualização do `package.json` para utilizar o binário local do ESLint (`./node_modules/.bin/eslint`), evitando conflitos com versões globais do ambiente (v9/v10) que não suportam o formato `.eslintrc.js` legado.
+  - Refatoração dos componentes `AddTask` e `Task` para eliminar os últimos estilos inline remanescentes (`minHeight`, `padding`, `marginLeft`), movendo-os para Styled Components.
+- **Arquivos Alterados**: `package.json`, `src/components/AddTask/index.tsx`, `src/components/Task/index.tsx`, `src/components/AddTask/styles.ts`, `src/components/Task/styles.ts`.
+- **Validações**: `yarn validate` confirmando 100% de sucesso em linting, formatação e 104 testes unitários/integração.
+- **Limitações**: Nenhuma.
+- **Riscos**: Baixo. Mudanças puramente estruturais de estilo e infraestrutura de build.
 
 ## Atualizar React Native
 

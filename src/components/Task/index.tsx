@@ -32,6 +32,7 @@ import {
   DeadlineEditRow,
   DeadlineEditButton,
   DeadlineEditText,
+  ClearDeadlineIcon,
   RepeatEditRow,
   RepeatEditButton,
   RepeatEditText,
@@ -405,12 +406,11 @@ const Task = memo<TaskProps>(({item, onDone, onDelete, onArchive, onEdit}) => {
                   </DeadlineEditText>
                 </DeadlineEditButton>
                 {editedDeadline && (
-                  <Icon
+                  <ClearDeadlineIcon
                     name='x'
                     size={12}
                     color={theme.colors.error}
                     onPress={() => setEditedDeadline(null)}
-                    style={{marginLeft: 5}}
                     testID='clear-deadline-edit'
                   />
                 )}
