@@ -51,6 +51,7 @@ const mockTask: Task = {
   archived: false,
   deadline: null,
   createdAt: new Date().toISOString(),
+  completedAt: null,
 };
 
 describe('Task Component', () => {

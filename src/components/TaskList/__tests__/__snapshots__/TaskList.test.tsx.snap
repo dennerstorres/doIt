@@ -52,6 +52,7 @@ exports[`TaskList Component should render tasks correctly 1`] = `
       Object {
         "archived": false,
         "category": "none",
+        "completedAt": null,
         "createdAt": "2023-01-01T12:00:00.000Z",
         "deadline": null,
         "done": false,
@@ -63,6 +64,7 @@ exports[`TaskList Component should render tasks correctly 1`] = `
       Object {
         "archived": false,
         "category": "none",
+        "completedAt": null,
         "createdAt": "2023-01-01T12:00:00.000Z",
         "deadline": null,
         "done": true,

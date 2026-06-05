@@ -66,6 +66,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -194,6 +195,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -236,6 +238,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -279,6 +282,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -320,6 +324,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -354,6 +359,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
       {
         id: '2',
@@ -365,6 +371,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -396,6 +403,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -426,6 +434,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -545,6 +554,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -574,6 +584,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -605,6 +616,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -637,6 +649,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -670,6 +683,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: today.toISOString(),
         createdAt: today.toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -714,6 +728,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: today.toISOString(),
         createdAt: today.toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -751,6 +766,7 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: today.toISOString(),
         createdAt: today.toISOString(),
+        completedAt: null,
       },
     ];
     (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
