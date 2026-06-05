@@ -187,8 +187,8 @@
 
 # FASE 9 — Atualização Tecnológica
 
-- [ ] Atualizar React Native
-- [ ] Atualizar React Navigation
+- [!] Atualizar React Native
+- [x] Atualizar React Navigation
 - [ ] Revisar dependências deprecated
 - [ ] Remover bibliotecas obsoletas
 - [ ] Migrar gesture-handler se necessário
@@ -1250,3 +1250,21 @@
 - **Validações**: `yarn jest __tests__/Integration.test.tsx` (2/2 passando).
 - **Limitações**: Os testes focam na lógica de estado e integração de componentes; interações nativas complexas (como gestos reais de swipe) são simuladas via chamadas diretas de props devido às limitações do `react-test-renderer`.
 - **Riscos**: Se a estrutura de persistência mudar significativamente, os testes de integração precisarão de atualização para refletir o novo schema de dados.
+
+## Atualizar React Native
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Incompatibilidade entre a versão do Java instalada no ambiente (Java 21) e a versão do Gradle utilizada no projeto (Gradle 6.2). O Gradle 6.2 não suporta Java 21, impossibilitando a validação de builds nativos e atualizações de infraestrutura que dependem de compilação. Além disso, o ambiente sandbox possui limitações para execução de emuladores e ferramentas de build nativo completas.
+- **Sugestão de Desbloqueio**: Executar a atualização em um ambiente de desenvolvimento local configurado com JDK 8 ou 11 (compatível com Gradle 6.2) ou planejar uma atualização prévia do Gradle e Android Gradle Plugin (AGP) para versões compatíveis com Java 21 antes de prosseguir com o upgrade do React Native.
+
+## Atualizar React Navigation
+
+- **Implementação**: Upgrade do ecossistema React Navigation da versão 5 para a versão 6.
+- **Decisões Técnicas**:
+  - Upgrade de `@react-navigation/native` (^6.1.9) e `@react-navigation/stack` (^6.4.1).
+  - Upgrade obrigatório de peer dependencies: `react-native-screens` (^3.29.0) e `react-native-safe-area-context` (^4.8.2) para garantir compatibilidade com v6.
+  - Refatoração do `src/App.tsx` para utilizar `screenOptions` no `Stack.Navigator`, centralizando a configuração de ocultar cabeçalhos que antes era repetida em cada tela.
+  - Atualização do mock `react-native-safe-area-context` no `jest-setup.js` para incluir `SafeAreaInsetsContext` e `SafeAreaFrameContext`, necessários para o renderizador do Navigation v6 em ambiente de teste.
+- **Validações**: `yarn validate` confirmando que todos os 104 testes unitários e de integração continuam passando após o upgrade.
+- **Limitações**: Nenhuma identificada.
+- **Riscos**: Baixo, dado que a migração preservou a funcionalidade existente e foi validada por uma suíte de testes robusta.
