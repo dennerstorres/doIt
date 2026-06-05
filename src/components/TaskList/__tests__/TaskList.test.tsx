@@ -29,6 +29,7 @@ describe('TaskList Component', () => {
         archived: false,
         deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
+        completedAt: null,
       },
       {
         id: '2',
@@ -40,6 +41,7 @@ describe('TaskList Component', () => {
         archived: false,
         deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
+        completedAt: null,
       },
     ];
 

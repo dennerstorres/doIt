@@ -1,8 +1,10 @@
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Feather';
 import {Container, Title, ActionButton, BackButton} from './styles';
+import {RootStackParamList} from '../../types';
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -18,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({
   onBack,
 }) => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
     <Container $topInset={insets.top}>

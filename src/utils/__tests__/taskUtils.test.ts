@@ -33,6 +33,7 @@ describe('Task Utils', () => {
       repeat: 'none',
       archived: false,
       deadline: null,
+      completedAt: null,
     },
     {
       id: '3',
@@ -44,6 +45,7 @@ describe('Task Utils', () => {
       repeat: 'none',
       archived: false,
       deadline: null,
+      completedAt: null,
     },
   ];
 
@@ -112,6 +114,7 @@ describe('Task Utils', () => {
           repeat: 'none',
           archived: false,
           deadline: null,
+          completedAt: null,
         },
         {
           id: 'b',
@@ -123,6 +126,7 @@ describe('Task Utils', () => {
           repeat: 'none',
           archived: false,
           deadline: null,
+          completedAt: null,
         },
       ];
       const sorted = sortTasks(sameDateTasks, SORT_TYPES.DEFAULT);
@@ -346,6 +350,7 @@ describe('Task Utils', () => {
           category: 'work',
           repeat: 'none',
           deadline: null,
+          completedAt: null,
         },
       ];
       const stats = getTaskStats(tasksWithArchived);
@@ -369,6 +374,7 @@ describe('Task Utils', () => {
           repeat: 'none',
           deadline: null,
           createdAt: '2023-01-01T10:00:00Z',
+          completedAt: null,
         },
         {
           id: '2',
@@ -380,6 +386,7 @@ describe('Task Utils', () => {
           repeat: 'none',
           deadline: null,
           createdAt: '2023-01-01T10:00:00Z',
+          completedAt: null,
         },
         {
           id: '3',
@@ -391,6 +398,7 @@ describe('Task Utils', () => {
           repeat: 'none',
           deadline: null,
           createdAt: '2023-01-01T10:00:00Z',
+          completedAt: null,
         },
       ];
 
@@ -428,6 +436,7 @@ describe('Task Utils', () => {
           repeat: 'none',
           deadline: null,
           createdAt: todayISO,
+          completedAt: null,
         },
         {
           id: '3',

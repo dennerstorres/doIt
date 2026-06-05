@@ -191,7 +191,7 @@
 - [x] Atualizar React Navigation
 - [x] Revisar dependências deprecated
 - [x] Remover bibliotecas obsoletas
-- [ ] Migrar gesture-handler se necessário
+- [!] Migrar gesture-handler se necessário
 - [ ] Validar Android 13+
 - [ ] Validar Android 14+
 - [ ] Validar iOS recente

@@ -45,6 +45,21 @@ jest.mock(
 // Silence the warning: Animated: `useNativeDriver` is not supported because the native animated module is missing
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
+// Synchronous mock for TimingAnimation to prevent _bezier error during teardown
+jest.mock(
+  'react-native/Libraries/Animated/src/animations/TimingAnimation',
+  () => {
+    return jest.fn().mockImplementation(() => ({
+      start: jest.fn(callback => {
+        if (typeof callback === 'function') {
+          callback({finished: true});
+        }
+      }),
+      stop: jest.fn(),
+    }));
+  },
+);
+
 jest.mock('react-native-vector-icons/Feather', () => 'Icon');
 
 jest.mock('@react-native-async-storage/async-storage', () =>

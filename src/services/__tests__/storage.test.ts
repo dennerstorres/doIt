@@ -32,6 +32,7 @@ describe('Storage Service', () => {
           archived: false,
           deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
+          completedAt: null,
         },
       ];
       await saveTasks(tasks);
@@ -54,6 +55,7 @@ describe('Storage Service', () => {
           archived: false,
           deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
+          completedAt: null,
         },
       ];
       const error = new Error('Storage error');
@@ -76,6 +78,7 @@ describe('Storage Service', () => {
           archived: false,
           deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
+          completedAt: null,
         },
       ];
       (AsyncStorage.getItem as jest.Mock).mockResolvedValueOnce(
@@ -119,6 +122,7 @@ describe('Storage Service', () => {
           archived: false,
           deadline: null,
           createdAt: '2023-01-01T12:00:00.000Z',
+          completedAt: null,
         },
       ];
 
