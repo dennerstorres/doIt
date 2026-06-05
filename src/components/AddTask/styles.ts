@@ -20,6 +20,11 @@ export const ClearButton = styled(BaseClearButton)`
   min-height: 40px;
 `;
 
+export const SmallClearButton = styled(BaseClearButton)`
+  min-height: 20px;
+  padding: ${props => props.theme.spacing.tiny};
+`;
+
 export const ButtonAdd = styled.TouchableOpacity`
   min-height: 40px;
   width: ${props => props.theme.spacing.huge};

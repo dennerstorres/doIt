@@ -114,6 +114,10 @@ export const PriorityEditRow = styled.View`
   margin-top: ${props => props.theme.spacing.nano};
 `;
 
+export const ClearDeadlineIcon = styled(Icon)`
+  margin-left: ${props => props.theme.spacing.tiny};
+`;
+
 interface PriorityEditButtonProps {
   $active: boolean;
   $color: string;
