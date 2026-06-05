@@ -190,7 +190,7 @@
 - [!] Atualizar React Native
 - [x] Atualizar React Navigation
 - [x] Revisar dependências deprecated
-- [ ] Remover bibliotecas obsoletas
+- [x] Remover bibliotecas obsoletas
 - [ ] Migrar gesture-handler se necessário
 - [ ] Validar Android 13+
 - [ ] Validar Android 14+
