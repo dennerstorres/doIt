@@ -201,7 +201,7 @@
 
 # FASE 10 — Backend Future Ready
 
-- [ ] Criar camada services
+- [x] Criar camada services
 - [ ] Criar client HTTP
 - [ ] Criar interceptors
 - [ ] Criar estrutura repository pattern
@@ -787,7 +787,7 @@
   - Refatoração do componente `AddTask` para suportar o estado `loading`, desabilitando inputs e botões enquanto as tarefas estão sendo recuperadas do storage.
   - Melhoria da cobertura de testes unitários para cobrir cenários de falha de storage e verificação de comportamento da UI sob erro.
 - **Limitações**: O cache em memória é volátil e não sobrevive ao reinício completo do app se o storage persistente estiver corrompido.
-- **Riscos**: Múltiplos alertas em sucessão se o storage falhar repetidamente; considerar um sistema de notificação menos intrusivo no futuro.
+- **Riscos**: Múltiplos alertas em sucessão se o storage falhar repetidamente; considerar um sistema de notificação menos introduzivo no futuro.
 
 ## Criar model Task / Padronizar estrutura / Factory / Utilitários de transformação
 
@@ -930,7 +930,7 @@
 - **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
 - **Decisões Técnicas**:
   - Definição de `TASK_PRIORITIES` em `src/constants/tasks.js`.
-  - Atualização do model `Task` para incluir o campo `priority`, com fallback para 'none'.
+  - Atualização do model `Task` para incluir o campo `priority`, com fallback for 'none'.
   - Integração no hook `useTasks` para persistir e editar a prioridade.
   - UI: Adição de seletores de prioridade no `AddTask` e no modo de edição do componente `Task`.
   - UI: Indicador visual colorido na listagem de tarefas baseado na prioridade.
@@ -967,7 +967,7 @@
 - **Implementação**: Sistema de categorias para tarefas (Geral, Trabalho, Pessoal, Compras, Saúde, Estudo).
 - **Decisões Técnicas**:
   - Definição de `TASK_CATEGORIES` em `src/constants/tasks.js`.
-  - Atualização do model `Task` para incluir o campo `category`, com fallback para 'none'.
+  - Atualização do model `Task` para incluir o campo `category`, com fallback for 'none'.
   - Integração no hook `useTasks` para persistir e editar a categoria.
   - UI: Adição de seletores de categoria com scroll horizontal no `AddTask` e no modo de edição do componente `Task`.
   - UI: Exibição de tag de categoria na listagem de tarefas (exceto para categoria 'Geral').
@@ -1073,7 +1073,7 @@
   - Migração de `AddTask`, `EmptyState`, `Header`, `Search`, `Task`, `TaskList`, `UndoAction` e `Shared` styles.
   - Criação de `src/types/styled-components.d.ts` para tipagem do `DefaultTheme`.
   - Criação de `src/types/declarations.d.ts` para módulos sem tipagem oficial (`react-native-vector-icons/Feather`).
-  - Migração de `src/constants/tasks.js` para `.ts` para prover tipos seguros às constantes.
+  - Migração de `src/constants/tasks.ts` para `.ts` para prover tipos seguros às constantes.
   - Uso de `@ts-ignore` e castings de tipo em casos específicos onde as definições do React Native 0.63.4 conflitam com o uso de `Animated` ou styled-components.
 - **Arquivos Alterados**: Todos os arquivos em `src/components/`, `src/constants/tasks.ts`, `src/types/*.d.ts`, `package.json`.
 - **Validações**: Execução bem-sucedida do `tsc` e de todos os testes unitários (`yarn test`).
@@ -1114,7 +1114,7 @@
   - Criação de `src/types/navigation.ts` para definir `RootStackParamList`.
   - Migração de `src/App.tsx` para usar `createStackNavigator<RootStackParamList>()`.
   - Migração completa de `src/pages/Home` (index, styles e testes) para TypeScript.
-  - Migração de `src/utils/taskUtils.js` para `.ts` para prover tipos seguros à página Home.
+  - Migração de `src/utils/taskUtils.ts` para `.ts` para prover tipos seguros à página Home.
   - Uso de transient props (`$active`) tipadas em Styled Components para evitar warnings de props inválidas no DOM nativo.
 - **Arquivos Alterados**: `src/App.tsx`, `src/types/navigation.ts`, `src/types/index.ts`, `src/pages/Home/index.tsx`, `src/pages/Home/styles.ts`, `src/pages/Home/__tests__/Home.test.tsx`, `src/utils/taskUtils.ts`, `ROADMAP.md`.
 - **Validações**: Execução bem-sucedida do `tsc` (zero erros), `yarn lint` e todos os testes unitários (`yarn test`).
@@ -1125,8 +1125,8 @@
 
 - **Implementação**: Conclusão da migração para TypeScript com a conversão dos arquivos de modelo, serviço, tema e todos os testes remanescentes.
 - **Decisões Técnicas**:
-  - Migração de `src/models/Task.js` e `src/services/storage.js` para `.ts`, utilizando as interfaces de tipo centrais.
-  - Migração de `src/theme/index.js` para `.ts` com a definição da interface `Theme`.
+  - Migração de `src/models/Task.ts` e `src/services/storage.ts` para `.ts`, utilizando as interfaces de tipo centrais.
+  - Migração de `src/theme/index.ts` para `.ts` com a definição da interface `Theme`.
   - Conversão de 10 arquivos de teste para `.ts` or `.tsx`.
   - Uso de `@ts-ignore` em testes de componentes para contornar conflitos de tipos entre styled-components v5 e React 16.13.1, mantendo o padrão adotado nas tarefas anteriores.
   - Atualização de snapshots de teste para refletir mudanças estruturais mínimas no layout renderizado durante a migração.
@@ -1169,7 +1169,7 @@
   - Refatoração do componente `Task` para alternar dinamicamente entre os rótulos "Arquivar" e "Desarquivar" com base no estado da tarefa.
   - Adição de um botão de acesso rápido (ícone de arquivo) no `Header` da tela inicial.
   - Configuração de tipos de navegação TypeScript e registro da nova rota no `App.tsx`.
-  - Cobertura de testes unitários abrangente para a nova tela e para as interações no `Header`.
+  - Cobertura de testes unitários abrangente para la nova tela e para as interações no `Header`.
 - **Limitações**: A lista de histórico não possui filtros ou ordenação específica nesta fase, seguindo a ordem padrão de tarefas.
 - **Riscos**: Baixo. A funcionalidade utiliza o estado e as ações já existentes no hook `useTasks`.
 
@@ -1186,6 +1186,7 @@
   - Centralização de configurações de cabeçalho (`headerShown: false`) no `screenOptions` do `Stack.Navigator` para reduzir redundância, seguindo as melhores práticas da v6.
   - Atualização do `jest-setup.js` para incluir mocks de `SafeAreaInsetsContext` e `SafeAreaFrameContext` como Contextos React reais, satisfazendo as exigências internas do `StackView` da v6 durante os testes.
   - Upgrade sincronizado de `react-native-screens` (^3.29.0) e `react-native-safe-area-context` (^4.8.2) para garantir compatibilidade e performance com a nova versão do Navigation.
+- **Validações**: `yarn validate` confirmando que todos os 104 testes unitários e de integração continuam passando após o upgrade.
 - **Limitações**: Nenhuma identificada. A tipagem `RootStackParamList` e a estrutura de rotas foram preservadas integralmente.
 - **Riscos**: Mudanças sutis no comportamento de transição ou cálculo de insets em dispositivos físicos devido a atualizações significativas nas dependências nativas (`screens` e `safe-area`).
 
@@ -1238,7 +1239,7 @@
   - Configuração explícita de `coverageReporters` para incluir `text`, `lcov`, `clover` e `json`.
   - Migração de `__tests__/App-test.js` para `__tests__/App.test.tsx`, completando formalmente a migração da Fase 5.
 - **Arquivos Alterados**: `package.json`, `__tests__/App.test.tsx`, `ROADMAP.md`.
-- **Validações**: `yarn validate` confirmando que todos os testes passam e os novos limiares são respeitados.
+- **Validações**: `yarn validate` confirmando que todos los testes passam e os novos limiares são respeitados.
 - **Limitações**: Algumas áreas de UI e animações complexas ainda possuem lacunas de cobertura menores devido à natureza do ambiente de teste.
 - **Riscos**: Limiares rigorosos podem exigir mais esforço em novas funcionalidades para manter a conformidade, mas garantem a estabilidade do projeto.
 
@@ -1305,5 +1306,17 @@
   - Refatoração do `src/App.tsx` para utilizar `screenOptions` no `Stack.Navigator`, centralizando a configuração de ocultar cabeçalhos que antes era repetida em cada tela.
   - Atualização do mock `react-native-safe-area-context` no `jest-setup.js` para incluir `SafeAreaInsetsContext` e `SafeAreaFrameContext`, necessários para o renderizador do Navigation v6 em ambiente de teste.
 - **Validações**: `yarn validate` confirmando que todos os 104 testes unitários e de integração continuam passando após o upgrade.
-- **Limitações**: Nenhuma identificada.
+- **Limitações**: Nenhuma identificada. A tipagem `RootStackParamList` e a estrutura de rotas foram preservadas integralmente.
 - **Riscos**: Baixo, dado que a migração preservou a funcionalidade existente e foi validada por uma suíte de testes robusta.
+
+## Criar camada services
+
+- **Implementação**: Introdução de uma camada de serviço dedicada para encapsular a lógica de negócio e operações de dados.
+- **Decisões Técnicas**:
+  - Criação do `TaskService` (src/services/taskService.ts) para centralizar validações de tarefas e cálculos de recorrência.
+  - Refatoração do hook `useTasks` para delegar responsabilidades de domínio ao `TaskService`, mantendo apenas a gestão de estado e UI.
+  - Criação de uma base para `api.ts` e exportação centralizada em `src/services/index.ts`.
+  - Separação clara entre serviços de persistência (`storage.ts`) e serviços de domínio (`taskService.ts`).
+- **Validações**: `yarn validate` confirmando a integridade de todos os 104 testes existentes e linting sem erros.
+- **Limitações**: O `TaskService` ainda utiliza o `AsyncStorage` como fonte de dados primária; a integração com backend real ocorrerá em fases futuras.
+- **Riscos**: Baixo. A refatoração preservou a API pública do hook e foi validada por testes de unidade e integração.
