@@ -1,10 +1,8 @@
 import {useState, useEffect, useCallback, useRef} from 'react';
 import {Alert, LayoutAnimation, LayoutAnimationConfig} from 'react-native';
-import {saveTasks, getTasks} from '../services/storage';
+import {TaskService} from '../services/taskService';
 import {createTask} from '../models/Task';
 import {
-  MIN_TASK_LENGTH,
-  MAX_TASK_LENGTH,
   TASK_PRIORITIES,
   TASK_CATEGORIES,
   TASK_REPEATS,
@@ -42,7 +40,7 @@ export const useTasks = () => {
 
     async function loadTasks() {
       try {
-        const storedTasks = await getTasks();
+        const storedTasks = await TaskService.getAll();
         if (isMounted) {
           setTasks(storedTasks);
           setLoading(false);
@@ -71,7 +69,7 @@ export const useTasks = () => {
     if (tasks !== null) {
       const persistTasks = async () => {
         try {
-          await saveTasks(tasks);
+          await TaskService.saveAll(tasks);
         } catch (error) {
           console.error('Error saving tasks:', error);
           Alert.alert(
@@ -93,41 +91,16 @@ export const useTasks = () => {
       deadline: string | null = null,
       repeat: TaskRepeat = TASK_REPEATS.NONE,
     ): boolean => {
-      const trimmedTask = taskTitle.trim();
-
-      if (!trimmedTask) {
-        Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
-        return false;
-      }
-
-      if (trimmedTask.length < MIN_TASK_LENGTH) {
-        Alert.alert(
-          'Aviso',
-          `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
-        );
-        return false;
-      }
-
-      if (trimmedTask.length > MAX_TASK_LENGTH) {
-        Alert.alert(
-          'Aviso',
-          `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
-        );
-        return false;
-      }
-
       const currentTasks = tasksRef.current || [];
-      const taskExists = currentTasks.some(
-        t => t.task.toLowerCase() === trimmedTask.toLowerCase(),
-      );
+      const validation = TaskService.validate(taskTitle, currentTasks);
 
-      if (taskExists) {
-        Alert.alert('Aviso', 'Esta tarefa já existe.');
+      if (!validation.valid) {
+        Alert.alert('Aviso', validation.error);
         return false;
       }
 
       const newTask = createTask(
-        trimmedTask,
+        taskTitle.trim(),
         priority,
         category,
         deadline,
@@ -158,28 +131,10 @@ export const useTasks = () => {
 
       // If task was marked as done and it is a repeating task, create next instance
       if (!item.done && item.repeat !== TASK_REPEATS.NONE) {
-        let nextDeadline: string | null = null;
-        if (item.deadline) {
-          const date = new Date(item.deadline);
-          if (item.repeat === TASK_REPEATS.DAILY) {
-            date.setDate(date.getDate() + 1);
-          } else if (item.repeat === TASK_REPEATS.WEEKLY) {
-            date.setDate(date.getDate() + 7);
-          } else if (item.repeat === TASK_REPEATS.MONTHLY) {
-            date.setMonth(date.getMonth() + 1);
-          }
-          nextDeadline = date.toISOString();
+        const nextTask = TaskService.getNextOccurrence(item);
+        if (nextTask) {
+          return [...updatedTasks, nextTask];
         }
-
-        const newTask = createTask(
-          item.task,
-          item.priority,
-          item.category,
-          nextDeadline,
-          item.repeat,
-        );
-
-        return [...updatedTasks, newTask];
       }
 
       return updatedTasks;
@@ -231,36 +186,11 @@ export const useTasks = () => {
       deadline?: string | null,
       repeat?: TaskRepeat,
     ): boolean => {
-      const trimmedTask = newTaskTitle.trim();
-
-      if (!trimmedTask) {
-        Alert.alert('Aviso', 'A tarefa não pode estar vazia.');
-        return false;
-      }
-
-      if (trimmedTask.length < MIN_TASK_LENGTH) {
-        Alert.alert(
-          'Aviso',
-          `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
-        );
-        return false;
-      }
-
-      if (trimmedTask.length > MAX_TASK_LENGTH) {
-        Alert.alert(
-          'Aviso',
-          `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
-        );
-        return false;
-      }
-
       const currentTasks = tasksRef.current || [];
-      const taskExists = currentTasks.some(
-        t => t.id !== id && t.task.toLowerCase() === trimmedTask.toLowerCase(),
-      );
+      const validation = TaskService.validate(newTaskTitle, currentTasks, id);
 
-      if (taskExists) {
-        Alert.alert('Aviso', 'Esta tarefa já existe.');
+      if (!validation.valid) {
+        Alert.alert('Aviso', validation.error);
         return false;
       }
 
@@ -270,7 +200,7 @@ export const useTasks = () => {
           if (t.id === id) {
             return {
               ...t,
-              task: trimmedTask,
+              task: newTaskTitle.trim(),
               priority: priority !== undefined ? priority : t.priority,
               category: category !== undefined ? category : t.category,
               deadline: deadline !== undefined ? deadline : t.deadline,
