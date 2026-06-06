@@ -202,7 +202,7 @@
 # FASE 10 — Backend Future Ready
 
 - [x] Criar camada services
-- [ ] Criar client HTTP
+- [x] Criar client HTTP
 - [ ] Criar interceptors
 - [ ] Criar estrutura repository pattern
 - [ ] Preparar sincronização futura
@@ -1320,3 +1320,15 @@
 - **Validações**: `yarn validate` confirmando a integridade de todos os 104 testes existentes e linting sem erros.
 - **Limitações**: O `TaskService` ainda utiliza o `AsyncStorage` como fonte de dados primária; a integração com backend real ocorrerá em fases futuras.
 - **Riscos**: Baixo. A refatoração preservou a API pública do hook e foi validada por testes de unidade e integração.
+
+## Criar client HTTP
+
+- **Implementação**: Configuração e exportação de um cliente HTTP global baseado na biblioteca Axios.
+- **Decisões Técnicas**:
+  - Instalação do `axios` (^0.21.1) para gerenciar requisições assíncronas.
+  - Criação de um arquivo de configuração centralizado (`src/config/api.ts`) para gerenciar `BASE_URL` e `TIMEOUT`.
+  - Substituição do placeholder manual em `src/services/api.ts` por uma instância configurada do Axios com headers padrão de JSON.
+  - Implementação de testes unitários em `src/services/__tests__/api.test.ts` para validar a configuração da instância.
+- **Validações**: `yarn validate` confirmando 106 testes passando (incluindo 2 novos testes para o cliente API).
+- **Limitações**: A `BASE_URL` está hardcoded no arquivo de configuração; a integração com variáveis de ambiente nativas (`react-native-config`) está pendente de viabilidade técnica no sandbox.
+- **Riscos**: Baixo. O cliente é independente e não afeta as funcionalidades offline atuais até que os interceptors e a sincronização sejam implementados.
