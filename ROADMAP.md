@@ -203,7 +203,7 @@
 
 - [x] Criar camada services
 - [x] Criar client HTTP
-- [ ] Criar interceptors
+- [x] Criar interceptors
 - [ ] Criar estrutura repository pattern
 - [ ] Preparar sincronização futura
 - [ ] Criar adapter offline-first
@@ -1321,14 +1321,15 @@
 - **Limitações**: O `TaskService` ainda utiliza o `AsyncStorage` como fonte de dados primária; a integração com backend real ocorrerá em fases futuras.
 - **Riscos**: Baixo. A refatoração preservou a API pública do hook e foi validada por testes de unidade e integração.
 
-## Criar client HTTP
+## Criar client HTTP / Interceptors
 
-- **Implementação**: Configuração e exportação de um cliente HTTP global baseado na biblioteca Axios.
+- **Implementação**: Configuração de um cliente HTTP global baseado em Axios com interceptores de requisição e resposta.
 - **Decisões Técnicas**:
-  - Instalação do `axios` (^0.21.1) para gerenciar requisições assíncronas.
-  - Criação de um arquivo de configuração centralizado (`src/config/api.ts`) para gerenciar `BASE_URL` e `TIMEOUT`.
-  - Substituição do placeholder manual em `src/services/api.ts` por uma instância configurada do Axios com headers padrão de JSON.
-  - Implementação de testes unitários em `src/services/__tests__/api.test.ts` para validar a configuração da instância.
-- **Validações**: `yarn validate` confirmando 106 testes passando (incluindo 2 novos testes para o cliente API).
-- **Limitações**: A `BASE_URL` está hardcoded no arquivo de configuração; a integração com variáveis de ambiente nativas (`react-native-config`) está pendente de viabilidade técnica no sandbox.
-- **Riscos**: Baixo. O cliente é independente e não afeta as funcionalidades offline atuais até que os interceptors e a sincronização sejam implementados.
+  - Instalação do `axios` (^0.21.1).
+  - Criação de `src/config/api.ts` para centralizar `BASE_URL` e `TIMEOUT`.
+  - Implementação de interceptores em `src/services/api.ts` para logging centralizado (em `__DEV__`) e tratamento global de erros.
+  - Uso de optional chaining no tratamento de erros para garantir robustez contra falhas de rede.
+  - Cobertura de testes unitários abrangente para a configuração do cliente e lógica dos interceptores.
+- **Validacoes**: `yarn validate` (114 testes passando).
+- **Limitações**: A `BASE_URL` é estática; a integração com tokens de autenticação reais ocorrerá em fases futuras.
+- **Riscos**: Baixo. A infraestrutura é passiva e não altera o comportamento offline atual.
