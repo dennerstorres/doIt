@@ -204,7 +204,7 @@
 - [x] Criar camada services
 - [x] Criar client HTTP
 - [x] Criar interceptors
-- [ ] Criar estrutura repository pattern
+- [!] Criar estrutura repository pattern
 - [ ] Preparar sincronização futura
 - [ ] Criar adapter offline-first
 - [ ] Criar queue local
@@ -227,7 +227,7 @@
 - [ ] Configurar crash reporting
 - [ ] Configurar analytics
 - [ ] Adicionar logs estruturados
-- [ ] Criar error boundary
+- [x] Criar error boundary
 
 ---
 
@@ -1320,6 +1320,25 @@
 - **Validações**: `yarn validate` confirmando a integridade de todos os 104 testes existentes e linting sem erros.
 - **Limitações**: O `TaskService` ainda utiliza o `AsyncStorage` como fonte de dados primária; a integração com backend real ocorrerá em fases futuras.
 - **Riscos**: Baixo. A refatoração preservou a API pública do hook e foi validada por testes de unidade e integração.
+
+## Criar estrutura repository pattern
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Identificada branch existente `feature/repository-pattern-5408429019139370273` que já implementa este padrão e refatora o `TaskService`. Para evitar conflitos arquiteturais e duplicidade de esforço, esta task está bloqueada aguardando o merge da branch mencionada.
+- **Sugestão de Desbloqueio**: Realizar o merge da branch `feature/repository-pattern-5408429019139370273` na branch principal.
+
+## Criar error boundary
+
+- **Implementação**: Criação de um componente de classe `ErrorBoundary` para capturar erros de renderização na árvore de componentes.
+- **Decisões Técnicas**:
+  - Uso dos métodos de ciclo de vida `getDerivedStateFromError` e `componentDidCatch`.
+  - Interface de fallback amigável utilizando Styled Components e o tema global do projeto.
+  - Integração no nível raiz da aplicação (`App.tsx`) para proteger todo o fluxo de navegação.
+  - Implementação de funcionalidade de reinício ("Tentar Novamente") para limpar o estado de erro.
+  - Cobertura de testes unitários de 100% para o componente.
+- **Validações**: `yarn jest src/components/ErrorBoundary/__tests__/ErrorBoundary.test.tsx` (3/3 passando).
+- **Limitações**: Captura apenas erros de renderização, métodos de ciclo de vida e construtores de componentes filhos; não captura erros em handlers de eventos assíncronos (que devem ser tratados com try/catch).
+- **Riscos**: Baixo. O componente é passivo e só atua em caso de falha catastrófica.
 
 ## Criar client HTTP / Interceptors
 
