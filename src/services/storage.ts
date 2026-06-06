@@ -15,7 +15,9 @@ export const saveTasks = async (tasks: Task[]): Promise<void> => {
     const jsonValue = JSON.stringify(tasks);
     await AsyncStorage.setItem(STORAGE_KEY, jsonValue);
   } catch (error) {
-    console.error('Error saving tasks:', error);
+    if (__DEV__) {
+      console.error('Error saving tasks:', error);
+    }
     throw error;
   }
 };
@@ -31,11 +33,15 @@ export const getTasks = async (): Promise<Task[]> => {
     inMemoryTasks = tasks;
     return tasks;
   } catch (error) {
-    console.error('Error getting tasks:', error);
+    if (__DEV__) {
+      console.error('Error getting tasks:', error);
+    }
 
     // Fallback to in-memory tasks if storage fails but we have data in memory
     if (inMemoryTasks !== null) {
-      console.warn('Falling back to in-memory tasks');
+      if (__DEV__) {
+        console.warn('Falling back to in-memory tasks');
+      }
       return inMemoryTasks;
     }
 

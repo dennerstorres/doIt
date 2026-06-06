@@ -46,7 +46,9 @@ export const useTasks = () => {
           setLoading(false);
         }
       } catch (error) {
-        console.error('Error loading tasks:', error);
+        if (__DEV__) {
+          console.error('Error loading tasks:', error);
+        }
         if (isMounted) {
           Alert.alert(
             'Erro',
@@ -71,7 +73,9 @@ export const useTasks = () => {
         try {
           await TaskService.saveAll(tasks);
         } catch (error) {
-          console.error('Error saving tasks:', error);
+          if (__DEV__) {
+            console.error('Error saving tasks:', error);
+          }
           Alert.alert(
             'Erro de Persistência',
             'Não foi possível salvar suas alterações localmente.',

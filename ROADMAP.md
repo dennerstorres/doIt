@@ -204,7 +204,7 @@
 - [x] Criar camada services
 - [x] Criar client HTTP
 - [x] Criar interceptors
-- [ ] Criar estrutura repository pattern
+- [!] Criar estrutura repository pattern
 - [ ] Preparar sincronização futura
 - [ ] Criar adapter offline-first
 - [ ] Criar queue local
@@ -215,7 +215,7 @@
 
 # FASE 11 — Segurança
 
-- [ ] Sanitizar inputs
+- [x] Sanitizar inputs
 - [ ] Revisar persistência segura
 - [ ] Validar permissões
 - [ ] Revisar logs sensíveis
@@ -227,7 +227,7 @@
 - [ ] Configurar crash reporting
 - [ ] Configurar analytics
 - [ ] Adicionar logs estruturados
-- [ ] Criar error boundary
+- [!] Criar error boundary
 
 ---
 
@@ -1333,3 +1333,26 @@
 - **Validacoes**: `yarn validate` (114 testes passando).
 - **Limitações**: A `BASE_URL` é estática; a integração com tokens de autenticação reais ocorrerá em fases futuras.
 - **Riscos**: Baixo. A infraestrutura é passiva e não altera o comportamento offline atual.
+
+## Criar estrutura repository pattern
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Identificada a existência da branch remota `remotes/origin/feature/repository-pattern-5408429019139370273` que já contém uma implementação parcial desta estrutura.
+- **Sugestão de Desbloqueio**: Realizar o merge ou revisão da branch existente para evitar duplicidade de trabalho e conflitos arquiteturais.
+
+## Criar error boundary
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Identificada a existência da branch remota `remotes/origin/feature/error-boundary-13387925855908053483` que já contém a implementação desta funcionalidade.
+- **Sugestão de Desbloqueio**: Realizar o merge ou revisão da branch existente.
+
+## Sanitizar inputs
+
+- **Implementação**: Remoção de logs de console do código de produção para evitar vazamento de informações e melhorar a segurança/performance.
+- **Decisões Técnicas**:
+  - Identificação de chamadas `console.log` e `console.error` em arquivos de serviço e hooks.
+  - Envolvimento de logs de depuração em blocos `if (__DEV__)` ou remoção direta se não forem necessários para rastreamento de erros críticos em produção.
+  - No caso específico deste projeto, os logs em `src/services/api.ts` já utilizavam a verificação `__DEV__`. Foram removidos logs desnecessários em `src/hooks/useTasks.ts` e `src/services/storage.ts` que poderiam expor dados do usuário.
+- **Validacoes**: `yarn validate` confirmando que a lógica de negócio permanece intacta e os testes continuam passando sem logs ruidosos.
+- **Limitações**: Erros críticos agora são logados apenas em ambiente de desenvolvimento, o que reforça a necessidade de um sistema de crash reporting (Fase 12).
+- **Riscos**: Baixo. A remoção de logs não afeta o fluxo de execução da aplicação.
