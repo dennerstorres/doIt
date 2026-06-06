@@ -204,7 +204,7 @@
 - [x] Criar camada services
 - [x] Criar client HTTP
 - [x] Criar interceptors
-- [ ] Criar estrutura repository pattern
+- [x] Criar estrutura repository pattern
 - [ ] Preparar sincronização futura
 - [ ] Criar adapter offline-first
 - [ ] Criar queue local
@@ -1333,3 +1333,15 @@
 - **Validacoes**: `yarn validate` (114 testes passando).
 - **Limitações**: A `BASE_URL` é estática; a integração com tokens de autenticação reais ocorrerá em fases futuras.
 - **Riscos**: Baixo. A infraestrutura é passiva e não altera o comportamento offline atual.
+
+## Criar estrutura repository pattern
+
+- **Implementação**: Introdução do padrão Repository para abstrair o acesso a dados e facilitar futuras migrações ou integrações com backend.
+- **Decisões Técnicas**:
+  - Definição da interface `ITaskRepository` para padronizar as operações de CRUD de tarefas.
+  - Implementação do `AsyncStorageTaskRepository` como a estratégia de persistência atual.
+  - Refatoração do `TaskService` para utilizar Injeção de Dependência, recebendo uma implementação de `ITaskRepository`.
+  - Migração de toda a lógica de persistência e cache do antigo `storage.ts` para a nova estrutura de repositório.
+- **Validações**: `yarn validate` confirmando 116 testes passando (incluindo novos testes de unidade para o repositório e serviço) e 100% de cobertura no domínio de dados.
+- **Limitações**: O aplicativo continua utilizando apenas armazenamento local; a injeção de dependência é feita manualmente no nível do serviço.
+- **Riscos**: Baixo. A arquitetura desacoplada agora permite trocar a fonte de dados (ex: para uma API remota ou SQLite) sem alterar a lógica de negócio ou a UI.

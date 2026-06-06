@@ -1,14 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {saveTasks, getTasks} from '../storage';
-import {Task} from '../../types';
+import {AsyncStorageTaskRepository} from '../AsyncStorageTaskRepository';
+import {Task} from '../../../types';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn(),
   getItem: jest.fn(),
 }));
 
-describe('Storage Service', () => {
+describe('AsyncStorageTaskRepository', () => {
+  let repository: AsyncStorageTaskRepository;
+
   beforeEach(() => {
+    repository = new AsyncStorageTaskRepository();
     jest.clearAllMocks();
     jest.spyOn(console, 'error').mockImplementation(() => {});
     jest.spyOn(console, 'warn').mockImplementation(() => {});
@@ -19,7 +22,7 @@ describe('Storage Service', () => {
     (console.warn as jest.Mock).mockRestore();
   });
 
-  describe('saveTasks', () => {
+  describe('saveAll', () => {
     it('should save tasks as a JSON string', async () => {
       const tasks: Task[] = [
         {
@@ -35,7 +38,7 @@ describe('Storage Service', () => {
           completedAt: null,
         },
       ];
-      await saveTasks(tasks);
+      await repository.saveAll(tasks);
 
       expect(AsyncStorage.setItem).toHaveBeenCalledWith(
         '@doit:tasks',
@@ -61,11 +64,11 @@ describe('Storage Service', () => {
       const error = new Error('Storage error');
       (AsyncStorage.setItem as jest.Mock).mockRejectedValueOnce(error);
 
-      await expect(saveTasks(tasks)).rejects.toThrow('Storage error');
+      await expect(repository.saveAll(tasks)).rejects.toThrow('Storage error');
     });
   });
 
-  describe('getTasks', () => {
+  describe('getAll', () => {
     it('should return parsed tasks from storage', async () => {
       const tasks: Task[] = [
         {
@@ -85,7 +88,7 @@ describe('Storage Service', () => {
         JSON.stringify(tasks),
       );
 
-      const result = await getTasks();
+      const result = await repository.getAll();
 
       expect(AsyncStorage.getItem).toHaveBeenCalledWith('@doit:tasks');
       expect(result).toEqual(tasks);
@@ -94,7 +97,7 @@ describe('Storage Service', () => {
     it('should return an empty array if storage is empty', async () => {
       (AsyncStorage.getItem as jest.Mock).mockResolvedValueOnce(null);
 
-      const result = await getTasks();
+      const result = await repository.getAll();
 
       expect(result).toEqual([]);
     });
@@ -104,7 +107,7 @@ describe('Storage Service', () => {
       (AsyncStorage.getItem as jest.Mock).mockRejectedValueOnce(error);
 
       try {
-        await getTasks();
+        await repository.getAll();
       } catch (e: any) {
         expect(e.message).toBe('Storage error');
       }
@@ -127,18 +130,18 @@ describe('Storage Service', () => {
       ];
 
       // Seed the cache
-      await saveTasks(tasks);
+      await repository.saveAll(tasks);
 
       // Make next read fail
       (AsyncStorage.getItem as jest.Mock).mockRejectedValueOnce(
         new Error('Storage error'),
       );
 
-      const result = await getTasks();
+      const result = await repository.getAll();
 
       expect(result).toEqual(tasks);
       expect(console.warn).toHaveBeenCalledWith(
-        'Falling back to in-memory tasks',
+        'Falling back to in-memory tasks in AsyncStorageTaskRepository',
       );
     });
   });
