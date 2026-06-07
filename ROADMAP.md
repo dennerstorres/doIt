@@ -204,21 +204,21 @@
 - [x] Criar camada services
 - [x] Criar client HTTP
 - [x] Criar interceptors
-- [ ] Criar estrutura repository pattern
-- [ ] Preparar sincronização futura
-- [ ] Criar adapter offline-first
-- [ ] Criar queue local
-- [ ] Criar estratégia de sync
-- [ ] Criar controle de conflito
+- [!] Criar estrutura repository pattern
+- [!] Preparar sincronização futura
+- [!] Criar adapter offline-first
+- [!] Criar queue local
+- [!] Criar estratégia de sync
+- [!] Criar controle de conflito
 
 ---
 
 # FASE 11 — Segurança
 
-- [ ] Sanitizar inputs
-- [ ] Revisar persistência segura
-- [ ] Validar permissões
-- [ ] Revisar logs sensíveis
+- [!] Sanitizar inputs
+- [!] Revisar persistência segura
+- [!] Validar permissões
+- [!] Revisar logs sensíveis
 
 ---
 
@@ -227,7 +227,7 @@
 - [ ] Configurar crash reporting
 - [ ] Configurar analytics
 - [ ] Adicionar logs estruturados
-- [ ] Criar error boundary
+- [!] Criar error boundary
 
 ---
 
@@ -1333,3 +1333,39 @@
 - **Validacoes**: `yarn validate` (114 testes passando).
 - **Limitações**: A `BASE_URL` é estática; a integração com tokens de autenticação reais ocorrerá em fases futuras.
 - **Riscos**: Baixo. A infraestrutura é passiva e não altera o comportamento offline atual.
+
+## Criar estrutura repository pattern (e demais tarefas de FASE 10)
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Uma implementação completa do Repository Pattern (incluindo `ITaskRepository` e `AsyncStorageTaskRepository`) já existe na branch remota `feature/repository-pattern-5408429019139370273`. As tarefas subsequentes de sincronização e adapter offline também dependem desta base.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch `feature/repository-pattern-5408429019139370273` para a branch principal.
+
+## Sanitizar inputs
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma implementação pendente na branch remota `feature/sanitize-inputs-10180679590986068123`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch `feature/sanitize-inputs-10180679590986068123`.
+
+## Revisar persistência segura
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Esta tarefa depende da abstração fornecida pelo Repository Pattern (FASE 10) para ser implementada de forma limpa e desacoplada.
+- **Sugestão de Desbloqueio**: Concluir a implementação e merge do Repository Pattern.
+
+## Validar permissões
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch ativa `feature/audit-permissions-283759150872877284` tratando deste tema, e o `Info.plist` ainda contém chaves não utilizadas (ex: `NSLocationWhenInUseUsageDescription`).
+- **Sugestão de Desbloqueio**: Finalizar a auditoria e limpeza na branch `feature/audit-permissions-283759150872877284` e realizar o merge.
+
+## Revisar logs sensíveis
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch remota `feature/review-sensitive-logs-12295648561502605362` que introduz a utilidade `logger` centralizada para este propósito.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch `feature/review-sensitive-logs-12295648561502605362`.
+
+## Criar error boundary
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A implementação do `ErrorBoundary` global já foi iniciada na branch remota `feature/error-boundary-13387925855908053483`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch `feature/error-boundary-13387925855908053483`.
