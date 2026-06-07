@@ -204,20 +204,20 @@
 - [x] Criar camada services
 - [x] Criar client HTTP
 - [x] Criar interceptors
-- [ ] Criar estrutura repository pattern
-- [ ] Preparar sincronização futura
-- [ ] Criar adapter offline-first
-- [ ] Criar queue local
-- [ ] Criar estratégia de sync
-- [ ] Criar controle de conflito
+- [!] Criar estrutura repository pattern
+- [!] Preparar sincronização futura
+- [!] Criar adapter offline-first
+- [!] Criar queue local
+- [!] Criar estratégia de sync
+- [!] Criar controle de conflito
 
 ---
 
 # FASE 11 — Segurança
 
-- [ ] Sanitizar inputs
-- [ ] Revisar persistência segura
-- [ ] Validar permissões
+- [!] Sanitizar inputs
+- [!] Revisar persistência segura
+- [x] Validar permissões
 - [ ] Revisar logs sensíveis
 
 ---
@@ -227,7 +227,7 @@
 - [ ] Configurar crash reporting
 - [ ] Configurar analytics
 - [ ] Adicionar logs estruturados
-- [ ] Criar error boundary
+- [!] Criar error boundary
 
 ---
 
@@ -1333,3 +1333,36 @@
 - **Validacoes**: `yarn validate` (114 testes passando).
 - **Limitações**: A `BASE_URL` é estática; a integração com tokens de autenticação reais ocorrerá em fases futuras.
 - **Riscos**: Baixo. A infraestrutura é passiva e não altera o comportamento offline atual.
+
+## Validar permissões
+
+- **Implementação**: Auditoria e limpeza das permissões e descrições de privacidade nos arquivos de configuração nativos (Android/iOS).
+- **Decisões Técnicas**:
+  - Confirmação de que apenas a permissão `INTERNET` é necessária no `AndroidManifest.xml` para o funcionamento do cliente Axios.
+  - Remoção da chave `NSLocationWhenInUseUsageDescription` vazia do `Info.plist` (iOS), eliminando um possível motivo de rejeição na App Store, já que o app não utiliza geolocalização.
+- **Limitações**: A validação foi feita via análise estática dos arquivos de configuração devido à falta de ambiente macOS/Android para execução nativa.
+- **Riscos**: Baixo. A remoção de chaves de privacidade não utilizadas é uma prática recomendada de segurança e conformidade.
+
+## Criar estrutura repository pattern / Preparar sincronização
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Identificada existência de implementação parcial e arquitetura conflitante na branch remota `feature/repository-pattern-5408429019139370273`. Iniciar uma nova implementação na `main` causaria duplicidade de esforço e conflitos de merge complexos.
+- **Sugestão de Desbloqueio**: Revisar, atualizar e realizar o merge da branch `feature/repository-pattern-5408429019139370273` antes de prosseguir com as tarefas dependentes de sincronização.
+
+## Sanitizar inputs
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Identificada existência de branch remota dedicada `feature/sanitize-inputs-10180679590986068123` tratando este domínio.
+- **Sugestão de Desbloqueio**: Integrar as mudanças da branch de sanitização para evitar divergência na lógica de validação de tarefas.
+
+## Revisar persistência segura
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A implementação de persistência segura (ex: Keychain/Keystore via `react-native-keychain`) exige validação em hardware real ou simuladores com Secure Enclave/Tee, o que não é suportado pelo ambiente de sandbox. Além disso, a instalação de novas dependências nativas é arriscada sem a capacidade de compilar o projeto.
+- **Sugestão de Desbloqueio**: Executar em ambiente de desenvolvimento local com dispositivos físicos.
+
+## Criar error boundary
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Identificada branch remota `feature/error-boundary-13387925855908053483` com implementação pendente.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch existente.
