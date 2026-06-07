@@ -8,6 +8,7 @@ import {
   TASK_REPEATS,
 } from '../constants/tasks';
 import {Task, TaskPriority, TaskCategory, TaskRepeat} from '../types';
+import {logger} from '../utils/logger';
 
 const animationConfig: LayoutAnimationConfig = {
   duration: 300,
@@ -46,7 +47,7 @@ export const useTasks = () => {
           setLoading(false);
         }
       } catch (error) {
-        console.error('Error loading tasks:', error);
+        logger.error('Error loading tasks:', error);
         if (isMounted) {
           Alert.alert(
             'Erro',
@@ -71,7 +72,7 @@ export const useTasks = () => {
         try {
           await TaskService.saveAll(tasks);
         } catch (error) {
-          console.error('Error saving tasks:', error);
+          logger.error('Error saving tasks:', error);
           Alert.alert(
             'Erro de Persistência',
             'Não foi possível salvar suas alterações localmente.',

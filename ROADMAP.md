@@ -204,7 +204,7 @@
 - [x] Criar camada services
 - [x] Criar client HTTP
 - [x] Criar interceptors
-- [ ] Criar estrutura repository pattern
+- [!] Criar estrutura repository pattern
 - [ ] Preparar sincronização futura
 - [ ] Criar adapter offline-first
 - [ ] Criar queue local
@@ -215,10 +215,10 @@
 
 # FASE 11 — Segurança
 
-- [ ] Sanitizar inputs
-- [ ] Revisar persistência segura
-- [ ] Validar permissões
-- [ ] Revisar logs sensíveis
+- [!] Sanitizar inputs
+- [!] Revisar persistência segura
+- [!] Validar permissões
+- [x] Revisar logs sensíveis
 
 ---
 
@@ -227,7 +227,7 @@
 - [ ] Configurar crash reporting
 - [ ] Configurar analytics
 - [ ] Adicionar logs estruturados
-- [ ] Criar error boundary
+- [!] Criar error boundary
 
 ---
 
@@ -347,7 +347,7 @@
 
 - **Implementação**: Adição do script `validate` ao `package.json`.
 - **Decisões Técnicas**:
-  - O script `validate` combines `yarn lint`, `yarn prettier` e `yarn test` usando o operador `&&`.
+  - O script `validate` combina `yarn lint`, `yarn prettier` e `yarn test` usando o operador `&&`.
   - Isso garante que a validação pare imediatamente se qualquer um dos passos falhar.
 - **Limitações**: Depende de que os scripts individuais (`lint`, `prettier`, `test`) estejam configurados corretamente.
 - **Riscos**: Nenhum identificado.
@@ -548,7 +548,7 @@
 ## Adicionar feedback visual ao deletar
 
 - **Status**: Validado como já implementado.
-- **Análise**: Durante a execução desta task, foi identificado que o feedback visual para deleção já se encontrava presente na base de código através do componente `Swipeable` (que revela o ícone de lixeira) e da `LayoutAnimation` (que suaviza a transição da lista). O status no roadmap foi updated para refletir a realidade do projeto.
+- **Análise**: Durante a execução desta task, foi identificado que o feedback visual para deleção já se encontrava presente na base de código através do componente `Swipeable` (que revela o ícone de lixeira) e da `LayoutAnimation` (que suaviza a transição da lista). O status no roadmap foi atualizado para refletir a realidade do projeto.
 - **Limitações**: Nenhuma.
 - **Riscos**: Nenhum identificado.
 
@@ -600,47 +600,37 @@
 - **Limitações**: A validação de builds nativos está bloqueada no ambiente sandbox; a funcionalidade real depende da linkagem nativa correta.
 - **Riscos**: Incompatibilidades menores com o ambiente de build Android legado (Gradle 6.2) podem surgir durante a compilação real.
 
-## Carregar tarefas automaticamente
+## Carregar tarefas automaticamente / Estratégia de fallback / Erro no storage / Loading inicial
 
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `origin/feature/infrastructure-status-and-hooks-4625301285441584084`) foi verificado como obsoleto.
+- **Implementação**: Refinamento do ciclo de vida de persistência e carregamento com tratamento de erros robusto.
+- **Decisões Técnicas**:
+  - Evolução do `getTasks` para incluir um fallback em memória (cache), garantindo que dados recém-alterados estejam disponíveis mesmo se o `AsyncStorage` falhar temporariamente.
+  - Implementação de alertas visuais (`Alert.alert`) na `Home` page para informar o usuário sobre falhas tanto no carregamento inicial quanto na persistência de alterações.
+  - Uso de um fallback para lista vazia (`[]`) em caso de erro crítico de carregamento, permitindo que a aplicação continue funcional em modo de "sessão volátil".
+  - Refatoração do componente `AddTask` para suportar o estado `loading`, desabilitando inputs e botões enquanto as tarefas estão sendo recuperadas do storage.
+  - Melhoria da cobertura de testes unitários para cobrir cenários de falha de storage e verificação de comportamento da UI sob erro.
+- **Limitações**: O cache em memória é volátil e não sobrevive ao reinício completo do app se o storage persistente estiver corrompido.
+- **Riscos**: Múltiplos alertas em sucessão se o storage falhar repetidamente; considerar um sistema de notificação menos introduzivo no futuro.
 
-## Criar estratégia de fallback
+## Criar model Task / Padronizar estrutura / Factory / Utilitários de transformação
 
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
-
-## Adicionar tratamento de erro no storage
-
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
-
-## Adicionar loading inicial
-
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
-
-## Criar model Task / Padronizar estrutura de task
-
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `origin/feature/structure-types-8503643862023991203`) foi verificado como obsoleto.
-
-## Criar factory de tasks / Criar utilitários de transformação
-
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `feature/structure-types`) foi verificado como obsoleto.
-
-## Separar lógica de Home em hooks / Criar hook useTasks
-
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `origin/feature/infrastructure-status-and-hooks-4625301285441584084`) foi verificado como obsoleto.
+- **Implementação**: Formalização do modelo de dados de tarefas e criação de utilitários para manipulação de listas.
+- **Decisões Técnicas**:
+  - Criação de `src/models/Task.js` com uma factory `createTask` que centraliza a criação de novas tarefas, garantindo campos consistentes (`id`, `task`, `done`, `createdAt`).
+  - Implementação de `isValidTask` para validação estrutural básica.
+  - Criação de `src/utils/taskUtils.js` contendo lógica pura para ordenação (`sortTasks`), filtragem (`filterTasksBySearch`) e estatísticas (`getTaskStats`).
+  - A ordenação foi aprimorada para mostrar tarefas pendentes primeiro, seguidas pelas concluídas, ambas ordenadas por data de criação decrescente.
+  - Refatoração da `Home` page para delegar a criação e transformação de dados para esses novos módulos, removendo lógica inline e preparando para a extração de hooks.
+  - Adição de testes unitários abrangentes para o modelo e utilitários.
+- **Limitações**: O campo `createdAt` é preenchido no cliente e depende do relógio do sistema.
+- **Riscos**: Mudanças na estrutura de `Task` podem exigir migração de dados no `AsyncStorage` em versões futuras.
 
 ## Criar EmptyState component
 
 - **Implementação**: Extração da lógica de visualização de lista vazia para um componente dedicado em `src/components/EmptyState`.
 - **Decisões Técnicas**:
   - Criação de um componente funcional simples que encapsula o ícone `clipboard` e a mensagem de "sem tarefas".
-  - Migração dos styled components `EmptyStateContainer` e `EmptyStateText` para the novo componente, promovendo o desacoplamento da `Home`.
+  - Migração dos styled components `EmptyStateContainer` e `EmptyStateText` para o novo componente, promovendo o desacoplamento da `Home`.
   - Uso do novo componente via prop `ListEmptyComponent` do `FlatList` na `Home`.
 - **Limitações**: Nenhuma.
 - **Riscos**: Baixo risco, componente puramente visual e desacoplado.
@@ -650,7 +640,7 @@
 - **Implementação**: Extração da lógica da lista de tarefas da `Home` para um componente dedicado em `src/components/TaskList`.
 - **Decisões Técnicas**:
   - Encapsulamento do `FlatList` e suas propriedades (`data`, `keyExtractor`, `renderItem`, `ListEmptyComponent`) em um componente funcional.
-  - O componente recebe `tasks`, `handleDoneTask` e `handleDeleteTask` as props, mantendo-se agnóstico à origem do estado.
+  - O componente recebe `tasks`, `handleDoneTask` e `handleDeleteTask` como props, mantendo-se agnóstico à origem do estado.
   - Criação de testes de snapshot para garantir que o componente renderize corretamente tanto com dados quanto em estado vazio.
   - Uso de mocks manuais para componentes internos (`Task`, `EmptyState`) nos testes para isolar a unidade sob teste.
 - **Limitações**: Nenhuma.
@@ -698,11 +688,6 @@
   - Atualização dos testes unitários de `TaskList` para incluir o `ThemeProvider`, evitando quebras devidas ao consumo do tema.
 - **Limitações**: A escala é baseada em valores fixos (px), o que pode precisar de revisão para acessibilidade (ex: usar escalas dinâmicas) no futuro.
 - **Riscos**: Alterações visuais sutis podem ocorrer devido à aproximação de valores hardcoded para a escala semântica.
-
-## Remover lógica inline
-
-- **Status**: [ ] Desbloqueado.
-- **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
 
 ## Padronizar tipografia
 
@@ -760,7 +745,7 @@
 - **Decisões Técnicas**:
   - Configuração do Jest no `package.json` para coletar cobertura automaticamente (`collectCoverage: true`).
   - Definição de limites iniciais de cobertura (40%) para garantir uma base estável para evolução.
-  - Atualização do `jest-setup.js` with mocks globais para `LayoutAnimation` e `UIManager`, evitando erros de tipo em componentes que usam animações nativas.
+  - Atualização do `jest-setup.js` com mocks globais para `LayoutAnimation` e `UIManager`, evitando erros de tipo em componentes que usam animações nativas.
   - Exclusão do diretório de cobertura (`__coverage__`) no Git, ESLint e Prettier para manter o repositório limpo.
 - **Limitações**: A cobertura atual de ~47% reflete a falta de testes em lógica complexa da Home e componentes de Task, que devem ser endereçados em tarefas futuras.
 - **Riscos**: Baixo. As mudanças são restritas ao ambiente de desenvolvimento e testes.
@@ -776,31 +761,6 @@
   - Uso de `testID` para garantir seletores estáveis nos testes de snapshot e unitários.
 - **Limitações**: A busca é puramente local e baseada no texto da tarefa.
 - **Riscos**: Conflito potencial com a futura implementação de filtros de status (Pendente/Concluída) na `Home`.
-
-## Carregar tarefas automaticamente / Estratégia de fallback / Erro no storage / Loading inicial
-
-- **Implementação**: Refinamento do ciclo de vida de persistência e carregamento com tratamento de erros robusto.
-- **Decisões Técnicas**:
-  - Evolução do `getTasks` para incluir um fallback em memória (cache), garantindo que dados recém-alterados estejam disponíveis mesmo se o `AsyncStorage` falhar temporariamente.
-  - Implementação de alertas visuais (`Alert.alert`) na `Home` page para informar o usuário sobre falhas tanto no carregamento inicial quanto na persistência de alterações.
-  - Uso de um fallback para lista vazia (`[]`) em caso de erro crítico de carregamento, permitindo que a aplicação continue funcional em modo de "sessão volátil".
-  - Refatoração do componente `AddTask` para suportar o estado `loading`, desabilitando inputs e botões enquanto as tarefas estão sendo recuperadas do storage.
-  - Melhoria da cobertura de testes unitários para cobrir cenários de falha de storage e verificação de comportamento da UI sob erro.
-- **Limitações**: O cache em memória é volátil e não sobrevive ao reinício completo do app se o storage persistente estiver corrompido.
-- **Riscos**: Múltiplos alertas em sucessão se o storage falhar repetidamente; considerar um sistema de notificação menos introduzivo no futuro.
-
-## Criar model Task / Padronizar estrutura / Factory / Utilitários de transformação
-
-- **Implementação**: Formalização do modelo de dados de tarefas e criação de utilitários para manipulação de listas.
-- **Decisões Técnicas**:
-  - Criação de `src/models/Task.js` com uma factory `createTask` que centraliza a criação de novas tarefas, garantindo campos consistentes (`id`, `task`, `done`, `createdAt`).
-  - Implementação de `isValidTask` para validação estrutural básica.
-  - Criação de `src/utils/taskUtils.js` contendo lógica pura para ordenação (`sortTasks`), filtragem (`filterTasksBySearch`) e estatísticas (`getTaskStats`).
-  - A ordenação foi aprimorada para mostrar tarefas pendentes primeiro, seguidas pelas concluídas, ambas ordenadas por data de criação decrescente.
-  - Refatoração da `Home` page para delegar a criação e transformação de dados para esses novos módulos, removendo lógica inline e preparando para a extração de hooks.
-  - Adição de testes unitários abrangentes para o modelo e utilitários.
-- **Limitações**: O campo `createdAt` é preenchido no cliente e depende do relógio do sistema.
-- **Riscos**: Mudanças na estrutura de `Task` podem exigir migração de dados no `AsyncStorage` em versões futuras.
 
 ## Melhorar animações
 
@@ -875,18 +835,6 @@
 - **Limitações**: A largura das ações de swipe é baseada no conteúdo e paddings; comportamentos extremos de swipe dependem da configuração interna do `react-native-gesture-handler`.
 - **Riscos**: Baixo. As mudanças são puramente de UI/UX e possuem cobertura de testes.
 
-## Criar tema light/dark
-
-- **Status**: [!] Bloqueado.
-- **Motivo**: Inconsistência entre o histórico do ROADMAP e o estado atual da branch principal. O histórico cita a implementação de `ThemeContext`, mas o arquivo não está presente na branch.
-- **Sugestão de Desbloqueio**: Reverter ou aplicar corretamente o PR #22 para restaurar a infraestrutura de temas dinâmicos.
-
-## Adicionar filtro Todas/Pendentes/Concluídas
-
-- **Status**: [!] Bloqueado.
-- **Motivo**: Dependência de PR #17 aberto (`feature/task-filters`) que contém a implementação pendente de revisão ou merge.
-- **Sugestão de Desbloqueio**: Revisar e realizar o merge do PR #17.
-
 ## Adicionar edição de tarefas
 
 - **Implementação**: Funcionalidade de edição de tarefas inline com validação e persistência.
@@ -904,7 +852,7 @@
 
 - **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
 - **Decisões Técnicas**:
-  - Definição de em `src/constants/tasks.js`.
+  - Definição de `TASK_PRIORITIES` em `src/constants/tasks.js`.
   - Atualização do model `Task` para incluir o campo `priority`, com fallback para 'none'.
   - Integração no hook `useTasks` para persistir e editar a prioridade.
   - UI: Adição de seletores de prioridade no `AddTask` e no modo de edição do componente `Task`.
@@ -924,20 +872,6 @@
   - Atualização dos snapshots de testes unitários para refletir as mudanças nas propriedades dos ícones.
 - **Limitações**: A biblioteca `react-native-vector-icons` ainda requer linkagem nativa para novos ícones, embora o conjunto Feather atual seja suficiente.
 - **Riscos**: Alterações sutis em tamanhos de ícones podem impactar o alinhamento visual em dispositivos muito pequenos (verificado nos testes).
-
-## Adicionar prioridade
-
-- **Implementação**: Sistema de prioridades para tarefas (Nenhuma, Baixa, Média, Alta).
-- **Decisões Técnicas**:
-  - Definição de `TASK_PRIORITIES` em `src/constants/tasks.js`.
-  - Atualização do model `Task` para incluir o campo `priority`, com fallback for 'none'.
-  - Integração no hook `useTasks` para persistir e editar a prioridade.
-  - UI: Adição de seletores de prioridade no `AddTask` e no modo de edição do componente `Task`.
-  - UI: Indicador visual colorido na listagem de tarefas baseado na prioridade.
-  - Ordenação: Atualização do `sortTasks` para incluir prioridade no critério padrão (Status > Prioridade > Data) e adição de novo tipo de ordenação por prioridade.
-  - Uso de cores semânticas (`info`, `warning`) adicionadas ao tema global.
-- **Limitações**: Tarefas antigas sem prioridade assumem automaticamente 'Nenhuma'.
-- **Riscos**: Baixo. A lógica é retrocompatível e possui ampla cobertura de testes unitários.
 
 ## Melhorar design geral
 
@@ -967,7 +901,7 @@
 - **Implementação**: Sistema de categorias para tarefas (Geral, Trabalho, Pessoal, Compras, Saúde, Estudo).
 - **Decisões Técnicas**:
   - Definição de `TASK_CATEGORIES` em `src/constants/tasks.js`.
-  - Atualização do model `Task` para incluir o campo `category`, com fallback for 'none'.
+  - Atualização do model `Task` para incluir o campo `category`, com fallback para 'none'.
   - Integração no hook `useTasks` para persistir e editar a categoria.
   - UI: Adição de seletores de categoria com scroll horizontal no `AddTask` e no modo de edição do componente `Task`.
   - UI: Exibição de tag de categoria na listagem de tarefas (exceto para categoria 'Geral').
@@ -975,12 +909,6 @@
   - Ampla cobertura de testes unitários e atualização de snapshots.
 - **Limitações**: Categorias são pré-definidas e não podem ser customizadas pelo usuário nesta fase.
 - **Riscos**: Baixo. A implementação é retrocompatível com dados antigos.
-
-## Adicionar lembretes locais
-
-- **Status**: [!] Bloqueado.
-- **Motivo**: A implementação e verificação de notificações locais requerem um ambiente com hardware real ou emuladores configurados com suporte a serviços de push/notificação, o que não é suportado pelo ambiente de sandbox atual.
-- **Sugestão de Desbloqueio**: Executar esta tarefa em um ambiente de desenvolvimento local com acesso a simuladores/emuladores ou dispositivos físicos.
 
 ## Adicionar repetição de tarefas
 
@@ -1127,11 +1055,11 @@
 - **Decisões Técnicas**:
   - Migração de `src/models/Task.ts` e `src/services/storage.ts` para `.ts`, utilizando as interfaces de tipo centrais.
   - Migração de `src/theme/index.ts` para `.ts` com a definição da interface `Theme`.
-  - Conversão de 10 arquivos de teste para `.ts` or `.tsx`.
+  - Conversão de 10 arquivos de teste para `.ts` ou `.tsx`.
   - Uso de `@ts-ignore` em testes de componentes para contornar conflitos de tipos entre styled-components v5 e React 16.13.1, mantendo o padrão adotado nas tarefas anteriores.
   - Atualização de snapshots de teste para refletir mudanças estruturais mínimas no layout renderizado durante a migração.
 - **Arquivos Alterados**: `src/models/Task.ts`, `src/services/storage.ts`, `src/theme/index.ts`, `src/components/**/__tests__/*.test.tsx`, `src/utils/__tests__/*.test.ts`, `src/pages/Home/__tests__/Home.test.tsx`.
-- **Validations**: `tsc` (zero erros), `yarn test` (67/67 passando), `yarn lint` (sem erros).
+- **Validações**: `tsc` (zero erros), `yarn test` (67/67 passando), `yarn lint` (sem erros).
 - **Limitações**: Algumas bibliotecas legadas ainda exigem bypasses de tipo (`@ts-ignore`) para funcionar corretamente com o compilador estrito.
 - **Riscos**: Baixo. O projeto agora possui 100% de cobertura de tipos na camada `src`.
 
@@ -1169,26 +1097,21 @@
   - Refatoração do componente `Task` para alternar dinamicamente entre os rótulos "Arquivar" e "Desarquivar" com base no estado da tarefa.
   - Adição de um botão de acesso rápido (ícone de arquivo) no `Header` da tela inicial.
   - Configuração de tipos de navegação TypeScript e registro da nova rota no `App.tsx`.
-  - Cobertura de testes unitários abrangente para la nova tela e para as interações no `Header`.
+  - Cobertura de testes unitários abrangente para a nova tela e para as interações no `Header`.
 - **Limitações**: A lista de histórico não possui filtros ou ordenação específica nesta fase, seguindo a ordem padrão de tarefas.
 - **Riscos**: Baixo. A funcionalidade utiliza o estado e as ações já existentes no hook `useTasks`.
 
-## Atualizar React Native
-
-- **Status**: [!] Bloqueado.
-- **Motivo**: Incompatibilidade entre a versão do Java instalada no ambiente (Java 21) e a versão do Gradle utilizada no projeto (Gradle 6.2). O Gradle 6.2 não suporta Java 21, resultando em erros de inicialização do Groovy. Além disso, o React Native 0.63.4 é uma versão antiga que requer cuidados específicos de compatibilidade em ambientes de build modernos.
-- **Sugestão de Desbloqueio**: Instalar uma versão compatível do JDK (ex: JDK 8 ou 11) ou atualizar o Gradle e o Android Gradle Plugin antes de prosseguir com a atualização do React Native.
-
 ## Atualizar React Navigation
 
-- **Implementação**: Upgrade do `@react-navigation/native` e `@react-navigation/stack` da v5 para a v6.
+- **Implementação**: Upgrade do ecossistema React Navigation da versão 5 para a versão 6.
 - **Decisões Técnicas**:
-  - Centralização de configurações de cabeçalho (`headerShown: false`) no `screenOptions` do `Stack.Navigator` para reduzir redundância, seguindo as melhores práticas da v6.
-  - Atualização do `jest-setup.js` para incluir mocks de `SafeAreaInsetsContext` e `SafeAreaFrameContext` como Contextos React reais, satisfazendo as exigências internas do `StackView` da v6 durante os testes.
-  - Upgrade sincronizado de `react-native-screens` (^3.29.0) e `react-native-safe-area-context` (^4.8.2) para garantir compatibilidade e performance com a nova versão do Navigation.
+  - Upgrade de `@react-navigation/native` (^6.1.9) e `@react-navigation/stack` (^6.4.1).
+  - Upgrade obrigatório de peer dependencies: `react-native-screens` (^3.29.0) e `react-native-safe-area-context` (^4.8.2) para garantir compatibilidade com v6.
+  - Refatoração do `src/App.tsx` para utilizar `screenOptions` no `Stack.Navigator`, centralizando a configuração de ocultar cabeçalhos que antes era repetida em cada tela.
+  - Atualização do mock `react-native-safe-area-context` no `jest-setup.js` para incluir `SafeAreaInsetsContext` e `SafeAreaFrameContext`, necessários para o renderizador do Navigation v6 em ambiente de teste.
 - **Validações**: `yarn validate` confirmando que todos os 104 testes unitários e de integração continuam passando após o upgrade.
 - **Limitações**: Nenhuma identificada. A tipagem `RootStackParamList` e a estrutura de rotas foram preservadas integralmente.
-- **Riscos**: Mudanças sutis no comportamento de transição ou cálculo de insets em dispositivos físicos devido a atualizações significativas nas dependências nativas (`screens` e `safe-area`).
+- **Riscos**: Baixo, dado que a migração preservou a funcionalidade existente e foi validada por uma suíte de testes robusta.
 
 ## Adicionar estatísticas
 
@@ -1239,7 +1162,7 @@
   - Configuração explícita de `coverageReporters` para incluir `text`, `lcov`, `clover` e `json`.
   - Migração de `__tests__/App-test.js` para `__tests__/App.test.tsx`, completando formalmente a migração da Fase 5.
 - **Arquivos Alterados**: `package.json`, `__tests__/App.test.tsx`, `ROADMAP.md`.
-- **Validações**: `yarn validate` confirmando que todos los testes passam e os novos limiares são respeitados.
+- **Validações**: `yarn validate` confirmando que todos os testes passam e os novos limiares são respeitados.
 - **Limitações**: Algumas áreas de UI e animações complexas ainda possuem lacunas de cobertura menores devido à natureza do ambiente de teste.
 - **Riscos**: Limiares rigorosos podem exigir mais esforço em novas funcionalidades para manter a conformidade, mas garantem a estabilidade do projeto.
 
@@ -1268,18 +1191,6 @@
 - **Limitações**: Os testes focam na lógica de estado e integração de componentes; interações nativas complexas (como gestos reais de swipe) são simuladas via chamadas diretas de props devido às limitações do `react-test-renderer`.
 - **Riscos**: Se a estrutura de persistência mudar significativamente, os testes de integração precisarão de atualização para refletir o novo schema de dados.
 
-## Validar Android 13+ / Android 14+
-
-- **Status**: [!] Bloqueado.
-- **Motivo**: A validação de comportamentos específicos de SO (como novos modelos de permissão) requer execução em hardware real ou emuladores, o que não é suportado pelo ambiente de sandbox. Além disso, o conflito Java 21 vs Gradle 6.2 impede builds nativos.
-- **Sugestão de Desbloqueio**: Executar em ambiente local com Android Studio e emuladores configurados.
-
-## Validar iOS recente
-
-- **Status**: [!] Bloqueado.
-- **Motivo**: O ambiente de execução não possui macOS, necessário para builds e validações iOS.
-- **Sugestão de Desbloqueio**: Executar em um ambiente com macOS e Xcode.
-
 ## Corrigir warnings de build
 
 - **Implementação**: Resolução de avisos de lint e correção de scripts de execução do ESLint.
@@ -1290,24 +1201,6 @@
 - **Validações**: `yarn validate` confirmando 100% de sucesso em linting, formatação e 104 testes unitários/integração.
 - **Limitações**: Nenhuma.
 - **Riscos**: Baixo. Mudanças puramente estruturais de estilo e infraestrutura de build.
-
-## Atualizar React Native
-
-- **Status**: [!] Bloqueado.
-- **Motivo**: Incompatibilidade entre a versão do Java instalada no ambiente (Java 21) e a versão do Gradle utilizada no projeto (Gradle 6.2). O Gradle 6.2 não suporta Java 21, impossibilitando a validação de builds nativos e atualizações de infraestrutura que dependem de compilação. Além disso, o ambiente sandbox possui limitações para execução de emuladores e ferramentas de build nativo completas.
-- **Sugestão de Desbloqueio**: Executar a atualização em um ambiente de desenvolvimento local configurado com JDK 8 ou 11 (compatível com Gradle 6.2) ou planejar uma atualização prévia do Gradle e Android Gradle Plugin (AGP) para versões compatíveis com Java 21 antes de prosseguir com o upgrade do React Native.
-
-## Atualizar React Navigation
-
-- **Implementação**: Upgrade do ecossistema React Navigation da versão 5 para a versão 6.
-- **Decisões Técnicas**:
-  - Upgrade de `@react-navigation/native` (^6.1.9) e `@react-navigation/stack` (^6.4.1).
-  - Upgrade obrigatório de peer dependencies: `react-native-screens` (^3.29.0) e `react-native-safe-area-context` (^4.8.2) para garantir compatibilidade com v6.
-  - Refatoração do `src/App.tsx` para utilizar `screenOptions` no `Stack.Navigator`, centralizando a configuração de ocultar cabeçalhos que antes era repetida em cada tela.
-  - Atualização do mock `react-native-safe-area-context` no `jest-setup.js` para incluir `SafeAreaInsetsContext` e `SafeAreaFrameContext`, necessários para o renderizador do Navigation v6 em ambiente de teste.
-- **Validações**: `yarn validate` confirmando que todos os 104 testes unitários e de integração continuam passando após o upgrade.
-- **Limitações**: Nenhuma identificada. A tipagem `RootStackParamList` e a estrutura de rotas foram preservadas integralmente.
-- **Riscos**: Baixo, dado que a migração preservou a funcionalidade existente e foi validada por uma suíte de testes robusta.
 
 ## Criar camada services
 
@@ -1330,6 +1223,50 @@
   - Implementação de interceptores em `src/services/api.ts` para logging centralizado (em `__DEV__`) e tratamento global de erros.
   - Uso de optional chaining no tratamento de erros para garantir robustez contra falhas de rede.
   - Cobertura de testes unitários abrangente para a configuração do cliente e lógica dos interceptores.
-- **Validacoes**: `yarn validate` (114 testes passando).
+- **Validações**: `yarn validate` (114 testes passando).
 - **Limitações**: A `BASE_URL` é estática; a integração com tokens de autenticação reais ocorrerá em fases futuras.
 - **Riscos**: Baixo. A infraestrutura é passiva e não altera o comportamento offline atual.
+
+## Criar estrutura repository pattern
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma implementação pendente na branch `feature/repository-pattern-5408429019139370273`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch mencionada.
+
+## Sanitizar inputs
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma implementação pendente na branch `feature/sanitize-inputs-10180679590986068123`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch mencionada.
+
+## Revisar persistência segura
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Esta tarefa depende da implementação do padrão Repository (FASE 10) para fornecer a abstração necessária para a introdução de camadas de criptografia ou armazenamento seguro de forma desacoplada da lógica de negócio.
+- **Sugestão de Desbloqueio**: Concluir e realizar o merge da "Estrutura repository pattern".
+
+## Validar permissões
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma implementação pendente na branch `feature/audit-permissions-283759150872877284`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch mencionada.
+
+## Criar error boundary
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma implementação pendente na branch `feature/error-boundary-13387925855908053483`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch mencionada.
+
+## Revisar logs sensíveis
+
+- **Implementação**: Centralização de logs através de um utilitário de logger dedicado.
+- **Decisões Técnicas**:
+  - Criação de `src/utils/logger.ts` para encapsular chamadas ao `console`.
+  - O logger garante que mensagens só sejam exibidas em ambiente de desenvolvimento (`__DEV__`).
+  - Refatoração de `useTasks`, `storage.ts` e `api.ts` para utilizar o novo logger.
+  - Remoção de verificações manuais de `__DEV__` espalhadas pelo código, promovendo um código mais limpo.
+  - Adição de testes unitários para o logger cobrindo diferentes ambientes.
+- **Arquivos Alterados**: `src/utils/logger.ts`, `src/utils/__tests__/logger.test.ts`, `src/hooks/useTasks.ts`, `src/services/storage.ts`, `src/services/api.ts`, `ROADMAP.md`.
+- **Validações**: `yarn validate` confirmando 120 testes passando e cobertura respeitada.
+- **Limitações**: Logs de bibliotecas externas não são afetados por este utilitário.
+- **Riscos**: Baixo. Centralização melhora a segurança e manutenibilidade.
