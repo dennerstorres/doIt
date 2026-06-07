@@ -204,30 +204,30 @@
 - [x] Criar camada services
 - [x] Criar client HTTP
 - [x] Criar interceptors
-- [ ] Criar estrutura repository pattern
-- [ ] Preparar sincronização futura
-- [ ] Criar adapter offline-first
-- [ ] Criar queue local
-- [ ] Criar estratégia de sync
-- [ ] Criar controle de conflito
+- [!] Criar estrutura repository pattern
+- [!] Preparar sincronização futura
+- [!] Criar adapter offline-first
+- [!] Criar queue local
+- [!] Criar estratégia de sync
+- [!] Criar controle de conflito
 
 ---
 
 # FASE 11 — Segurança
 
-- [ ] Sanitizar inputs
-- [ ] Revisar persistência segura
-- [ ] Validar permissões
-- [ ] Revisar logs sensíveis
+- [!] Sanitizar inputs
+- [!] Revisar persistência segura
+- [!] Validar permissões
+- [!] Revisar logs sensíveis
 
 ---
 
 # FASE 12 — Observabilidade
 
-- [ ] Configurar crash reporting
+- [x] Configurar crash reporting
 - [ ] Configurar analytics
-- [ ] Adicionar logs estruturados
-- [ ] Criar error boundary
+- [!] Adicionar logs estruturados
+- [!] Criar error boundary
 
 ---
 
@@ -1333,3 +1333,52 @@
 - **Validacoes**: `yarn validate` (114 testes passando).
 - **Limitações**: A `BASE_URL` é estática; a integração com tokens de autenticação reais ocorrerá em fases futuras.
 - **Riscos**: Baixo. A infraestrutura é passiva e não altera o comportamento offline atual.
+
+## Criar estrutura repository pattern
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Uma implementação existente foi encontrada na branch remota `feature/repository-pattern-5408429019139370273`.
+- **Sugestão de Desbloqueio**: Realizar o merge da branch de feature existente na `main`. As tarefas subsequentes de sincronização e adapter offline também dependem desta base.
+
+## Sanitizar inputs
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Uma branch de feature ativa `feature/sanitize-inputs-10180679590986068123` foi identificada.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch existente.
+
+## Revisar persistência segura
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Esta tarefa depende da implementação do Repository Pattern para abstrair o mecanismo de armazenamento antes de aplicar camadas de segurança/criptografia.
+- **Sugestão de Desbloqueio**: Finalizar o merge do Repository Pattern.
+
+## Validar permissões
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch de feature ativa `feature/audit-permissions-283759150872877284`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch existente.
+
+## Revisar logs sensíveis / Adicionar logs estruturados
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch de feature ativa `feature/review-sensitive-logs-12295648561502605362` que provavelmente introduz a utilidade de logger centralizada necessária para ambas as tarefas.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch existente.
+
+## Criar error boundary
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Existe uma branch de feature ativa `feature/error-boundary-13387925855908053483`.
+- **Sugestão de Desbloqueio**: Revisar e realizar o merge da branch existente.
+
+## Configurar crash reporting
+
+- **Implementação**: Introdução de uma infraestrutura base para captura e reporte de erros fatais e não fatais.
+- **Decisões Técnicas**:
+  - Criação do serviço `crashReporting` em `src/services/crashReporting.ts`.
+  - Uso da API global `ErrorUtils` do React Native para interceptar erros de JavaScript em tempo de execução.
+  - Implementação de um handler que registra detalhes do erro (mensagem, stack trace, fatalidade) e delega para o handler original para manter o comportamento padrão do ambiente (como a Red Box em desenvolvimento).
+  - Centralização da exportação do serviço em `src/services/index.ts`.
+  - Inicialização do serviço no ponto de entrada da aplicação (`src/App.tsx`).
+- **Validacoes**: `yarn validate` confirmando a integridade de todos os 114 testes e conformidade com linting/formatting.
+- **Limitações**: O reporte atual é direcionado apenas ao console/logs locais; a integração com serviços externos (Sentry/Firebase) foi preparada via comentários e estrutura de código, mas não ativada para evitar dependências de infraestrutura externa nesta fase.
+- **Riscos**: Se múltiplos handlers globais forem definidos sem o devido cuidado com a preservação do handler anterior, logs importantes do sistema podem ser perdidos.

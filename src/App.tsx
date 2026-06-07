@@ -10,6 +10,10 @@ import Home from './pages/Home';
 import Statistics from './pages/Statistics';
 import History from './pages/History';
 import {RootStackParamList} from './types';
+import {crashReporting} from './services';
+
+// Initialize Crash Reporting
+crashReporting.init();
 
 if (
   Platform.OS === 'android' &&
