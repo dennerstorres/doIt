@@ -1,8 +1,6 @@
 import {Task} from '../types';
-import {
-  getTasks as getStoredTasks,
-  saveTasks as saveStoredTasks,
-} from './storage';
+import {ITaskRepository} from '../repositories/ITaskRepository';
+import {AsyncStorageTaskRepository} from '../repositories/implementations/AsyncStorageTaskRepository';
 import {createTask} from '../models/Task';
 import {
   MIN_TASK_LENGTH,
@@ -13,23 +11,29 @@ import {
 /**
  * Service to handle task-related business logic and data operations.
  * This prepares the application for a future backend integration by
- * abstracting data access and business rules.
+ * abstracting data access and business rules through a repository pattern.
  */
-export const TaskService = {
+export class TaskServiceClass {
+  private repository: ITaskRepository;
+
+  constructor(repository: ITaskRepository) {
+    this.repository = repository;
+  }
+
   /**
    * Retrieves all tasks from the current data source.
    */
   async getAll(): Promise<Task[]> {
-    return getStoredTasks();
-  },
+    return this.repository.getAll();
+  }
 
   /**
    * Persists the list of tasks to the current data source.
    * @param tasks - The list of tasks to save.
    */
   async saveAll(tasks: Task[]): Promise<void> {
-    return saveStoredTasks(tasks);
-  },
+    return this.repository.saveAll(tasks);
+  }
 
   /**
    * Validates a task title against business rules.
@@ -74,7 +78,7 @@ export const TaskService = {
     }
 
     return {valid: true};
-  },
+  }
 
   /**
    * Calculates the next occurrence of a repeating task.
@@ -107,5 +111,10 @@ export const TaskService = {
       nextDeadline,
       item.repeat,
     );
-  },
-};
+  }
+}
+
+// Export a default instance using AsyncStorageTaskRepository for current functionality
+export const TaskService = new TaskServiceClass(
+  new AsyncStorageTaskRepository(),
+);

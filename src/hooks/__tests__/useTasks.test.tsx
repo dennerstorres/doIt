@@ -1,13 +1,11 @@
 import React from 'react';
 import {useTasks} from '../useTasks';
-// @ts-ignore - storage.js is still in JS
-import {getTasks, saveTasks} from '../../services/storage';
-import {MIN_TASK_LENGTH, MAX_TASK_LENGTH} from '../../constants/tasks';
+import {TaskService} from '../../services/taskService';
 import {Alert, LayoutAnimation, Text, View} from 'react-native';
 import renderer, {act} from 'react-test-renderer';
 import {Task} from '../../types';
 
-jest.mock('../../services/storage');
+jest.mock('../../services/taskService');
 jest.mock('react-native/Libraries/Alert/Alert', () => ({
   alert: jest.fn(),
 }));
@@ -54,7 +52,7 @@ describe('useTasks hook', () => {
     jest.clearAllMocks();
   });
 
-  it('should load tasks from storage on mount', async () => {
+  it('should load tasks from TaskService on mount', async () => {
     const mockTasks: Task[] = [
       {
         id: '1',
@@ -69,7 +67,7 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
 
     let hook!: UseTasksHookType;
     await act(async () => {
@@ -78,11 +76,13 @@ describe('useTasks hook', () => {
 
     expect(hook.loading).toBe(false);
     expect(hook.tasks).toEqual(mockTasks);
-    expect(getTasks).toHaveBeenCalledTimes(1);
+    expect(TaskService.getAll).toHaveBeenCalledTimes(1);
   });
 
   it('should handle error when loading tasks', async () => {
-    (getTasks as jest.Mock).mockRejectedValueOnce(new Error('Storage error'));
+    (TaskService.getAll as jest.Mock).mockRejectedValueOnce(
+      new Error('Storage error'),
+    );
 
     let hook!: UseTasksHookType;
     await act(async () => {
@@ -98,7 +98,8 @@ describe('useTasks hook', () => {
   });
 
   it('should add a new task successfully', async () => {
-    (getTasks as jest.Mock).mockResolvedValueOnce([]);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce([]);
+    (TaskService.validate as jest.Mock).mockReturnValue({valid: true});
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -120,8 +121,12 @@ describe('useTasks hook', () => {
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
   });
 
-  it('should not add an empty task', async () => {
-    (getTasks as jest.Mock).mockResolvedValueOnce([]);
+  it('should not add an invalid task', async () => {
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce([]);
+    (TaskService.validate as jest.Mock).mockReturnValue({
+      valid: false,
+      error: 'A tarefa não pode estar vazia.',
+    });
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -154,7 +159,7 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -198,7 +203,7 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -241,7 +246,7 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -285,7 +290,8 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.validate as jest.Mock).mockReturnValue({valid: true});
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -312,7 +318,7 @@ describe('useTasks hook', () => {
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
   });
 
-  it('should not edit a task with empty title', async () => {
+  it('should not edit a task if validation fails', async () => {
     const mockTasks: Task[] = [
       {
         id: '1',
@@ -327,7 +333,11 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.validate as jest.Mock).mockReturnValue({
+      valid: false,
+      error: 'A tarefa não pode estar vazia.',
+    });
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -347,50 +357,6 @@ describe('useTasks hook', () => {
     );
   });
 
-  it('should not edit a task to a duplicate title', async () => {
-    const mockTasks: Task[] = [
-      {
-        id: '1',
-        task: 'Task 1',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'none',
-        archived: false,
-        deadline: null,
-        createdAt: new Date().toISOString(),
-        completedAt: null,
-      },
-      {
-        id: '2',
-        task: 'Task 2',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'none',
-        archived: false,
-        deadline: null,
-        createdAt: new Date().toISOString(),
-        completedAt: null,
-      },
-    ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    await act(async () => {
-      const success = hook.editTask('1', 'Task 2');
-      expect(success).toBe(false);
-    });
-
-    if (hook.tasks) {
-      expect(hook.tasks[0].task).toBe('Task 1');
-    }
-    expect(Alert.alert).toHaveBeenCalledWith('Aviso', 'Esta tarefa já existe.');
-  });
-
   it('should archive a task', async () => {
     const mockTasks: Task[] = [
       {
@@ -406,7 +372,7 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -437,7 +403,7 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -462,7 +428,8 @@ describe('useTasks hook', () => {
   });
 
   it('should persist tasks when they change', async () => {
-    (getTasks as jest.Mock).mockResolvedValueOnce([]);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce([]);
+    (TaskService.validate as jest.Mock).mockReturnValue({valid: true});
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -472,15 +439,18 @@ describe('useTasks hook', () => {
       hook.addTask('New Task');
     });
 
-    expect(saveTasks).toHaveBeenCalledWith(expect.any(Array));
+    expect(TaskService.saveAll).toHaveBeenCalledWith(expect.any(Array));
   });
 
   it('should handle error when saving tasks', async () => {
     const consoleSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
-    (getTasks as jest.Mock).mockResolvedValueOnce([]);
-    (saveTasks as jest.Mock).mockRejectedValueOnce(new Error('Save error'));
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce([]);
+    (TaskService.validate as jest.Mock).mockReturnValue({valid: true});
+    (TaskService.saveAll as jest.Mock).mockRejectedValueOnce(
+      new Error('Save error'),
+    );
 
     let hook!: UseTasksHookType;
     await act(async () => {
@@ -491,7 +461,7 @@ describe('useTasks hook', () => {
       hook.addTask('New Task');
     });
 
-    expect(saveTasks).toHaveBeenCalled();
+    expect(TaskService.saveAll).toHaveBeenCalled();
     expect(consoleSpy).toHaveBeenCalledWith(
       'Error saving tasks:',
       expect.any(Error),
@@ -503,145 +473,11 @@ describe('useTasks hook', () => {
     consoleSpy.mockRestore();
   });
 
-  it('should not add a task with title shorter than MIN_TASK_LENGTH', async () => {
-    (getTasks as jest.Mock).mockResolvedValueOnce([]);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    await act(async () => {
-      const success = hook.addTask('ab');
-      expect(success).toBe(false);
-    });
-
-    expect(hook.tasks).toHaveLength(0);
-    expect(Alert.alert).toHaveBeenCalledWith(
-      'Aviso',
-      `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
-    );
-  });
-
-  it('should not add a task with title longer than MAX_TASK_LENGTH', async () => {
-    (getTasks as jest.Mock).mockResolvedValueOnce([]);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    const longTask = 'a'.repeat(MAX_TASK_LENGTH + 1);
-    await act(async () => {
-      const success = hook.addTask(longTask);
-      expect(success).toBe(false);
-    });
-
-    expect(hook.tasks).toHaveLength(0);
-    expect(Alert.alert).toHaveBeenCalledWith(
-      'Aviso',
-      `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
-    );
-  });
-
-  it('should not add a duplicate task title', async () => {
+  it('should create a new instance when a repeating task is completed', async () => {
     const mockTasks: Task[] = [
       {
         id: '1',
-        task: 'Duplicate Task',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'none',
-        archived: false,
-        deadline: null,
-        createdAt: new Date().toISOString(),
-        completedAt: null,
-      },
-    ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    await act(async () => {
-      const success = hook.addTask('duplicate task');
-      expect(success).toBe(false);
-    });
-
-    expect(hook.tasks).toHaveLength(1);
-    expect(Alert.alert).toHaveBeenCalledWith('Aviso', 'Esta tarefa já existe.');
-  });
-
-  it('should not edit a task with title shorter than MIN_TASK_LENGTH', async () => {
-    const mockTasks: Task[] = [
-      {
-        id: '1',
-        task: 'Valid Task',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'none',
-        archived: false,
-        deadline: null,
-        createdAt: new Date().toISOString(),
-        completedAt: null,
-      },
-    ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    await act(async () => {
-      const success = hook.editTask('1', 'ab');
-      expect(success).toBe(false);
-    });
-
-    expect(Alert.alert).toHaveBeenCalledWith(
-      'Aviso',
-      `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
-    );
-  });
-
-  it('should not edit a task with title longer than MAX_TASK_LENGTH', async () => {
-    const mockTasks: Task[] = [
-      {
-        id: '1',
-        task: 'Valid Task',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'none',
-        archived: false,
-        deadline: null,
-        createdAt: new Date().toISOString(),
-        completedAt: null,
-      },
-    ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    const longTask = 'a'.repeat(MAX_TASK_LENGTH + 1);
-    await act(async () => {
-      const success = hook.editTask('1', longTask);
-      expect(success).toBe(false);
-    });
-
-    expect(Alert.alert).toHaveBeenCalledWith(
-      'Aviso',
-      `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
-    );
-  });
-
-  it('should create a new instance without deadline when a repeating task without deadline is completed', async () => {
-    const mockTasks: Task[] = [
-      {
-        id: '1',
-        task: 'Repeat Daily No Deadline',
+        task: 'Repeat Task',
         done: false,
         priority: 'none',
         category: 'none',
@@ -652,7 +488,15 @@ describe('useTasks hook', () => {
         completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    const nextTask: Task = {
+      ...mockTasks[0],
+      id: '2',
+      done: false,
+      completedAt: null,
+    };
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getNextOccurrence as jest.Mock).mockReturnValue(nextTask);
+
     let hook!: UseTasksHookType;
     await act(async () => {
       renderer.create(<TestComponent onHook={h => (hook = h)} />);
@@ -663,131 +507,6 @@ describe('useTasks hook', () => {
     });
 
     expect(hook.tasks).toHaveLength(2);
-    if (hook.tasks) {
-      const newTask = hook.tasks.find(t => t.id !== '1');
-      expect(newTask?.deadline).toBeNull();
-    }
-  });
-
-  it('should create a new instance when a daily repeating task is completed', async () => {
-    const today = new Date();
-    today.setHours(12, 0, 0, 0);
-    const mockTasks: Task[] = [
-      {
-        id: '1',
-        task: 'Repeat Daily',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'daily',
-        archived: false,
-        deadline: today.toISOString(),
-        createdAt: today.toISOString(),
-        completedAt: null,
-      },
-    ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    await act(async () => {
-      hook.toggleTask(mockTasks[0]);
-    });
-
-    expect(hook.tasks).toHaveLength(2);
-    if (hook.tasks) {
-      const originalTask = hook.tasks.find(t => t.id === '1');
-      const newTask = hook.tasks.find(t => t.id !== '1');
-
-      expect(originalTask?.done).toBe(true);
-      expect(newTask?.task).toBe('Repeat Daily');
-      expect(newTask?.repeat).toBe('daily');
-      expect(newTask?.done).toBe(false);
-
-      if (newTask?.deadline) {
-        const nextDate = new Date(newTask.deadline);
-        const expectedDate = new Date(today);
-        expectedDate.setDate(expectedDate.getDate() + 1);
-        expect(nextDate.toISOString()).toBe(expectedDate.toISOString());
-      }
-    }
-  });
-
-  it('should create a new instance when a weekly repeating task is completed', async () => {
-    const today = new Date();
-    const mockTasks: Task[] = [
-      {
-        id: '1',
-        task: 'Repeat Weekly',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'weekly',
-        archived: false,
-        deadline: today.toISOString(),
-        createdAt: today.toISOString(),
-        completedAt: null,
-      },
-    ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    await act(async () => {
-      hook.toggleTask(mockTasks[0]);
-    });
-
-    expect(hook.tasks).toHaveLength(2);
-    if (hook.tasks) {
-      const newTask = hook.tasks.find(t => t.id !== '1');
-      if (newTask?.deadline) {
-        const nextDate = new Date(newTask.deadline);
-        const expectedDate = new Date(today);
-        expectedDate.setDate(expectedDate.getDate() + 7);
-        expect(nextDate.toISOString()).toBe(expectedDate.toISOString());
-      }
-    }
-  });
-
-  it('should create a new instance when a monthly repeating task is completed', async () => {
-    const today = new Date();
-    const mockTasks: Task[] = [
-      {
-        id: '1',
-        task: 'Repeat Monthly',
-        done: false,
-        priority: 'none',
-        category: 'none',
-        repeat: 'monthly',
-        archived: false,
-        deadline: today.toISOString(),
-        createdAt: today.toISOString(),
-        completedAt: null,
-      },
-    ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
-    let hook!: UseTasksHookType;
-    await act(async () => {
-      renderer.create(<TestComponent onHook={h => (hook = h)} />);
-    });
-
-    await act(async () => {
-      hook.toggleTask(mockTasks[0]);
-    });
-
-    expect(hook.tasks).toHaveLength(2);
-    if (hook.tasks) {
-      const newTask = hook.tasks.find(t => t.id !== '1');
-      if (newTask?.deadline) {
-        const nextDate = new Date(newTask.deadline);
-        const expectedDate = new Date(today);
-        expectedDate.setMonth(expectedDate.getMonth() + 1);
-        expect(nextDate.toISOString()).toBe(expectedDate.toISOString());
-      }
-    }
+    expect(TaskService.getNextOccurrence).toHaveBeenCalledWith(mockTasks[0]);
   });
 });

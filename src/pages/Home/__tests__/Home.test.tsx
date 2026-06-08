@@ -4,13 +4,10 @@ import renderer, {act} from 'react-test-renderer';
 import {ThemeProvider} from 'styled-components/native';
 import Home from '../index';
 import TaskList from '../../../components/TaskList';
-import {getTasks, saveTasks} from '../../../services/storage';
+import {TaskService} from '../../../services/taskService';
 import theme from '../../../theme';
 
-jest.mock('../../../services/storage', () => ({
-  getTasks: jest.fn(),
-  saveTasks: jest.fn(),
-}));
+jest.mock('../../../services/taskService');
 
 const mockAlert = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
 
@@ -36,7 +33,7 @@ describe('Home Page', () => {
   });
 
   it('should show loading indicator initially', async () => {
-    (getTasks as jest.Mock).mockReturnValue(new Promise(() => {})); // Never resolves
+    (TaskService.getAll as jest.Mock).mockReturnValue(new Promise(() => {})); // Never resolves
 
     let component: any;
     await act(async () => {
@@ -55,16 +52,22 @@ describe('Home Page', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should load tasks from storage on mount', async () => {
+  it('should load tasks from TaskService on mount', async () => {
     const mockTasks = [
       {
         id: '1',
         task: 'Test Task',
         done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
         createdAt: '2023-01-01T10:00:00Z',
+        completedAt: null,
       },
     ];
-    (getTasks as jest.Mock).mockResolvedValueOnce(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
 
     let component: any;
     await act(async () => {
@@ -76,7 +79,7 @@ describe('Home Page', () => {
       );
     });
 
-    expect(getTasks).toHaveBeenCalledTimes(1);
+    expect(TaskService.getAll).toHaveBeenCalledTimes(1);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -86,7 +89,9 @@ describe('Home Page', () => {
     const consoleSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
-    (getTasks as jest.Mock).mockRejectedValueOnce(new Error('Load error'));
+    (TaskService.getAll as jest.Mock).mockRejectedValueOnce(
+      new Error('Load error'),
+    );
 
     await act(async () => {
       renderer.create(
@@ -97,7 +102,7 @@ describe('Home Page', () => {
       );
     });
 
-    expect(getTasks).toHaveBeenCalledTimes(1);
+    expect(TaskService.getAll).toHaveBeenCalledTimes(1);
     expect(consoleSpy).toHaveBeenCalledWith(
       'Error loading tasks:',
       expect.any(Error),
@@ -113,8 +118,10 @@ describe('Home Page', () => {
     const consoleSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
-    (getTasks as jest.Mock).mockResolvedValueOnce([]);
-    (saveTasks as jest.Mock).mockRejectedValueOnce(new Error('Save error'));
+    (TaskService.getAll as jest.Mock).mockResolvedValueOnce([]);
+    (TaskService.saveAll as jest.Mock).mockRejectedValueOnce(
+      new Error('Save error'),
+    );
 
     await act(async () => {
       renderer.create(
@@ -125,9 +132,9 @@ describe('Home Page', () => {
       );
     });
 
-    // saveTasks is called in an effect when tasks !== null
+    // TaskService.saveAll is called in an effect when tasks !== null
     // After loadTasks resolves to [], tasks becomes [], triggering the effect
-    expect(saveTasks).toHaveBeenCalled();
+    expect(TaskService.saveAll).toHaveBeenCalled();
     expect(consoleSpy).toHaveBeenCalledWith(
       'Error saving tasks:',
       expect.any(Error),
@@ -141,10 +148,32 @@ describe('Home Page', () => {
 
   it('should change sorting when sort buttons are pressed', async () => {
     const mockTasks = [
-      {id: '1', task: 'A Task', done: false, createdAt: '2023-01-01T10:00:00Z'},
-      {id: '2', task: 'B Task', done: false, createdAt: '2023-01-01T11:00:00Z'},
+      {
+        id: '1',
+        task: 'A Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: '2023-01-01T10:00:00Z',
+        completedAt: null,
+      },
+      {
+        id: '2',
+        task: 'B Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: '2023-01-01T11:00:00Z',
+        completedAt: null,
+      },
     ];
-    (getTasks as jest.Mock).mockResolvedValue(mockTasks);
+    (TaskService.getAll as jest.Mock).mockResolvedValue(mockTasks);
 
     let component: any;
     await act(async () => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home Page should load tasks from storage on mount 1`] = `
+exports[`Home Page should load tasks from TaskService on mount 1`] = `
 <View
   style={
     Array [
@@ -1371,9 +1371,15 @@ exports[`Home Page should load tasks from storage on mount 1`] = `
     data={
       Array [
         Object {
+          "archived": false,
+          "category": "none",
+          "completedAt": null,
           "createdAt": "2023-01-01T10:00:00Z",
+          "deadline": null,
           "done": false,
           "id": "1",
+          "priority": "none",
+          "repeat": "none",
           "task": "Test Task",
         },
       ]
