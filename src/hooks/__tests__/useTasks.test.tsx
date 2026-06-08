@@ -64,7 +64,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -156,7 +158,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -200,7 +204,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -243,7 +249,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -269,7 +277,12 @@ describe('useTasks hook', () => {
 
     expect(hook.tasks).toHaveLength(1);
     if (hook.tasks) {
-      expect(hook.tasks[0]).toEqual(mockTasks[0]);
+      expect(hook.tasks[0]).toMatchObject({
+        id: mockTasks[0].id,
+        task: mockTasks[0].task,
+        deleted: false,
+      });
+      expect(typeof hook.tasks[0].updatedAt).toBe('string');
     }
     expect(hook.lastDeletedTask).toBeNull();
     expect(LayoutAnimation.configureNext).toHaveBeenCalled();
@@ -287,7 +300,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -330,7 +345,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -369,7 +386,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -400,7 +419,9 @@ describe('useTasks hook', () => {
         archived: false,
         deadline: null,
         createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         completedAt: null,
+        deleted: false,
       },
     ];
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
@@ -493,6 +514,8 @@ describe('useTasks hook', () => {
       id: '2',
       done: false,
       completedAt: null,
+      updatedAt: new Date().toISOString(),
+      deleted: false,
     };
     (TaskService.getAll as jest.Mock).mockResolvedValueOnce(mockTasks);
     (TaskService.getNextOccurrence as jest.Mock).mockReturnValue(nextTask);

@@ -68,7 +68,9 @@ describe('TaskService', () => {
           archived: false,
           deadline: null,
           createdAt: '',
+          updatedAt: '',
           completedAt: null,
+          deleted: false,
         },
       ];
       const result = service.validate('existing', tasks);
@@ -88,7 +90,9 @@ describe('TaskService', () => {
           archived: false,
           deadline: null,
           createdAt: '',
+          updatedAt: '',
           completedAt: null,
+          deleted: false,
         },
       ];
       const result = service.validate('existing', tasks, '1');
@@ -97,6 +101,27 @@ describe('TaskService', () => {
 
     it('should return valid for unique title', () => {
       const result = service.validate('New Task', []);
+      expect(result.valid).toBe(true);
+    });
+
+    it('should ignore deleted tasks in duplicate check', () => {
+      const tasks: Task[] = [
+        {
+          id: '1',
+          task: 'Existing',
+          done: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          archived: false,
+          deadline: null,
+          createdAt: '',
+          updatedAt: '',
+          completedAt: null,
+          deleted: true,
+        },
+      ];
+      const result = service.validate('existing', tasks);
       expect(result.valid).toBe(true);
     });
   });
@@ -113,7 +138,9 @@ describe('TaskService', () => {
         archived: false,
         deadline: null,
         createdAt: '',
+        updatedAt: '',
         completedAt: null,
+        deleted: false,
       };
       expect(service.getNextOccurrence(task)).toBeNull();
     });
@@ -130,7 +157,9 @@ describe('TaskService', () => {
         archived: false,
         deadline,
         createdAt: '',
+        updatedAt: '',
         completedAt: null,
+        deleted: false,
       };
 
       const next = service.getNextOccurrence(task);
@@ -153,7 +182,9 @@ describe('TaskService', () => {
         archived: false,
         deadline: null,
         createdAt: '',
+        updatedAt: '',
         completedAt: null,
+        deleted: false,
       };
 
       const next = service.getNextOccurrence(task);

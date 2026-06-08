@@ -124,6 +124,7 @@ export const useTasks = () => {
             ...t,
             done: newDone,
             completedAt: newDone ? new Date().toISOString() : null,
+            updatedAt: new Date().toISOString(),
           };
         }
         return t;
@@ -156,7 +157,16 @@ export const useTasks = () => {
             LayoutAnimation.configureNext(animationConfig);
             setLastDeletedTask(item);
             setTasks(prevTasks =>
-              (prevTasks || []).filter(t => t.id !== item.id),
+              (prevTasks || []).map(t => {
+                if (t.id === item.id) {
+                  return {
+                    ...t,
+                    deleted: true,
+                    updatedAt: new Date().toISOString(),
+                  };
+                }
+                return t;
+              }),
             );
           },
           style: 'destructive',
@@ -170,7 +180,11 @@ export const useTasks = () => {
     setTasks(prevTasks =>
       (prevTasks || []).map(t => {
         if (t.id === item.id) {
-          return {...t, archived: !t.archived};
+          return {
+            ...t,
+            archived: !t.archived,
+            updatedAt: new Date().toISOString(),
+          };
         }
         return t;
       }),
@@ -205,6 +219,7 @@ export const useTasks = () => {
               category: category !== undefined ? category : t.category,
               deadline: deadline !== undefined ? deadline : t.deadline,
               repeat: repeat !== undefined ? repeat : t.repeat,
+              updatedAt: new Date().toISOString(),
             };
           }
           return t;
@@ -218,7 +233,18 @@ export const useTasks = () => {
   const undoDelete = useCallback(() => {
     if (lastDeletedTask) {
       LayoutAnimation.configureNext(animationConfig);
-      setTasks(prevTasks => [...(prevTasks || []), lastDeletedTask]);
+      setTasks(prevTasks =>
+        (prevTasks || []).map(t => {
+          if (t.id === lastDeletedTask.id) {
+            return {
+              ...t,
+              deleted: false,
+              updatedAt: new Date().toISOString(),
+            };
+          }
+          return t;
+        }),
+      );
       setLastDeletedTask(null);
     }
   }, [lastDeletedTask]);
@@ -227,8 +253,10 @@ export const useTasks = () => {
     setLastDeletedTask(null);
   }, []);
 
+  const visibleTasks = tasks ? tasks.filter(t => !t.deleted) : null;
+
   return {
-    tasks,
+    tasks: visibleTasks,
     loading,
     lastDeletedTask,
     addTask,

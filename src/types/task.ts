@@ -20,5 +20,7 @@ export interface Task {
   archived: boolean;
   deadline: string | null;
   createdAt: string;
+  updatedAt: string;
   completedAt: string | null;
+  deleted: boolean;
 }
