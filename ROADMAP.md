@@ -209,7 +209,7 @@
 - [x] Criar adapter offline-first
 - [x] Criar queue local
 - [x] Criar estratégia de sync
-- [ ] Criar controle de conflito
+- [x] Criar controle de conflito
 
 ---
 
@@ -1399,3 +1399,16 @@
 - **Validações**: `yarn validate` confirmando 143 testes passando e cobertura global de branches acima de 70%.
 - **Limitações**: O processamento é interrompido na primeira falha; não há mecanismo de retry exponencial nesta fase.
 - **Riscos**: Se uma operação for permanentemente inválida no servidor, a fila pode ficar travada (necessita de "Controle de conflito" - próxima task).
+
+## Criar controle de conflito
+
+- **Implementação**: Sistema de reconciliação de dados entre local e remoto.
+- **Decisões Técnicas**:
+  - Criação da utilidade `mergeTasks` em `src/utils/taskUtils.ts` que implementa a estratégia "Last Write Wins" (LWW) baseada no timestamp `updatedAt`.
+  - Atualização do método `sync()` no `OfflineFirstTaskRepository` para realizar a reconciliação completa: busca ambos os estados, mescla-os e atualiza ambas as fontes.
+  - Implementação de um mecanismo de fallback: se a reconciliação falhar (ex: erro ao buscar remoto), o sistema tenta apenas processar a fila de mudanças locais pendentes (`processQueue`).
+  - Garantia de que a fila de sincronização é limpa apenas após uma reconciliação bem-sucedida.
+  - Cobertura de testes unitários de 100% para a lógica de mesclagem e para os novos fluxos do repositório.
+- **Validações**: `yarn validate` confirmando 147 testes passando e manutenção da cobertura de branches acima de 70%.
+- **Limitações**: Conflitos são resolvidos no nível do objeto da tarefa; alterações concorrentes em campos diferentes da mesma tarefa resultarão na vitória da versão mais recente por completo.
+- **Riscos**: Se os relógios dos dispositivos estiverem significativamente dessincronizados, o LWW pode favorecer a versão incorreta.
