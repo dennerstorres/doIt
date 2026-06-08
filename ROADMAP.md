@@ -206,9 +206,7 @@
 - [x] Criar interceptors
 - [x] Criar estrutura repository pattern
 - [x] Preparar sincronização futura
-- [x] Preparar sincronização futura
-- [x] Preparar sincronização futura
-- [ ] Criar adapter offline-first
+- [x] Criar adapter offline-first
 - [ ] Criar queue local
 - [ ] Criar estratégia de sync
 - [ ] Criar controle de conflito
@@ -1360,3 +1358,16 @@
 - **Validações**: `yarn validate` confirmando 117 testes passando, com cobertura atualizada para os novos campos e comportamentos.
 - **Limitações**: O sistema de persistência local (`AsyncStorage`) continuará acumulando tarefas deletadas; uma estratégia de expurgo (purging) ou sincronização real será necessária em fases futuras.
 - **Riscos**: Baixo. A mudança preserva a compatibilidade da UI e prepara a base para resolução de conflitos em cenários offline-first.
+
+## Criar adapter offline-first
+
+- **Implementação**: Introdução de uma arquitetura de repositório offline-first que coordena entre armazenamento local e remoto.
+- **Decisões Técnicas**:
+  - Criação do `RemoteTaskRepository` para lidar com a comunicação via API (Axios).
+  - Implementação do `OfflineFirstTaskRepository` utilizando o padrão Decorator/Proxy para gerenciar a prioridade de dados (Local-first).
+  - No `saveAll`, a persistência ocorre primeiro localmente e depois tenta sincronizar com o remoto, capturando falhas de rede de forma não bloqueante.
+  - Integração no `TaskService` via injeção de dependência na instância padrão.
+- **Arquivos Alterados**: `src/repositories/implementations/RemoteTaskRepository.ts`, `src/repositories/implementations/OfflineFirstTaskRepository.ts`, `src/services/taskService.ts`.
+- **Validações**: `yarn validate` confirmando 125 testes passando, com cobertura de 100% nas novas classes de repositório.
+- **Limitações**: A sincronização remota é otimista; falhas apenas geram um aviso e não são enfileiradas para nova tentativa automática nesta fase.
+- **Riscos**: Possível inconsistência temporária entre local e remoto até que a "Queue local" e "Estratégia de sync" (próximas tarefas) sejam implementadas.
