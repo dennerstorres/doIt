@@ -44,6 +44,9 @@ export const useTasks = () => {
         if (isMounted) {
           setTasks(storedTasks);
           setLoading(false);
+
+          // Attempt to sync pending changes after initial load
+          TaskService.sync();
         }
       } catch (error) {
         console.error('Error loading tasks:', error);

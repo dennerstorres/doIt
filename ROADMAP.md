@@ -208,12 +208,14 @@
 - [x] Preparar sincronização futura
 - [x] Criar adapter offline-first
 - [x] Criar queue local
-- [ ] Criar estratégia de sync
+- [x] Criar estratégia de sync
 - [ ] Criar controle de conflito
 
 ---
 
 # FASE 11 — Segurança
+
+# HISTÓRICO DE IMPLEMENTAÇÃO
 
 - [ ] Sanitizar inputs
 - [ ] Revisar persistência segura
@@ -1384,3 +1386,16 @@
 - **Validações**: `yarn validate` confirmando 137 testes passando, com cobertura de 91.4% no novo repositório de fila.
 - **Limitações**: A fila apenas armazena as operações; o processamento automático da fila será implementado na próxima task ("Estratégia de sync").
 - **Riscos**: Acúmulo de itens na fila se a conectividade não for restaurada por longos períodos.
+
+## Criar estratégia de sync
+
+- **Implementação**: Lógica de processamento da fila de sincronização para garantir que mudanças offline sejam enviadas ao servidor.
+- **Decisões Técnicas**:
+  - Adição do método `sync()` ao `ITaskRepository` e implementações correspondentes.
+  - No `OfflineFirstTaskRepository`, o `sync()` percorre a fila em ordem FIFO, tenta salvar remotamente e remove do cache local apenas em caso de sucesso. O processo é interrompido na primeira falha para preservar a sequência das operações.
+  - Implementação de um guard `isSyncing` no `TaskService` para evitar execuções concorrentes.
+  - Gatilho automático de sincronização no hook `useTasks` após o carregamento inicial dos dados.
+  - Cobertura de testes unitários de 100% no método `sync` do repositório e do serviço.
+- **Validações**: `yarn validate` confirmando 143 testes passando e cobertura global de branches acima de 70%.
+- **Limitações**: O processamento é interrompido na primeira falha; não há mecanismo de retry exponencial nesta fase.
+- **Riscos**: Se uma operação for permanentemente inválida no servidor, a fila pode ficar travada (necessita de "Controle de conflito" - próxima task).

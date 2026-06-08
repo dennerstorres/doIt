@@ -28,10 +28,12 @@ describe('OfflineFirstTaskRepository', () => {
     mockLocalRepo = {
       getAll: jest.fn(),
       saveAll: jest.fn(),
+      sync: jest.fn(),
     };
     mockRemoteRepo = {
       getAll: jest.fn(),
       saveAll: jest.fn(),
+      sync: jest.fn(),
     };
     mockSyncQueue = {
       enqueue: jest.fn(),
@@ -91,6 +93,18 @@ describe('OfflineFirstTaskRepository', () => {
       );
     });
 
+    it('should handle enqueue failure gracefully', async () => {
+      mockLocalRepo.saveAll.mockResolvedValueOnce();
+      mockRemoteRepo.saveAll.mockRejectedValueOnce(new Error('Remote fail'));
+      mockSyncQueue.enqueue.mockRejectedValueOnce(new Error('Queue fail'));
+
+      const tasks = [mockTask];
+      await repository.saveAll(tasks);
+
+      expect(mockSyncQueue.enqueue).toHaveBeenCalled();
+      // Should not throw because we catch it
+    });
+
     it('should throw if local save fails', async () => {
       mockLocalRepo.saveAll.mockRejectedValueOnce(new Error('Local fail'));
 
@@ -98,6 +112,80 @@ describe('OfflineFirstTaskRepository', () => {
       await expect(repository.saveAll(tasks)).rejects.toThrow('Local fail');
       expect(mockRemoteRepo.saveAll).not.toHaveBeenCalled();
       expect(mockSyncQueue.enqueue).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('sync', () => {
+    it('should process all items in the queue successfully', async () => {
+      const mockSyncItems = [
+        {
+          id: '1',
+          type: 'SAVE_TASKS' as const,
+          payload: [mockTask],
+          createdAt: '2023-01-01T12:00:00Z',
+        },
+        {
+          id: '2',
+          type: 'SAVE_TASKS' as const,
+          payload: [],
+          createdAt: '2023-01-01T12:01:00Z',
+        },
+      ];
+
+      mockSyncQueue.getAll.mockResolvedValueOnce(mockSyncItems);
+      mockRemoteRepo.saveAll.mockResolvedValue(Promise.resolve());
+      mockSyncQueue.dequeue.mockResolvedValue(null); // Return doesn't matter for dequeue
+
+      await repository.sync();
+
+      expect(mockSyncQueue.getAll).toHaveBeenCalled();
+      expect(mockRemoteRepo.saveAll).toHaveBeenCalledTimes(2);
+      expect(mockSyncQueue.dequeue).toHaveBeenCalledTimes(2);
+    });
+
+    it('should stop processing on first remote failure', async () => {
+      const mockSyncItems = [
+        {
+          id: '1',
+          type: 'SAVE_TASKS' as const,
+          payload: [mockTask],
+          createdAt: '2023-01-01T12:00:00Z',
+        },
+        {
+          id: '2',
+          type: 'SAVE_TASKS' as const,
+          payload: [],
+          createdAt: '2023-01-01T12:01:00Z',
+        },
+      ];
+
+      mockSyncQueue.getAll.mockResolvedValueOnce(mockSyncItems);
+      mockRemoteRepo.saveAll.mockRejectedValueOnce(new Error('Sync failed'));
+
+      await repository.sync();
+
+      expect(mockRemoteRepo.saveAll).toHaveBeenCalledTimes(1);
+      expect(mockSyncQueue.dequeue).not.toHaveBeenCalled();
+    });
+
+    it('should stop processing if dequeue fails', async () => {
+      const mockSyncItems = [
+        {
+          id: '1',
+          type: 'SAVE_TASKS' as const,
+          payload: [mockTask],
+          createdAt: '2023-01-01T12:00:00Z',
+        },
+      ];
+
+      mockSyncQueue.getAll.mockResolvedValueOnce(mockSyncItems);
+      mockRemoteRepo.saveAll.mockResolvedValueOnce(Promise.resolve());
+      mockSyncQueue.dequeue.mockRejectedValueOnce(new Error('Dequeue failed'));
+
+      await repository.sync();
+
+      expect(mockRemoteRepo.saveAll).toHaveBeenCalledTimes(1);
+      expect(mockSyncQueue.dequeue).toHaveBeenCalledTimes(1);
     });
   });
 });

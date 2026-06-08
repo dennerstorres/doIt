@@ -10,6 +10,7 @@ describe('TaskService', () => {
     mockRepository = {
       getAll: jest.fn(),
       saveAll: jest.fn(),
+      sync: jest.fn(),
     };
     service = new TaskServiceClass(mockRepository);
   });
@@ -191,6 +192,34 @@ describe('TaskService', () => {
 
       expect(next).not.toBeNull();
       expect(next?.deadline).toBeNull();
+    });
+  });
+
+  describe('sync', () => {
+    it('should call repository.sync and handle concurrency', async () => {
+      mockRepository.sync.mockResolvedValue(Promise.resolve());
+
+      // First call
+      const syncPromise1 = service.sync();
+      // Second call while first is still running
+      const syncPromise2 = service.sync();
+
+      await Promise.all([syncPromise1, syncPromise2]);
+
+      expect(mockRepository.sync).toHaveBeenCalledTimes(1);
+    });
+
+    it('should reset isSyncing even on error', async () => {
+      mockRepository.sync.mockRejectedValueOnce(new Error('Sync error'));
+
+      await service.sync();
+
+      expect(mockRepository.sync).toHaveBeenCalledTimes(1);
+
+      // Should be able to call it again after it reset
+      mockRepository.sync.mockResolvedValueOnce(Promise.resolve());
+      await service.sync();
+      expect(mockRepository.sync).toHaveBeenCalledTimes(2);
     });
   });
 });
