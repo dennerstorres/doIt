@@ -69,4 +69,29 @@ export class OfflineFirstTaskRepository implements ITaskRepository {
       }
     }
   }
+
+  /**
+   * Processes the sync queue by attempting to send pending operations to the remote source.
+   * Operations are processed in FIFO order to maintain consistency.
+   */
+  async sync(): Promise<void> {
+    const queue = await this.syncQueue.getAll();
+
+    for (const item of queue) {
+      try {
+        if (item.type === 'SAVE_TASKS') {
+          await this.remoteRepository.saveAll(item.payload);
+        }
+
+        // If successful, remove from queue
+        await this.syncQueue.dequeue();
+      } catch (error) {
+        if (__DEV__) {
+          console.error('Failed to sync item from queue:', item.id, error);
+        }
+        // Stop processing on first failure to maintain sequence
+        break;
+      }
+    }
+  }
 }

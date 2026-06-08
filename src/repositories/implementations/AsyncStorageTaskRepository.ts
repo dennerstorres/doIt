@@ -41,4 +41,12 @@ export class AsyncStorageTaskRepository implements ITaskRepository {
       throw error;
     }
   }
+
+  /**
+   * Sync implementation for AsyncStorageTaskRepository.
+   * Local storage doesn't sync with itself, so this is a no-op.
+   */
+  async sync(): Promise<void> {
+    return Promise.resolve();
+  }
 }

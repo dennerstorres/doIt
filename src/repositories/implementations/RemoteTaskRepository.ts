@@ -39,4 +39,13 @@ export class RemoteTaskRepository implements ITaskRepository {
       throw error;
     }
   }
+
+  /**
+   * Sync implementation for RemoteTaskRepository.
+   * Since this is the remote source itself, sync is a no-op or could trigger
+   * internal consistency checks if needed.
+   */
+  async sync(): Promise<void> {
+    return Promise.resolve();
+  }
 }

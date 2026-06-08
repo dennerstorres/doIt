@@ -18,6 +18,7 @@ import {
  */
 export class TaskServiceClass {
   private repository: ITaskRepository;
+  private isSyncing = false;
 
   constructor(repository: ITaskRepository) {
     this.repository = repository;
@@ -36,6 +37,27 @@ export class TaskServiceClass {
    */
   async saveAll(tasks: Task[]): Promise<void> {
     return this.repository.saveAll(tasks);
+  }
+
+  /**
+   * Triggers a synchronization of pending offline changes.
+   * Uses a guard to prevent multiple concurrent sync operations.
+   */
+  async sync(): Promise<void> {
+    if (this.isSyncing) {
+      return;
+    }
+
+    try {
+      this.isSyncing = true;
+      await this.repository.sync();
+    } catch (error) {
+      if (__DEV__) {
+        console.error('TaskService sync error:', error);
+      }
+    } finally {
+      this.isSyncing = false;
+    }
   }
 
   /**
