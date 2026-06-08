@@ -69,6 +69,7 @@ export class TaskServiceClass {
 
     const taskExists = currentTasks.some(
       t =>
+        !t.deleted &&
         (excludeId ? t.id !== excludeId : true) &&
         t.task.toLowerCase() === trimmedTitle.toLowerCase(),
     );

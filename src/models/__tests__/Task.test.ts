@@ -25,7 +25,9 @@ describe('Task Model', () => {
         archived: false,
         deadline: null,
         createdAt: '2023-01-01T12:00:00.000Z',
+        updatedAt: '2023-01-01T12:00:00.000Z',
         completedAt: null,
+        deleted: false,
       });
     });
 
@@ -53,6 +55,8 @@ describe('Task Model', () => {
         task: 'Valid Task',
         done: false,
         archived: false,
+        updatedAt: '2023-01-01T12:00:00.000Z',
+        deleted: false,
       } as any;
       expect(isValidTask(task)).toBe(true);
     });

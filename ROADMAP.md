@@ -205,7 +205,9 @@
 - [x] Criar client HTTP
 - [x] Criar interceptors
 - [x] Criar estrutura repository pattern
-- [ ] Preparar sincronização futura
+- [x] Preparar sincronização futura
+- [x] Preparar sincronização futura
+- [x] Preparar sincronização futura
 - [ ] Criar adapter offline-first
 - [ ] Criar queue local
 - [ ] Criar estratégia de sync
@@ -1345,3 +1347,16 @@
 - **Validações**: `yarn validate` confirmando 116 testes passando (incluindo novos testes de unidade para o repositório e serviço) e 100% de cobertura no domínio de dados.
 - **Limitações**: O aplicativo continua utilizando apenas armazenamento local; a injeção de dependência é feita manualmente no nível do serviço.
 - **Riscos**: Baixo. A arquitetura desacoplada agora permite trocar a fonte de dados (ex: para uma API remota ou SQLite) sem alterar a lógica de negócio ou a UI.
+
+## Preparar sincronização futura
+
+- **Implementação**: Evolução do modelo de dados e lógica de gerenciamento de estado para suportar futura sincronização bidirecional.
+- **Decisões Técnicas**:
+  - Adição dos campos `updatedAt` (string ISO) e `deleted` (boolean) à interface `Task`.
+  - Implementação de **Soft Delete** no hook `useTasks`: tarefas excluídas agora são marcadas com `deleted: true` e mantidas na persistência, sendo filtradas apenas na camada de apresentação (UI).
+  - Atualização automática do campo `updatedAt` em todas as operações de mutação (`toggleTask`, `editTask`, `archiveTask`, `deleteTask`, `undoDelete`).
+  - Refatoração de `TaskService.validate` para ignorar tarefas marcadas como deletadas durante a verificação de duplicidade de nomes.
+  - Aprimoramento do `undoDelete` para restaurar o estado `deleted: false` do objeto existente, garantindo integridade temporal.
+- **Validações**: `yarn validate` confirmando 117 testes passando, com cobertura atualizada para os novos campos e comportamentos.
+- **Limitações**: O sistema de persistência local (`AsyncStorage`) continuará acumulando tarefas deletadas; uma estratégia de expurgo (purging) ou sincronização real será necessária em fases futuras.
+- **Riscos**: Baixo. A mudança preserva a compatibilidade da UI e prepara a base para resolução de conflitos em cenários offline-first.
