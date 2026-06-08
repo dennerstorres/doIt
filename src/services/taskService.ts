@@ -3,6 +3,7 @@ import {ITaskRepository} from '../repositories/ITaskRepository';
 import {AsyncStorageTaskRepository} from '../repositories/implementations/AsyncStorageTaskRepository';
 import {RemoteTaskRepository} from '../repositories/implementations/RemoteTaskRepository';
 import {OfflineFirstTaskRepository} from '../repositories/implementations/OfflineFirstTaskRepository';
+import {AsyncStorageSyncQueueRepository} from '../repositories/implementations/AsyncStorageSyncQueueRepository';
 import {createTask} from '../models/Task';
 import {
   MIN_TASK_LENGTH,
@@ -123,5 +124,6 @@ export const TaskService = new TaskServiceClass(
   new OfflineFirstTaskRepository(
     new AsyncStorageTaskRepository(),
     new RemoteTaskRepository(),
+    new AsyncStorageSyncQueueRepository(),
   ),
 );

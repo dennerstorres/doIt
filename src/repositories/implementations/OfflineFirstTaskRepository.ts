@@ -1,5 +1,6 @@
-import {Task} from '../../types';
+import {Task, SyncItem} from '../../types';
 import {ITaskRepository} from '../ITaskRepository';
+import {ISyncQueueRepository} from '../ISyncQueueRepository';
 
 /**
  * Offline-first repository that coordinates between local and remote sources.
@@ -9,13 +10,16 @@ import {ITaskRepository} from '../ITaskRepository';
 export class OfflineFirstTaskRepository implements ITaskRepository {
   private localRepository: ITaskRepository;
   private remoteRepository: ITaskRepository;
+  private syncQueue: ISyncQueueRepository;
 
   constructor(
     localRepository: ITaskRepository,
     remoteRepository: ITaskRepository,
+    syncQueue: ISyncQueueRepository,
   ) {
     this.localRepository = localRepository;
     this.remoteRepository = remoteRepository;
+    this.syncQueue = syncQueue;
   }
 
   /**
@@ -41,10 +45,25 @@ export class OfflineFirstTaskRepository implements ITaskRepository {
     } catch (error) {
       // In an offline-first approach, we log the remote failure but don't
       // block the user since the local save succeeded.
-      // Future tasks will implement a sync queue to retry this.
+      // We enqueue the failed operation for future synchronization.
+      const syncItem: SyncItem = {
+        id: String(new Date().getTime()),
+        type: 'SAVE_TASKS',
+        payload: tasks,
+        createdAt: new Date().toISOString(),
+      };
+
+      try {
+        await this.syncQueue.enqueue(syncItem);
+      } catch (queueError) {
+        if (__DEV__) {
+          console.error('Failed to enqueue sync item:', queueError);
+        }
+      }
+
       if (__DEV__) {
         console.warn(
-          'Remote sync failed in OfflineFirstTaskRepository, will retry later:',
+          'Remote sync failed in OfflineFirstTaskRepository, operation enqueued:',
           error,
         );
       }

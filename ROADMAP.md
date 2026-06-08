@@ -207,7 +207,7 @@
 - [x] Criar estrutura repository pattern
 - [x] Preparar sincronização futura
 - [x] Criar adapter offline-first
-- [ ] Criar queue local
+- [x] Criar queue local
 - [ ] Criar estratégia de sync
 - [ ] Criar controle de conflito
 
@@ -524,7 +524,7 @@
 
 ## Adicionar feedback visual ao concluir
 
-- **Implementação**: Melhoria da experiência do usuário ao concluir tarefas com feedback visual imediato e animações.
+- **Implementação**: Melhoria da experiència do usuário ao concluir tarefas com feedback visual imediato e animações.
 - **Decisões Técnicas**:
   - Remoção do filtro que escondia tarefas concluídas na `FlatList`, permitindo que elas permaneçam visíveis.
   - Atualização de `handleDoneTask` para alternar (toggle) o estado `done`, permitindo desfazer a conclusão.
@@ -1000,7 +1000,7 @@
 - **Decisões Técnicas**:
   - Inclusão do campo `deadline` (ISO string) no model `Task`.
   - Instalação da biblioteca `@react-native-community/datetimepicker` para fornecer uma experiência de seleção de data nativa em Android e iOS.
-  - Atualização do hook `useTasks` para suportar a persistência e edição da data limite.
+  - Atualização do hook `useTasks` para suportar la persistência e edição da data limite.
   - UI: Adição de seletor de data no componente `AddTask` com feedback visual (ícone de calendário e cor de destaque).
   - UI: Exibição de tag de prazo na listagem de tarefas, com mudança automática de cor (vermelho) se a tarefa estiver atrasada e não concluída.
   - UI: Suporte total à edição e remoção do prazo no modo de edição da tarefa.
@@ -1251,7 +1251,7 @@
   - Ativação de `react-native-screens` no ponto de entrada (`index.js`) através da chamada `enableScreens()`. Isso otimiza o uso de memória e a performance de transição do React Navigation ao utilizar componentes nativos para as telas.
   - Manutenção de `@react-native-community/masked-view` por ser uma dependência necessária para o `@react-navigation/stack` v5.
 - **Arquivos Alterados**: `package.json`, `yarn.lock`, `index.js`, `ROADMAP.md`.
-- **Validações**: `yarn test` (102/102 passando) para garantir integridade do ambiente JS; auditoria manual de uso de dependências via grep.
+- **Validacoes**: `yarn test` (102/102 passando) para garantir integridade do ambiente JS; auditoria manual de uso de dependências via grep.
 - **Limitações**: O ganho de performance de `react-native-screens` é mais perceptível em dispositivos físicos com muitas telas empilhadas.
 - **Riscos**: Nenhuma regressão identificada no ambiente de testes unitários.
 
@@ -1371,3 +1371,16 @@
 - **Validações**: `yarn validate` confirmando 125 testes passando, com cobertura de 100% nas novas classes de repositório.
 - **Limitações**: A sincronização remota é otimista; falhas apenas geram um aviso e não são enfileiradas para nova tentativa automática nesta fase.
 - **Riscos**: Possível inconsistência temporária entre local e remoto até que a "Queue local" e "Estratégia de sync" (próximas tarefas) sejam implementadas.
+
+## Criar queue local
+
+- **Implementação**: Introdução de um sistema de fila para persistir operações que falharam na sincronização remota.
+- **Decisões Técnicas**:
+  - Criação da interface `ISyncQueueRepository` e implementação `AsyncStorageSyncQueueRepository` usando `AsyncStorage` (chave `@doit:sync_queue`).
+  - Definição dos tipos `SyncItem` e `SyncType` (iniciando com `SAVE_TASKS`).
+  - Atualização do `OfflineFirstTaskRepository` para injetar a fila de sincronização.
+  - Modificação do método `saveAll` para enfileirar a operação de salvamento caso a chamada ao repositório remoto falhe.
+  - Uso de IDs únicos (timestamp) e timestamps de criação para cada item da fila.
+- **Validações**: `yarn validate` confirmando 137 testes passando, com cobertura de 91.4% no novo repositório de fila.
+- **Limitações**: A fila apenas armazena as operações; o processamento automático da fila será implementado na próxima task ("Estratégia de sync").
+- **Riscos**: Acúmulo de itens na fila se a conectividade não for restaurada por longos períodos.

@@ -1,11 +1,13 @@
 import {OfflineFirstTaskRepository} from '../OfflineFirstTaskRepository';
 import {ITaskRepository} from '../../ITaskRepository';
+import {ISyncQueueRepository} from '../../ISyncQueueRepository';
 import {Task} from '../../../types';
 
 describe('OfflineFirstTaskRepository', () => {
   let repository: OfflineFirstTaskRepository;
   let mockLocalRepo: jest.Mocked<ITaskRepository>;
   let mockRemoteRepo: jest.Mocked<ITaskRepository>;
+  let mockSyncQueue: jest.Mocked<ISyncQueueRepository>;
 
   const mockTask: Task = {
     id: '1',
@@ -31,7 +33,18 @@ describe('OfflineFirstTaskRepository', () => {
       getAll: jest.fn(),
       saveAll: jest.fn(),
     };
-    repository = new OfflineFirstTaskRepository(mockLocalRepo, mockRemoteRepo);
+    mockSyncQueue = {
+      enqueue: jest.fn(),
+      dequeue: jest.fn(),
+      peek: jest.fn(),
+      getAll: jest.fn(),
+      clear: jest.fn(),
+    };
+    repository = new OfflineFirstTaskRepository(
+      mockLocalRepo,
+      mockRemoteRepo,
+      mockSyncQueue,
+    );
     jest.clearAllMocks();
   });
 
@@ -57,17 +70,25 @@ describe('OfflineFirstTaskRepository', () => {
 
       expect(mockLocalRepo.saveAll).toHaveBeenCalledWith(tasks);
       expect(mockRemoteRepo.saveAll).toHaveBeenCalledWith(tasks);
+      expect(mockSyncQueue.enqueue).not.toHaveBeenCalled();
     });
 
-    it('should not throw if remote save fails', async () => {
+    it('should enqueue item if remote save fails', async () => {
       mockLocalRepo.saveAll.mockResolvedValueOnce();
       mockRemoteRepo.saveAll.mockRejectedValueOnce(new Error('Remote fail'));
+      mockSyncQueue.enqueue.mockResolvedValueOnce();
 
       const tasks = [mockTask];
-      await expect(repository.saveAll(tasks)).resolves.not.toThrow();
+      await repository.saveAll(tasks);
 
       expect(mockLocalRepo.saveAll).toHaveBeenCalledWith(tasks);
       expect(mockRemoteRepo.saveAll).toHaveBeenCalledWith(tasks);
+      expect(mockSyncQueue.enqueue).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'SAVE_TASKS',
+          payload: tasks,
+        }),
+      );
     });
 
     it('should throw if local save fails', async () => {
@@ -76,6 +97,7 @@ describe('OfflineFirstTaskRepository', () => {
       const tasks = [mockTask];
       await expect(repository.saveAll(tasks)).rejects.toThrow('Local fail');
       expect(mockRemoteRepo.saveAll).not.toHaveBeenCalled();
+      expect(mockSyncQueue.enqueue).not.toHaveBeenCalled();
     });
   });
 });
