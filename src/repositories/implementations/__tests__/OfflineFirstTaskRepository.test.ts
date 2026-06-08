@@ -116,76 +116,103 @@ describe('OfflineFirstTaskRepository', () => {
   });
 
   describe('sync', () => {
-    it('should process all items in the queue successfully', async () => {
-      const mockSyncItems = [
+    it('should reconcile local and remote tasks and clear queue on success', async () => {
+      const localTasks: Task[] = [
         {
+          ...mockTask,
           id: '1',
-          type: 'SAVE_TASKS' as const,
-          payload: [mockTask],
-          createdAt: '2023-01-01T12:00:00Z',
+          task: 'Local',
+          updatedAt: '2023-01-01T10:00:00Z',
+        },
+      ];
+      const remoteTasks: Task[] = [
+        {
+          ...mockTask,
+          id: '1',
+          task: 'Remote',
+          updatedAt: '2023-01-01T11:00:00Z',
         },
         {
+          ...mockTask,
           id: '2',
-          type: 'SAVE_TASKS' as const,
-          payload: [],
-          createdAt: '2023-01-01T12:01:00Z',
+          task: 'Remote 2',
+          updatedAt: '2023-01-01T11:00:00Z',
         },
       ];
-
-      mockSyncQueue.getAll.mockResolvedValueOnce(mockSyncItems);
-      mockRemoteRepo.saveAll.mockResolvedValue(Promise.resolve());
-      mockSyncQueue.dequeue.mockResolvedValue(null); // Return doesn't matter for dequeue
-
-      await repository.sync();
-
-      expect(mockSyncQueue.getAll).toHaveBeenCalled();
-      expect(mockRemoteRepo.saveAll).toHaveBeenCalledTimes(2);
-      expect(mockSyncQueue.dequeue).toHaveBeenCalledTimes(2);
-    });
-
-    it('should stop processing on first remote failure', async () => {
       const mockSyncItems = [
         {
-          id: '1',
+          id: 'q1',
           type: 'SAVE_TASKS' as const,
-          payload: [mockTask],
-          createdAt: '2023-01-01T12:00:00Z',
-        },
-        {
-          id: '2',
-          type: 'SAVE_TASKS' as const,
-          payload: [],
-          createdAt: '2023-01-01T12:01:00Z',
+          payload: localTasks,
+          createdAt: '2023-01-01T10:00:00Z',
         },
       ];
 
+      mockLocalRepo.getAll.mockResolvedValueOnce(localTasks);
+      mockRemoteRepo.getAll.mockResolvedValueOnce(remoteTasks);
+      mockRemoteRepo.saveAll.mockResolvedValueOnce();
+      mockLocalRepo.saveAll.mockResolvedValueOnce();
       mockSyncQueue.getAll.mockResolvedValueOnce(mockSyncItems);
-      mockRemoteRepo.saveAll.mockRejectedValueOnce(new Error('Sync failed'));
+      mockSyncQueue.dequeue.mockResolvedValue(null);
 
       await repository.sync();
 
-      expect(mockRemoteRepo.saveAll).toHaveBeenCalledTimes(1);
-      expect(mockSyncQueue.dequeue).not.toHaveBeenCalled();
-    });
+      expect(mockLocalRepo.getAll).toHaveBeenCalled();
+      expect(mockRemoteRepo.getAll).toHaveBeenCalled();
 
-    it('should stop processing if dequeue fails', async () => {
-      const mockSyncItems = [
-        {
-          id: '1',
-          type: 'SAVE_TASKS' as const,
-          payload: [mockTask],
-          createdAt: '2023-01-01T12:00:00Z',
-        },
-      ];
-
-      mockSyncQueue.getAll.mockResolvedValueOnce(mockSyncItems);
-      mockRemoteRepo.saveAll.mockResolvedValueOnce(Promise.resolve());
-      mockSyncQueue.dequeue.mockRejectedValueOnce(new Error('Dequeue failed'));
-
-      await repository.sync();
-
-      expect(mockRemoteRepo.saveAll).toHaveBeenCalledTimes(1);
+      // Should be called with merged tasks (Remote ID 1 is newer, plus Remote ID 2)
+      expect(mockRemoteRepo.saveAll).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({id: '1', task: 'Remote'}),
+          expect.objectContaining({id: '2', task: 'Remote 2'}),
+        ]),
+      );
+      expect(mockLocalRepo.saveAll).toHaveBeenCalled();
       expect(mockSyncQueue.dequeue).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fallback to queue processing if reconciliation fails', async () => {
+      const mockSyncItems = [
+        {
+          id: 'q1',
+          type: 'SAVE_TASKS' as const,
+          payload: [mockTask],
+          createdAt: '2023-01-01T12:00:00Z',
+        },
+      ];
+
+      mockLocalRepo.getAll.mockRejectedValueOnce(new Error('Fetch local fail'));
+      mockSyncQueue.getAll.mockResolvedValue(mockSyncItems);
+      mockRemoteRepo.saveAll.mockResolvedValueOnce();
+      mockSyncQueue.dequeue.mockResolvedValue(null);
+
+      await repository.sync();
+
+      // Should have tried fetching local
+      expect(mockLocalRepo.getAll).toHaveBeenCalled();
+
+      // Should have fallen back to queue processing
+      expect(mockSyncQueue.getAll).toHaveBeenCalled();
+      expect(mockRemoteRepo.saveAll).toHaveBeenCalledWith([mockTask]);
+      expect(mockSyncQueue.dequeue).toHaveBeenCalled();
+    });
+
+    it('should stop queue processing on remote failure during fallback', async () => {
+      mockLocalRepo.getAll.mockRejectedValueOnce(new Error('Fetch local fail'));
+      mockSyncQueue.getAll.mockResolvedValue([
+        {
+          id: 'q1',
+          type: 'SAVE_TASKS' as const,
+          payload: [mockTask],
+          createdAt: '2023-01-01T12:00:00Z',
+        },
+      ]);
+      mockRemoteRepo.saveAll.mockRejectedValueOnce(new Error('Remote fail'));
+
+      await repository.sync();
+
+      expect(mockRemoteRepo.saveAll).toHaveBeenCalled();
+      expect(mockSyncQueue.dequeue).not.toHaveBeenCalled();
     });
   });
 });

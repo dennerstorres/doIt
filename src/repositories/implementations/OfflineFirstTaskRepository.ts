@@ -1,6 +1,7 @@
 import {Task, SyncItem} from '../../types';
 import {ITaskRepository} from '../ITaskRepository';
 import {ISyncQueueRepository} from '../ISyncQueueRepository';
+import {mergeTasks} from '../../utils/taskUtils';
 
 /**
  * Offline-first repository that coordinates between local and remote sources.
@@ -71,10 +72,43 @@ export class OfflineFirstTaskRepository implements ITaskRepository {
   }
 
   /**
+   * Processes the sync queue and resolves conflicts between local and remote sources.
+   * It fetches both sources, merges them using "Last Write Wins" strategy,
+   * and updates both repositories with the reconciled state.
+   */
+  async sync(): Promise<void> {
+    try {
+      // 1. Fetch from both sources
+      const localTasks = await this.localRepository.getAll();
+      const remoteTasks = await this.remoteRepository.getAll();
+
+      // 2. Merge resolving conflicts
+      const mergedTasks = mergeTasks(localTasks, remoteTasks);
+
+      // 3. Update both sources with reconciled data
+      await this.remoteRepository.saveAll(mergedTasks);
+      await this.localRepository.saveAll(mergedTasks);
+
+      // 4. If sync succeeds, the queue is no longer needed as all changes are reconciled
+      const queue = await this.syncQueue.getAll();
+      for (let i = 0; i < queue.length; i++) {
+        await this.syncQueue.dequeue();
+      }
+    } catch (error) {
+      if (__DEV__) {
+        console.error('Reconciliation sync failed:', error);
+      }
+      // If full reconciliation fails, fallback to processing the queue in order
+      // to at least try pushing pending local changes.
+      await this.processQueue();
+    }
+  }
+
+  /**
    * Processes the sync queue by attempting to send pending operations to the remote source.
    * Operations are processed in FIFO order to maintain consistency.
    */
-  async sync(): Promise<void> {
+  private async processQueue(): Promise<void> {
     const queue = await this.syncQueue.getAll();
 
     for (const item of queue) {

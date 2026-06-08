@@ -284,3 +284,42 @@ export const getTaskStats = (tasks: Task[]): TaskStats => {
     streak,
   };
 };
+
+/**
+ * Merges two lists of tasks resolving conflicts using the updatedAt timestamp.
+ * This implements a "Last Write Wins" strategy at the individual task level.
+ *
+ * @param localTasks - Tasks from the local repository.
+ * @param remoteTasks - Tasks from the remote repository.
+ * @returns A merged list of tasks with conflicts resolved.
+ */
+export const mergeTasks = (localTasks: Task[], remoteTasks: Task[]): Task[] => {
+  const taskMap = new Map<string, Task>();
+
+  // Add all local tasks to the map
+  localTasks.forEach(task => {
+    taskMap.set(task.id, task);
+  });
+
+  // Merge remote tasks
+  remoteTasks.forEach(remoteTask => {
+    const existingTask = taskMap.get(remoteTask.id);
+
+    if (!existingTask) {
+      // New task from remote
+      taskMap.set(remoteTask.id, remoteTask);
+    } else {
+      // Conflict: Compare timestamps
+      const localUpdate = new Date(existingTask.updatedAt).getTime();
+      const remoteUpdate = new Date(remoteTask.updatedAt).getTime();
+
+      if (remoteUpdate > localUpdate) {
+        // Remote is newer, overwrite local
+        taskMap.set(remoteTask.id, remoteTask);
+      }
+      // If local is newer or same, keep local (already in map)
+    }
+  });
+
+  return Array.from(taskMap.values());
+};

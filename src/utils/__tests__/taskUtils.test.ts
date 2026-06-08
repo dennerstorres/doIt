@@ -3,6 +3,7 @@ import {
   filterTasksBySearch,
   getTaskStats,
   calculateStreak,
+  mergeTasks,
   SORT_TYPES,
   isToday,
 } from '../taskUtils';
@@ -476,6 +477,85 @@ describe('Task Utils', () => {
       };
       expect(getTaskStats([])).toEqual(emptyStats);
       expect(getTaskStats(null as any)).toEqual(emptyStats);
+    });
+  });
+
+  describe('mergeTasks', () => {
+    it('should combine unique tasks from both sources', () => {
+      const local: Task[] = [
+        {id: '1', task: 'Local 1', updatedAt: '2023-01-01T10:00:00Z'} as Task,
+      ];
+      const remote: Task[] = [
+        {id: '2', task: 'Remote 2', updatedAt: '2023-01-01T10:00:00Z'} as Task,
+      ];
+
+      const merged = mergeTasks(local, remote);
+      expect(merged.length).toBe(2);
+      expect(merged.find(t => t.id === '1')).toBeDefined();
+      expect(merged.find(t => t.id === '2')).toBeDefined();
+    });
+
+    it('should resolve conflicts using Last Write Wins (Remote is newer)', () => {
+      const local: Task[] = [
+        {
+          id: '1',
+          task: 'Local version',
+          updatedAt: '2023-01-01T10:00:00Z',
+        } as Task,
+      ];
+      const remote: Task[] = [
+        {
+          id: '1',
+          task: 'Remote version',
+          updatedAt: '2023-01-01T11:00:00Z',
+        } as Task,
+      ];
+
+      const merged = mergeTasks(local, remote);
+      expect(merged.length).toBe(1);
+      expect(merged[0].task).toBe('Remote version');
+    });
+
+    it('should resolve conflicts using Last Write Wins (Local is newer)', () => {
+      const local: Task[] = [
+        {
+          id: '1',
+          task: 'Local version',
+          updatedAt: '2023-01-01T12:00:00Z',
+        } as Task,
+      ];
+      const remote: Task[] = [
+        {
+          id: '1',
+          task: 'Remote version',
+          updatedAt: '2023-01-01T11:00:00Z',
+        } as Task,
+      ];
+
+      const merged = mergeTasks(local, remote);
+      expect(merged.length).toBe(1);
+      expect(merged[0].task).toBe('Local version');
+    });
+
+    it('should keep local version if timestamps are identical', () => {
+      const local: Task[] = [
+        {
+          id: '1',
+          task: 'Local version',
+          updatedAt: '2023-01-01T10:00:00Z',
+        } as Task,
+      ];
+      const remote: Task[] = [
+        {
+          id: '1',
+          task: 'Remote version',
+          updatedAt: '2023-01-01T10:00:00Z',
+        } as Task,
+      ];
+
+      const merged = mergeTasks(local, remote);
+      expect(merged.length).toBe(1);
+      expect(merged[0].task).toBe('Local version');
     });
   });
 });
