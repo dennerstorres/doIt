@@ -1,6 +1,8 @@
 import {Task} from '../types';
 import {ITaskRepository} from '../repositories/ITaskRepository';
 import {AsyncStorageTaskRepository} from '../repositories/implementations/AsyncStorageTaskRepository';
+import {RemoteTaskRepository} from '../repositories/implementations/RemoteTaskRepository';
+import {OfflineFirstTaskRepository} from '../repositories/implementations/OfflineFirstTaskRepository';
 import {createTask} from '../models/Task';
 import {
   MIN_TASK_LENGTH,
@@ -115,7 +117,11 @@ export class TaskServiceClass {
   }
 }
 
-// Export a default instance using AsyncStorageTaskRepository for current functionality
+// Export a default instance using OfflineFirstTaskRepository
+// This coordinates local persistence and remote synchronization.
 export const TaskService = new TaskServiceClass(
-  new AsyncStorageTaskRepository(),
+  new OfflineFirstTaskRepository(
+    new AsyncStorageTaskRepository(),
+    new RemoteTaskRepository(),
+  ),
 );
