@@ -217,7 +217,7 @@
 
 - [x] Sanitizar inputs
 - [x] Revisar persistência segura
-- [ ] Validar permissões
+- [x] Validar permissões
 - [ ] Revisar logs sensíveis
 
 ---
@@ -1451,3 +1451,14 @@
 - **Validações**: `yarn validate` confirmando 157 testes passando, incluindo novos testes unitários para a utilidade de segurança e testes de integração atualizados para validar a persistência criptografada.
 - **Limitações**: A chave de criptografia está atualmente definida como uma constante; para segurança máxima, deve-se considerar o uso de chaves geradas dinamicamente e armazenadas em hardware seguro (Keychain/Keystore) em fases futuras.
 - **Riscos**: Se a chave de criptografia for alterada ou perdida, os dados armazenados anteriormente se tornarão ilegíveis.
+
+## Validar permissões
+
+- **Implementação**: Auditoria e limpeza de permissões nas plataformas Android e iOS e varredura do código-fonte.
+- **Decisões Técnicas**:
+  - Remoção da chave `NSLocationWhenInUseUsageDescription` do `Info.plist` (iOS), pois o aplicativo não utiliza serviços de localização.
+  - Manutenção da permissão `INTERNET` no `AndroidManifest.xml` (Android), necessária para o funcionamento da sincronização remota via Axios.
+  - Verificação programática confirmando a ausência de chamadas a `PermissionsAndroid` ou APIs similares no diretório `src/`.
+- **Validações**: Inspeção manual dos manifestos e execução de `grep` recursivo no código-fonte.
+- **Limitações**: Nenhuma. O aplicativo opera com o conjunto mínimo necessário de permissões.
+- **Riscos**: Baixo. A remoção de permissões não utilizadas reduz a superfície de ataque e melhora a conformidade com as lojas de aplicativos.
