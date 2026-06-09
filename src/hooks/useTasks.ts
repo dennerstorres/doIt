@@ -2,6 +2,7 @@ import {useState, useEffect, useCallback, useRef} from 'react';
 import {Alert, LayoutAnimation, LayoutAnimationConfig} from 'react-native';
 import {TaskService} from '../services/taskService';
 import {createTask} from '../models/Task';
+import {sanitizeInput} from '../utils/sanitization';
 import {
   TASK_PRIORITIES,
   TASK_CATEGORIES,
@@ -103,7 +104,7 @@ export const useTasks = () => {
       }
 
       const newTask = createTask(
-        taskTitle.trim(),
+        sanitizeInput(taskTitle),
         priority,
         category,
         deadline,
@@ -217,7 +218,7 @@ export const useTasks = () => {
           if (t.id === id) {
             return {
               ...t,
-              task: newTaskTitle.trim(),
+              task: sanitizeInput(newTaskTitle),
               priority: priority !== undefined ? priority : t.priority,
               category: category !== undefined ? category : t.category,
               deadline: deadline !== undefined ? deadline : t.deadline,

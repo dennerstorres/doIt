@@ -215,9 +215,7 @@
 
 # FASE 11 — Segurança
 
-# HISTÓRICO DE IMPLEMENTAÇÃO
-
-- [ ] Sanitizar inputs
+- [x] Sanitizar inputs
 - [ ] Revisar persistência segura
 - [ ] Validar permissões
 - [ ] Revisar logs sensíveis
@@ -1412,3 +1410,16 @@
 - **Validações**: `yarn validate` confirmando 147 testes passando e manutenção da cobertura de branches acima de 70%.
 - **Limitações**: Conflitos são resolvidos no nível do objeto da tarefa; alterações concorrentes em campos diferentes da mesma tarefa resultarão na vitória da versão mais recente por completo.
 - **Riscos**: Se os relógios dos dispositivos estiverem significativamente dessincronizados, o LWW pode favorecer a versão incorreta.
+
+## Sanitizar inputs
+
+- **Implementação**: Introdução de um mecanismo de sanitização para limpar e proteger os inputs de tarefas contra injeção de HTML e scripts.
+- **Decisões Técnicas**:
+  - Criação de uma utilidade `sanitizeInput` em `src/utils/sanitization.ts` que utiliza regex para remover tags e aplica `trim()`.
+  - Integração da sanitização no `createTask` factory para garantir que todas as novas tarefas sejam salvas de forma limpa.
+  - Atualização do `TaskService.validate` para validar o comprimento e duplicidade sobre a versão já sanitizada do texto.
+  - Refatoração do hook `useTasks` para aplicar sanitização tanto na criação (`addTask`) quanto na edição (`editTask`).
+  - Adição de testes unitários abrangentes para a utilidade de sanitização cobrindo diversos edge cases.
+- **Validações**: `yarn validate` confirmando 153 testes passando e manutenção da cobertura de código.
+- **Limitações**: A sanitização é baseada em regex simples; casos extremamente complexos de XSS poderiam exigir uma biblioteca dedicada se o app evoluir para exibir HTML renderizado.
+- **Riscos**: Baixo. A sanitização melhora a segurança e a consistência dos dados sem impactar a UX legítima.
