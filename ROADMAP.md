@@ -235,10 +235,10 @@
 
 ## Android
 
-- [ ] Configurar ícone final
-- [ ] Configurar splash screen
-- [ ] Configurar nome final app
-- [ ] Configurar versão
+- [!] Configurar ícone final
+- [!] Configurar splash screen
+- [x] Configurar nome final app
+- [x] Configurar versão
 - [ ] Gerar signed APK
 - [ ] Gerar AAB
 - [ ] Configurar Play Store assets
@@ -1423,3 +1423,19 @@
 - **Validações**: `yarn validate` confirmando 153 testes passando e manutenção da cobertura de código.
 - **Limitações**: A sanitização é baseada em regex simples; casos extremamente complexos de XSS poderiam exigir uma biblioteca dedicada se o app evoluir para exibir HTML renderizado.
 - **Riscos**: Baixo. A sanitização melhora a segurança e a consistência dos dados sem impactar a UX legítima.
+
+## Configurar nome final app / Configurar versão (Android)
+
+- **Implementação**: Configuração dos metadados de publicação para a plataforma Android.
+- **Decisões Técnicas**:
+  - Atualização do `versionName` para `1.0.0` no `android/app/build.gradle` para seguir o padrão Semantic Versioning.
+  - Verificação do `app_name` em `strings.xml` para garantir a identidade visual "doIt".
+- **Validações**: `yarn validate` e inspeção manual dos arquivos de manifesto e build.
+- **Limitações**: A versão do iOS e o ícone final ainda precisam de configuração em tarefas dedicadas.
+- **Riscos**: Baixo. Alterações puramente de configuração.
+
+## Configurar ícone final / Configurar splash screen (Android)
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Ausência de ativos de imagem (assets) finais no repositório. O diretório `drawable` não existe e os mipmaps contêm apenas os ícones padrão do Android.
+- **Sugestão de Desbloqueio**: Fornecer os arquivos `.png` ou `.svg` para os ícones e splash screen, ou criar ativos temporários baseados na identidade visual do app.
