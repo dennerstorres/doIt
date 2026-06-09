@@ -1,4 +1,5 @@
 import CryptoJS from 'crypto-js';
+import {logger} from './logger';
 
 // In a real application, this secret should be more robustly managed
 // (e.g., generated on first run and stored in Keychain/Keystore)
@@ -26,7 +27,7 @@ export const decrypt = (encryptedData: string): string | null => {
 
     return decryptedData;
   } catch (error) {
-    console.error('Decryption failed:', error);
+    logger.error('Decryption failed:', error);
     return null;
   }
 };

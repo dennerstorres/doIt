@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SyncItem} from '../../types';
 import {ISyncQueueRepository} from '../ISyncQueueRepository';
+import {logger} from '../../utils/logger';
 
 const SYNC_QUEUE_KEY = '@doit:sync_queue';
 
@@ -10,9 +11,7 @@ export class AsyncStorageSyncQueueRepository implements ISyncQueueRepository {
       const jsonValue = await AsyncStorage.getItem(SYNC_QUEUE_KEY);
       return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch (error) {
-      if (__DEV__) {
-        console.error('Error getting sync queue from AsyncStorage:', error);
-      }
+      logger.error('Error getting sync queue from AsyncStorage:', error);
       return [];
     }
   }
@@ -23,9 +22,7 @@ export class AsyncStorageSyncQueueRepository implements ISyncQueueRepository {
       queue.push(item);
       await AsyncStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify(queue));
     } catch (error) {
-      if (__DEV__) {
-        console.error('Error enqueuing item in AsyncStorage:', error);
-      }
+      logger.error('Error enqueuing item in AsyncStorage:', error);
       throw error;
     }
   }
@@ -40,9 +37,7 @@ export class AsyncStorageSyncQueueRepository implements ISyncQueueRepository {
       await AsyncStorage.setItem(SYNC_QUEUE_KEY, JSON.stringify(queue));
       return item || null;
     } catch (error) {
-      if (__DEV__) {
-        console.error('Error dequeuing item in AsyncStorage:', error);
-      }
+      logger.error('Error dequeuing item in AsyncStorage:', error);
       throw error;
     }
   }
@@ -52,9 +47,7 @@ export class AsyncStorageSyncQueueRepository implements ISyncQueueRepository {
       const queue = await this.getAll();
       return queue.length > 0 ? queue[0] : null;
     } catch (error) {
-      if (__DEV__) {
-        console.error('Error peeking item in AsyncStorage:', error);
-      }
+      logger.error('Error peeking item in AsyncStorage:', error);
       return null;
     }
   }
@@ -63,9 +56,7 @@ export class AsyncStorageSyncQueueRepository implements ISyncQueueRepository {
     try {
       await AsyncStorage.removeItem(SYNC_QUEUE_KEY);
     } catch (error) {
-      if (__DEV__) {
-        console.error('Error clearing sync queue in AsyncStorage:', error);
-      }
+      logger.error('Error clearing sync queue in AsyncStorage:', error);
       throw error;
     }
   }

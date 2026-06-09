@@ -1,6 +1,7 @@
 import {api} from '../../services/api';
 import {Task} from '../../types';
 import {ITaskRepository} from '../ITaskRepository';
+import {logger} from '../../utils/logger';
 
 /**
  * Remote repository implementation for future backend synchronization.
@@ -17,9 +18,7 @@ export class RemoteTaskRepository implements ITaskRepository {
       const response = await api.get<Task[]>(this.resource);
       return response.data;
     } catch (error) {
-      if (__DEV__) {
-        console.error('Error fetching tasks from RemoteTaskRepository:', error);
-      }
+      logger.error('Error fetching tasks from RemoteTaskRepository:', error);
       throw error;
     }
   }
@@ -33,9 +32,7 @@ export class RemoteTaskRepository implements ITaskRepository {
     try {
       await api.post(this.resource, {tasks});
     } catch (error) {
-      if (__DEV__) {
-        console.error('Error saving tasks to RemoteTaskRepository:', error);
-      }
+      logger.error('Error saving tasks to RemoteTaskRepository:', error);
       throw error;
     }
   }

@@ -11,6 +11,7 @@ import {
   TASK_REPEATS,
 } from '../constants/tasks';
 import {sanitizeInput} from '../utils/sanitization';
+import {logger} from '../utils/logger';
 
 /**
  * Service to handle task-related business logic and data operations.
@@ -53,9 +54,7 @@ export class TaskServiceClass {
       this.isSyncing = true;
       await this.repository.sync();
     } catch (error) {
-      if (__DEV__) {
-        console.error('TaskService sync error:', error);
-      }
+      logger.error('TaskService sync error:', error);
     } finally {
       this.isSyncing = false;
     }

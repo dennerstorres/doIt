@@ -2,6 +2,7 @@ import {useState, useEffect, useCallback, useRef} from 'react';
 import {Alert, LayoutAnimation, LayoutAnimationConfig} from 'react-native';
 import {TaskService} from '../services/taskService';
 import {createTask} from '../models/Task';
+import {logger} from '../utils/logger';
 import {sanitizeInput} from '../utils/sanitization';
 import {
   TASK_PRIORITIES,
@@ -50,7 +51,7 @@ export const useTasks = () => {
           TaskService.sync();
         }
       } catch (error) {
-        console.error('Error loading tasks:', error);
+        logger.error('Error loading tasks:', error);
         if (isMounted) {
           Alert.alert(
             'Erro',
@@ -75,7 +76,7 @@ export const useTasks = () => {
         try {
           await TaskService.saveAll(tasks);
         } catch (error) {
-          console.error('Error saving tasks:', error);
+          logger.error('Error saving tasks:', error);
           Alert.alert(
             'Erro de Persistência',
             'Não foi possível salvar suas alterações localmente.',

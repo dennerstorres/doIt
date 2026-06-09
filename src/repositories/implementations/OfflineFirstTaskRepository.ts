@@ -2,6 +2,7 @@ import {Task, SyncItem} from '../../types';
 import {ITaskRepository} from '../ITaskRepository';
 import {ISyncQueueRepository} from '../ISyncQueueRepository';
 import {mergeTasks} from '../../utils/taskUtils';
+import {logger} from '../../utils/logger';
 
 /**
  * Offline-first repository that coordinates between local and remote sources.
@@ -57,17 +58,13 @@ export class OfflineFirstTaskRepository implements ITaskRepository {
       try {
         await this.syncQueue.enqueue(syncItem);
       } catch (queueError) {
-        if (__DEV__) {
-          console.error('Failed to enqueue sync item:', queueError);
-        }
+        logger.error('Failed to enqueue sync item:', queueError);
       }
 
-      if (__DEV__) {
-        console.warn(
-          'Remote sync failed in OfflineFirstTaskRepository, operation enqueued:',
-          error,
-        );
-      }
+      logger.warn(
+        'Remote sync failed in OfflineFirstTaskRepository, operation enqueued:',
+        error,
+      );
     }
   }
 
@@ -95,9 +92,7 @@ export class OfflineFirstTaskRepository implements ITaskRepository {
         await this.syncQueue.dequeue();
       }
     } catch (error) {
-      if (__DEV__) {
-        console.error('Reconciliation sync failed:', error);
-      }
+      logger.error('Reconciliation sync failed:', error);
       // If full reconciliation fails, fallback to processing the queue in order
       // to at least try pushing pending local changes.
       await this.processQueue();
@@ -120,9 +115,7 @@ export class OfflineFirstTaskRepository implements ITaskRepository {
         // If successful, remove from queue
         await this.syncQueue.dequeue();
       } catch (error) {
-        if (__DEV__) {
-          console.error('Failed to sync item from queue:', item.id, error);
-        }
+        logger.error('Failed to sync item from queue:', item.id, error);
         // Stop processing on first failure to maintain sequence
         break;
       }
