@@ -218,7 +218,7 @@
 - [x] Sanitizar inputs
 - [x] Revisar persistência segura
 - [x] Validar permissões
-- [ ] Revisar logs sensíveis
+- [x] Revisar logs sensíveis
 
 ---
 
@@ -1462,3 +1462,15 @@
 - **Validações**: Inspeção manual dos manifestos e execução de `grep` recursivo no código-fonte.
 - **Limitações**: Nenhuma. O aplicativo opera com o conjunto mínimo necessário de permissões.
 - **Riscos**: Baixo. A remoção de permissões não utilizadas reduz a superfície de ataque e melhora a conformidade com as lojas de aplicativos.
+
+## Revisar logs sensíveis
+
+- **Implementação**: Implementação de utilitário de log centralizado e remoção de logs diretos via `console`.
+- **Decisões Técnicas**:
+  - Criação do `logger` em `src/utils/logger.ts` com métodos `info`, `warn` e `error`.
+  - Todas as chamadas de log são protegidas pela flag global `__DEV__`, garantindo que nenhum log seja emitido em produção.
+  - Refatoração completa de hooks, services e repositories para utilizar o novo utilitário.
+  - Remoção de verificações manuais de `if (__DEV__)` espalhadas pelo código, centralizando essa lógica no logger.
+- **Validações**: `yarn validate` confirmando 162 testes passando e 100% de cobertura no novo utilitário. Varredura via `grep` confirmando a ausência de chamadas diretas a `console` no diretório `src/` (exceto testes e o próprio logger).
+- **Limitações**: O logger atual não suporta envio de logs para serviços externos (ex: Sentry/Firebase), o que é planejado para a FASE 12.
+- **Riscos**: Baixo. A centralização facilita auditorias de segurança futuras e evita vazamento de dados de usuários em logs de produção.

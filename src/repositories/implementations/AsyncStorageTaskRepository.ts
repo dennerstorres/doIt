@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Task} from '../../types';
 import {ITaskRepository} from '../ITaskRepository';
 import {encrypt, decrypt} from '../../utils/security';
+import {logger} from '../../utils/logger';
 
 const STORAGE_KEY = '@doit:tasks';
 
@@ -32,7 +33,7 @@ export class AsyncStorageTaskRepository implements ITaskRepository {
           jsonValue = value;
         } catch (e) {
           // It's not valid JSON and not decryptable
-          console.error('Data is corrupted or invalid');
+          logger.error('Data is corrupted or invalid');
           return [];
         }
       }
@@ -41,14 +42,14 @@ export class AsyncStorageTaskRepository implements ITaskRepository {
       this.inMemoryTasks = tasks;
       return tasks;
     } catch (error) {
-      console.error(
+      logger.error(
         'Error getting tasks from AsyncStorageTaskRepository:',
         error,
       );
 
       // Fallback to in-memory tasks if storage fails but we have data in memory
       if (this.inMemoryTasks !== null) {
-        console.warn(
+        logger.warn(
           'Falling back to in-memory tasks in AsyncStorageTaskRepository',
         );
         return this.inMemoryTasks;
@@ -65,7 +66,7 @@ export class AsyncStorageTaskRepository implements ITaskRepository {
       const encryptedValue = encrypt(jsonValue);
       await AsyncStorage.setItem(STORAGE_KEY, encryptedValue);
     } catch (error) {
-      console.error('Error saving tasks in AsyncStorageTaskRepository:', error);
+      logger.error('Error saving tasks in AsyncStorageTaskRepository:', error);
       throw error;
     }
   }
