@@ -10,6 +10,7 @@ import {
   MAX_TASK_LENGTH,
   TASK_REPEATS,
 } from '../constants/tasks';
+import {sanitizeInput} from '../utils/sanitization';
 
 /**
  * Service to handle task-related business logic and data operations.
@@ -72,20 +73,20 @@ export class TaskServiceClass {
     currentTasks: Task[],
     excludeId?: string,
   ): {valid: boolean; error?: string} {
-    const trimmedTitle = title.trim();
+    const sanitizedTitle = sanitizeInput(title);
 
-    if (!trimmedTitle) {
+    if (!sanitizedTitle) {
       return {valid: false, error: 'A tarefa não pode estar vazia.'};
     }
 
-    if (trimmedTitle.length < MIN_TASK_LENGTH) {
+    if (sanitizedTitle.length < MIN_TASK_LENGTH) {
       return {
         valid: false,
         error: `A tarefa deve ter pelo menos ${MIN_TASK_LENGTH} caracteres.`,
       };
     }
 
-    if (trimmedTitle.length > MAX_TASK_LENGTH) {
+    if (sanitizedTitle.length > MAX_TASK_LENGTH) {
       return {
         valid: false,
         error: `A tarefa deve ter no máximo ${MAX_TASK_LENGTH} caracteres.`,
@@ -96,7 +97,7 @@ export class TaskServiceClass {
       t =>
         !t.deleted &&
         (excludeId ? t.id !== excludeId : true) &&
-        t.task.toLowerCase() === trimmedTitle.toLowerCase(),
+        t.task.toLowerCase() === sanitizedTitle.toLowerCase(),
     );
 
     if (taskExists) {

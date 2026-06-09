@@ -4,6 +4,7 @@ import {
   TASK_REPEATS,
 } from '../constants/tasks';
 import {Task, TaskPriority, TaskCategory, TaskRepeat} from '../types';
+import {sanitizeInput} from '../utils/sanitization';
 
 /**
  * Task Model Factory
@@ -30,7 +31,7 @@ export const createTask = (
 ): Task => {
   return {
     id: String(new Date().getTime()),
-    task: text.trim(),
+    task: sanitizeInput(text),
     done: false,
     priority,
     category,
