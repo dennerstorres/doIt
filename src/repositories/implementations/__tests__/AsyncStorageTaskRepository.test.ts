@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AsyncStorageTaskRepository} from '../AsyncStorageTaskRepository';
 import {Task} from '../../../types';
+import {encrypt} from '../../../utils/security';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   setItem: jest.fn(),
@@ -23,7 +24,7 @@ describe('AsyncStorageTaskRepository', () => {
   });
 
   describe('saveAll', () => {
-    it('should save tasks as a JSON string', async () => {
+    it('should save tasks as an encrypted string', async () => {
       const tasks: Task[] = [
         {
           id: '1',
@@ -40,10 +41,14 @@ describe('AsyncStorageTaskRepository', () => {
       ];
       await repository.saveAll(tasks);
 
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
-        '@doit:tasks',
-        JSON.stringify(tasks),
-      );
+      expect(AsyncStorage.setItem).toHaveBeenCalled();
+      const call = (AsyncStorage.setItem as jest.Mock).mock.calls[0];
+      expect(call[0]).toBe('@doit:tasks');
+      expect(call[1]).not.toBe(JSON.stringify(tasks));
+
+      // Decrypting the call value should yield the original JSON
+      const {decrypt} = require('../../../utils/security');
+      expect(decrypt(call[1])).toBe(JSON.stringify(tasks));
     });
 
     it('should throw an error if AsyncStorage.setItem fails', async () => {
@@ -69,7 +74,7 @@ describe('AsyncStorageTaskRepository', () => {
   });
 
   describe('getAll', () => {
-    it('should return parsed tasks from storage', async () => {
+    it('should return parsed tasks from encrypted storage', async () => {
       const tasks: Task[] = [
         {
           id: '1',
@@ -84,13 +89,37 @@ describe('AsyncStorageTaskRepository', () => {
           completedAt: null,
         },
       ];
+      const encryptedValue = encrypt(JSON.stringify(tasks));
+      (AsyncStorage.getItem as jest.Mock).mockResolvedValueOnce(encryptedValue);
+
+      const result = await repository.getAll();
+
+      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@doit:tasks');
+      expect(result).toEqual(tasks);
+    });
+
+    it('should fallback to raw JSON if decryption fails but data is valid JSON', async () => {
+      const tasks: Task[] = [
+        {
+          id: '1',
+          task: 'Test',
+          done: false,
+          priority: 'none',
+          category: 'none',
+          repeat: 'none',
+          archived: false,
+          deadline: null,
+          createdAt: '2023-01-01T12:00:00.000Z',
+          completedAt: null,
+        },
+      ];
+      // Raw JSON in storage (not encrypted yet)
       (AsyncStorage.getItem as jest.Mock).mockResolvedValueOnce(
         JSON.stringify(tasks),
       );
 
       const result = await repository.getAll();
 
-      expect(AsyncStorage.getItem).toHaveBeenCalledWith('@doit:tasks');
       expect(result).toEqual(tasks);
     });
 

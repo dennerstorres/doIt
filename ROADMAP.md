@@ -216,7 +216,7 @@
 # FASE 11 — Segurança
 
 - [x] Sanitizar inputs
-- [ ] Revisar persistência segura
+- [x] Revisar persistência segura
 - [ ] Validar permissões
 - [ ] Revisar logs sensíveis
 
@@ -1439,3 +1439,15 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: Ausência de ativos de imagem (assets) finais no repositório. O diretório `drawable` não existe e os mipmaps contêm apenas os ícones padrão do Android.
 - **Sugestão de Desbloqueio**: Fornecer os arquivos `.png` ou `.svg` para os ícones e splash screen, ou criar ativos temporários baseados na identidade visual do app.
+
+## Revisar persistência segura
+
+- **Implementação**: Implementação de criptografia AES para os dados das tarefas armazenados localmente.
+- **Decisões Técnicas**:
+  - Utilização da biblioteca `crypto-js` para realizar criptografia/descriptografia AES-256.
+  - Criação de utilitários de segurança em `src/utils/security.ts`.
+  - Integração no `AsyncStorageTaskRepository` para garantir que os dados sejam criptografados antes de serem gravados no `AsyncStorage` e descriptografados ao serem lidos.
+  - Implementação de um mecanismo de fallback (migração transparente) que permite ler dados não criptografados caso a descriptografia falhe, garantindo que o usuário não perca tarefas criadas antes desta atualização.
+- **Validações**: `yarn validate` confirmando 157 testes passando, incluindo novos testes unitários para a utilidade de segurança e testes de integração atualizados para validar a persistência criptografada.
+- **Limitações**: A chave de criptografia está atualmente definida como uma constante; para segurança máxima, deve-se considerar o uso de chaves geradas dinamicamente e armazenadas em hardware seguro (Keychain/Keystore) em fases futuras.
+- **Riscos**: Se a chave de criptografia for alterada ou perdida, os dados armazenados anteriormente se tornarão ilegíveis.
