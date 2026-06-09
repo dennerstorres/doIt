@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Task} from '../../types';
 import {ITaskRepository} from '../ITaskRepository';
+import {encrypt, decrypt} from '../../utils/security';
 
 const STORAGE_KEY = '@doit:tasks';
 
@@ -9,8 +10,34 @@ export class AsyncStorageTaskRepository implements ITaskRepository {
 
   async getAll(): Promise<Task[]> {
     try {
-      const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
-      const tasks: Task[] = jsonValue != null ? JSON.parse(jsonValue) : [];
+      const value = await AsyncStorage.getItem(STORAGE_KEY);
+
+      if (value === null) {
+        this.inMemoryTasks = [];
+        return [];
+      }
+
+      let jsonValue: string | null = value;
+
+      // Try to decrypt
+      const decrypted = decrypt(value);
+
+      if (decrypted) {
+        jsonValue = decrypted;
+      } else {
+        // Fallback: If decryption fails, check if it's raw JSON (migration case)
+        try {
+          JSON.parse(value);
+          // It's valid JSON, so it's not encrypted yet. We'll encrypt it on next save.
+          jsonValue = value;
+        } catch (e) {
+          // It's not valid JSON and not decryptable
+          console.error('Data is corrupted or invalid');
+          return [];
+        }
+      }
+
+      const tasks: Task[] = JSON.parse(jsonValue);
       this.inMemoryTasks = tasks;
       return tasks;
     } catch (error) {
@@ -35,7 +62,8 @@ export class AsyncStorageTaskRepository implements ITaskRepository {
     try {
       this.inMemoryTasks = tasks;
       const jsonValue = JSON.stringify(tasks);
-      await AsyncStorage.setItem(STORAGE_KEY, jsonValue);
+      const encryptedValue = encrypt(jsonValue);
+      await AsyncStorage.setItem(STORAGE_KEY, encryptedValue);
     } catch (error) {
       console.error('Error saving tasks in AsyncStorageTaskRepository:', error);
       throw error;

@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 
 import App from '../src/App';
+import {decrypt} from '../src/utils/security';
 import TaskList from '../src/components/TaskList';
 import AddTask from '../src/components/AddTask';
 import Search from '../src/components/Search';
@@ -90,7 +91,8 @@ describe('Integration Tests', () => {
 
     // 6. Verify it persisted in AsyncStorage
     const savedTasksJson = await AsyncStorage.getItem('@doit:tasks');
-    const savedTasks = JSON.parse(savedTasksJson || '[]');
+    const decryptedJson = decrypt(savedTasksJson || '');
+    const savedTasks = JSON.parse(decryptedJson || '[]');
     expect(savedTasks.length).toBe(1);
     expect(savedTasks[0].archived).toBe(true);
   });
