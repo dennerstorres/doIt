@@ -484,7 +484,7 @@ describe('useTasks hook', () => {
 
     expect(TaskService.saveAll).toHaveBeenCalled();
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Error saving tasks:',
+      expect.stringContaining('[ERROR] Error saving tasks:'),
       expect.any(Error),
     );
     expect(Alert.alert).toHaveBeenCalledWith(
