@@ -241,23 +241,23 @@
 - [x] Configurar versão
 - [!] Gerar signed APK
 - [!] Gerar AAB
-- [ ] Configurar Play Store assets
+- [!] Configurar Play Store assets
 
 ## iOS
 
-- [ ] Configurar ícones iOS
-- [ ] Configurar splash iOS
-- [ ] Configurar signing
-- [ ] Gerar build release
+- [!] Configurar ícones iOS
+- [!] Configurar splash iOS
+- [!] Configurar signing
+- [!] Gerar build release
 
 ## Loja
 
-- [ ] Criar política de privacidade
-- [ ] Criar screenshots
-- [ ] Criar descrição da store
-- [ ] Publicar beta fechado
-- [ ] Corrigir feedbacks
-- [ ] Publicar v1.0
+- [x] Criar política de privacidade
+- [!] Criar screenshots
+- [x] Criar descrição da store
+- [!] Publicar beta fechado
+- [!] Corrigir feedbacks
+- [!] Publicar v1.0
 
 ---
 
@@ -1451,6 +1451,35 @@
 - **Status**: [!] Bloqueado.
 - **Motivo**: A geração de pacotes assinados requer a criação e armazenamento seguro de chaves (keystores), além de um ambiente de build Android totalmente funcional (atualmente bloqueado por conflitos de versão Java/Gradle).
 - **Sugestão de Desbloqueio**: Configurar as chaves de assinatura e realizar o build em uma máquina de build dedicada ou localmente.
+
+## Configurar Play Store assets / Criar screenshots
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A criação de ativos de marketing (banners, ícones de alta resolução) e screenshots profissionais requer o uso de ferramentas de design gráfico e a execução do aplicativo em dispositivos físicos ou emuladores para captura de telas reais, o que não é suportado pelo ambiente de sandbox.
+- **Sugestão de Desbloqueio**: Gerar screenshots e ativos em um ambiente local com acesso a emuladores/dispositivos e ferramentas de design.
+
+## Configuração iOS (Ícones, Splash, Signing, Build Release)
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: O ambiente de execução não possui o sistema operacional macOS nem o Xcode, obrigatórios para a configuração de ativos nativos, gerenciamento de certificados de assinatura (Signing) e geração de builds de release (.ipa) para iOS.
+- **Sugestão de Desbloqueio**: Executar estas tarefas em um ambiente com macOS e Xcode devidamente configurados com uma conta de desenvolvedor Apple.
+
+## Publicação (Beta fechado, Feedbacks, v1.0)
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A publicação em lojas depende da conclusão bem-sucedida da geração de builds assinados (APK/AAB/IPA) e da disponibilidade de ativos de loja, que estão atualmente bloqueados. Além disso, requer acesso aos consoles de desenvolvedor (Google Play Console / App Store Connect).
+- **Sugestão de Desbloqueio**: Prosseguir com a publicação após o desbloqueio das tarefas de build e design em ambiente local.
+
+## Criar política de privacidade / Criar descrição da store
+
+- **Implementação**: Elaboração da documentação necessária para a submissão do aplicativo nas lojas (Google Play Store e Apple App Store).
+- **Decisões Técnicas**:
+  - Criação de um novo diretório `docs/` na raiz do projeto para centralizar documentos não técnicos.
+  - `docs/PRIVACY_POLICY.md`: Define uma política de "Zero Coleta de Dados", reforçando o compromisso com a privacidade e o funcionamento offline do app.
+  - `docs/STORE_DESCRIPTION.md`: Contém o material de marketing (Título, Subtítulo, Descrição Longa e Features) e as notas da versão 1.0.0.
+- **Validações**: `yarn validate` garantindo conformidade de estilo (Prettier) em todos os novos arquivos.
+- **Limitações**: Os documentos estão em formato Markdown e devem ser copiados/colados nos respectivos campos dos consoles de desenvolvedor durante a publicação.
+- **Riscos**: Alterações futuras no modelo de dados que incluam coleta de telemetria exigirão a atualização imediata da Política de Privacidade.
 
 ## Revisar persistência segura
 
