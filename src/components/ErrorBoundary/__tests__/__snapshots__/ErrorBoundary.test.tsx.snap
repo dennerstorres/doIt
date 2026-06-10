@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorBoundary renders children when there is no error 1`] = `
+<View>
+  <Text>
+    Normal Child
+  </Text>
+</View>
+`;
+
+exports[`ErrorBoundary renders fallback UI when an error is caught 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#dce1de",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 20,
+        "paddingRight": 20,
+        "paddingTop": 20,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#1f2421",
+          "fontSize": 24,
+          "fontWeight": "700",
+          "marginBottom": 10,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Ops! Algo deu errado.
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#1f2421",
+          "fontSize": 16,
+          "marginBottom": 50,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Ocorreu um erro inesperado no aplicativo. Por favor, tente novamente.
+  </Text>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#49a078",
+        "borderRadius": 5,
+        "opacity": 1,
+        "paddingHorizontal": 20,
+        "paddingVertical": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 14,
+            "fontWeight": "700",
+          },
+        ]
+      }
+    >
+      Tentar Novamente
+    </Text>
+  </View>
+</View>
+`;
