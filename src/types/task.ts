@@ -10,6 +10,8 @@ export type TaskCategory =
 
 export type TaskRepeat = 'none' | 'daily' | 'weekly' | 'monthly';
 
+export type TaskFilter = 'all' | 'pending' | 'completed';
+
 export interface Task {
   id: string;
   task: string;

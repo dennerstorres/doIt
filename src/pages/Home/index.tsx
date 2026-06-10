@@ -13,6 +13,9 @@ import {
   StreakContainer,
   StreakText,
   LoadingIndicator,
+  FilterContainer,
+  FilterButton,
+  FilterText,
   SortContainer,
   SortButton,
   SortText,
@@ -27,12 +30,14 @@ import UndoAction from '../../components/UndoAction';
 import {useTasks} from '../../hooks/useTasks';
 import {
   filterTasksBySearch,
+  filterTasksByStatus,
   getTaskStats,
   sortTasks,
   SORT_TYPES,
   SortType,
 } from '../../utils/taskUtils';
-import {TaskPriority, TaskCategory, TaskRepeat} from '../../types';
+import {TaskPriority, TaskCategory, TaskRepeat, TaskFilter} from '../../types';
+import {TASK_FILTERS} from '../../constants/tasks';
 
 const Home: React.FC = () => {
   const theme = useTheme();
@@ -40,6 +45,9 @@ const Home: React.FC = () => {
   const [task, setTask] = useState('');
   const [search, setSearch] = useState('');
   const [sortType, setSortType] = useState<SortType>(SORT_TYPES.DEFAULT);
+  const [activeFilter, setActiveFilter] = useState<TaskFilter>(
+    TASK_FILTERS.ALL,
+  );
 
   const {
     tasks,
@@ -69,9 +77,10 @@ const Home: React.FC = () => {
 
   const filteredTasks = useMemo(() => {
     const baseTasks = (tasks || []).filter(t => !t.archived);
-    const filtered = filterTasksBySearch(baseTasks, search);
-    return sortTasks(filtered, sortType);
-  }, [tasks, search, sortType]);
+    const byStatus = filterTasksByStatus(baseTasks, activeFilter);
+    const bySearch = filterTasksBySearch(byStatus, search);
+    return sortTasks(bySearch, sortType);
+  }, [tasks, activeFilter, search, sortType]);
 
   const stats = useMemo(() => getTaskStats(tasks || []), [tasks]);
 
@@ -119,6 +128,33 @@ const Home: React.FC = () => {
       </CounterContainer>
 
       <DailyProgress progress={dailyProgress} />
+
+      <FilterContainer>
+        <FilterButton
+          onPress={() => setActiveFilter(TASK_FILTERS.ALL)}
+          $active={activeFilter === TASK_FILTERS.ALL}
+          testID='filter-button-all'>
+          <FilterText $active={activeFilter === TASK_FILTERS.ALL}>
+            Todas
+          </FilterText>
+        </FilterButton>
+        <FilterButton
+          onPress={() => setActiveFilter(TASK_FILTERS.PENDING)}
+          $active={activeFilter === TASK_FILTERS.PENDING}
+          testID='filter-button-pending'>
+          <FilterText $active={activeFilter === TASK_FILTERS.PENDING}>
+            Pendentes
+          </FilterText>
+        </FilterButton>
+        <FilterButton
+          onPress={() => setActiveFilter(TASK_FILTERS.COMPLETED)}
+          $active={activeFilter === TASK_FILTERS.COMPLETED}
+          testID='filter-button-completed'>
+          <FilterText $active={activeFilter === TASK_FILTERS.COMPLETED}>
+            Concluídas
+          </FilterText>
+        </FilterButton>
+      </FilterContainer>
 
       <SortContainer>
         <SortButton
