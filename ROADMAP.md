@@ -224,9 +224,9 @@
 
 # FASE 12 — Observabilidade
 
-- [ ] Configurar crash reporting
-- [ ] Configurar analytics
-- [ ] Adicionar logs estruturados
+- [!] Configurar crash reporting
+- [!] Configurar analytics
+- [x] Adicionar logs estruturados
 - [ ] Criar error boundary
 
 ---
@@ -239,8 +239,8 @@
 - [!] Configurar splash screen
 - [x] Configurar nome final app
 - [x] Configurar versão
-- [ ] Gerar signed APK
-- [ ] Gerar AAB
+- [!] Gerar signed APK
+- [!] Gerar AAB
 - [ ] Configurar Play Store assets
 
 ## iOS
@@ -1440,6 +1440,18 @@
 - **Motivo**: Ausência de ativos de imagem (assets) finais no repositório. O diretório `drawable` não existe e os mipmaps contêm apenas os ícones padrão do Android.
 - **Sugestão de Desbloqueio**: Fornecer os arquivos `.png` ou `.svg` para os ícones e splash screen, ou criar ativos temporários baseados na identidade visual do app.
 
+## Configurar crash reporting / Configurar analytics
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A configuração de crash reporting e analytics requer a integração de SDKs externos (ex: Sentry, Firebase, Amplitude) e a execução de builds nativos para validação, o que não é suportado pelo ambiente de sandbox atual.
+- **Sugestão de Desbloqueio**: Implementar e validar em ambiente de desenvolvimento local com acesso a serviços externos e simuladores/emuladores.
+
+## Gerar signed APK / Gerar AAB
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A geração de pacotes assinados requer a criação e armazenamento seguro de chaves (keystores), além de um ambiente de build Android totalmente funcional (atualmente bloqueado por conflitos de versão Java/Gradle).
+- **Sugestão de Desbloqueio**: Configurar as chaves de assinatura e realizar o build em uma máquina de build dedicada ou localmente.
+
 ## Revisar persistência segura
 
 - **Implementação**: Implementação de criptografia AES para os dados das tarefas armazenados localmente.
@@ -1474,3 +1486,15 @@
 - **Validações**: `yarn validate` confirmando 162 testes passando e 100% de cobertura no novo utilitário. Varredura via `grep` confirmando a ausência de chamadas diretas a `console` no diretório `src/` (exceto testes e o próprio logger).
 - **Limitações**: O logger atual não suporta envio de logs para serviços externos (ex: Sentry/Firebase), o que é planejado para a FASE 12.
 - **Riscos**: Baixo. A centralização facilita auditorias de segurança futuras e evita vazamento de dados de usuários em logs de produção.
+
+## Adicionar logs estruturados
+
+- **Implementação**: Evolução do utilitário de log para suportar um formato padronizado e enriquecido com metadados.
+- **Decisões Técnicas**:
+  - Introdução de timestamps ISO em todas as entradas de log para rastreamento temporal preciso.
+  - Padronização de rótulos de nível (`[INFO]`, `[WARN]`, `[ERROR]`).
+  - Suporte a objetos de contexto opcionais, permitindo anexar metadados (como payloads de erro ou estado da aplicação) de forma estruturada.
+  - Manutenção do gate `__DEV__` para segurança e performance em produção.
+- **Validações**: `yarn validate` confirmando 163 testes passando (incluindo testes específicos de formato e regressões em outros serviços/hooks que utilizam o logger).
+- **Limitações**: O formato estruturado é otimizado para o console de desenvolvimento do Metro/Xcode/Android Studio; exportação para JSON estruturado em larga escala exigirá adaptadores adicionais.
+- **Riscos**: Baixo. A implementação é retrocompatível com as chamadas de log existentes no projeto.

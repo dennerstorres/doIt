@@ -104,7 +104,7 @@ describe('Home Page', () => {
 
     expect(TaskService.getAll).toHaveBeenCalledTimes(1);
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Error loading tasks:',
+      expect.stringContaining('[ERROR] Error loading tasks:'),
       expect.any(Error),
     );
     expect(mockAlert).toHaveBeenCalledWith(
@@ -136,7 +136,7 @@ describe('Home Page', () => {
     // After loadTasks resolves to [], tasks becomes [], triggering the effect
     expect(TaskService.saveAll).toHaveBeenCalled();
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Error saving tasks:',
+      expect.stringContaining('[ERROR] Error saving tasks:'),
       expect.any(Error),
     );
     expect(mockAlert).toHaveBeenCalledWith(

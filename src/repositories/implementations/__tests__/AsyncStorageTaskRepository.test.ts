@@ -170,7 +170,10 @@ describe('AsyncStorageTaskRepository', () => {
 
       expect(result).toEqual(tasks);
       expect(console.warn).toHaveBeenCalledWith(
-        'Falling back to in-memory tasks in AsyncStorageTaskRepository',
+        expect.stringContaining(
+          '[WARN] Falling back to in-memory tasks in AsyncStorageTaskRepository',
+        ),
+        expect.any(String),
       );
     });
   });
