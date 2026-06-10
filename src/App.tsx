@@ -9,6 +9,7 @@ import theme from './theme';
 import Home from './pages/Home';
 import Statistics from './pages/Statistics';
 import History from './pages/History';
+import ErrorBoundary from './components/ErrorBoundary';
 import {RootStackParamList} from './types';
 
 if (
@@ -25,13 +26,15 @@ const App: React.FC = () => {
     <SafeAreaProvider>
       {/* @ts-ignore - ThemeProvider conflict with React 16 types */}
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name='Home' component={Home} />
-            <Stack.Screen name='Statistics' component={Statistics} />
-            <Stack.Screen name='History' component={History} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <ErrorBoundary>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name='Home' component={Home} />
+              <Stack.Screen name='Statistics' component={Statistics} />
+              <Stack.Screen name='History' component={History} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ErrorBoundary>
       </ThemeProvider>
     </SafeAreaProvider>
   );

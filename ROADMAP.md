@@ -227,7 +227,7 @@
 - [!] Configurar crash reporting
 - [!] Configurar analytics
 - [x] Adicionar logs estruturados
-- [ ] Criar error boundary
+- [x] Criar error boundary
 
 ---
 
@@ -1498,3 +1498,15 @@
 - **Validações**: `yarn validate` confirmando 163 testes passando (incluindo testes específicos de formato e regressões em outros serviços/hooks que utilizam o logger).
 - **Limitações**: O formato estruturado é otimizado para o console de desenvolvimento do Metro/Xcode/Android Studio; exportação para JSON estruturado em larga escala exigirá adaptadores adicionais.
 - **Riscos**: Baixo. A implementação é retrocompatível com as chamadas de log existentes no projeto.
+
+## Criar error boundary
+
+- **Implementação**: Implementação de um componente ErrorBoundary para capturar e tratar erros não capturados na árvore de componentes.
+- **Decisões Técnicas**:
+  - Criação do componente de classe `ErrorBoundary` em `src/components/ErrorBoundary`.
+  - Implementação de `getDerivedStateFromError` para gerenciar o estado de erro e `componentDidCatch` para logar erros usando o utilitário `logger`.
+  - Design de uma interface de fallback amigável (UI) que permite ao usuário tentar recuperar a aplicação sem recarregar completamente.
+  - Integração no nível raiz (`App.tsx`) para proteger toda a aplicação.
+- **Validações**: `yarn validate` confirmando 166 testes passando, incluindo testes unitários específicos para capturar erros de componentes filhos e reset de estado.
+- **Limitações**: Erros em event handlers assíncronos ou fora do ciclo de renderização do React ainda precisam de tratamento local ou global via `ErrorUtils` (específico do React Native).
+- **Riscos**: Baixo. O componente é isolado e segue as melhores práticas do React para tratamento de erros.
