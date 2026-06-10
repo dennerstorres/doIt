@@ -140,7 +140,7 @@
 - [x] Melhorar input de tarefas
 - [x] Melhorar animações
 - [x] Adicionar dark mode
-- [!] Criar tema light/dark
+- [x] Criar tema light/dark
 - [x] Melhorar swipe actions
 - [x] Adicionar ícones consistentes
 - [x] Melhorar responsividade
@@ -877,9 +877,16 @@
 
 ## Criar tema light/dark
 
-- **Status**: [!] Bloqueado.
-- **Motivo**: Inconsistência entre o histórico do ROADMAP e o estado atual da branch principal. O histórico cita a implementação de `ThemeContext`, mas o arquivo não está presente na branch.
-- **Sugestão de Desbloqueio**: Reverter ou aplicar corretamente o PR #22 para restaurar a infraestrutura de temas dinâmicos.
+- **Implementação**: Restauração e aprimoramento da infraestrutura de temas dinâmicos (Light/Dark).
+- **Decisões Técnicas**:
+  - Implementação do `ThemeContext` para gerenciar o estado global do tema e persistir a preferência do usuário via `AsyncStorage`.
+  - Refatoração do `src/theme/index.ts` para prover objetos de tema `light` e `dark` tipados.
+  - Integração do `ThemeProvider` no nível raiz (`App.tsx`) e remoção de código morto (imports não utilizados).
+  - Adição de botão de alternância de tema no `Header` com ícones Feather ('sun'/'moon').
+  - Refatoração dos estilos do `Header` para garantir layout robusto em ambas as plataformas sem o uso de `z-index` negativo.
+- **Validações**: `yarn validate` confirmando 171 testes passando e snapshots atualizados.
+- **Limitações**: Nenhuma.
+- **Riscos**: Baixo. A solução é persistente e respeita a arquitetura existente.
 
 ## Adicionar filtro Todas/Pendentes/Concluídas
 

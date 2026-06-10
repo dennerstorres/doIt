@@ -35,7 +35,32 @@ export interface Theme {
   };
 }
 
-const theme: Theme = {
+const spacing = {
+  nano: '2px',
+  tiny: '5px',
+  small: '8px',
+  medium: '10px',
+  large: '15px',
+  xlarge: '20px',
+  huge: '50px',
+};
+
+const typography = {
+  size: {
+    nano: '8px',
+    tiny: '10px',
+    small: '12px',
+    medium: '14px',
+    large: '16px',
+    xlarge: '24px',
+  },
+  weight: {
+    regular: '400',
+    bold: '700',
+  },
+};
+
+export const light: Theme = {
   colors: {
     primary: '#49a078',
     secondary: '#216869',
@@ -47,29 +72,25 @@ const theme: Theme = {
     info: '#4a90e2',
     warning: '#f5a623',
   },
-  spacing: {
-    nano: '2px',
-    tiny: '5px',
-    small: '8px',
-    medium: '10px',
-    large: '15px',
-    xlarge: '20px',
-    huge: '50px',
-  },
-  typography: {
-    size: {
-      nano: '8px',
-      tiny: '10px',
-      small: '12px',
-      medium: '14px',
-      large: '16px',
-      xlarge: '24px',
-    },
-    weight: {
-      regular: '400',
-      bold: '700',
-    },
-  },
+  spacing,
+  typography,
 };
 
+export const dark: Theme = {
+  colors: {
+    primary: '#49a078',
+    secondary: '#9cc5a1',
+    background: '#1f2421',
+    text: '#dce1de',
+    accent: '#216869',
+    error: '#FF5555',
+    white: '#ffffff',
+    info: '#4a90e2',
+    warning: '#f5a623',
+  },
+  spacing,
+  typography,
+};
+
+const theme = light;
 export default theme;
