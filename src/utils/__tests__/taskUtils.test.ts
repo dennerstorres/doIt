@@ -6,6 +6,7 @@ import {
   mergeTasks,
   SORT_TYPES,
   isToday,
+  filterTasksByStatus,
 } from '../taskUtils';
 import {Task} from '../../types';
 
@@ -334,6 +335,31 @@ describe('Task Utils', () => {
     it('should return all tasks if search is empty', () => {
       expect(filterTasksBySearch(mockTasks, '')).toEqual(mockTasks);
       expect(filterTasksBySearch(mockTasks, null as any)).toEqual(mockTasks);
+    });
+  });
+
+  describe('filterTasksByStatus', () => {
+    it('should return all tasks when filter is "all"', () => {
+      expect(filterTasksByStatus(mockTasks, 'all')).toEqual(mockTasks);
+    });
+
+    it('should return only pending tasks when filter is "pending"', () => {
+      const filtered = filterTasksByStatus(mockTasks, 'pending');
+      expect(filtered.length).toBe(2);
+      expect(filtered.every(t => !t.done)).toBe(true);
+    });
+
+    it('should return only completed tasks when filter is "completed"', () => {
+      const filtered = filterTasksByStatus(mockTasks, 'completed');
+      expect(filtered.length).toBe(1);
+      expect(filtered.every(t => t.done)).toBe(true);
+    });
+
+    it('should handle invalid or empty input', () => {
+      expect(filterTasksByStatus(null as any)).toEqual([]);
+      expect(filterTasksByStatus(mockTasks, 'invalid' as any)).toEqual(
+        mockTasks,
+      );
     });
   });
 

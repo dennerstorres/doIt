@@ -146,9 +146,9 @@
 - [x] Melhorar responsividade
 - [x] Adicionar confirmação para deletar
 - [x] Adicionar undo ao deletar
-- [!] Adicionar filtro Todas
-- [!] Adicionar filtro Pendentes
-- [!] Adicionar filtro Concluídas
+- [x] Adicionar filtro Todas
+- [x] Adicionar filtro Pendentes
+- [x] Adicionar filtro Concluídas
 - [x] Adicionar ordenação
 - [x] Adicionar busca
 
@@ -883,9 +883,16 @@
 
 ## Adicionar filtro Todas/Pendentes/Concluídas
 
-- **Status**: [!] Bloqueado.
-- **Motivo**: Dependência de PR #17 aberto (`feature/task-filters`) que contém a implementação pendente de revisão ou merge.
-- **Sugestão de Desbloqueio**: Revisar e realizar o merge do PR #17.
+- **Implementação**: Sistema de filtragem por status (Todas, Pendentes, Concluídas) na lista principal.
+- **Decisões Técnicas**:
+  - Criação da utilidade `filterTasksByStatus` em `src/utils/taskUtils.ts` para lógica pura de filtragem.
+  - Gerenciamento de estado `activeFilter` na `Home` page usando o tipo `TaskFilter`.
+  - Integração da filtragem no pipeline de `useMemo` da `Home`, combinando com busca e ordenação.
+  - UI: Adição de uma barra de filtros com botões estilizados usando transient props (`$active`) para evitar warnings nativos.
+  - Testes: Adição de testes unitários para a utilidade e testes de interação na `Home` para validar a mudança de estado e renderização.
+- **Validações**: `yarn validate` confirmando 171 testes passando e 100% de sucesso no lint/prettier.
+- **Limitações**: O filtro é resetado para "Todas" ao recarregar o app (não persistido).
+- **Riscos**: Baixo. A lógica é isolada e não afeta a persistência de dados.
 
 ## Adicionar edição de tarefas
 

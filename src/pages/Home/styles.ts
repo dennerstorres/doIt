@@ -91,3 +91,34 @@ export const SortText = styled.Text<SortProps>`
       : props.theme.typography.weight.regular};
   margin-left: ${props => props.theme.spacing.tiny};
 `;
+
+export const FilterContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding: ${props => props.theme.spacing.tiny}
+    ${props => props.theme.spacing.medium};
+  margin-bottom: ${props => props.theme.spacing.tiny};
+`;
+
+export const FilterButton = styled.TouchableOpacity<SortProps>`
+  background-color: ${props =>
+    props.$active ? props.theme.colors.primary : 'transparent'};
+  padding: ${props =>
+    `${props.theme.spacing.tiny} ${props.theme.spacing.medium}`};
+  border-radius: ${props => props.theme.spacing.medium};
+  margin: 0 ${props => props.theme.spacing.nano};
+  border-width: 1px;
+  border-color: ${props =>
+    props.$active ? props.theme.colors.primary : props.theme.colors.accent};
+`;
+
+export const FilterText = styled.Text<SortProps>`
+  color: ${props =>
+    props.$active ? props.theme.colors.white : props.theme.colors.text};
+  font-size: ${props => props.theme.typography.size.small};
+  font-weight: ${props =>
+    props.$active
+      ? props.theme.typography.weight.bold
+      : props.theme.typography.weight.regular};
+`;

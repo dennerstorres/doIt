@@ -205,4 +205,88 @@ describe('Home Page', () => {
     taskList = component.root.findByType(TaskList);
     expect(taskList.props.tasks[0].id).toBe('1');
   });
+
+  it('should filter tasks when filter buttons are pressed', async () => {
+    const mockTasks = [
+      {
+        id: '1',
+        task: 'Done Task',
+        done: true,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: '2023-01-01T10:00:00Z',
+        completedAt: '2023-01-01T10:30:00Z',
+      },
+      {
+        id: '2',
+        task: 'Pending Task',
+        done: false,
+        priority: 'none',
+        category: 'none',
+        repeat: 'none',
+        archived: false,
+        deadline: null,
+        createdAt: '2023-01-01T11:00:00Z',
+        completedAt: null,
+      },
+    ];
+    (TaskService.getAll as jest.Mock).mockResolvedValue(mockTasks);
+
+    let component: any;
+    await act(async () => {
+      component = renderer.create(
+        /* @ts-ignore */
+        <ThemeProvider theme={theme}>
+          <Home />
+        </ThemeProvider>,
+      );
+    });
+
+    // wait for useEffect that loads tasks
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+
+    // Default filter: Todas
+    let taskList = component.root.findByType(TaskList);
+    expect(taskList.props.tasks.length).toBe(2);
+
+    // Switch to Pendentes
+    const filterBtnPending = component.root.findByProps({
+      testID: 'filter-button-pending',
+    });
+    await act(async () => {
+      filterBtnPending.props.onPress();
+    });
+
+    taskList = component.root.findByType(TaskList);
+    expect(taskList.props.tasks.length).toBe(1);
+    expect(taskList.props.tasks[0].id).toBe('2');
+
+    // Switch to Concluídas
+    const filterBtnCompleted = component.root.findByProps({
+      testID: 'filter-button-completed',
+    });
+    await act(async () => {
+      filterBtnCompleted.props.onPress();
+    });
+
+    taskList = component.root.findByType(TaskList);
+    expect(taskList.props.tasks.length).toBe(1);
+    expect(taskList.props.tasks[0].id).toBe('1');
+
+    // Switch back to Todas
+    const filterBtnAll = component.root.findByProps({
+      testID: 'filter-button-all',
+    });
+    await act(async () => {
+      filterBtnAll.props.onPress();
+    });
+
+    taskList = component.root.findByType(TaskList);
+    expect(taskList.props.tasks.length).toBe(2);
+  });
 });

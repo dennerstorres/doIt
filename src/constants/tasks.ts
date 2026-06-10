@@ -25,3 +25,9 @@ export const TASK_REPEATS = {
   WEEKLY: 'weekly',
   MONTHLY: 'monthly',
 } as const;
+
+export const TASK_FILTERS = {
+  ALL: 'all',
+  PENDING: 'pending',
+  COMPLETED: 'completed',
+} as const;

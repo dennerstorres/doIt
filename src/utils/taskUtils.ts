@@ -1,4 +1,5 @@
-import {Task, TaskPriority, TaskCategory} from '../types';
+import {Task, TaskPriority, TaskCategory, TaskFilter} from '../types';
+import {TASK_FILTERS} from '../constants/tasks';
 
 /**
  * Task Utility Functions
@@ -132,6 +133,32 @@ export const filterTasksBySearch = (tasks: Task[], search: string): Task[] => {
 
   const normalizedSearch = search.toLowerCase();
   return tasks.filter(t => t.task.toLowerCase().includes(normalizedSearch));
+};
+
+/**
+ * Filters tasks based on their completion status.
+ *
+ * @param tasks - The list of tasks to filter.
+ * @param filter - The filter type (all, pending, completed).
+ * @returns The filtered list of tasks.
+ */
+export const filterTasksByStatus = (
+  tasks: Task[],
+  filter: TaskFilter = TASK_FILTERS.ALL,
+): Task[] => {
+  if (!Array.isArray(tasks)) {
+    return [];
+  }
+
+  switch (filter) {
+    case TASK_FILTERS.PENDING:
+      return tasks.filter(t => !t.done);
+    case TASK_FILTERS.COMPLETED:
+      return tasks.filter(t => t.done);
+    case TASK_FILTERS.ALL:
+    default:
+      return tasks;
+  }
 };
 
 export interface TaskStats {
