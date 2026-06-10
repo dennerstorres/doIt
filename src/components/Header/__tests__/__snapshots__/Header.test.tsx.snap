@@ -31,30 +31,73 @@ exports[`Header Component renders correctly 1`] = `
     doIt
   </Text>
   <View
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "bottom": 10,
-        "opacity": 1,
-        "position": "absolute",
-        "right": 10,
-      }
+      Array [
+        Object {
+          "alignItems": "center",
+          "bottom": 10,
+          "flexDirection": "row",
+          "position": "absolute",
+          "right": 10,
+        },
+      ]
     }
-    testID="header-stats-button"
   >
-    <Icon
-      color="#fff"
-      name="bar-chart-2"
-      size={24}
-    />
+    <View
+      accessible={true}
+      focusable={false}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "marginRight": 8,
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 5,
+          "paddingRight": 5,
+          "paddingTop": 5,
+        }
+      }
+      testID="header-theme-toggle"
+    >
+      <Icon
+        color="#fff"
+        name="sun"
+        size={24}
+      />
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+          "paddingBottom": 5,
+          "paddingLeft": 5,
+          "paddingRight": 5,
+          "paddingTop": 5,
+        }
+      }
+      testID="header-stats-button"
+    >
+      <Icon
+        color="#fff"
+        name="bar-chart-2"
+        size={24}
+      />
+    </View>
   </View>
 </View>
 `;

@@ -71,6 +71,19 @@ exports[`History Page renders correctly when loading 1`] = `
     >
       doIt
     </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "bottom": 10,
+            "flexDirection": "row",
+            "position": "absolute",
+            "right": 10,
+          },
+        ]
+      }
+    />
   </View>
   <ActivityIndicator
     animating={true}
@@ -159,6 +172,19 @@ exports[`History Page renders correctly with archived tasks 1`] = `
     >
       doIt
     </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "bottom": 10,
+            "flexDirection": "row",
+            "position": "absolute",
+            "right": 10,
+          },
+        ]
+      }
+    />
   </View>
   <RCTScrollView
     ListEmptyComponent={
@@ -420,6 +446,19 @@ exports[`History Page renders correctly with empty archived list 1`] = `
     >
       doIt
     </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "bottom": 10,
+            "flexDirection": "row",
+            "position": "absolute",
+            "right": 10,
+          },
+        ]
+      }
+    />
   </View>
   <RCTScrollView
     ListEmptyComponent={

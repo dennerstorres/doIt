@@ -22,13 +22,27 @@ export const Title = styled.Text`
 `;
 
 export const ActionButton = styled.TouchableOpacity`
-  position: absolute;
-  right: ${props => props.theme.spacing.medium};
-  bottom: ${props => props.theme.spacing.medium};
+  padding: ${props => props.theme.spacing.tiny};
 `;
 
 export const BackButton = styled.TouchableOpacity`
   position: absolute;
   left: ${props => props.theme.spacing.medium};
   bottom: ${props => props.theme.spacing.medium};
+`;
+
+export const RightActions = styled.View`
+  position: absolute;
+  right: ${props => props.theme.spacing.medium};
+  bottom: ${props => props.theme.spacing.medium};
+  flex-direction: row;
+  align-items: center;
+`;
+
+interface ThemeToggleProps {
+  $hasMargin?: boolean;
+}
+
+export const ThemeToggle = styled(ActionButton)<ThemeToggleProps>`
+  margin-right: ${props => (props.$hasMargin ? props.theme.spacing.small : 0)};
 `;

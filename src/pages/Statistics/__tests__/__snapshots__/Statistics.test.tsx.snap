@@ -75,6 +75,19 @@ exports[`Statistics Screen renders correctly with tasks 1`] = `
       >
         doIt
       </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "bottom": 10,
+              "flexDirection": "row",
+              "position": "absolute",
+              "right": 10,
+            },
+          ]
+        }
+      />
     </View>
     <View
       style={
@@ -972,6 +985,19 @@ exports[`Statistics Screen renders empty message when no tasks 1`] = `
       >
         doIt
       </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "bottom": 10,
+              "flexDirection": "row",
+              "position": "absolute",
+              "right": 10,
+            },
+          ]
+        }
+      />
     </View>
     <Text
       style={
