@@ -34,7 +34,6 @@ const logger = {
   info: (message: string, ...optionalParams: any[]) => {
     if (__DEV__) {
       const entry = formatLog('INFO', message, ...optionalParams);
-      // eslint-disable-next-line no-console
       console.log(
         `[${entry.timestamp}] [${entry.level}] ${entry.message}`,
         entry.context !== undefined ? entry.context : '',
@@ -44,7 +43,6 @@ const logger = {
   warn: (message: string, ...optionalParams: any[]) => {
     if (__DEV__) {
       const entry = formatLog('WARN', message, ...optionalParams);
-      // eslint-disable-next-line no-console
       console.warn(
         `[${entry.timestamp}] [${entry.level}] ${entry.message}`,
         entry.context !== undefined ? entry.context : '',
@@ -54,7 +52,6 @@ const logger = {
   error: (message: string, ...optionalParams: any[]) => {
     if (__DEV__) {
       const entry = formatLog('ERROR', message, ...optionalParams);
-      // eslint-disable-next-line no-console
       console.error(
         `[${entry.timestamp}] [${entry.level}] ${entry.message}`,
         entry.context !== undefined ? entry.context : '',
