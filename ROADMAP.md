@@ -36,7 +36,7 @@
 - [x] Configurar husky
 - [x] Configurar lint-staged
 - [x] Adicionar scripts de validação
-- [!] Validar compatibilidade Android atual
+- [x] Validar compatibilidade Android atual
 - [!] Validar compatibilidade iOS atual
 
 ## Estrutura
@@ -187,7 +187,7 @@
 
 # FASE 9 — Atualização Tecnológica
 
-- [!] Atualizar React Native
+- [ ] Atualizar React Native
 - [x] Atualizar React Navigation
 - [x] Revisar dependências deprecated
 - [x] Remover bibliotecas obsoletas
@@ -239,9 +239,9 @@
 - [x] Configurar splash screen
 - [x] Configurar nome final app
 - [x] Configurar versão
-- [!] Gerar signed APK
-- [!] Gerar AAB
-- [!] Configurar Play Store assets
+- [ ] Gerar signed APK
+- [ ] Gerar AAB
+- [ ] Configurar Play Store assets
 
 ## iOS
 
@@ -287,9 +287,14 @@
 
 ## Validar compatibilidade Android atual
 
-- **Status**: [!] Bloqueado.
-- **Motivo**: Incompatibilidade entre a versão do Java instalada no ambiente (Java 21) e a versão do Gradle utilizada no projeto (Gradle 6.2). O Gradle 6.2 não suporta Java 21, resultando em erros de inicialização do Groovy.
-- **Sugestão de Desbloqueio**: Instalar uma versão compatível do JDK (ex: JDK 8 ou 11) ou atualizar o Gradle e o Android Gradle Plugin para versões compatíveis com Java 21.
+- **Status**: [x] Finalizado.
+- **Implementação**: Upgrade do sistema de build Android (Gradle/AGP) para suportar Java 21.
+- **Decisões Técnicas**:
+  - Atualização do Gradle Wrapper para 8.5.
+  - Atualização do Android Gradle Plugin para 7.4.2.
+  - Configuração de namespace e compatibilidade com Java 17 no app/build.gradle.
+  - Ativação de builds de BuildConfig retrocompatíveis via gradle.properties.
+- **Validações**: Execução bem-sucedida de `./gradlew help` confirmando a integridade da toolchain no ambiente.
 
 ## Validar compatibilidade iOS atual
 
