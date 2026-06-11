@@ -602,37 +602,37 @@
 
 ## Carregar tarefas automaticamente
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `origin/feature/infrastructure-status-and-hooks-4625301285441584084`) foi verificado como obsoleto.
 
 ## Criar estratégia de fallback
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
 
 ## Adicionar tratamento de erro no storage
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
 
 ## Adicionar loading inicial
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
 
 ## Criar model Task / Padronizar estrutura de task
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `origin/feature/structure-types-8503643862023991203`) foi verificado como obsoleto.
 
 ## Criar factory de tasks / Criar utilitários de transformação
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `feature/structure-types`) foi verificado como obsoleto.
 
 ## Separar lógica de Home em hooks / Criar hook useTasks
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `origin/feature/infrastructure-status-and-hooks-4625301285441584084`) foi verificado como obsoleto.
 
 ## Criar EmptyState component
@@ -701,7 +701,7 @@
 
 ## Remover lógica inline
 
-- **Status**: [ ] Desbloqueado.
+- **Status**: [x] Finalizado.
 - **Nota**: O bloqueio anterior (branch `feature/infrastructure-status-and-hooks`) foi verificado como obsoleto.
 
 ## Padronizar tipografia
@@ -1560,3 +1560,12 @@
 - **Validações**: `yarn validate` confirmando 166 testes passando, incluindo testes unitários específicos para capturar erros de componentes filhos e reset de estado.
 - **Limitações**: Erros em event handlers assíncronos ou fora do ciclo de renderização do React ainda precisam de tratamento local ou global via `ErrorUtils` (específico do React Native).
 - **Riscos**: Baixo. O componente é isolado e segue as melhores práticas do React para tratamento de erros.
+
+## Migrar gesture-handler se necessário
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: A migração para `react-native-gesture-handler` v2.x no React Native 0.63.4 exige a adoção da nova Gesture API e pode requerer ajustes na configuração do ponto de entrada (JS e Nativo).
+- **Decisões Técnicas**:
+  - Auditoria em `src/components/Task/index.tsx` confirmou o uso intensivo do componente `Swipeable` para as ações de CRUD das tarefas.
+  - Pesquisa de compatibilidade indicou que, embora a v2.0.0 suporte RN 0.63.0+, a migração sem validação nativa (build e hardware real) apresenta alto risco de quebra da interface principal.
+- **Sugestão de Desbloqueio**: Executar a atualização em um ambiente com emuladores funcionais ou dispositivos físicos para garantir que o comportamento do `Swipeable` e dos handlers de gesto permaneça consistente após o upgrade.
