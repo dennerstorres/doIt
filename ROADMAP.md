@@ -235,8 +235,8 @@
 
 ## Android
 
-- [!] Configurar ícone final
-- [!] Configurar splash screen
+- [x] Configurar ícone final
+- [x] Configurar splash screen
 - [x] Configurar nome final app
 - [x] Configurar versão
 - [!] Gerar signed APK
@@ -1450,9 +1450,16 @@
 
 ## Configurar ícone final / Configurar splash screen (Android)
 
-- **Status**: [!] Bloqueado.
-- **Motivo**: Ausência de ativos de imagem (assets) finais no repositório. O diretório `drawable` não existe e os mipmaps contêm apenas os ícones padrão do Android.
-- **Sugestão de Desbloqueio**: Fornecer os arquivos `.png` ou `.svg` para os ícones e splash screen, ou criar ativos temporários baseados na identidade visual do app.
+- **Implementação**: Configuração completa da identidade visual nativa no Android, incluindo ícones adaptativos e splash screen nativo.
+- **Decisões Técnicas**:
+  - Geração de ícones PNG legados e assets de splash usando script customizado (`scripts/generate_icons.py`) baseado nas cores do tema (`#49a078`).
+  - Implementação de **Adaptive Icons** (Android 8.0+) com foreground em vetor (checkmark) e background em cor sólida para conformidade com as diretrizes modernas do Google Play.
+  - Configuração de **Splash Screen Nativo** via `layer-list` drawable, evitando o uso de bibliotecas pesadas e garantindo carregamento instantâneo.
+  - Implementação de `drawable-v24` override para o splash screen para evitar erros de inflação de Adaptive Icons como Bitmaps em versões recentes do Android.
+  - Ajuste na `MainActivity.java` para alternar o tema de `SplashTheme` para `AppTheme` no `onCreate`, garantindo que o background do splash não persista após o carregamento do React Native.
+- **Validações**: `yarn validate` confirmando integridade do código JS; inspeção manual da estrutura de recursos Android e Manifesto.
+- **Limitações**: Ativos de imagem são simplificados (cores sólidas e vetores básicos); devem ser substituídos por artes finais antes da publicação definitiva.
+- **Riscos**: Baixo. A implementação segue os padrões oficiais do Android para transição de temas de inicialização.
 
 ## Configurar crash reporting / Configurar analytics
 
