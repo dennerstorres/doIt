@@ -239,8 +239,8 @@
 - [x] Configurar splash screen
 - [x] Configurar nome final app
 - [x] Configurar versão
-- [ ] Gerar signed APK
-- [ ] Gerar AAB
+- [!] Gerar signed APK
+- [!] Gerar AAB
 - [ ] Configurar Play Store assets
 
 ## iOS
@@ -262,6 +262,15 @@
 ---
 
 # HISTÓRICO DE IMPLEMENTAÇÃO
+
+## Gerar signed APK / Gerar AAB
+
+- **Status**: [!] Bloqueado.
+- **Motivo**: Incompatibilidade técnica entre a infraestrutura legada do React Native 0.63.4 e as ferramentas de build modernas (Java 21 / Gradle 8.5) disponíveis no ambiente.
+- **Detalhes Técnicos**:
+  - O Gradle 8.5 impõe validações rigorosas de dependências de tarefas que falham com os scripts nativos do React Native CLI v4 (`bundleReleaseJsAndAssets` e `generatePackageList`).
+  - Tentativas de ajuste no SDK e build tools resultaram em erros de compilação em bibliotecas nativas como `react-native-screens`.
+- **Sugestão de Desbloqueio**: Realizar a geração dos pacotes de release em um ambiente local configurado especificamente com JDK 11 e as versões originais de build do projeto, ou realizar um upgrade completo do core do React Native para uma versão estável mais recente (ex: 0.73+).
 
 ## Padronizar eslint
 
