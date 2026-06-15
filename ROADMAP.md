@@ -241,11 +241,11 @@
 - [x] Configurar versão
 - [!] Gerar signed APK
 - [!] Gerar AAB
-- [ ] Configurar Play Store assets
+- [x] Configurar Play Store assets
 
 ## iOS
 
-- [!] Configurar ícones iOS
+- [x] Configurar ícones iOS
 - [!] Configurar splash iOS
 - [!] Configurar signing
 - [!] Gerar build release
@@ -262,6 +262,18 @@
 ---
 
 # HISTÓRICO DE IMPLEMENTAÇÃO
+
+## Configurar Play Store assets / Configurar ícones iOS
+
+- **Status**: [x] Finalizado.
+- **Implementação**: Geração de ativos de branding para lojas e configuração nativa de ícones iOS.
+- **Decisões Técnicas**:
+  - Evolução do script `scripts/generate_icons.py` para gerar ativos PNG em alta resolução (512x512 para ícone da loja e 1024x500 para feature graphic).
+  - Geração de toda a suíte de ícones iOS (20pt a 1024pt) e atualização automática do `Contents.json` do Xcode.
+  - Uso da cor de marca "Shiny Shamrock" (#49a078) para manter consistência em todas as plataformas.
+- **Validações**: Verificação manual da estrutura de diretórios e integridade dos arquivos gerados.
+- **Limitações**: Os ativos de marketing (screenshots e banners desenhados) ainda dependem de design manual e captura em dispositivos.
+- **Riscos**: Nenhum.
 
 ## Gerar signed APK / Gerar AAB
 
@@ -1487,13 +1499,13 @@
 - **Motivo**: A geração de pacotes assinados requer a criação e armazenamento seguro de chaves (keystores), além de um ambiente de build Android totalmente funcional (atualmente bloqueado por conflitos de versão Java/Gradle).
 - **Sugestão de Desbloqueio**: Configurar as chaves de assinatura e realizar o build em uma máquina de build dedicada ou localmente.
 
-## Configurar Play Store assets / Criar screenshots
+## Criar screenshots
 
 - **Status**: [!] Bloqueado.
-- **Motivo**: A criação de ativos de marketing (banners, ícones de alta resolução) e screenshots profissionais requer o uso de ferramentas de design gráfico e a execução do aplicativo em dispositivos físicos ou emuladores para captura de telas reais, o que não é suportado pelo ambiente de sandbox.
-- **Sugestão de Desbloqueio**: Gerar screenshots e ativos em um ambiente local com acesso a emuladores/dispositivos e ferramentas de design.
+- **Motivo**: A criação de screenshots profissionais requer a execução do aplicativo em dispositivos físicos ou emuladores para captura de telas reais, o que não é suportado pelo ambiente de sandbox.
+- **Sugestão de Desbloqueio**: Gerar screenshots em um ambiente local com acesso a emuladores/dispositivos.
 
-## Configuração iOS (Ícones, Splash, Signing, Build Release)
+## Configuração iOS (Splash, Signing, Build Release)
 
 - **Status**: [!] Bloqueado.
 - **Motivo**: O ambiente de execução não possui o sistema operacional macOS nem o Xcode, obrigatórios para a configuração de ativos nativos, gerenciamento de certificados de assinatura (Signing) e geração de builds de release (.ipa) para iOS.
