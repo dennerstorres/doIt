@@ -241,7 +241,7 @@
 - [x] Configurar versão
 - [!] Gerar signed APK
 - [!] Gerar AAB
-- [ ] Configurar Play Store assets
+- [x] Configurar Play Store assets
 
 ## iOS
 
