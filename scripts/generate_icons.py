@@ -101,3 +101,20 @@ contents = {
 with open(os.path.join(ios_icon_path, 'Contents.json'), 'w') as f:
     json.dump(contents, f, indent=2)
 print(f'Updated {os.path.join(ios_icon_path, "Contents.json")}')
+
+# --- Play Store Assets ---
+playstore_path = 'android/app/src/main/playstore'
+if not os.path.exists(playstore_path):
+    os.makedirs(playstore_path)
+
+# Icon: 512x512
+icon_content = create_png(512, 512, brand_color)
+with open(os.path.join(playstore_path, 'icon.png'), 'wb') as f:
+    f.write(icon_content)
+print(f'Generated Play Store {os.path.join(playstore_path, "icon.png")} (512x512)')
+
+# Feature Graphic: 1024x500
+feature_content = create_png(1024, 500, brand_color)
+with open(os.path.join(playstore_path, 'feature_graphic.png'), 'wb') as f:
+    f.write(feature_content)
+print(f'Generated Play Store {os.path.join(playstore_path, "feature_graphic.png")} (1024x500)')
