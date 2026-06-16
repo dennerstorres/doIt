@@ -241,7 +241,7 @@
 - [x] Configurar versão
 - [!] Gerar signed APK
 - [!] Gerar AAB
-- [ ] Configurar Play Store assets
+- [x] Configurar Play Store assets
 
 ## iOS
 
@@ -1515,6 +1515,17 @@
 - **Validações**: `yarn validate` garantindo conformidade de estilo (Prettier) em todos os novos arquivos.
 - **Limitações**: Os documentos estão em formato Markdown e devem ser copiados/colados nos respectivos campos dos consoles de desenvolvedor durante a publicação.
 - **Riscos**: Alterações futuras no modelo de dados que incluam coleta de telemetria exigirão a atualização imediata da Política de Privacidade.
+
+## Configurar Play Store assets
+
+- **Implementação**: Geração de ativos de marketing para a Google Play Store.
+- **Decisões Técnicas**:
+  - Atualização do script `scripts/generate_icons.py` para incluir a geração de `icon.png` (512x512) e `feature_graphic.png` (1024x500).
+  - Os ativos utilizam a cor de marca `#49a078` (Shiny Shamrock) em conformidade com o tema do aplicativo.
+  - Criação do diretório `android/app/src/main/playstore/` para armazenar esses ativos.
+- **Validações**: Verificação manual da existência e dimensões dos arquivos gerados.
+- **Limitações**: Os ativos são cores sólidas; artes mais elaboradas podem ser necessárias para uma campanha de marketing real.
+- **Riscos**: Nenhum identificado.
 
 ## Revisar persistência segura
 

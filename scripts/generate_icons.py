@@ -30,6 +30,7 @@ def create_png(width, height, color):
 # Color: #49a078 -> (73, 160, 120)
 color = (73, 160, 120)
 
+# Android mipmaps
 densities = {
     'mdpi': 48,
     'hdpi': 72,
@@ -52,3 +53,20 @@ for density, size in densities.items():
         with open(file_path, 'wb') as f:
             f.write(png_content)
         print(f'Generated {file_path} ({size}x{size})')
+
+# Play Store assets
+playstore_path = 'android/app/src/main/playstore'
+if not os.path.exists(playstore_path):
+    os.makedirs(playstore_path)
+
+# Icon: 512x512
+icon_content = create_png(512, 512, color)
+with open(os.path.join(playstore_path, 'icon.png'), 'wb') as f:
+    f.write(icon_content)
+print(f'Generated {os.path.join(playstore_path, "icon.png")} (512x512)')
+
+# Feature Graphic: 1024x500
+feature_content = create_png(1024, 500, color)
+with open(os.path.join(playstore_path, 'feature_graphic.png'), 'wb') as f:
+    f.write(feature_content)
+print(f'Generated {os.path.join(playstore_path, "feature_graphic.png")} (1024x500)')
